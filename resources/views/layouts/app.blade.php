@@ -20,6 +20,11 @@
     <!-- Styles -->
     <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+    <style type="text/css">
+        body {
+            font-family: Roboto, sans-serif;
+        }
+    </style>
 </head>
 <body>
     <div id="app">
