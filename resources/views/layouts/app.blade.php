@@ -50,7 +50,7 @@
     <link rel="stylesheet" href="{{ asset('assets/mitra/css/main.css') }}">
     <!-- style CSS
 		============================================ -->
-    <link rel="stylesheet" href="{{ asset('assets/mitra/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/mitra/master.css') }}">
     <!-- responsive CSS
 		============================================ -->
     <link rel="stylesheet" href="{{ asset('assets/mitra/css/responsive.css') }}">
@@ -65,7 +65,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                    <ul class="nav navbar-nav notika-top-nav">
+                    <ul class="nav navbar-nav notika-top-nav" style="float:left;">
                         <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="fa fa-flag"></i> {{ __('all.language') }}</span></a>
                             <div role="menu" class="dropdown-menu message-dd chat-dd animated zoomIn">
                                 <div class="hd-message-info">
@@ -93,16 +93,6 @@
                             </div>
                         </li>
                     </ul>
-                    <!-- <div class="dropdown open">
-                        <button class="btn btn-light dropdown-toggle toogle-up" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                    {{ __('all.language') }}
-                                </button>
-                        <div class="dropdown-menu" aria-labelledby="triggerId">
-                            <a class="dropdown-item-custome {{ app()->getLocale() == 'en' ? 'active' : '' }}" href="{{ route('localization.switch', 'en') }}">English</a>
-                            <a class="dropdown-item-custome {{ app()->getLocale() == 'id' ? 'active' : '' }}" href="{{ route('localization.switch', 'id') }}">Bahasa Indonesia</a>
-                        </div>
-                    </div> -->
                 </div>
                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                     <div class="header-top-menu">
