@@ -25,11 +25,6 @@
 
     <script src="{{ asset('assets/js/jquery-3.5.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/popper.min.js') }}"></script>
-    <style type="text/css">
-        body {
-            font-family: Roboto, sans-serif;
-        }
-    </style>
 </head>
 <body>
     <div id="app">
@@ -71,36 +66,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('all.announcement') }}</a>
                         </li>
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}"><i class="fa fa-user-circle"></i> 
-                                {{ __('all.login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">
-                                {{ __('all.register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('all.login') }} <i class="fa fa-user-circle"></i></a>
+                        </li>
                     </ul>
                 </div>
             </div>

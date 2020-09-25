@@ -7,7 +7,14 @@ return [
     'partners'  => 'Mitra',
     'home'      => 'Beranda',
     'users'     => 'Manajemen Pengguna',
-    'announcement'  => 'Pengumuman'
+    'announcement'  => 'Pengumuman',
+    'placeholder'   => array(
+        'username'  => 'Masukkan username ....',
+        'password'  => 'Masukkan sandi ....'
+    ),
+    'remember'  => 'Ingat saya',
+    'forget'    => 'Lupa sandi?',
+    'welcome'   => 'Selamat Datang di Admin Mitra Nazar.id',
 ]
 
 ?>
