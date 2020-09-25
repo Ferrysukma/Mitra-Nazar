@@ -48,7 +48,7 @@ a:focus {
 
 a:hover {
 	text-decoration: none;
-  color: #403866;
+  color: #1d9fb5;
 }
 
 /*---------------------------------------------*/
@@ -121,7 +121,7 @@ iframe {
 .txt1 {
   font-family: Ubuntu-Regular;
   font-size: 16px;
-  color: #827ffe;
+  color: #004185;
   line-height: 1.4;
 }
 
@@ -307,7 +307,7 @@ iframe {
   height: 18px;
   border-radius: 3px;
   background: #fff;
-  border: 2px solid #827ffe;
+  border: 2px solid #004185;
   left: 0;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -351,7 +351,7 @@ iframe {
   padding: 0 20px;
   width: 100%;
   height: 62px;
-  background-color: #827ffe;
+  background-color: #004185;
   border-radius: 3px;
 
   -webkit-transition: all 0.4s;
@@ -361,7 +361,7 @@ iframe {
 }
 
 .login100-form-btn:hover {
-  background-color: #403866;
+  background-color: #1d9fb5;
 }
 
 
