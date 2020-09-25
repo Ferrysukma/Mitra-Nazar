@@ -15,6 +15,7 @@ return [
     'remember'  => 'Ingat saya',
     'forget'    => 'Lupa sandi?',
     'welcome'   => 'Selamat Datang di Admin Mitra Nazar.id',
+    'admin'     => 'Admin'
 ]
 
 ?>
