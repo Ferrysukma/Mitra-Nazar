@@ -32,6 +32,8 @@ return [
         'email'         => 'Email',
         'telp'          => 'Phone Number',
     ),
+    'chart'     => 'Chart',
+    'maps'      => 'Maps'
 ]
 
 ?>

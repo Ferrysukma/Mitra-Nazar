@@ -32,6 +32,10 @@
     <!-- normalize CSS
 		============================================ -->
     <link rel="stylesheet" href="{{ asset('assets/mitra/css/normalize.css') }}">
+	<!-- wave CSS
+		============================================ -->
+    <link rel="stylesheet" href="{{ asset('assets/mitra/css/wave/waves.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/mitra/css/wave/button.css') }}">
     <!-- mCustomScrollbar CSS
 		============================================ -->
     <link rel="stylesheet" href="{{ asset('assets/mitra/css/scrollbar/jquery.mCustomScrollbar.min.css') }}">
@@ -41,9 +45,6 @@
     <!-- notika icon CSS
 		============================================ -->
     <link rel="stylesheet" href="{{ asset('assets/mitra/css/notika-custom-icon.css') }}">
-    <!-- wave CSS
-		============================================ -->
-    <link rel="stylesheet" href="{{ asset('assets/mitra/css/wave/waves.min.css') }}">
     <!-- main CSS
 		============================================ -->
     <link rel="stylesheet" href="{{ asset('assets/mitra/css/main.css') }}">
@@ -56,6 +57,9 @@
     <!-- modernizr JS
 		============================================ -->
     <script src="{{ asset('assets/mitra/js/vendor/modernizr-2.8.3.min.js') }}"></script>
+    <!-- Data Table CSS
+    ============================================ -->
+    <link rel="stylesheet" href="{{ asset('assets/mitra/css/jquery.dataTables.min.css') }}">
 </head>
 
 <body>
@@ -156,7 +160,7 @@
         @yield('content')
         
         <!-- Start Modal Change Password -->
-        <div class="modal animated rubberBand" id="changePassword" role="dialog">
+        <div class="modal fade" id="changePassword" role="dialog">
             <div class="modal-dialog modals-default">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -193,7 +197,7 @@
         <!-- End Modal Change Password -->
 
         <!-- Start Modal Change Password -->
-        <div class="modal animated rubberBand" id="editProfile" role="dialog">
+        <div class="modal fade" id="editProfile" role="dialog">
             <div class="modal-dialog modals-default">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -305,12 +309,18 @@
     <!-- main JS
 		============================================ -->
     <script src="{{ asset('assets/mitra/js/main.js') }}"></script>
+    <!-- Data Table JS
+		============================================ -->
+    <script src="{{ asset('assets/mitra/js/data-table/jquery.dataTables.min.js') }}"></script>
+    <!-- <script src="{{ asset('assets/mitra/js/data-table/dataTables.bootstrap4.min.js') }}"></script> -->
 
     <script>
         function showModal(modal) {
             $('#'+modal).modal({backdrop: 'static', keyboard: false});
             $('#'+modal).modal('show');
         }
+
+        $('#dataTable').DataTable();
     </script>
 </body>
 
