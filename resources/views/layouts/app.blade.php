@@ -8,13 +8,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Mitra Nazar.id</title>
 
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- favicon
-		============================================ -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Favicon ============================================ -->
+    <link rel="shortcut icon" type="assets/image/png" href="{{ asset('assets/mitra/image/logo/icon.png') }}" />
     <!-- Google Fonts
 		============================================ -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
@@ -98,7 +97,7 @@
                     <div class="header-top-menu">
                         <ul class="nav navbar-nav notika-top-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('all.home') }} |</a>
+                                <a class="nav-link" href="{{ route('home') }}">{{ __('all.home') }} |</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('all.partners') }} |</a>
@@ -112,13 +111,23 @@
                             <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span>{{ __('all.admin') }} <i class="fa fa-user"></i></span></a>
                                 <div role="menu" class="dropdown-menu message-dd chat-dd animated zoomIn">
                                     <div class="hd-message-info">
-                                        <a href="#">
+                                        <a href="#" onclick="showModal('changePassword')">
                                             <div class="hd-message-sn">
                                                 <div class="hd-message-img chat-img">
 
                                                 </div>
                                                 <div class="hd-mg-ctn">
-                                                    <h3>David Belle</h3>
+                                                    <h3>{{ __('all.change') }}</h3>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="#" onclick="showModal('editProfile')">
+                                            <div class="hd-message-sn">
+                                                <div class="hd-message-img chat-img">
+                                                    <img src="img/post/1.jpg" alt="" />
+                                                </div>
+                                                <div class="hd-mg-ctn">
+                                                    <h3>{{ __('all.profile') }}</h3>
                                                 </div>
                                             </div>
                                         </a>
@@ -128,17 +137,7 @@
                                                     <img src="img/post/1.jpg" alt="" />
                                                 </div>
                                                 <div class="hd-mg-ctn">
-                                                    <h3>David Belle</h3>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="hd-message-sn">
-                                                <div class="hd-message-img chat-img">
-                                                    <img src="img/post/1.jpg" alt="" />
-                                                </div>
-                                                <div class="hd-mg-ctn">
-                                                    <h3>David Belle</h3>
+                                                    <h3>{{ __('all.logout') }}</h3>
                                                 </div>
                                             </div>
                                         </a>
@@ -155,6 +154,89 @@
 
     <main class="py-4">
         @yield('content')
+        
+        <!-- Start Modal Change Password -->
+        <div class="modal animated rubberBand" id="changePassword" role="dialog">
+            <div class="modal-dialog modals-default">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">{{ __('all.change') }}</h3>
+                        <hr>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" method="post">
+                            <div class="form-group row">
+                                <label for="old" class="col-sm-3">{{ __('all.form.old_password') }} <sup class="text-danger">*</sup></label>
+                                <div class="col-sm-9">
+                                    <div class="nk-int-st">
+                                        <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('all.placeholder.password') }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="old" class="col-sm-3">{{ __('all.form.new_password') }} <sup class="text-danger">*</sup></label>
+                                <div class="col-sm-9">
+                                    <div class="nk-int-st">
+                                        <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('all.placeholder.new_password') }}">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
+                        <button type="button" class="btn btn-primary">{{ __('all.save') }}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal Change Password -->
+
+        <!-- Start Modal Change Password -->
+        <div class="modal animated rubberBand" id="editProfile" role="dialog">
+            <div class="modal-dialog modals-default">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">{{ __('all.profile') }}</h3>
+                        <hr>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" method="post">
+                            <div class="form-group row">
+                                <label for="old" class="col-sm-3">{{ __('all.form.username') }} <sup class="text-danger">*</sup></label>
+                                <div class="col-sm-9">
+                                    <div class="nk-int-st">
+                                        <input type="text" name="username" id="username" class="form-control" placeholder="{{ __('all.placeholder.username') }}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="old" class="col-sm-3">{{ __('all.form.email') }} <sup class="text-danger">*</sup></label>
+                                <div class="col-sm-9">
+                                    <div class="nk-int-st">
+                                        <input type="text" name="email" id="email" class="form-control" placeholder="{{ __('all.placeholder.email') }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="old" class="col-sm-3">{{ __('all.form.telp') }} <sup class="text-danger">*</sup></label>
+                                <div class="col-sm-9">
+                                    <div class="nk-int-st">
+                                        <input type="text" name="telp" id="telp" class="form-control" placeholder="{{ __('all.placeholder.telp') }}">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
+                        <button type="button" class="btn btn-primary">{{ __('all.save') }}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal Change Password -->
+
     </main>
 
     <!-- jquery
@@ -223,6 +305,13 @@
     <!-- main JS
 		============================================ -->
     <script src="{{ asset('assets/mitra/js/main.js') }}"></script>
+
+    <script>
+        function showModal(modal) {
+            $('#'+modal).modal({backdrop: 'static', keyboard: false});
+            $('#'+modal).modal('show');
+        }
+    </script>
 </body>
 
 </html>
