@@ -60,6 +60,9 @@
     <!-- Data Table CSS
     ============================================ -->
     <link rel="stylesheet" href="{{ asset('assets/mitra/css/jquery.dataTables.min.css') }}">
+    <!-- Air Datepicker
+    ============================================ -->
+    <link rel="stylesheet" href="{{ asset('assets/mitra/css/air-datepicker/datepicker.min.css') }}">
 </head>
 
 <body>
@@ -157,7 +160,6 @@
     <!-- End Header Top Area -->
 
     <main class="py-4">
-        @yield('content')
         
         <!-- Start Modal Change Password -->
         <div class="modal fade" id="changePassword" role="dialog">
@@ -240,7 +242,8 @@
             </div>
         </div>
         <!-- End Modal Change Password -->
-
+          
+        @yield('content')
     </main>
 
     <!-- jquery
@@ -317,6 +320,14 @@
 		============================================ -->
     <script src="{{ asset('assets/mitra/js/data-table/jquery.dataTables.min.js') }}"></script>
     <!-- <script src="{{ asset('assets/mitra/js/data-table/dataTables.bootstrap4.min.js') }}"></script> -->
+    <!-- Air Datepicker
+    ============================================ -->
+    <script src="{{ asset('assets/mitra/js/air-datepicker/datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/mitra/js/air-datepicker/datepicker.en.js') }}"></script>
+    @yield('addOnJS')
+
+    <!-- Mitra js -->
+    <!-- <script src="{{ asset('assets/mitra/js/mitra/home.js') }}"></script> -->
 
     <script>
         function showModal(modal) {
