@@ -302,6 +302,10 @@
     <!-- plugins JS
 		============================================ -->
     <script src="{{ asset('assets/mitra/js/plugins.js') }}"></script>
+    <!-- Google map JS
+    ============================================ -->
+    <script src="js/google.maps/google.maps2-active.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVOIQ3qXUCmKVVV7DVexPzlgBcj5mQJmQ&callback=initMap"></script>
 	<!--  Chat JS
 		============================================ -->
     <script src="{{ asset('assets/mitra/js/chat/moment.min.js') }}"></script>

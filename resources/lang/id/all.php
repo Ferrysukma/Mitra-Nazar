@@ -15,6 +15,8 @@ return [
         'new_password'  => 'Masukkan sandi baru ....',
         'email'         => 'Masukkan email ....',
         'telp'          => 'Masukkan no handphone ....',
+        'choose_prov'   => 'Pilih Provinsi',
+        'choose_kab'    => 'Pilih Kabupaten',
     ),
     'remember'  => 'Ingat saya',
     'forget'    => 'Lupa sandi?',
@@ -32,8 +34,12 @@ return [
         'email'         => 'Email',
         'telp'          => 'No Handphone',
     ),
-    'chart'     => 'Grafik',
-    'maps'      => 'Peta',
+    'chart'         => 'Grafik',
+    'maps'          => 'Peta',
+    'start_date'    => 'Tanggal Awal',
+    'end_date'      => 'Tanggal Akhir',
+    'title_chart'   => 'Grafik pendaftaran mitra nazar id',
+    'table_chart'   => 'Data pendaftaran mitra nazar id',
 ]
 
 ?>

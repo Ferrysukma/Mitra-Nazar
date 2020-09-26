@@ -15,6 +15,8 @@ return [
         'new_password'  => 'Enter new password ....',
         'email'         => 'Enter email ....',
         'telp'          => 'Enter phone number ....',
+        'choose_prov'   => 'Choose Provinsi',
+        'choose_kab'    => 'Choose City',
     ),
     'remember'  => 'Remember me',
     'forget'    => 'Forget password?',
@@ -32,8 +34,12 @@ return [
         'email'         => 'Email',
         'telp'          => 'Phone Number',
     ),
-    'chart'     => 'Chart',
-    'maps'      => 'Maps'
+    'chart'         => 'Chart',
+    'maps'          => 'Maps',
+    'start_date'    => 'Start Date',
+    'end_date'      => 'End Date',
+    'title_chart'   => 'Nazar ID partner registration chart',
+    'table_chart'   => 'Nazar ID partner registration data',
 ]
 
 ?>

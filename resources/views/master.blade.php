@@ -42,20 +42,59 @@
                         <div class="tab-content tab-custom-st tab-ctn-right">
                             <div id="home2" class="tab-pane fade in active">
                                 <div class="tab-ctn">
-                                    <div class="data-table-list">
-                                        <div class="table-responsive-sm">
-                                            <table id="dataTable" class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Name</th>
-                                                        <th>Position</th>
-                                                        <th>Office</th>
-                                                        <th>Age</th>
-                                                        <th>Start date</th>
-                                                        <th>Salary</th>
-                                                    </tr>
-                                                </thead>
-                                            </table>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="nk-int-st">
+                                                        <input type="text" name="start_date" id="start_date" class="form-control" placeholder="{{ __('all.start_date') }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="nk-int-st">
+                                                        <input type="text" name="end_date" id="end_date" class="form-control" placeholder="{{ __('all.end_date') }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select name="provinsi" id="provinsi" class="form-control">
+                                                        <option value="" selected disabled>{{ __('all.placeholder.choose_prov') }}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select name="kabupaten" id="kabupaten" class="form-control">
+                                                        <option value="" selected disabled>{{ __('all.placeholder.choose_kab') }}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <hr>
+                                            <h4 class="card-title">{{ __('all.title_chart') }}</h4>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="line-chart-wp chart-display-nn">
+                                                    <canvas height="140vh" width="180vw" id="basiclinechart"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <hr>
+                                            <h4 class="card-title">{{ __('all.table_chart') }}</h4>
+                                            <div class="data-table-list">
+                                                <div class="table-responsive-sm">
+                                                    <table id="dataTable" class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Position</th>
+                                                                <th>Office</th>
+                                                                <th>Age</th>
+                                                                <th>Start date</th>
+                                                                <th>Salary</th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
