@@ -17,6 +17,7 @@ return [
         'telp'          => 'Masukkan no handphone ....',
         'choose_prov'   => 'Pilih Provinsi',
         'choose_kab'    => 'Pilih Kabupaten',
+        'filter'        => 'Cari ....'
     ),
     'remember'  => 'Ingat saya',
     'forget'    => 'Lupa sandi?',
@@ -57,6 +58,11 @@ return [
         'date'              => 'Tanggal',
         'qty'               => 'Jumlah',
     ),
+    'desc_partners'=> 'Anda bisa mengelola data mitra disini',
+    'button'        => array(
+        'new'       => 'Buat Baru'
+    ),
+    'filter'        => 'Saring'
 ]
 
 ?>

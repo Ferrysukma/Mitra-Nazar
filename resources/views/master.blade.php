@@ -46,14 +46,10 @@
                                         <div class="card-header">
                                             <div class="row">
                                                 <div class="col-sm-3">
-                                                    <div class="nk-int-st">
-                                                        <input type="text" name="start_date" id="start_dtm_chart" class="form-control" placeholder="{{ __('all.start_date') }}">
-                                                    </div>
+                                                    <input type="text" name="start_date" id="start_dtm_chart" class="form-control" placeholder="{{ __('all.start_date') }}">
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <div class="nk-int-st">
-                                                        <input type="text" name="end_date" id="end_dtm_chart" class="form-control" placeholder="{{ __('all.end_date') }}">
-                                                    </div>
+                                                    <input type="text" name="end_date" id="end_dtm_chart" class="form-control" placeholder="{{ __('all.end_date') }}">
                                                 </div>
                                                 <div class="col-sm-3">
                                                     <select name="provinsi" id="provinsi_chart" class="form-control">
@@ -77,9 +73,9 @@
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <h4 class="card-title">{{ __('all.table_chart') }}</h4>
                                             <div class="data-table-list">
                                                 <div class="table-responsive-sm">
+                                                    <h4 class="card-title">{{ __('all.table_chart') }}</h4>
                                                     <table class="table table-hover table-striped table-bordered" id="table-chart" width="100%">
                                                         <thead>
                                                             <tr>
@@ -111,14 +107,10 @@
                                         <div class="card-header">
                                             <div class="row">
                                                 <div class="col-sm-3">
-                                                    <div class="nk-int-st">
-                                                        <input type="text" name="start_date" id="start_dtm_maps" class="form-control" placeholder="{{ __('all.start_date') }}">
-                                                    </div>
+                                                    <input type="text" name="start_date" id="start_dtm_maps" class="form-control" placeholder="{{ __('all.start_date') }}">
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <div class="nk-int-st">
-                                                        <input type="text" name="end_date" id="end_dtm_maps" class="form-control" placeholder="{{ __('all.end_date') }}">
-                                                    </div>
+                                                    <input type="text" name="end_date" id="end_dtm_maps" class="form-control" placeholder="{{ __('all.end_date') }}">
                                                 </div>
                                                 <div class="col-sm-3">
                                                     <select name="provinsi" id="provinsi_maps" class="form-control">
@@ -143,9 +135,9 @@
                                         </div>
                                         <div class="card-footer">
                                             <hr>
-                                            <h4 class="card-title">{{ __('all.table_chart') }}</h4>
                                             <div class="data-table-list">
                                                 <div class="table-responsive-sm">
+                                                    <h4 class="card-title">{{ __('all.table_chart') }}</h4>
                                                     <table class="table table-hover table-striped table-bordered" id="table-maps" width="100%">
                                                         <thead>
                                                             <tr>

@@ -17,6 +17,7 @@ return [
         'telp'          => 'Enter no phone ....',
         'choose_prov'   => 'Choose Province',
         'choose_kab'    => 'Choose City',
+        'filter'        => 'Search ....'
     ),
     'remember'  => 'Remember me',
     'forget'    => 'Forget password?',
@@ -57,6 +58,11 @@ return [
         'date'              => 'Date',
         'qty'               => 'Quantity',
     ),
+    'desc_partners' => 'You can manage partners data here',
+    'button'        => array(
+        'new'       => 'Create New'
+    ),
+    'filter'        => 'Filter'
 ]
 
 ?>

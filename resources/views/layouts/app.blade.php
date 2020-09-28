@@ -39,9 +39,6 @@
     <!-- mCustomScrollbar CSS
 		============================================ -->
     <link rel="stylesheet" href="{{ asset('assets/mitra/css/scrollbar/jquery.mCustomScrollbar.min.css') }}">
-    <!-- jvectormap CSS
-		============================================ -->
-    <link rel="stylesheet" href="{{ asset('assets/mitra/css/jvectormap/jquery-jvectormap-2.0.3.css') }}">
     <!-- notika icon CSS
 		============================================ -->
     <link rel="stylesheet" href="{{ asset('assets/mitra/css/notika-custom-icon.css') }}">
@@ -110,7 +107,7 @@
                                 <a class="nav-link" href="{{ route('home') }}">{{ __('all.home') }} |</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('all.partners') }} |</a>
+                                <a class="nav-link" href="{{ route('partner') }}">{{ __('all.partners') }} |</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('all.users') }} |</a>
@@ -293,11 +290,6 @@
     <!-- mCustomScrollbar JS
 		============================================ -->
     <script src="{{ asset('assets/mitra/js/scrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-    <!-- jvectormap JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/jvectormap/jquery-jvectormap-2.0.2.min.js') }}"></script>
-    <script src="{{ asset('assets/mitra/js/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
-    <script src="{{ asset('assets/mitra/js/jvectormap/jvectormap-active.js') }}"></script>
     <!-- sparkline JS
 		============================================ -->
     <script src="{{ asset('assets/mitra/js/sparkline/jquery.sparkline.min.js') }}"></script>
