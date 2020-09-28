@@ -10,4 +10,9 @@ class HomeController extends Controller
     {
         return view('layouts/app');
     }
+
+    public function home()
+    {
+        return view('master');
+    }
 }

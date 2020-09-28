@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 Route::get('/', [HomeController::class, 'index']);
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('home');
+Route::get('/partner', [App\Http\Controllers\PartnerController::class, 'index'])->name('partner');
+Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user');
+Route::get('lang/{language}', [App\Http\Controllers\LocalizationController::class, 'switch'])->name('localization.switch');
