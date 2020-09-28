@@ -134,10 +134,10 @@
                                         </div>
                                         <div class="card-body">
                                             <hr>
-                                            <h4 class="card-title">{{ __('all.title_chart') }}</h4>
+                                            <h4 class="card-title">{{ __('all.title_maps') }}</h4>
                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <div class="line-chart-wp chart-display-nn">
-                                                    <canvas height="140vh" width="180vw" id="basiclinechart"></canvas>
+                                                <div class="google-map-single sm-res-mg-t-30">
+                                                    <div id="googleMap"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -149,12 +149,12 @@
                                                     <table class="table table-hover table-striped table-bordered" id="table-maps" width="100%">
                                                         <thead>
                                                             <tr>
-                                                                <th>Name</th>
-                                                                <th>Position</th>
-                                                                <th>Office</th>
-                                                                <th>Age</th>
-                                                                <th>Start date</th>
-                                                                <th>Salary</th>
+                                                                <th>No</th>
+                                                                <th>{{ __('all.table.date') }}</th>
+                                                                <th>{{ __('all.table.prov') }}</th>
+                                                                <th>{{ __('all.table.city') }}</th>
+                                                                <th>{{ __('all.table.qty') }}</th>
+                                                                <th>{{ __('all.table.action') }}</th>
                                                             </tr>
                                                         </thead>
                                                     </table>
@@ -259,5 +259,22 @@
         data: speedData,
         options: chartOptions
     });
+
+    function initMap() {
+       var myLatlng = {lat: -25.363, lng: 131.044};
+
+        var map6 = new google.maps.Map(document.getElementById('googleMap'), {
+            zoom: 4,
+            center: myLatlng
+        });
+
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map6,
+            title: 'Click to zoom'
+        });
+    }
+
+    initMap();
 </script>
 @endsection

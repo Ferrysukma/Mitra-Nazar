@@ -40,6 +40,7 @@ return [
     'end_date'      => 'End Date',
     'title_chart'   => 'Nazar ID partner registration chart',
     'table_chart'   => 'Nazar ID partner registration data',
+    'title_maps'    => 'Nazar ID partner registration deployment maps',
     'table'         => array(
         'join_date'         => 'Join Date',
         'partner_id'        => 'Partner Id',
@@ -52,7 +53,9 @@ return [
         'coordinate'        => 'Coordinate',
         'downline'          => 'Downline',
         'status'            => 'Status',
-        'action'            => 'Action'
+        'action'            => 'Action',
+        'date'              => 'Date',
+        'qty'               => 'Quantity',
     ),
 ]
 

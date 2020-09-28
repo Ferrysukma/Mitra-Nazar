@@ -40,6 +40,7 @@ return [
     'end_date'      => 'Tanggal Akhir',
     'title_chart'   => 'Grafik pendaftaran mitra nazar id',
     'table_chart'   => 'Data pendaftaran mitra nazar id',
+    'title_maps'    => 'Grafik penyebaran pendaftaran mitra nazar id',
     'table'         => array(
         'join_date'         => 'Tanggal Gabung',
         'partner_id'        => 'Mitra Id',
@@ -52,7 +53,9 @@ return [
         'coordinate'        => 'Koordinat',
         'downline'          => 'Downline',
         'status'            => 'Status',
-        'action'            => 'Aksi'
+        'action'            => 'Aksi',
+        'date'              => 'Tanggal',
+        'qty'               => 'Jumlah',
     ),
 ]
 
