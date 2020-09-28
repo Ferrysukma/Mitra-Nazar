@@ -47,21 +47,86 @@
                                             <div class="row">
                                                 <div class="col-sm-3">
                                                     <div class="nk-int-st">
-                                                        <input type="text" name="start_date" id="start_date" class="form-control" placeholder="{{ __('all.start_date') }}">
+                                                        <input type="text" name="start_date" id="start_dtm_chart" class="form-control" placeholder="{{ __('all.start_date') }}">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-3">
                                                     <div class="nk-int-st">
-                                                        <input type="text" name="end_date" id="end_date" class="form-control" placeholder="{{ __('all.end_date') }}">
+                                                        <input type="text" name="end_date" id="end_dtm_chart" class="form-control" placeholder="{{ __('all.end_date') }}">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <select name="provinsi" id="provinsi" class="form-control">
+                                                    <select name="provinsi" id="provinsi_chart" class="form-control">
                                                         <option value="" selected disabled>{{ __('all.placeholder.choose_prov') }}</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <select name="kabupaten" id="kabupaten" class="form-control">
+                                                    <select name="kabupaten" id="kabupaten_chart" class="form-control">
+                                                        <option value="" selected disabled>{{ __('all.placeholder.choose_kab') }}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <hr>
+                                            <h4 class="card-title">{{ __('all.title_chart') }}</h4>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="line-chart-wp chart-display-nn">
+                                                    <canvas id="myChart" style="display:block;width:100px:height:100px"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <h4 class="card-title">{{ __('all.table_chart') }}</h4>
+                                            <div class="data-table-list">
+                                                <div class="table-responsive-sm">
+                                                    <table class="table table-hover table-striped table-bordered" id="table-chart" width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>No</th>
+                                                                <th>{{ __('all.table.join_date') }}</th>
+                                                                <th>{{ __('all.table.partner_id') }}</th>
+                                                                <th>{{ __('all.table.partner_nm') }}</th>
+                                                                <th>{{ __('all.table.coordinator_type') }}</th>
+                                                                <th>{{ __('all.table.prov') }}</th>
+                                                                <th>{{ __('all.table.city') }}</th>
+                                                                <th>{{ __('all.table.address') }}</th>
+                                                                <th>{{ __('all.table.coordinate') }}</th>
+                                                                <th>{{ __('all.table.telp') }}</th>
+                                                                <th>{{ __('all.table.downline') }}</th>
+                                                                <th>{{ __('all.table.status') }}</th>
+                                                                <th>{{ __('all.table.action') }}</th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="menu12" class="tab-pane fade">
+                                <div class="tab-ctn">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="nk-int-st">
+                                                        <input type="text" name="start_date" id="start_dtm_maps" class="form-control" placeholder="{{ __('all.start_date') }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="nk-int-st">
+                                                        <input type="text" name="end_date" id="end_dtm_maps" class="form-control" placeholder="{{ __('all.end_date') }}">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select name="provinsi" id="provinsi_maps" class="form-control">
+                                                        <option value="" selected disabled>{{ __('all.placeholder.choose_prov') }}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <select name="kabupaten" id="kabupaten_maps" class="form-control">
                                                         <option value="" selected disabled>{{ __('all.placeholder.choose_kab') }}</option>
                                                     </select>
                                                 </div>
@@ -81,7 +146,7 @@
                                             <h4 class="card-title">{{ __('all.table_chart') }}</h4>
                                             <div class="data-table-list">
                                                 <div class="table-responsive-sm">
-                                                    <table id="dataTable" class="table table-striped">
+                                                    <table class="table table-hover table-striped table-bordered" id="table-maps" width="100%">
                                                         <thead>
                                                             <tr>
                                                                 <th>Name</th>
@@ -99,12 +164,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="menu12" class="tab-pane fade">
-                                <div class="tab-ctn">
-                                    <p>Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Nulla sit amet est. Praesent ac the massa at ligula laoreet iaculis. Vivamus aliquet elit ac nisl. Nulla porta dolor. Cras dapibus. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.</p>
-                                    <p class="tab-mg-b-0">In hac habitasse platea dictumst. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Nam eget dui. In ac felis quis tortor malesuadan of pretium. Phasellus consectetuer vestibulum elit. Duis lobortis massa imperdiet quam. Pellentesque commodo eros a enim. Vestibulum ante ipsum primis in faucibus orci the luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Phasellus a est. Pellentesque commodo eros a enim. Cras ultricies mi eu turpis hendrerit of fringilla. Donec mollis hendrerit risus. Vestibulum turpis sem, aliquet eget, lobortis pellentesque, rutrum eu, nisl. Praesent egestas neque eu enim. In hac habitasse plat.</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -114,25 +173,91 @@
 </div>
 @endsection
 
+@section('script')
 <script>
-    $('#start_date').datepicker({
+    $('#start_dtm_chart').datepicker({
         language: 'en',
         dateFormat: 'dd M yyyy',
         autoClose: true,
         onSelect: function(fd, date) {
-            $('#end_date').data('datepicker')
+            $('#end_dtm_chart').data('datepicker')
                 .update('minDate', date);
-            $('#end_date').focus();
+            $('#end_dtm_chart').focus();
         }
     });
 
-    $('#end_date').datepicker({
+    $('#end_dtm_chart').datepicker({
         language: 'en',
         dateFormat: 'dd M yyyy',
         autoClose: true,
         onSelect: function(fd, date) {
-            $('#start_date').data('datepicker')
+            $('#start_dtm_chart').data('datepicker')
                 .update('maxDate', date);
         }
     });
+
+    $('#start_dtm_maps').datepicker({
+        language: 'en',
+        dateFormat: 'dd M yyyy',
+        autoClose: true,
+        onSelect: function(fd, date) {
+            $('#end_dtm_maps').data('datepicker')
+                .update('minDate', date);
+            $('#end_dtm_maps').focus();
+        }
+    });
+
+    $('#end_dtm_maps').datepicker({
+        language: 'en',
+        dateFormat: 'dd M yyyy',
+        autoClose: true,
+        onSelect: function(fd, date) {
+            $('#start_dtm_maps').data('datepicker')
+                .update('maxDate', date);
+        }
+    });
+
+    var speedCanvas = document.getElementById("myChart");
+
+    Chart.defaults.global.defaultFontFamily = "Lato";
+    Chart.defaults.global.defaultFontSize = 18;
+
+    var dataFirst = {
+        label: "Car A - Speed (mph)",
+        data: [0, 59, 75, 20, 20, 55, 40],
+        lineTension: 0,
+        fill: false,
+        borderColor: 'red'
+    };
+
+    var dataSecond = {
+        label: "Car B - Speed (mph)",
+        data: [20, 15, 60, 60, 65, 30, 70],
+        lineTension: 0,
+        fill: false,
+        borderColor: 'blue'
+    };
+
+    var speedData = {
+        labels: ["0s", "10s", "20s", "30s", "40s", "50s", "60s"],
+        datasets: [dataFirst, dataSecond]
+    };
+
+    var chartOptions = {
+        legend: {
+            display: true,
+            position: 'top',
+            labels: {
+            boxWidth: 80,
+            fontColor: 'black'
+            }
+        }
+    };
+
+    var lineChart = new Chart(speedCanvas, {
+        type: 'line',
+        data: speedData,
+        options: chartOptions
+    });
 </script>
+@endsection

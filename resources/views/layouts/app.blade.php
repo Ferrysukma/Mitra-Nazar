@@ -63,6 +63,9 @@
     <!-- Air Datepicker
     ============================================ -->
     <link rel="stylesheet" href="{{ asset('assets/mitra/css/air-datepicker/datepicker.min.css') }}">
+    <!-- select 2 -->
+    <link rel="stylesheet" href="{{ asset('assets/mitra/css/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/mitra/css/select2/select2-bootstrap4.min.css') }}">
 </head>
 
 <body>
@@ -246,6 +249,21 @@
         @yield('content')
     </main>
 
+    <!-- Start Footer area-->
+    <div class="footer-copyright-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="footer-copy-right">
+                        <p>Copyright © 2020 
+. All rights reserved. Mitra Nazar id</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Footer area-->
+
     <!-- jquery
 		============================================ -->
     <script src="{{ asset('assets/mitra/js/vendor/jquery-1.12.4.min.js') }}"></script>
@@ -324,10 +342,16 @@
     ============================================ -->
     <script src="{{ asset('assets/mitra/js/air-datepicker/datepicker.min.js') }}"></script>
     <script src="{{ asset('assets/mitra/js/air-datepicker/datepicker.en.js') }}"></script>
-    @yield('addOnJS')
 
-    <!-- Mitra js -->
-    <!-- <script src="{{ asset('assets/mitra/js/mitra/home.js') }}"></script> -->
+    <!-- chart js -->
+    <script src="{{ asset('assets/mitra/js/chartjs/chart.js') }}"></script>
+    <script src="{{ asset('assets/mitra/js/chartjs/chart.min.js') }}"></script>
+
+    <!-- select 2 -->
+    <script src="{{ asset('assets/mitra/js/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/mitra/js/select2/id.js') }}"></script>
+
+    @yield('script')
 
     <script>
         function showModal(modal) {
@@ -335,7 +359,16 @@
             $('#'+modal).modal('show');
         }
 
-        $('#dataTable').DataTable();
+        function modalSelect2(modal) {
+            $('#'+modal).find('select').select2({
+                theme: 'bootstrap4',
+                dropdownParent: '#'+modal
+            });
+        }
+
+        $('select').select2({
+            theme: 'bootstrap4',
+        });
     </script>
 </body>
 

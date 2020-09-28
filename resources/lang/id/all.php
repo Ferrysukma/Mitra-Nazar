@@ -40,6 +40,20 @@ return [
     'end_date'      => 'Tanggal Akhir',
     'title_chart'   => 'Grafik pendaftaran mitra nazar id',
     'table_chart'   => 'Data pendaftaran mitra nazar id',
+    'table'         => array(
+        'join_date'         => 'Tanggal Gabung',
+        'partner_id'        => 'Mitra Id',
+        'partner_nm'        => 'Nama Mitra',
+        'coordinator_type'  => 'Tipe Koordinator',
+        'prov'              => 'Provinsi',
+        'city'              => 'Kota/Kabupaten',
+        'address'           => 'Alamat',
+        'telp'              => 'No Telepon',
+        'coordinate'        => 'Koordinat',
+        'downline'          => 'Downline',
+        'status'            => 'Status',
+        'action'            => 'Aksi'
+    ),
 ]
 
 ?>

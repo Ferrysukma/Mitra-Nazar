@@ -14,8 +14,8 @@ return [
         'old_password'  => 'Enter old password ....',
         'new_password'  => 'Enter new password ....',
         'email'         => 'Enter email ....',
-        'telp'          => 'Enter phone number ....',
-        'choose_prov'   => 'Choose Provinsi',
+        'telp'          => 'Enter no phone ....',
+        'choose_prov'   => 'Choose Province',
         'choose_kab'    => 'Choose City',
     ),
     'remember'  => 'Remember me',
@@ -40,6 +40,20 @@ return [
     'end_date'      => 'End Date',
     'title_chart'   => 'Nazar ID partner registration chart',
     'table_chart'   => 'Nazar ID partner registration data',
+    'table'         => array(
+        'join_date'         => 'Join Date',
+        'partner_id'        => 'Partner Id',
+        'partner_nm'        => 'Partner Name',
+        'coordinator_type'  => 'Coordinator Type',
+        'prov'              => 'Province',
+        'city'              => 'City',
+        'address'           => 'Address',
+        'telp'              => 'No Phone',
+        'coordinate'        => 'Coordinate',
+        'downline'          => 'Downline',
+        'status'            => 'Status',
+        'action'            => 'Action'
+    ),
 ]
 
 ?>
