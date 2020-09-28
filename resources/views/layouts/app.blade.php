@@ -125,7 +125,7 @@
                                 <a class="nav-link" href="{{ route('partner') }}">{{ __('all.partners') }} |</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('all.users') }} |</a>
+                                <a class="nav-link" href="{{ route('user') }}">{{ __('all.users') }} |</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('all.announcement') }} |</a>

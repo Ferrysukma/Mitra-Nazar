@@ -17,7 +17,9 @@ return [
         'telp'          => 'Enter no phone ....',
         'choose_prov'   => 'Choose Province',
         'choose_kab'    => 'Choose City',
+        'choose_status' => 'Choose Status',
         'filter'        => 'Search ....'
+        'code_user'     => 'find user code here'
     ),
     'remember'  => 'Remember me',
     'forget'    => 'Forget password?',
@@ -61,11 +63,17 @@ return [
         'qty'               => 'Quantity',
     ),
     'desc_partners' => 'You can manage partners data here',
+    'desc_users'    => 'You can manage user data here',
     'button'        => array(
         'new'       => 'Create New'
     ),
     'filter'        => 'Filter',
-    'add_partner'   => 'Create Partner'
+    'add_partner'   => 'Create Partner',
+    'add_user'      => 'Create Partner',
+    'cancel'        => 'Cancel',
+    'yes'           => 'Yes diabled it',
+    'confirm'       => 'Are you sure to disable this partner',
+    'text_confirm'  => 'Disable this partner will result in the partner unable to operate all partner features be it web, android and iOS',
 ]
 
 ?>

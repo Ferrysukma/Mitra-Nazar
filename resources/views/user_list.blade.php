@@ -14,8 +14,8 @@
                                     <i class="fa fa-user"></i>
                                 </div>
                                 <div class="breadcomb-ctn">
-                                    <h2>{{ __('all.partners') }}</h2>
-                                    <p>{{ __('all.desc_partners') }}</p>
+                                    <h2>{{ __('all.users') }}</h2>
+                                    <p>{{ __('all.desc_users') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -35,23 +35,12 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="widget-tabs-int tab-ctm-wp mg-t-30">
                     <div class="card">
-                        <div class="card-header">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="google-map-single sm-res-mg-t-30">
-                                    <div id="googleMap"></div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="card-body">
                             <div class="data-table-list">
                                 <div class="table-responsive-sm">
                                     <div class="row">
                                         <div class="col-sm-8"></div>
-                                        <div class="col-sm-2">
-                                            <div style="float:righ">
-                                                <input type="text" name="filter" id="filter" class="form-control" placeholder="{{ __('all.placeholder.filter') }}">
-                                            </div>
-                                        </div>
+                                        <div class="col-sm-2"></div>
                                         <div class="col-sm-2">
                                             <div class="btn-group" id="grMaps" style="float:left">
                                                 <button type="button" class="btn btn-primary" id="add-mitra"><i class="fa fa-plus"></i> {{ __('all.button.new') }}</button>
@@ -60,22 +49,6 @@
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="btnFilter" id="keepOpen">
                                                     <form action="#">
-                                                        <div class="form-group">
-                                                            <input type="text" name="start_date" id="start_dtm_maps" class="form-control" placeholder="{{ __('all.start_date') }}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="text" name="end_date" id="end_dtm_maps" class="form-control" placeholder="{{ __('all.end_date') }}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <select name="provinsi" id="provinsi_maps" class="form-control" style="width: 100% !important;">
-                                                                <option value="" selected disabled>{{ __('all.placeholder.choose_prov') }}</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <select name="kabupaten" id="kabupaten_maps" class="form-control" style="width: 100% !important;">
-                                                                <option value="" selected disabled>{{ __('all.placeholder.choose_kab') }}</option>
-                                                            </select>
-                                                        </div>
                                                         <div class="form-group">
                                                             <select name="status" id="status" class="form-control" style="width: 100% !important;">
                                                                 <option value="" selected disabled>{{ __('all.placeholder.choose_status') }}</option>
@@ -114,57 +87,27 @@
     <div class="modal-dialog modals-default">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">{{ __('all.add_partner') }}</h3>
+                <h3 class="modal-title">{{ __('all.add_user') }}</h3>
                 <hr>
             </div>
             <div class="modal-body">
                 <form action="#" method="post">
                     <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.form.code_user') }} <sup class="text-danger">*</sup></label>
+                        <label for="old" class="col-sm-3">{{ __('all.form.username') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="code_user" id="code_user" class="form-control" placeholder="{{ __('all.placeholder.code_user') }}">
+                            <input type="text" name="username" id="username" class="form-control readonly" placeholder="{{ __('all.placeholder.username') }}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.table.partner_nm') }} <sup class="text-danger">*</sup></label>
+                        <label for="old" class="col-sm-3">{{ __('all.form.email') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="partner_nm" id="partner_nm" class="form-control readonly" readonly>
+                            <input type="email" name="email" id="email" class="form-control" placeholder="{{ __('all.placeholder.email') }}">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.table.coordinator_type') }} <sup class="text-danger">*</sup></label>
+                        <label for="old" class="col-sm-3">{{ __('all.form.telp') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="coordinator_type" id="coordinator_type" class="form-control readonly" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.table.prov') }} <sup class="text-danger">*</sup></label>
-                        <div class="col-sm-9">
-                            <input type="text" name="prov" id="prov" class="form-control readonly" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.table.city') }} <sup class="text-danger">*</sup></label>
-                        <div class="col-sm-9">
-                            <input type="text" name="city" id="city" class="form-control readonly" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.form.district') }} <sup class="text-danger">*</sup></label>
-                        <div class="col-sm-9">
-                            <input type="text" name="district" id="district" class="form-control readonly" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.table.coordinate') }} <sup class="text-danger">*</sup></label>
-                        <div class="col-sm-9">
-                            <input type="text" name="coordinate" id="coordinate" class="form-control readonly" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.table.address') }} <sup class="text-danger">*</sup></label>
-                        <div class="col-sm-9">
-                            <textarea name="address" id="address" class="form-control" cols="30" rows="10"></textarea>
+                            <input type="text" name="telp" id="telp" class="form-control" placeholder="{{ __('all.placeholder.telp') }}">
                         </div>
                     </div>
             </div>

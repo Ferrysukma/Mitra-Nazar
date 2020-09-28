@@ -17,7 +17,9 @@ return [
         'telp'          => 'Masukkan no handphone ....',
         'choose_prov'   => 'Pilih Provinsi',
         'choose_kab'    => 'Pilih Kabupaten',
-        'filter'        => 'Cari ....'
+        'choose_status' => 'Pilih Status',
+        'filter'        => 'Cari ....',
+        'code_user'     => 'temukan kode user disini'
     ),
     'remember'  => 'Ingat saya',
     'forget'    => 'Lupa sandi?',
@@ -60,12 +62,18 @@ return [
         'date'              => 'Tanggal',
         'qty'               => 'Jumlah',
     ),
-    'desc_partners'=> 'Anda bisa mengelola data mitra disini',
+    'desc_partners' => 'Anda bisa mengelola data mitra disini',
+    'desc_users'    => 'Anda bisa mengelola data pengguna disini',
     'button'        => array(
         'new'       => 'Buat Baru'
     ),
     'filter'        => 'Saring',
-    'add_partner'   => 'Tambah Mitra'
+    'add_partner'   => 'Tambah Mitra',
+    'add_user'      => 'Tambah Pengguna',
+    'cancel'        => 'Batan',
+    'yes'           => 'Ya, Nonaktifkan',
+    'confirm'       => 'Anda yakin untuk menonaktifkan mitra ini',
+    'text_confirm'  => 'Nonaktifkan partner ini akan mengakibatkan partner tidak dapat mengoperasikan semua fitur partner baik itu web, android dan iOS',
 ]
 
 ?>
