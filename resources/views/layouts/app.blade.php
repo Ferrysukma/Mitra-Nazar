@@ -63,6 +63,21 @@
     <!-- select 2 -->
     <link rel="stylesheet" href="{{ asset('assets/mitra/css/select2/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/mitra/css/select2/select2-bootstrap4.min.css') }}">
+
+    <style>
+        .dropdown-menu {
+            padding-top : 1.5rem !important;
+            padding-right : 1.5rem !important;
+            padding-left : 1.5rem !important;
+            right : 0 !important;
+            left : unset !important;
+            width : 300px;
+        }
+
+        .readonly {
+            background-color : white !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -174,17 +189,14 @@
                             <div class="form-group row">
                                 <label for="old" class="col-sm-3">{{ __('all.form.old_password') }} <sup class="text-danger">*</sup></label>
                                 <div class="col-sm-9">
-                                    <div class="nk-int-st">
-                                        <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('all.placeholder.password') }}">
-                                    </div>
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('all.placeholder.password') }}">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="old" class="col-sm-3">{{ __('all.form.new_password') }} <sup class="text-danger">*</sup></label>
                                 <div class="col-sm-9">
-                                    <div class="nk-int-st">
-                                        <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('all.placeholder.new_password') }}">
-                                    </div>
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('all.placeholder.new_password') }}">
+                                    
                                 </div>
                             </div>
                     </div>
@@ -211,25 +223,19 @@
                             <div class="form-group row">
                                 <label for="old" class="col-sm-3">{{ __('all.form.username') }} <sup class="text-danger">*</sup></label>
                                 <div class="col-sm-9">
-                                    <div class="nk-int-st">
-                                        <input type="text" name="username" id="username" class="form-control" placeholder="{{ __('all.placeholder.username') }}" readonly>
-                                    </div>
+                                    <input type="text" name="username" id="username" class="form-control readonly" placeholder="{{ __('all.placeholder.username') }}" readonly>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="old" class="col-sm-3">{{ __('all.form.email') }} <sup class="text-danger">*</sup></label>
                                 <div class="col-sm-9">
-                                    <div class="nk-int-st">
-                                        <input type="text" name="email" id="email" class="form-control" placeholder="{{ __('all.placeholder.email') }}">
-                                    </div>
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="{{ __('all.placeholder.email') }}">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="old" class="col-sm-3">{{ __('all.form.telp') }} <sup class="text-danger">*</sup></label>
                                 <div class="col-sm-9">
-                                    <div class="nk-int-st">
-                                        <input type="text" name="telp" id="telp" class="form-control" placeholder="{{ __('all.placeholder.telp') }}">
-                                    </div>
+                                    <input type="text" name="telp" id="telp" class="form-control" placeholder="{{ __('all.placeholder.telp') }}">
                                 </div>
                             </div>
                     </div>
@@ -359,6 +365,14 @@
 
         $('select').select2({
             theme: 'bootstrap4',
+        });
+
+        $("#btnFilter").on('click',function() {
+            if ($("#dropdownFilter").hasClass('show')) {
+                $("#dropdownFilter").dropdown('hide');
+            } else {
+                $("#dropdownFilter").dropdown('show');
+            }
         });
     </script>
 </body>

@@ -34,6 +34,8 @@ return [
         'old_password'  => 'Sandi Lama',
         'email'         => 'Email',
         'telp'          => 'No Handphone',
+        'district'      => 'Kecamatan',
+        'code_user'     => 'Kode User'
     ),
     'chart'         => 'Grafik',
     'maps'          => 'Peta',
@@ -62,7 +64,8 @@ return [
     'button'        => array(
         'new'       => 'Buat Baru'
     ),
-    'filter'        => 'Saring'
+    'filter'        => 'Saring',
+    'add_partner'   => 'Tambah Mitra'
 ]
 
 ?>

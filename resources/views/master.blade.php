@@ -44,27 +44,33 @@
                                 <div class="tab-ctn">
                                     <div class="card">
                                         <div class="card-header">
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <input type="text" name="start_date" id="start_dtm_chart" class="form-control" placeholder="{{ __('all.start_date') }}">
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input type="text" name="end_date" id="end_dtm_chart" class="form-control" placeholder="{{ __('all.end_date') }}">
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <select name="provinsi" id="provinsi_chart" class="form-control">
-                                                        <option value="" selected disabled>{{ __('all.placeholder.choose_prov') }}</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <select name="kabupaten" id="kabupaten_chart" class="form-control">
-                                                        <option value="" selected disabled>{{ __('all.placeholder.choose_kab') }}</option>
-                                                    </select>
+                                            <div class="btn-group" id="grChart" style="float:right">
+                                                <button class="btn btn-info dropdown-toggle" type="button" id="filterChart" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    {{ __('all.filter') }} <i class="fa fa-filter"></i>
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="filterChart" id="keepChart">
+                                                    <form action="#">
+                                                        <div class="form-group">
+                                                            <input type="text" name="start_date" id="start_dtm_chart" class="form-control" placeholder="{{ __('all.start_date') }}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" name="end_date" id="end_dtm_chart" class="form-control" placeholder="{{ __('all.end_date') }}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <select name="provinsi" id="provinsi_chart" class="form-control" style="width: 100% !important;">
+                                                                <option value="" selected disabled>{{ __('all.placeholder.choose_prov') }}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <select name="kabupaten" id="kabupaten_chart" class="form-control" style="width: 100% !important;">
+                                                                <option value="" selected disabled>{{ __('all.placeholder.choose_kab') }}</option>
+                                                            </select>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-body">
-                                            <hr>
                                             <h4 class="card-title">{{ __('all.title_chart') }}</h4>
                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div class="line-chart-wp chart-display-nn">
@@ -105,27 +111,33 @@
                                 <div class="tab-ctn">
                                     <div class="card">
                                         <div class="card-header">
-                                            <div class="row">
-                                                <div class="col-sm-3">
-                                                    <input type="text" name="start_date" id="start_dtm_maps" class="form-control" placeholder="{{ __('all.start_date') }}">
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <input type="text" name="end_date" id="end_dtm_maps" class="form-control" placeholder="{{ __('all.end_date') }}">
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <select name="provinsi" id="provinsi_maps" class="form-control">
-                                                        <option value="" selected disabled>{{ __('all.placeholder.choose_prov') }}</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <select name="kabupaten" id="kabupaten_maps" class="form-control">
-                                                        <option value="" selected disabled>{{ __('all.placeholder.choose_kab') }}</option>
-                                                    </select>
+                                            <div class="btn-group" id="grMaps" style="float:right">
+                                                <button class="btn btn-info dropdown-toggle" type="button" id="filterMaps" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    {{ __('all.filter') }} <i class="fa fa-filter"></i>
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="filterMaps" id="keepMaps">
+                                                    <form action="#">
+                                                        <div class="form-group">
+                                                            <input type="text" name="start_date" id="start_dtm_maps" class="form-control" placeholder="{{ __('all.start_date') }}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" name="end_date" id="start_dtm_maps" class="form-control" placeholder="{{ __('all.end_date') }}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <select name="provinsi" id="provinsi_maps" class="form-control" style="width: 100% !important;">
+                                                                <option value="" selected disabled>{{ __('all.placeholder.choose_prov') }}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <select name="kabupaten" id="kabupaten_maps" class="form-control" style="width: 100% !important;">
+                                                                <option value="" selected disabled>{{ __('all.placeholder.choose_kab') }}</option>
+                                                            </select>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-body">
-                                            <hr>
                                             <h4 class="card-title">{{ __('all.title_maps') }}</h4>
                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div class="google-map-single sm-res-mg-t-30">

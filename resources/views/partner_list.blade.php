@@ -53,27 +53,31 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
-                                            <div class="btn-group" style="float:left">
+                                            <div class="btn-group" id="grMaps" style="float:left">
                                                 <button type="button" class="btn btn-primary" id="add-mitra"><i class="fa fa-plus"></i> {{ __('all.button.new') }}</button>
-                                                <button class="btn btn-info triger-fadeIn" data-toggle="dropdown"><i class="fa fa-filter"></i></button>
-                                                <ul class="dropdown-menu triger-fadeIn-dp">
-                                                    <li>
-                                                        <input type="text" name="start_date" id="start_dtm_maps" class="form-control" placeholder="{{ __('all.start_date') }}">
-                                                    </li>
-                                                    <li>
-                                                        <input type="text" name="end_date" id="end_dtm_maps" class="form-control" placeholder="{{ __('all.end_date') }}">
-                                                    </li>
-                                                    <li>
-                                                        <select name="provinsi" id="provinsi_maps" class="form-control" style="width: 100% !important;">
-                                                            <option value="" selected disabled>{{ __('all.placeholder.choose_prov') }}</option>
-                                                        </select>
-                                                    </li>
-                                                    <li>
-                                                        <select name="kabupaten" id="kabupaten_maps" class="form-control" style="width: 100% !important;">
-                                                            <option value="" selected disabled>{{ __('all.placeholder.choose_kab') }}</option>
-                                                        </select>
-                                                    </li>
-                                                </ul>
+                                                <button class="btn btn-info dropdown-toggle" type="button" id="btnFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fa fa-filter"></i>
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="btnFilter" id="keepOpen">
+                                                    <form action="#">
+                                                        <div class="form-group">
+                                                            <input type="text" name="start_date" id="start_dtm_maps" class="form-control" placeholder="{{ __('all.start_date') }}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input type="text" name="end_date" id="end_dtm_maps" class="form-control" placeholder="{{ __('all.end_date') }}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <select name="provinsi" id="provinsi_maps" class="form-control" style="width: 100% !important;">
+                                                                <option value="" selected disabled>{{ __('all.placeholder.choose_prov') }}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <select name="kabupaten" id="kabupaten_maps" class="form-control" style="width: 100% !important;">
+                                                                <option value="" selected disabled>{{ __('all.placeholder.choose_kab') }}</option>
+                                                            </select>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -99,10 +103,83 @@
         </div>
     </div>
 </div>
+
+<!-- Start Modal Change Password -->
+<div class="modal fade" id="modal-mitra" role="dialog">
+    <div class="modal-dialog modals-default">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">{{ __('all.add_partner') }}</h3>
+                <hr>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post">
+                    <div class="form-group row">
+                        <label for="old" class="col-sm-3">{{ __('all.form.code_user') }} <sup class="text-danger">*</sup></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="code_user" id="code_user" class="form-control" placeholder="{{ __('all.placeholder.code_user') }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="old" class="col-sm-3">{{ __('all.table.partner_nm') }} <sup class="text-danger">*</sup></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="partner_nm" id="partner_nm" class="form-control readonly" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="old" class="col-sm-3">{{ __('all.table.coordinator_type') }} <sup class="text-danger">*</sup></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="coordinator_type" id="coordinator_type" class="form-control readonly" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="old" class="col-sm-3">{{ __('all.table.prov') }} <sup class="text-danger">*</sup></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="prov" id="prov" class="form-control readonly" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="old" class="col-sm-3">{{ __('all.table.city') }} <sup class="text-danger">*</sup></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="city" id="city" class="form-control readonly" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="old" class="col-sm-3">{{ __('all.form.district') }} <sup class="text-danger">*</sup></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="district" id="district" class="form-control readonly" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="old" class="col-sm-3">{{ __('all.table.coordinate') }} <sup class="text-danger">*</sup></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="coordinate" id="coordinate" class="form-control readonly" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="old" class="col-sm-3">{{ __('all.table.address') }} <sup class="text-danger">*</sup></label>
+                        <div class="col-sm-9">
+                            <textarea name="address" id="address" class="form-control" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
+                <button type="button" class="btn btn-primary">{{ __('all.save') }}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal Change Password -->
 @endsection
 
 @section('script')
 <script>
+    $(document).on('click','#add-mitra', function () {
+        showModal('modal-mitra');
+    });
+
     $('#start_dtm_maps').datepicker({
         language: 'en',
         dateFormat: 'dd M yyyy',
@@ -140,5 +217,13 @@
     }
 
     initMap();
+
+    $("#btnFilter").on('click',function() {
+        if ($("#grMaps").hasClass('open')) {
+            $("#keepOpen").dropdown('hide');
+        } else {
+            $("#keepOpen").dropdown('show');
+        }
+    });
 </script>
 @endsection

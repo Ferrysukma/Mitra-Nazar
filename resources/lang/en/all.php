@@ -34,6 +34,8 @@ return [
         'old_password'  => 'Old Password',
         'email'         => 'Email',
         'telp'          => 'Phone Number',
+        'district'      => 'District',
+        'code_user'     => 'User Code'
     ),
     'chart'         => 'Chart',
     'maps'          => 'Maps',
@@ -62,7 +64,8 @@ return [
     'button'        => array(
         'new'       => 'Create New'
     ),
-    'filter'        => 'Filter'
+    'filter'        => 'Filter',
+    'add_partner'   => 'Create Partner'
 ]
 
 ?>
