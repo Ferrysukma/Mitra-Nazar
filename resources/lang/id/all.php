@@ -20,7 +20,8 @@ return [
         'choose_status' => 'Pilih Status',
         'filter'        => 'Cari ....',
         'code_user'     => 'temukan kode user disini',
-        'title'         => 'Masukkan judul pengumuman ....'
+        'title'         => 'Masukkan judul pengumuman ....',
+        'name_category' => 'Masukkan nama kategori koordinator ....',
     ),
     'remember'  => 'Ingat saya',
     'forget'    => 'Lupa sandi?',
@@ -67,10 +68,12 @@ return [
         'contents'          => 'Isi Pengumuman',
         'title'             => 'Judul Pengumuman',
         'created'           => 'Pembuat',
+        'name_category'     => 'Nama Kategori Koodinator',
     ),
     'desc_partners'         => 'Anda bisa mengelola data mitra disini',
     'desc_users'            => 'Anda bisa mengelola data pengguna disini',
     'desc_announcement'     => 'Anda bisa mengelola data pengumuman disini',
+    'desc_category'         => 'Anda dapat mengelola data kategori koordinator di sini',
     'button'                => array(
         'new'               => 'Buat Baru',
         'back'              => 'Kembali'

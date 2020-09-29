@@ -20,7 +20,8 @@ return [
         'choose_status' => 'Choose Status',
         'filter'        => 'Search ....',
         'code_user'     => 'find user code here',
-        'title'         => 'Enter title announcement .....'
+        'title'         => 'Enter title announcement ....',
+        'name_category' => 'Enter category coordinator name ....',
     ),
     'remember'  => 'Remember me',
     'forget'    => 'Forget password?',
@@ -67,10 +68,12 @@ return [
         'contents'          => 'Contents',
         'title'             => 'Title Announcement',
         'created'           => 'Created by',
+        'name_category'     => 'Category Coordinator Name'
     ),
     'desc_partners'         => 'You can manage partners data here',
     'desc_users'            => 'You can manage user data here',
     'desc_announcement'     => 'You can manage announcement data here',
+    'desc_category'         => 'You can manage category coordinator data here',
     'button'                => array(
         'new'               => 'Create New',
         'back'              => 'Back'

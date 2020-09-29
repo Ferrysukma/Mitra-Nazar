@@ -21,4 +21,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name(
 Route::get('/partner', [App\Http\Controllers\PartnerController::class, 'index'])->name('partner');
 Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user');
 Route::get('/announcement', [App\Http\Controllers\AnnouncementController::class, 'index'])->name('announcement');
+Route::get('/category', [App\Http\Controllers\CategoryController::class, 'index'])->name('category');
 Route::get('lang/{language}', [App\Http\Controllers\LocalizationController::class, 'switch'])->name('localization.switch');

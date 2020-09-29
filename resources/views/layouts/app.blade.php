@@ -145,7 +145,7 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <a href="#">
+                                        <a href="{{ route('category') }}">
                                             <div class="hd-message-sn">
                                                 <div class="hd-message-img chat-img">
                                                 </div>
