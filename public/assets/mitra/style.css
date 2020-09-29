@@ -54,11 +54,7 @@
 /*----------------------------------------*/
 /*  1.  Theme default CSS
 /*----------------------------------------*/
-html, body {
-	font-family: Ubuntu-Regular, sans-serif;
-    font-weight:400;
-}
-
+html, body {font-family: 'Roboto', sans-serif;font-weight:400;}
 body {background:#F6F8FA;}
 .floatleft {float:left}
 .floatright {float:right}
@@ -88,6 +84,7 @@ margin: 0;
 padding: 0
 }
 .clear{clear:both}
+body {}
 .mg-tb-40{
 	margin:40px 0px;
 }
@@ -170,12 +167,17 @@ padding: 0
 	background:#000000;
 }
 @font-face {
-    font-family: Ubuntu-Regular;
-    src: url('../fonts/ubuntu/Ubuntu-Regular.ttf'); 
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'notika-icon';
+  src:  url('fonts/notika-icon.eot?qzfrsz');
+  src:  url('fonts/notika-icon.eot?qzfrsz#iefix') format('embedded-opentype'),
+    url('fonts/notika-icon.ttf?qzfrsz') format('truetype'),
+    url('fonts/notika-icon.woff?qzfrsz') format('woff'),
+    url('fonts/notika-icon.svg?qzfrsz#notika-icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 .sale-statistic-inner, .statistic-right-area, .email-statis-inner, .recent-post-wrapper, .blog-inner-list, .realtime-wrap, .add-todo-list, .notika-chat-list, .recent-signup-inner, .ongoing-task-inner, .contact-inner, .contact-form, .widget-tabs-int, .visitor-sv-tm-int, .search-engine-int, .alert-inner, .color-wrap, .wizard-wrap-int, .dropdown-list, .modals-list, .accordion-wn-wp, .tooltips-inner, .popovers-list, .typography-list, .typography-heading, .typography-inline-pro, .tpgp-helper, .contact-list, .inbox-left-sd, .inbox-text-list, .view-mail-list, .normal-table-list, .data-table-list, .form-element-list, .range-slider-wrap, .datepicker-int, .colorpicker-int, .summernote-wrap, .dropdone-nk, .form-example-wrap, .invoice-wrap, .google-map-single, .data-map-single, .image-cropper-wp, .nk-cd-ed-wp, .bar-chart-wp, .line-chart-wp, .area-chart-wp, .flot-chart-wp, .wb-traffic-inner, .notika-icon-int{
+    margin-top: 0px;
 	padding:20px;
 	background:#fff;
 }
@@ -194,6 +196,7 @@ padding: 0
 .nav.notika-top-nav .open>a, .nav.notika-top-nav .open>a:focus, .nav.notika-top-nav .open>a:hover {
     background: #004185;
     border-color: 0px solid #004185;
+	
 }
 .nav.notika-top-nav>li>a:focus, .nav.notika-top-nav>li>a:hover {
     text-decoration: none;
@@ -207,7 +210,7 @@ padding: 0
 	padding: 20px 30px 20px 0px;
 }
 .nav.navbar-nav.notika-top-nav li a{
-	font-size:20px;
+	font-size:14px;
 	position:relative;
 }
 .header-top-menu .nav.notika-top-nav li .search-dd {
@@ -234,7 +237,7 @@ padding: 0
 	z-index:9999;
 }
 .header-top-menu .nav.notika-top-nav li .message-dd .hd-mg-tt h2{
-    font-size: 16px;
+   font-size: 16px;
     color: #333;
     font-weight: 400;
     margin: 0;
@@ -245,8 +248,8 @@ padding: 0
     display:block;
 }
 .header-top-menu .nav.notika-top-nav li .search-dd .search-input{
-    margin: 7px 300px;
-    position: relative;
+  margin: 7px 300px;
+  position: relative;
 }
 .header-top-menu .nav.notika-top-nav li .search-dd .search-input input[type="text"]{
     height: 40px;
@@ -796,7 +799,7 @@ ul.notika-menu-wrap li a{
 /*  11.  Footer CSS
 /*----------------------------------------*/
 .footer-copyright-area {
-    margin-top:40px;
+    margin-top:210px;
 }
 .footer-copyright-area p {
     margin: 0;
@@ -4574,6 +4577,7 @@ body.box-layout {
 	display:block;
 }
 .breadcomb-list{
+    margin-top: 20px;
 	padding:20px 20px;
 	background:#fff;
 }

@@ -47,7 +47,7 @@
     <link rel="stylesheet" href="{{ asset('assets/mitra/css/main.css') }}">
     <!-- style CSS
 		============================================ -->
-    <link rel="stylesheet" href="{{ asset('assets/mitra/master.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/mitra/style.css') }}">
     <!-- responsive CSS
 		============================================ -->
     <link rel="stylesheet" href="{{ asset('assets/mitra/css/responsive.css') }}">
@@ -103,7 +103,6 @@
                                     <a href="#">
                                         <div class="hd-message-sn">
                                             <div class="hd-message-img chat-img">
-                                                <img src="img/post/1.jpg" alt="" />
                                             </div>
                                             <div class="hd-mg-ctn">
                                                 <a class="{{ app()->getLocale() == 'id' ? 'active' : '' }}" href="{{ route('localization.switch', 'id') }}">Bahasa Indonesia</a>
@@ -119,16 +118,44 @@
                     <div class="header-top-menu">
                         <ul class="nav navbar-nav notika-top-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('home') }}">{{ __('all.home') }} |</a>
+                                <a class="nav-link" href="{{ route('home') }}">{{ __('all.home') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('partner') }}">{{ __('all.partners') }} |</a>
+                                <a class="nav-link" href="{{ route('partner') }}">{{ __('all.partners') }}</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user') }}">{{ __('all.users') }} |</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('all.announcement') }} |</a>
+                            <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span>{{ __('all.setting') }}</span></a>
+                                <div role="menu" class="dropdown-menu message-dd chat-dd animated zoomIn">
+                                    <div class="hd-message-info">
+                                        <a href="{{ route('user') }}">
+                                            <div class="hd-message-sn">
+                                                <div class="hd-message-img chat-img">
+
+                                                </div>
+                                                <div class="hd-mg-ctn">
+                                                    <h3>{{ __('all.users') }}</h3>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="{{ route('user') }}">
+                                            <div class="hd-message-sn">
+                                                <div class="hd-message-img chat-img">
+                                                </div>
+                                                <div class="hd-mg-ctn">
+                                                    <h3>{{ __('all.announcement') }}</h3>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="#">
+                                            <div class="hd-message-sn">
+                                                <div class="hd-message-img chat-img">
+                                                </div>
+                                                <div class="hd-mg-ctn">
+                                                    <h3>{{ __('all.category') }}</h3>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </li>
                             <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span>{{ __('all.admin') }} <i class="fa fa-user"></i></span></a>
                                 <div role="menu" class="dropdown-menu message-dd chat-dd animated zoomIn">
@@ -146,7 +173,6 @@
                                         <a href="#" onclick="showModal('editProfile')">
                                             <div class="hd-message-sn">
                                                 <div class="hd-message-img chat-img">
-                                                    <img src="img/post/1.jpg" alt="" />
                                                 </div>
                                                 <div class="hd-mg-ctn">
                                                     <h3>{{ __('all.profile') }}</h3>
@@ -156,7 +182,6 @@
                                         <a href="#">
                                             <div class="hd-message-sn">
                                                 <div class="hd-message-img chat-img">
-                                                    <img src="img/post/1.jpg" alt="" />
                                                 </div>
                                                 <div class="hd-mg-ctn">
                                                     <h3>{{ __('all.logout') }}</h3>

@@ -18,7 +18,7 @@ return [
         'choose_prov'   => 'Choose Province',
         'choose_kab'    => 'Choose City',
         'choose_status' => 'Choose Status',
-        'filter'        => 'Search ....'
+        'filter'        => 'Search ....',
         'code_user'     => 'find user code here'
     ),
     'remember'  => 'Remember me',
@@ -74,6 +74,8 @@ return [
     'yes'           => 'Yes diabled it',
     'confirm'       => 'Are you sure to disable this partner',
     'text_confirm'  => 'Disable this partner will result in the partner unable to operate all partner features be it web, android and iOS',
+    'setting'       => 'Setting',
+    'category'      => 'Master Data'
 ]
 
 ?>

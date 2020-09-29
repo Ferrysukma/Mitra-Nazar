@@ -74,6 +74,8 @@ return [
     'yes'           => 'Ya, Nonaktifkan',
     'confirm'       => 'Anda yakin untuk menonaktifkan mitra ini',
     'text_confirm'  => 'Nonaktifkan partner ini akan mengakibatkan partner tidak dapat mengoperasikan semua fitur partner baik itu web, android dan iOS',
+    'setting'       => 'Pengaturan',
+    'category'      => 'Master Data'
 ]
 
 ?>
