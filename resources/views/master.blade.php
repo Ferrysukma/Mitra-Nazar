@@ -71,7 +71,9 @@
                                             </div>
                                         </div>
                                         <div class="card-body">
-                                            <h4 class="card-title">{{ __('all.title_chart') }}</h4>
+                                            <div class="card-title">
+                                                <h4>{{ __('all.title_chart') }}</h4>
+                                            </div>
                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div class="line-chart-wp chart-display-nn">
                                                     <canvas id="myChart" style="display:block;width:100px:height:100px"></canvas>
@@ -81,7 +83,9 @@
                                         <div class="card-footer">
                                             <div class="data-table-list">
                                                 <div class="table-responsive-sm">
-                                                    <h4 class="card-title">{{ __('all.table_chart') }}</h4>
+                                                    <div class="card-title">
+                                                        <h4>{{ __('all.table_chart') }}</h4>
+                                                    </div>
                                                     <table class="table table-hover table-striped table-bordered" id="table-chart" width="100%">
                                                         <thead>
                                                             <tr>
@@ -138,7 +142,9 @@
                                             </div>
                                         </div>
                                         <div class="card-body">
-                                            <h4 class="card-title">{{ __('all.title_maps') }}</h4>
+                                            <div class="card-title">
+                                                <h4>{{ __('all.title_maps') }}</h4>
+                                            </div>
                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div class="google-map-single sm-res-mg-t-30">
                                                     <div id="googleMap"></div>
@@ -149,7 +155,9 @@
                                             <hr>
                                             <div class="data-table-list">
                                                 <div class="table-responsive-sm">
-                                                    <h4 class="card-title">{{ __('all.table_chart') }}</h4>
+                                                    <div class="card-title">
+                                                        <h4>{{ __('all.table_chart') }}</h4>
+                                                    </div>
                                                     <table class="table table-hover table-striped table-bordered" id="table-maps" width="100%">
                                                         <thead>
                                                             <tr>

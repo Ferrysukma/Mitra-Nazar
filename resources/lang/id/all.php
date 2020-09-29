@@ -19,7 +19,8 @@ return [
         'choose_kab'    => 'Pilih Kabupaten',
         'choose_status' => 'Pilih Status',
         'filter'        => 'Cari ....',
-        'code_user'     => 'temukan kode user disini'
+        'code_user'     => 'temukan kode user disini',
+        'title'         => 'Masukkan judul pengumuman ....'
     ),
     'remember'  => 'Ingat saya',
     'forget'    => 'Lupa sandi?',
@@ -61,21 +62,40 @@ return [
         'action'            => 'Aksi',
         'date'              => 'Tanggal',
         'qty'               => 'Jumlah',
+        'create_dtm'        => 'Tanggal Buat',
+        'purpose'           => 'Tujuan Pengumuman',
+        'contents'          => 'Isi Pengumuman',
+        'title'             => 'Judul Pengumuman',
+        'created'           => 'Pembuat',
     ),
-    'desc_partners' => 'Anda bisa mengelola data mitra disini',
-    'desc_users'    => 'Anda bisa mengelola data pengguna disini',
-    'button'        => array(
-        'new'       => 'Buat Baru'
+    'desc_partners'         => 'Anda bisa mengelola data mitra disini',
+    'desc_users'            => 'Anda bisa mengelola data pengguna disini',
+    'desc_announcement'     => 'Anda bisa mengelola data pengumuman disini',
+    'button'                => array(
+        'new'               => 'Buat Baru',
+        'back'              => 'Kembali'
     ),
-    'filter'        => 'Saring',
-    'add_partner'   => 'Tambah Mitra',
-    'add_user'      => 'Tambah Pengguna',
-    'cancel'        => 'Batan',
-    'yes'           => 'Ya, Nonaktifkan',
-    'confirm'       => 'Anda yakin untuk menonaktifkan mitra ini',
-    'text_confirm'  => 'Nonaktifkan partner ini akan mengakibatkan partner tidak dapat mengoperasikan semua fitur partner baik itu web, android dan iOS',
-    'setting'       => 'Pengaturan',
-    'category'      => 'Master Data'
+    'filter'                => 'Saring',
+    'add_partner'           => 'Tambah Mitra',
+    'add_user'              => 'Tambah Pengguna',
+    'cancel'                => 'Batal',
+    'yes'                   => 'Ya, Nonaktifkan',
+    'confirm'               => 'Anda yakin untuk menonaktifkan mitra ini',
+    'text_confirm'          => 'Nonaktifkan partner ini akan mengakibatkan partner tidak dapat mengoperasikan semua fitur partner baik itu web, android dan iOS',
+    'setting'               => 'Pengaturan',
+    'category'              => 'Master Data',
+    'announcement_on'       => 'Pengumuman Aktif',
+    'announcement_history'  => 'Riwayat Pengumuman',
+    'checkbox'              => array(
+        'central'           => 'Koordinator Pusat',
+        'regional'          => 'Koordinator Wilayah',
+        'city'              => 'Koordinator Kota/Kabupaten',
+        'district'          => 'Koordinator Kecamatan',
+        'village'           => 'Koordinator Desa'
+    ),
+    'category_coordinator'  => 'Kategori Koordinator',
+    'show_date'             => 'Tanggal Tampil',
+    'to'                    => 's.d'
 ]
 
 ?>

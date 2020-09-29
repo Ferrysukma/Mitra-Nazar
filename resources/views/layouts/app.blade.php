@@ -136,7 +136,7 @@
                                                 </div>
                                             </div>
                                         </a>
-                                        <a href="{{ route('user') }}">
+                                        <a href="{{ route('announcement') }}">
                                             <div class="hd-message-sn">
                                                 <div class="hd-message-img chat-img">
                                                 </div>

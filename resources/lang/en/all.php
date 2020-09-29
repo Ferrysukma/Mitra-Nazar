@@ -19,7 +19,8 @@ return [
         'choose_kab'    => 'Choose City',
         'choose_status' => 'Choose Status',
         'filter'        => 'Search ....',
-        'code_user'     => 'find user code here'
+        'code_user'     => 'find user code here',
+        'title'         => 'Enter title announcement .....'
     ),
     'remember'  => 'Remember me',
     'forget'    => 'Forget password?',
@@ -61,21 +62,40 @@ return [
         'action'            => 'Action',
         'date'              => 'Date',
         'qty'               => 'Quantity',
+        'create_dtm'        => 'Created Date',
+        'purpose'           => 'Purpose',
+        'contents'          => 'Contents',
+        'title'             => 'Title Announcement',
+        'created'           => 'Created by',
     ),
-    'desc_partners' => 'You can manage partners data here',
-    'desc_users'    => 'You can manage user data here',
-    'button'        => array(
-        'new'       => 'Create New'
+    'desc_partners'         => 'You can manage partners data here',
+    'desc_users'            => 'You can manage user data here',
+    'desc_announcement'     => 'You can manage announcement data here',
+    'button'                => array(
+        'new'               => 'Create New',
+        'back'              => 'Back'
     ),
-    'filter'        => 'Filter',
-    'add_partner'   => 'Create Partner',
-    'add_user'      => 'Create Partner',
-    'cancel'        => 'Cancel',
-    'yes'           => 'Yes diabled it',
-    'confirm'       => 'Are you sure to disable this partner',
-    'text_confirm'  => 'Disable this partner will result in the partner unable to operate all partner features be it web, android and iOS',
-    'setting'       => 'Setting',
-    'category'      => 'Master Data'
+    'filter'                => 'Filter',
+    'add_partner'           => 'Create Partner',
+    'add_user'              => 'Create Partner',
+    'cancel'                => 'Cancel',
+    'yes'                   => 'Yes diabled it',
+    'confirm'               => 'Are you sure to disable this partner',
+    'text_confirm'          => 'Disable this partner will result in the partner unable to operate all partner features be it web, android and iOS',
+    'setting'               => 'Setting',
+    'category'              => 'Master Data',
+    'announcement_on'       => 'Active Announcements',
+    'announcement_history'  => 'History Announcements',
+    'checkbox'              => array(
+        'central'           => 'Central Coordinator',
+        'regional'          => 'Regional Coordinator',
+        'city'              => 'City Coordinator',
+        'district'          => 'District Coordinator',
+        'village'           => 'Village Coordinator'
+    ),
+    'category_coordinator'  => 'Category Coordinator',
+    'show_date'             => 'Show Date',
+    'to'                    => 'To',
 ]
 
 ?>
