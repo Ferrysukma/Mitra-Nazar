@@ -1,181 +1,148 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Breadcomb area Start-->
-<div class="breadcomb-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="breadcomb-list">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="breadcomb-wp">
-                                <div class="breadcomb-icon">
-                                    <i class="fa fa-home"></i>
-                                </div>
-                                <div class="breadcomb-ctn">
-                                    <h2>{{ __('all.home') }}</h2>
-                                    <p>{{ __('all.welcome') }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
-
-                        </div>
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12 mb-4">
+        <div class="card border-left-primary shadow h-100">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <h1 class="h3 mb-0 text-gray-800">{{ __('all.home') }}</h1>
+                        <p>{{ __('all.welcome') }}</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Breadcomb area End-->
-<div class="tabs-info-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="widget-tabs-int tab-ctm-wp mg-t-30">
-                    <div class="widget-tabs-list">
-                        <ul class="nav nav-tabs tab-nav-right">
-                            <li class="active"><a data-toggle="tab" href="#home2">{{ __('all.chart') }}</a></li>
-                            <li><a data-toggle="tab" href="#menu12">{{ __('all.maps') }}</a></li>
-                        </ul>
-                        <div class="tab-content tab-custom-st tab-ctn-right">
-                            <div id="home2" class="tab-pane fade in active">
-                                <div class="tab-ctn">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="btn-group" id="grChart" style="float:right">
-                                                <button class="btn btn-info dropdown-toggle" type="button" id="filterChart" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    {{ __('all.filter') }} <i class="fa fa-filter"></i>
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="filterChart" id="keepChart">
-                                                    <form action="#">
-                                                        <div class="form-group">
-                                                            <input type="text" name="start_date" id="start_dtm_chart" class="form-control" placeholder="{{ __('all.start_date') }}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="text" name="end_date" id="end_dtm_chart" class="form-control" placeholder="{{ __('all.end_date') }}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <select name="provinsi" id="provinsi_chart" class="form-control" style="width: 100% !important;">
-                                                                <option value="" selected disabled>{{ __('all.placeholder.choose_prov') }}</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <select name="kabupaten" id="kabupaten_chart" class="form-control" style="width: 100% !important;">
-                                                                <option value="" selected disabled>{{ __('all.placeholder.choose_kab') }}</option>
-                                                            </select>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="card-title">
-                                                <h4>{{ __('all.title_chart') }}</h4>
-                                            </div>
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <div class="line-chart-wp chart-display-nn">
-                                                    <canvas id="myChart" style="display:block;width:100px:height:100px"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer">
-                                            <div class="data-table-list">
-                                                <div class="table-responsive-sm">
-                                                    <div class="card-title">
-                                                        <h4>{{ __('all.table_chart') }}</h4>
-                                                    </div>
-                                                    <table class="table table-hover table-striped table-bordered" id="table-chart" width="100%">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>No</th>
-                                                                <th>{{ __('all.table.join_date') }}</th>
-                                                                <th>{{ __('all.table.partner_id') }}</th>
-                                                                <th>{{ __('all.table.partner_nm') }}</th>
-                                                                <th>{{ __('all.table.coordinator_type') }}</th>
-                                                                <th>{{ __('all.table.prov') }}</th>
-                                                                <th>{{ __('all.table.city') }}</th>
-                                                                <th>{{ __('all.table.address') }}</th>
-                                                                <th>{{ __('all.table.coordinate') }}</th>
-                                                                <th>{{ __('all.table.telp') }}</th>
-                                                                <th>{{ __('all.table.downline') }}</th>
-                                                                <th>{{ __('all.table.status') }}</th>
-                                                                <th>{{ __('all.table.action') }}</th>
-                                                            </tr>
-                                                        </thead>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
+
+<!-- Content Row -->
+<div class="row">
+    <div class="col-lg-12 mb-4">
+        <!-- Approach -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <ul class="nav nav-tabs" id="myTab" role="tablist" style="float:right">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="chart-tab" data-toggle="tab" href="#chart" role="tab" aria-controls="chart" aria-selected="true">{{ __('all.chart') }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="maps-tab" data-toggle="tab" href="#maps" role="tab" aria-controls="maps" aria-selected="false">{{ __('all.maps') }}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="chart" role="tabpanel" aria-labelledby="chart-tab">
+                        <div class="btn-group" role="group" style="float:right">
+                            <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="filterChart" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="showDropdown('dropChart')">
+                                <span>{{ __('all.filter') }}</span> <i class="fa fa-filter"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right keep-open" aria-labelledby="filterChart" id="dropChart" style="width:300px;">
+                                <form id="formChart" class="px-4 py-3" action="#">
+                                    <div class="form-group">
+                                        <input type="text" name="start_date" id="start_dtm_chart" class="form-control" placeholder="{{ __('all.start_date') }}">
                                     </div>
-                                </div>
-                            </div>
-                            <div id="menu12" class="tab-pane fade">
-                                <div class="tab-ctn">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="btn-group" id="grMaps" style="float:right">
-                                                <button class="btn btn-info dropdown-toggle" type="button" id="filterMaps" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    {{ __('all.filter') }} <i class="fa fa-filter"></i>
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="filterMaps" id="keepMaps">
-                                                    <form action="#">
-                                                        <div class="form-group">
-                                                            <input type="text" name="start_date" id="start_dtm_maps" class="form-control" placeholder="{{ __('all.start_date') }}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="text" name="end_date" id="start_dtm_maps" class="form-control" placeholder="{{ __('all.end_date') }}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <select name="provinsi" id="provinsi_maps" class="form-control" style="width: 100% !important;">
-                                                                <option value="" selected disabled>{{ __('all.placeholder.choose_prov') }}</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <select name="kabupaten" id="kabupaten_maps" class="form-control" style="width: 100% !important;">
-                                                                <option value="" selected disabled>{{ __('all.placeholder.choose_kab') }}</option>
-                                                            </select>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="card-title">
-                                                <h4>{{ __('all.title_maps') }}</h4>
-                                            </div>
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <div class="google-map-single sm-res-mg-t-30">
-                                                    <div id="googleMap"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card-footer">
-                                            <hr>
-                                            <div class="data-table-list">
-                                                <div class="table-responsive-sm">
-                                                    <div class="card-title">
-                                                        <h4>{{ __('all.table_chart') }}</h4>
-                                                    </div>
-                                                    <table class="table table-hover table-striped table-bordered" id="table-maps" width="100%">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>No</th>
-                                                                <th>{{ __('all.table.date') }}</th>
-                                                                <th>{{ __('all.table.prov') }}</th>
-                                                                <th>{{ __('all.table.city') }}</th>
-                                                                <th>{{ __('all.table.qty') }}</th>
-                                                                <th>{{ __('all.table.action') }}</th>
-                                                            </tr>
-                                                        </thead>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="form-group">
+                                        <input type="text" name="end_date" id="end_dtm_chart" class="form-control" placeholder="{{ __('all.end_date') }}">
                                     </div>
-                                </div>
+                                    <div class="form-group">
+                                        <select name="provinsi" id="provinsi_chart" class="form-control" style="width: 100% !important;">
+                                            <option value="" selected disabled>{{ __('all.placeholder.choose_prov') }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="kabupaten" id="kabupaten_chart" class="form-control" style="width: 100% !important;">
+                                            <option value="" selected disabled>{{ __('all.placeholder.choose_kab') }}</option>
+                                        </select>
+                                    </div>
+                                </form>
                             </div>
+                        </div>
+                        <div class="card-title">
+                            <h4>{{ __('all.title_chart') }}</h4>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="line-chart-wp chart-display-nn">
+                                <canvas id="myChart" style="display:block;width:100px:height:100px"></canvas>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="table-responsive-sm">
+                            <div class="card-title">
+                                <h4>{{ __('all.table_chart') }}</h4>
+                            </div>
+                            <table class="table table-hover table-striped table-condensed table-bordered" id="table-chart" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>{{ __('all.table.join_date') }}</th>
+                                        <th>{{ __('all.table.partner_id') }}</th>
+                                        <th>{{ __('all.table.partner_nm') }}</th>
+                                        <th>{{ __('all.table.coordinator_type') }}</th>
+                                        <th>{{ __('all.table.prov') }}</th>
+                                        <th>{{ __('all.table.city') }}</th>
+                                        <th>{{ __('all.table.address') }}</th>
+                                        <th>{{ __('all.table.coordinate') }}</th>
+                                        <th>{{ __('all.table.telp') }}</th>
+                                        <th>{{ __('all.table.downline') }}</th>
+                                        <th>{{ __('all.table.status') }}</th>
+                                        <th>{{ __('all.table.action') }}</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="maps" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="btn-group" role="group" style="float:right">
+                            <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="filterMaps" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showDropdown('dropMaps')">
+                                <span>{{ __('all.filter') }}</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right keep-open" aria-labelledby="filterMaps" id="dropMaps" style="width:300px;">
+                                <form id="formFilter" class="px-4 py-3" action="#">
+                                    <div class="form-group">
+                                        <input type="text" name="start_date" id="start_dtm_maps" class="form-control" placeholder="{{ __('all.start_date') }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="end_date" id="end_dtm_maps" class="form-control" placeholder="{{ __('all.end_date') }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="provinsi" id="provinsi_maps" class="form-control" style="width: 100% !important;">
+                                            <option value="" selected disabled>{{ __('all.placeholder.choose_prov') }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="kabupaten" id="kabupaten_maps" class="form-control" style="width: 100% !important;">
+                                            <option value="" selected disabled>{{ __('all.placeholder.choose_kab') }}</option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card-title">
+                            <h4>{{ __('all.title_maps') }}</h4>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div id="googleMap"></div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="table-responsive-sm">
+                            <div class="card-title">
+                                <h4>{{ __('all.table_chart') }}</h4>
+                            </div>
+                            <table class="table table-hover table-striped table-condensed table-bordered" id="table-maps" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>{{ __('all.table.date') }}</th>
+                                        <th>{{ __('all.table.prov') }}</th>
+                                        <th>{{ __('all.table.city') }}</th>
+                                        <th>{{ __('all.table.qty') }}</th>
+                                        <th>{{ __('all.table.action') }}</th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -272,21 +239,15 @@
         options: chartOptions
     });
 
-    function initMap() {
-       var myLatlng = {lat: -25.363, lng: 131.044};
-
-        var map6 = new google.maps.Map(document.getElementById('googleMap'), {
-            zoom: 4,
-            center: myLatlng
-        });
-
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map6,
-            title: 'Click to zoom'
-        });
+    // variabel global marker
+	function initMap() {
+        // The location of Uluru
+        var uluru = {lat: -25.344, lng: 131.036};
+        // The map, centered at Uluru
+        var map = new google.maps.Map(
+            document.getElementById('googleMap'), {zoom: 4, center: uluru});
+        // The marker, positioned at Uluru
+        var marker = new google.maps.Marker({position: uluru, map: map});
     }
-
-    initMap();
 </script>
 @endsection

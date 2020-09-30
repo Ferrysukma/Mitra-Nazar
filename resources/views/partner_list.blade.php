@@ -1,108 +1,93 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Breadcomb area Start-->
-<div class="breadcomb-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="breadcomb-list">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="breadcomb-wp">
-                                <div class="breadcomb-icon">
-                                    <i class="fa fa-users"></i>
-                                </div>
-                                <div class="breadcomb-ctn">
-                                    <h2>{{ __('all.partners') }}</h2>
-                                    <p>{{ __('all.desc_partners') }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
-
-                        </div>
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12 mb-4">
+        <div class="card border-left-primary shadow h-100">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <h1 class="h3 mb-0 text-gray-800">{{ __('all.partners') }}</h1>
+                        <p>{{ __('all.desc_partners') }}</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Breadcomb area End-->
-<div class="tabs-info-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="widget-tabs-int tab-ctm-wp mg-t-30">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="google-map-single sm-res-mg-t-30">
-                                    <div id="googleMap"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="data-table-list">
-                                <div class="table-responsive-sm">
-                                    <div class="row">
-                                        <div class="col-sm-8"></div>
-                                        <div class="col-sm-2">
-                                            <div style="float:righ">
-                                                <input type="text" name="filter" id="filter" class="form-control" placeholder="{{ __('all.placeholder.filter') }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <div class="btn-group" id="grMaps" style="float:left">
-                                                <button type="button" class="btn btn-primary" id="add-mitra"><i class="fa fa-plus"></i> {{ __('all.button.new') }}</button>
-                                                <button class="btn btn-info dropdown-toggle" type="button" id="btnFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fa fa-filter"></i>
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="btnFilter" id="keepOpen">
-                                                    <form action="#">
-                                                        <div class="form-group">
-                                                            <input type="text" name="start_date" id="start_dtm_maps" class="form-control" placeholder="{{ __('all.start_date') }}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="text" name="end_date" id="end_dtm_maps" class="form-control" placeholder="{{ __('all.end_date') }}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <select name="provinsi" id="provinsi_maps" class="form-control" style="width: 100% !important;">
-                                                                <option value="" selected disabled>{{ __('all.placeholder.choose_prov') }}</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <select name="kabupaten" id="kabupaten_maps" class="form-control" style="width: 100% !important;">
-                                                                <option value="" selected disabled>{{ __('all.placeholder.choose_kab') }}</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <select name="status" id="status" class="form-control" style="width: 100% !important;">
-                                                                <option value="" selected disabled>{{ __('all.placeholder.choose_status') }}</option>
-                                                            </select>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
+<!-- Content Row -->
+<div class="row">
+    <div class="col-lg-12 mb-4">
+        <!-- Approach -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row">
+                    <div class="col-sm-8"></div>
+                    <div class="col-sm-2">
+                        <input type="text" name="search" id="search" class="form-control" placeholder="{{ __('all.filter') }}">
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-primary btn-sm" id="add-mitra"><i class="fa fa-plus"></i> {{ __('all.button.new') }}</button>
+                            <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="filterMaps" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showDropdown('dropMaps')">
+                                <i class="fa fa-filter"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right keep-open" aria-labelledby="filterMaps" id="dropMaps" style="width:300px;">
+                                <form id="formFilter" class="px-4 py-3" action="#">
+                                    <div class="form-group">
+                                        <select name="provinsi" id="provinsi_maps" class="form-control" style="width: 100% !important;">
+                                            <option value="" selected disabled>{{ __('all.placeholder.choose_prov') }}</option>
+                                        </select>
                                     </div>
-                                    <br>
-                                    <table class="table table-hover table-striped table-bordered" id="table-maps" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>{{ __('all.table.date') }}</th>
-                                                <th>{{ __('all.table.prov') }}</th>
-                                                <th>{{ __('all.table.city') }}</th>
-                                                <th>{{ __('all.table.qty') }}</th>
-                                                <th>{{ __('all.table.action') }}</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
+                                    <div class="form-group">
+                                        <select name="kabupaten" id="kabupaten_maps" class="form-control" style="width: 100% !important;">
+                                            <option value="" selected disabled>{{ __('all.placeholder.choose_kab') }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="coordinator_type" id="coordinator_type" class="form-control" style="width: 100% !important;">
+                                            <option value="" selected disabled>{{ __('all.placeholder.choose_coortype') }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="coordinator_category" id="coordinator_category" class="form-control" style="width: 100% !important;">
+                                            <option value="" selected disabled>{{ __('all.placeholder.choose_coorcategory') }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="status" id="status" class="form-control" style="width: 100% !important;">
+                                            <option value="" selected disabled>{{ __('all.placeholder.choose_status') }}</option>
+                                        </select>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div id="googleMap"></div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="table-responsive-sm">
+                    <div class="card-title">
+                        <h4>{{ __('all.table_chart') }}</h4>
+                    </div>
+                    <table class="table table-hover table-striped table-condensed table-bordered" id="table-maps" width="100%">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>{{ __('all.table.date') }}</th>
+                                <th>{{ __('all.table.prov') }}</th>
+                                <th>{{ __('all.table.city') }}</th>
+                                <th>{{ __('all.table.qty') }}</th>
+                                <th>{{ __('all.table.action') }}</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>
@@ -111,13 +96,15 @@
 
 <!-- Start Modal Change Password -->
 <div class="modal fade" id="modal-mitra" role="dialog">
-    <div class="modal-dialog modals-default">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">{{ __('all.add_partner') }}</h3>
+                <h3 class="modal-title text-white">{{ __('all.add_partner') }}</h3>
                 <hr>
             </div>
             <div class="modal-body">
+                <b>{{ __('all.modal_info') }}</b>
+                <br><br>
                 <form action="#" method="post">
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.code_user') }} <sup class="text-danger">*</sup></label>
@@ -164,7 +151,7 @@
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.table.address') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <textarea name="address" id="address" class="form-control" cols="30" rows="10"></textarea>
+                            <textarea name="address" id="address" class="form-control readonly" cols="30" rows="10" readonly></textarea>
                         </div>
                     </div>
             </div>
@@ -211,50 +198,15 @@
         showModal('remove-mitra'); 
     });
 
-    $('#start_dtm_maps').datepicker({
-        language: 'en',
-        dateFormat: 'dd M yyyy',
-        autoClose: true,
-        onSelect: function(fd, date) {
-            $('#end_dtm_maps').data('datepicker')
-                .update('minDate', date);
-            $('#end_dtm_maps').focus();
-        }
-    });
-
-    $('#end_dtm_maps').datepicker({
-        language: 'en',
-        dateFormat: 'dd M yyyy',
-        autoClose: true,
-        onSelect: function(fd, date) {
-            $('#start_dtm_maps').data('datepicker')
-                .update('maxDate', date);
-        }
-    });
-
-    function initMap() {
-       var myLatlng = {lat: -25.363, lng: 131.044};
-
-        var map6 = new google.maps.Map(document.getElementById('googleMap'), {
-            zoom: 4,
-            center: myLatlng
-        });
-
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map6,
-            title: 'Click to zoom'
-        });
+    // variabel global marker
+	function initMap() {
+        // The location of Uluru
+        var uluru = {lat: -25.344, lng: 131.036};
+        // The map, centered at Uluru
+        var map = new google.maps.Map(
+            document.getElementById('googleMap'), {zoom: 4, center: uluru});
+        // The marker, positioned at Uluru
+        var marker = new google.maps.Marker({position: uluru, map: map});
     }
-
-    initMap();
-
-    $("#btnFilter").on('click',function() {
-        if ($("#grMaps").hasClass('open')) {
-            $("#keepOpen").dropdown('hide');
-        } else {
-            $("#keepOpen").dropdown('show');
-        }
-    });
 </script>
 @endsection

@@ -13,393 +13,261 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon ============================================ -->
-    <link rel="shortcut icon" type="assets/image/png" href="{{ asset('assets/mitra/image/logo/icon.png') }}" />
-    <!-- Google Fonts
-		============================================ -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
-    <!-- Bootstrap CSS
-		============================================ -->
-    <link rel="stylesheet" href="{{ asset('assets/mitra/css/bootstrap.min.css') }}">
-    <!-- Bootstrap CSS
-        ============================================ -->
-    <link rel="stylesheet" href="{{ asset('assets/mitra/font-awesome/css/font-awesome.min.css') }}">
-    <!-- meanmenu CSS
-		============================================ -->
-    <link rel="stylesheet" href="{{ asset('assets/mitra/css/meanmenu/meanmenu.min.css') }}">
-    <!-- animate CSS
-		============================================ -->
-    <link rel="stylesheet" href="{{ asset('assets/mitra/css/animate.css') }}">
-    <!-- normalize CSS
-		============================================ -->
-    <link rel="stylesheet" href="{{ asset('assets/mitra/css/normalize.css') }}">
-	<!-- wave CSS
-		============================================ -->
-    <link rel="stylesheet" href="{{ asset('assets/mitra/css/wave/waves.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/mitra/css/wave/button.css') }}">
-    <!-- mCustomScrollbar CSS
-		============================================ -->
-    <link rel="stylesheet" href="{{ asset('assets/mitra/css/scrollbar/jquery.mCustomScrollbar.min.css') }}">
-    <!-- notika icon CSS
-		============================================ -->
-    <link rel="stylesheet" href="{{ asset('assets/mitra/css/notika-custom-icon.css') }}">
-    <!-- main CSS
-		============================================ -->
-    <link rel="stylesheet" href="{{ asset('assets/mitra/css/main.css') }}">
-    <!-- style CSS
-		============================================ -->
-    <link rel="stylesheet" href="{{ asset('assets/mitra/style.css') }}">
-    <!-- responsive CSS
-		============================================ -->
-    <link rel="stylesheet" href="{{ asset('assets/mitra/css/responsive.css') }}">
-    <!-- modernizr JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/vendor/modernizr-2.8.3.min.js') }}"></script>
-    <!-- Data Table CSS
-    ============================================ -->
-    <link rel="stylesheet" href="{{ asset('assets/mitra/css/jquery.dataTables.min.css') }}">
-    <!-- Air Datepicker
-    ============================================ -->
-    <link rel="stylesheet" href="{{ asset('assets/mitra/css/air-datepicker/datepicker.min.css') }}">
-    <!-- select 2 -->
-    <link rel="stylesheet" href="{{ asset('assets/mitra/css/select2/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/mitra/css/select2/select2-bootstrap4.min.css') }}">
+    <link rel="shortcut icon" type="assets/image/png" href="{{ asset('assets/admin/image/logo/icon.png') }}" />
+
+    <!-- Custom fonts for this template-->
+    <link href="{{ asset('assets/admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{{ asset('assets/admin/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Air Datepicker -->
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/air-datepicker/datepicker.min.css') }}">
+    <!-- Select 2 -->
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/select2/select2-bootstrap4.min.css') }}">
 
     <style>
-        .dropdown-menu {
-            padding-top : 1.5rem !important;
-            padding-right : 1.5rem !important;
-            padding-left : 1.5rem !important;
-            right : 0 !important;
-            left : unset !important;
-            width : 300px;
-        }
-
         .readonly {
             background-color : white !important;
         }
+        .datepicker{
+            z-index:1151;
+        }
     </style>
+
 </head>
 
-<body>
-    <!-- Start Header Top Area -->
-    <div class="header-top-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                    <ul class="nav navbar-nav notika-top-nav" style="float:left;">
-                        <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="fa fa-flag"></i> {{ __('all.language') }}</span></a>
-                            <div role="menu" class="dropdown-menu message-dd chat-dd animated zoomIn">
-                                <div class="hd-message-info">
-                                    <a href="#">
-                                        <div class="hd-message-sn">
-                                            <div class="hd-message-img chat-img">
-                                                
-                                            </div>
-                                            <div class="hd-mg-ctn">
-                                                <a class="{{ app()->getLocale() == 'en' ? 'active' : '' }}" href="{{ route('localization.switch', 'en') }}">English</a>
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a href="#">
-                                        <div class="hd-message-sn">
-                                            <div class="hd-message-img chat-img">
-                                            </div>
-                                            <div class="hd-mg-ctn">
-                                                <a class="{{ app()->getLocale() == 'id' ? 'active' : '' }}" href="{{ route('localization.switch', 'id') }}">Bahasa Indonesia</a>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-custome topbar mb-4 static-top shadow">
+
+                    <!-- Topbar Search -->
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span><i class="fa fa-flag"></i> {{ __('all.language') }}</span>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item {{ app()->getLocale() == 'en' ? 'active' : '' }}" href="{{ route('localization.switch', 'en') }}">English</a>
+                            <a class="dropdown-item {{ app()->getLocale() == 'id' ? 'active' : '' }}" href="{{ route('localization.switch', 'id') }}">Bahasa Indonesia</a>
+                        </div>
+                    </div>
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item -->
+                        <li class="nav-item no-arrow mx-1">
+                            <a class="nav-link" href="{{ route('home') }}">{{ __('all.home') }}</a>
+                        </li>
+                        <li class="nav-item no-arrow mx-1">
+                            <a class="nav-link" href="{{ route('partner') }}">{{ __('all.partners') }}</a>
+                        </li>
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span>{{ __('all.setting') }}</span>
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                                <a class="dropdown-item" href="{{ route('user') }}">
+                                    {{ __('all.users') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('announcement') }}">
+                                    {{ __('all.announcement') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('category') }}">
+                                    {{ __('all.category') }}
+                                </a>
                             </div>
                         </li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-white">{{ __('all.admin') }}</span>
+                                <i class="fa fa-user-circle"></i>
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#" onclick="showModal('changePassword')">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    {{ __('all.change') }}
+                                </a>
+                                <a class="dropdown-item" href="#" onclick="showModal('editProfile')">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    {{ __('all.profile') }}
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" onclick="showModal('logoutModal')">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    {{ __('all.logout') }}
+                                </a>
+                            </div>
+                        </li>
+
                     </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    @yield('content')
                 </div>
-                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                    <div class="header-top-menu">
-                        <ul class="nav navbar-nav notika-top-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('home') }}">{{ __('all.home') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('partner') }}">{{ __('all.partners') }}</a>
-                            </li>
-                            <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span>{{ __('all.setting') }}</span></a>
-                                <div role="menu" class="dropdown-menu message-dd chat-dd animated zoomIn">
-                                    <div class="hd-message-info">
-                                        <a href="{{ route('user') }}">
-                                            <div class="hd-message-sn">
-                                                <div class="hd-message-img chat-img">
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
 
-                                                </div>
-                                                <div class="hd-mg-ctn">
-                                                    <h3>{{ __('all.users') }}</h3>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="{{ route('announcement') }}">
-                                            <div class="hd-message-sn">
-                                                <div class="hd-message-img chat-img">
-                                                </div>
-                                                <div class="hd-mg-ctn">
-                                                    <h3>{{ __('all.announcement') }}</h3>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="{{ route('category') }}">
-                                            <div class="hd-message-sn">
-                                                <div class="hd-message-img chat-img">
-                                                </div>
-                                                <div class="hd-mg-ctn">
-                                                    <h3>{{ __('all.category') }}</h3>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span>{{ __('all.admin') }} <i class="fa fa-user"></i></span></a>
-                                <div role="menu" class="dropdown-menu message-dd chat-dd animated zoomIn">
-                                    <div class="hd-message-info">
-                                        <a href="#" onclick="showModal('changePassword')">
-                                            <div class="hd-message-sn">
-                                                <div class="hd-message-img chat-img">
-
-                                                </div>
-                                                <div class="hd-mg-ctn">
-                                                    <h3>{{ __('all.change') }}</h3>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" onclick="showModal('editProfile')">
-                                            <div class="hd-message-sn">
-                                                <div class="hd-message-img chat-img">
-                                                </div>
-                                                <div class="hd-mg-ctn">
-                                                    <h3>{{ __('all.profile') }}</h3>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="hd-message-sn">
-                                                <div class="hd-message-img chat-img">
-                                                </div>
-                                                <div class="hd-mg-ctn">
-                                                    <h3>{{ __('all.logout') }}</h3>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+            <!-- Footer -->
+            <footer class="sticky-footer bg-custome">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span style="color:#fff!important">Copyright © 2020 . All rights reserved. Mitra Nazar id</span>
                     </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">{{ __('all.cancel') }}</button>
+                    <a class="btn btn-primary" href="login.html">{{ __('all.logout') }}</a>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Header Top Area -->
 
-    <main class="py-4">
-        
-        <!-- Start Modal Change Password -->
-        <div class="modal fade" id="changePassword" role="dialog">
-            <div class="modal-dialog modals-default">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title">{{ __('all.change') }}</h3>
-                        <hr>
-                    </div>
-                    <div class="modal-body">
-                        <form action="#" method="post">
-                            <div class="form-group row">
-                                <label for="old" class="col-sm-3">{{ __('all.form.old_password') }} <sup class="text-danger">*</sup></label>
-                                <div class="col-sm-9">
-                                    <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('all.placeholder.password') }}">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="old" class="col-sm-3">{{ __('all.form.new_password') }} <sup class="text-danger">*</sup></label>
-                                <div class="col-sm-9">
-                                    <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('all.placeholder.new_password') }}">
-                                    
-                                </div>
-                            </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                        <button type="button" class="btn btn-primary">{{ __('all.save') }}</button>
-                        </form>
-                    </div>
+    <!-- Change Password Modal-->
+    <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white">{{ __('all.change') }}</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div>
-        </div>
-        <!-- End Modal Change Password -->
-
-        <!-- Start Modal Change Password -->
-        <div class="modal fade" id="editProfile" role="dialog">
-            <div class="modal-dialog modals-default">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title">{{ __('all.profile') }}</h3>
-                        <hr>
-                    </div>
-                    <div class="modal-body">
-                        <form action="#" method="post">
-                            <div class="form-group row">
-                                <label for="old" class="col-sm-3">{{ __('all.form.username') }} <sup class="text-danger">*</sup></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="username" id="username" class="form-control readonly" placeholder="{{ __('all.placeholder.username') }}" readonly>
-                                </div>
+                <div class="modal-body">
+                    <form action="#" method="post">
+                        <div class="form-group row">
+                            <label for="old" class="col-sm-3">{{ __('all.form.old_password') }} <sup class="text-danger">*</sup></label>
+                            <div class="col-sm-9">
+                                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('all.placeholder.password') }}">
                             </div>
-                            <div class="form-group row">
-                                <label for="old" class="col-sm-3">{{ __('all.form.email') }} <sup class="text-danger">*</sup></label>
-                                <div class="col-sm-9">
-                                    <input type="email" name="email" id="email" class="form-control" placeholder="{{ __('all.placeholder.email') }}">
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="old" class="col-sm-3">{{ __('all.form.new_password') }} <sup class="text-danger">*</sup></label>
+                            <div class="col-sm-9">
+                                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('all.placeholder.new_password') }}">
+                                
                             </div>
-                            <div class="form-group row">
-                                <label for="old" class="col-sm-3">{{ __('all.form.telp') }} <sup class="text-danger">*</sup></label>
-                                <div class="col-sm-9">
-                                    <input type="text" name="telp" id="telp" class="form-control" placeholder="{{ __('all.placeholder.telp') }}">
-                                </div>
-                            </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                        <button type="button" class="btn btn-primary">{{ __('all.save') }}</button>
-                        </form>
-                    </div>
+                        </div>
                 </div>
-            </div>
-        </div>
-        <!-- End Modal Change Password -->
-          
-        @yield('content')
-    </main>
-
-    <!-- Start Footer area-->
-    <div class="footer-copyright-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="footer-copy-right">
-                        <p>Copyright © 2020 
-. All rights reserved. Mitra Nazar id</p>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
+                    <button type="button" class="btn btn-primary">{{ __('all.save') }}</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Footer area-->
 
-    <!-- jquery
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/vendor/jquery-1.12.4.min.js') }}"></script>
-    <!-- bootstrap JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/bootstrap.min.js') }}"></script>
-    <!-- wow JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/wow.min.js') }}"></script>
-    <!-- price-slider JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/jquery-price-slider.js') }}"></script>
-    <!-- owl.carousel JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/owl.carousel.min.js') }}"></script>
-    <!-- scrollUp JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/jquery.scrollUp.min.js') }}"></script>
-    <!-- meanmenu JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/meanmenu/jquery.meanmenu.js') }}"></script>
-    <!-- counterup JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/counterup/jquery.counterup.min.js') }}"></script>
-    <script src="{{ asset('assets/mitra/js/counterup/waypoints.min.js') }}"></script>
-    <script src="{{ asset('assets/mitra/js/counterup/counterup-active.js') }}"></script>
-    <!-- mCustomScrollbar JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/scrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-    <!-- sparkline JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/sparkline/jquery.sparkline.min.js') }}"></script>
-    <script src="{{ asset('assets/mitra/js/sparkline/sparkline-active.js') }}"></script>
-    <!-- sparkline JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/flot/jquery.flot.js') }}"></script>
-    <script src="{{ asset('assets/mitra/js/flot/jquery.flot.resize.js') }}"></script>
-    <script src="{{ asset('assets/mitra/js/flot/curvedLines.js') }}"></script>
-    <script src="{{ asset('assets/mitra/js/flot/flot-active.js') }}"></script>
-    <!-- knob JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/knob/jquery.knob.js') }}"></script>
-    <script src="{{ asset('assets/mitra/js/knob/jquery.appear.js') }}"></script>
-    <script src="{{ asset('assets/mitra/js/knob/knob-active.js') }}"></script>
-    <!--  wave JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/wave/waves.min.js') }}"></script>
-    <script src="{{ asset('assets/mitra/js/wave/wave-active.js') }}"></script>
-    <!--  todo JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/todo/jquery.todo.js') }}"></script>
-    <!-- plugins JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/plugins.js') }}"></script>
-    <!-- Google map JS
-    ============================================ -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVOIQ3qXUCmKVVV7DVexPzlgBcj5mQJmQ&callback=initMap"></script>
-	<!--  Chat JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/chat/moment.min.js') }}"></script>
-    <script src="{{ asset('assets/mitra/js/chat/jquery.chat.js') }}"></script>
-    <!-- main JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/main.js') }}"></script>
-    <!-- Data Table JS
-		============================================ -->
-    <script src="{{ asset('assets/mitra/js/data-table/jquery.dataTables.min.js') }}"></script>
-    <!-- <script src="{{ asset('assets/mitra/js/data-table/dataTables.bootstrap4.min.js') }}"></script> -->
-    <!-- Air Datepicker
-    ============================================ -->
-    <script src="{{ asset('assets/mitra/js/air-datepicker/datepicker.min.js') }}"></script>
-    <script src="{{ asset('assets/mitra/js/air-datepicker/datepicker.en.js') }}"></script>
+    <!-- Change Profile Modal-->
+    <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white">{{ __('all.profile') }}</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" method="post">
+                        <div class="form-group row">
+                            <label for="old" class="col-sm-3">{{ __('all.form.username') }} <sup class="text-danger">*</sup></label>
+                            <div class="col-sm-9">
+                                <input type="text" name="username" id="username" class="form-control readonly" placeholder="{{ __('all.placeholder.username') }}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="old" class="col-sm-3">{{ __('all.form.email') }} <sup class="text-danger">*</sup></label>
+                            <div class="col-sm-9">
+                                <input type="email" name="email" id="email" class="form-control" placeholder="{{ __('all.placeholder.email') }}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="old" class="col-sm-3">{{ __('all.form.telp') }} <sup class="text-danger">*</sup></label>
+                            <div class="col-sm-9">
+                                <input type="text" name="telp" id="telp" class="form-control" placeholder="{{ __('all.placeholder.telp') }}">
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
+                    <button type="button" class="btn btn-primary">{{ __('all.save') }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- chart js -->
-    <script src="{{ asset('assets/mitra/js/chartjs/chart.js') }}"></script>
-    <script src="{{ asset('assets/mitra/js/chartjs/chart.min.js') }}"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{ asset('assets/admin/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-    <!-- select 2 -->
-    <script src="{{ asset('assets/mitra/js/select2/select2.min.js') }}"></script>
-    <script src="{{ asset('assets/mitra/js/select2/id.js') }}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{{ asset('assets/admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
+    <!-- Custom scripts for all pages-->
+    <script src="{{ asset('assets/admin/js/sb-admin-2.min.js') }}"></script>
+
+    <!-- Select 2 -->
+    <script src="{{ asset('assets/admin/js/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/select2/id.js') }}"></script>
+
+    <!-- Air Datepicker -->
+    <script src="{{ asset('assets/admin/js/air-datepicker/datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/air-datepicker/datepicker.en.js') }}"></script>
+
+    <!-- Chart js -->
+    <script src="{{ asset('assets/admin/js/chart/chart.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/chart/chart.min.js') }}"></script>
+
+    <!-- Google maps js -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7Ah8Zuhy2ECqqjBNF8ri2xJ7mwwtIbwo&callback=initMap"></script>
+
+    <!-- generic js -->
+    <script src="{{ asset('assets/admin/js/generic.js') }}"></script>
+    
     @yield('script')
 
-    <script>
-        function showModal(modal) {
-            $('#'+modal).modal({backdrop: 'static', keyboard: false});
-            $('#'+modal).modal('show');
-        }
-
-        function modalSelect2(modal) {
-            $('#'+modal).find('select').select2({
-                theme: 'bootstrap4',
-                dropdownParent: '#'+modal
-            });
-        }
-
-        $('select').select2({
-            theme: 'bootstrap4',
-        });
-
-        $("#btnFilter").on('click',function() {
-            if ($("#dropdownFilter").hasClass('show')) {
-                $("#dropdownFilter").dropdown('hide');
-            } else {
-                $("#dropdownFilter").dropdown('show');
-            }
-        });
-    </script>
 </body>
 
 </html>
