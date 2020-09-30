@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="col-sm-8"></div>
                     <div class="col-sm-2">
-                        <input type="text" name="search" id="search" class="form-control" placeholder="{{ __('all.filter') }}">
+                        <input type="text" name="search" id="search" class="form-control" placeholder="{{ __('all.placeholder.filter') }}">
                     </div>
                     <div class="col-sm-2">
                         <div class="btn-group" role="group">
@@ -122,6 +122,12 @@
                         <label for="old" class="col-sm-3">{{ __('all.table.coordinator_type') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
                             <input type="text" name="coordinator_type" id="coordinator_type" class="form-control readonly" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="category" class="col-sm-3">{{ __('all.category_coordinator') }}</label>
+                        <div class="col-sm-9">
+                            <select name="coordinator_category" id="coor_category" class="form-control"></select>
                         </div>
                     </div>
                     <div class="form-group row">
