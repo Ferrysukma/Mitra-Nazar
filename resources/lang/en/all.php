@@ -82,7 +82,7 @@ return [
     ),
     'filter'                => 'Filter',
     'add_partner'           => 'Create Partner',
-    'add_user'              => 'Create Partner',
+    'add_user'              => 'Create User',
     'cancel'                => 'Cancel',
     'yes'                   => 'Yes diabled it',
     'confirm'               => 'Are you sure to disable this partner',

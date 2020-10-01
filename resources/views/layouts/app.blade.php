@@ -34,6 +34,9 @@
         .datepicker{
             z-index:1151;
         }
+        footer {
+            margin-top: 162px;
+        }
     </style>
 
 </head>
@@ -246,7 +249,7 @@
     <script src="{{ asset('assets/admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="{{ asset('assets/admin/js/sb-admin-2.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/bootstrap.min.js') }}"></script>
 
     <!-- Select 2 -->
     <script src="{{ asset('assets/admin/js/select2/select2.min.js') }}"></script>

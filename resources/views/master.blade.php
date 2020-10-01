@@ -18,23 +18,22 @@
 </div>
 
 <!-- Content Row -->
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="chart-tab" data-toggle="tab" href="#chart" role="tab" aria-controls="chart" aria-selected="true">{{ __('all.chart') }}</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="maps-tab" data-toggle="tab" href="#maps" role="tab" aria-controls="maps" aria-selected="false">{{ __('all.maps') }}</a>
+    </li>
+</ul>
 <div class="row">
     <div class="col-lg-12 mb-4">
-        <!-- Approach -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <ul class="nav nav-tabs" id="myTab" role="tablist" style="float:right">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="chart-tab" data-toggle="tab" href="#chart" role="tab" aria-controls="chart" aria-selected="true">{{ __('all.chart') }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="maps-tab" data-toggle="tab" href="#maps" role="tab" aria-controls="maps" aria-selected="false">{{ __('all.maps') }}</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="card-body">
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="chart" role="tabpanel" aria-labelledby="chart-tab">
+        <!-- Approach chart -->
+        
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="chart" role="tabpanel" aria-labelledby="chart-tab">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
                         <div class="btn-group" role="group" style="float:right">
                             <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="filterChart" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="showDropdown('dropChart')">
                                 <span>{{ __('all.filter') }}</span> <i class="fa fa-filter"></i>
@@ -60,6 +59,8 @@
                                 </form>
                             </div>
                         </div>
+                    </div>
+                    <div class="card-body">
                         <div class="card-title">
                             <h4>{{ __('all.title_chart') }}</h4>
                         </div>
@@ -68,7 +69,8 @@
                                 <canvas id="myChart" style="display:block;width:100px:height:100px"></canvas>
                             </div>
                         </div>
-                        <div class="dropdown-divider"></div>
+                    </div>
+                    <div class="card-footer">
                         <div class="table-responsive-sm">
                             <div class="card-title">
                                 <h4>{{ __('all.table_chart') }}</h4>
@@ -94,7 +96,11 @@
                             </table>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="maps" role="tabpanel" aria-labelledby="profile-tab">
+                </div>
+            </div>
+            <div class="tab-pane fade" id="maps" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
                         <div class="btn-group" role="group" style="float:right">
                             <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="filterMaps" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showDropdown('dropMaps')">
                                 <span>{{ __('all.filter') }}</span>
@@ -120,32 +126,35 @@
                                 </form>
                             </div>
                         </div>
+                    </div>
+                    <div class="card-body">
                         <div class="card-title">
                             <h4>{{ __('all.title_maps') }}</h4>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div id="googleMap"></div>
                         </div>
-                        <div class="dropdown-divider"></div>
-                        <div class="table-responsive-sm">
-                            <div class="card-title">
-                                <h4>{{ __('all.table_chart') }}</h4>
-                            </div>
-                            <table class="table table-hover table-striped table-condensed table-bordered" id="table-maps" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>{{ __('all.table.date') }}</th>
-                                        <th>{{ __('all.table.prov') }}</th>
-                                        <th>{{ __('all.table.city') }}</th>
-                                        <th>{{ __('all.table.qty') }}</th>
-                                        <th>{{ __('all.table.action') }}</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
                     </div>
-                </div>
+                    <div class="card-footer">
+                        <div class="table-responsive-sm">
+                        <div class="card-title">
+                            <h4>{{ __('all.table_chart') }}</h4>
+                        </div>
+                        <table class="table table-hover table-striped table-condensed table-bordered" id="table-maps" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>{{ __('all.table.date') }}</th>
+                                    <th>{{ __('all.table.prov') }}</th>
+                                    <th>{{ __('all.table.city') }}</th>
+                                    <th>{{ __('all.table.qty') }}</th>
+                                    <th>{{ __('all.table.action') }}</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    </div>
+                </div
             </div>
         </div>
     </div>
