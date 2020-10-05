@@ -25,4 +25,5 @@ Route::get('/announcement', [App\Http\Controllers\Admin\AnnouncementController::
 Route::get('/category', [App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('category');
 Route::get('/loadListCategory', [App\Http\Controllers\Admin\CategoryController::class, 'loadList'])->name('loadListCategory');
 Route::post('/createCategory', [App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('createCategory');
+Route::post('/deleteCategory', [App\Http\Controllers\Admin\CategoryController::class, 'delete'])->name('deleteCategory');
 Route::get('lang/{language}', [App\Http\Controllers\LocalizationController::class, 'switch'])->name('localization.switch');

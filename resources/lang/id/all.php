@@ -90,6 +90,7 @@ return [
     'cancel'                => 'Batal',
     'yes'                   => 'Ya, Nonaktifkan',
     'confirm'               => 'Anda yakin untuk menonaktifkan mitra ini',
+    'confirm_disable'       => 'Anda yakin untuk menonaktifkan',
     'text_confirm'          => 'Nonaktifkan partner ini akan mengakibatkan partner tidak dapat mengoperasikan semua fitur partner baik itu web, android dan iOS',
     'setting'               => 'Pengaturan',
     'category'              => 'Master Data',
@@ -138,6 +139,8 @@ return [
         'fail_login'    => 'Login gagal! nama pengguna atau password salah.',
         'success'       => 'Berhasil menyimpan data',
         'fail'          => 'Gagal menyimpan data',
+        'delete'        => 'Berhasil menghapus data',
+        'fail_delete'   => 'Gagal menghapus data',
     ),
 ]
 

@@ -124,6 +124,61 @@
         });
     }
 
+    
+
+    function disable(id, name) {
+        bootbox.confirm({
+            message: "{{ __('all.confirm_disable') }} <b>"+name+"</b>?",
+            buttons: {
+                confirm: {
+                    label: '{{ __("all.yes") }}',
+                    className: 'btn-primary'
+                },
+                cancel: {
+                    label: '{{ __("all.cancel") }}',
+                    className: 'btn-secondary'
+                }
+            },
+            callback: function (res) {
+                if(res){
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                        type    : "POST",
+                        url     : "{{ route('deleteCategory') }}",
+                        data	: {
+                            id  : id,
+                        },
+                        dataType: "JSON",
+                        beforeSend: function(){
+                            $(this).buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+                            $(".table-category").parent().ploading({action : 'show'});
+                        },
+                        success     : function(data){
+                            if (data.code == 0) {
+                                notif('success', '{{ __("all.success") }}', '{{ __("all.alert.delete") }}');
+                                showData();
+                            } else {
+                                notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_delete") }}');
+                            }
+                        },
+                        complete    : function(){
+                            $(this).buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                            $(".table-category").parent().ploading({action : 'hide'});
+                        },
+                        error 		: function(){
+                            notif('error', '{{ __("all.error") }}');
+                        }
+                    });
+                }
+            }
+        });
+    }
+
     $(document).ready(function(){
         $("#table-maps").on('click','.action-edit',function(){
             var row  = $(this).closest("tr"); 
@@ -134,6 +189,15 @@
             $('#id').val(col1);
             $('#category_name').val(col3);
             $('#btnSave').removeAttr('disabled');
+        });
+
+        $("#table-maps").on('click','.action-delete',function(){
+            var row  = $(this).closest("tr"); 
+            
+            var col1 = row.find("td:eq(1)").text();
+            var col3 = row.find("td:eq(3)").text();
+
+            disable(col1, col3);
         });
     });
 

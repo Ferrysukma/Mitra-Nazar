@@ -65,7 +65,7 @@ class CategoryController extends Controller
                                             title='".__('all.button.edit')."' data-toggle='tooltip' data-placement='top'>
                                             <i class='fa fa-edit'></i>
                                         </button>
-                                        <button type='button' class='btn btn-sm btn-danger' onclick='delete()' 
+                                        <button type='button' class='btn btn-sm btn-danger action-delete'  
                                             title='".__('all.button.delete')."' data-toggle='tooltip' data-placement='top'>
                                             <i class='fa fa-trash'></i>
                                         </button>
@@ -86,7 +86,7 @@ class CategoryController extends Controller
     public function create(Request $request)
     {
         $client     = new Client();
-
+        
         if (isset($request->id) && !empty($request->id)) {
             $url        = $this->base_url . 'mitra/admin/kategori/edit';
             $request    = $client->post($url, [
@@ -125,83 +125,12 @@ class CategoryController extends Controller
             
     }
 
-    public function sub_category($id)
+    public function delete(Request $request)
     {
-        $client = new Client();
-
-        $url = $this->base_url . 'admin/category/get';
-        $request = $client->post($url, [
-            'headers'   => [
-                'Authorization' => Session::get('admin_key')
-            ],
-            'json'      => [
-                "payload"   => [
-                    "limit"         => 100,
-                    "pageNumber"    => 0,
-                    "id"            => $id
-                ]
-            ]
-        ]);
-        $response   = $request->getBody()->getContents();
-        $status     = json_decode((string) $response, true)['status']['statusCode'];
-
-        $url_kategori       = $this->base_url . 'admin/main-category/get';
-        $request_kategori   = $client->post($url_kategori, [
-            'headers'   => [
-                'Authorization' => Session::get('admin_key')
-            ],
-            'json'      => [
-                "payload"   => [
-                    "limit"         => 100,
-                    "pageNumber"    => 0
-                ]
-            ]
-        ]);
-        $response_kategori   = $request_kategori->getBody()->getContents();
-        $data_kategori       = json_decode((string) $response_kategori, true)['payload'];
+        $client     = new Client();
         
-        if ($status == '000') {
-            $result = json_decode((string) $response)->payload;
-        } else {
-            $result = 'empty';
-        }
-
-        return view('admin.masterData.subCategory', ['data' => $result, 'id' => $id, 'data_kategori' => $data_kategori]);
-    }
-
-    public function activated_sub_category(Request $request)
-    {
-        $client = new Client();
-
-        $url = $this->base_url . 'admin/category/activate';
-        $request = $client->post($url, [
-            'headers'   => [
-                'Authorization' => Session::get('admin_key')
-            ],
-            'json'      => [
-                "payload"   => [
-                    "id"         => $request->id,
-                    "active"     => $request->active
-                ]
-            ]
-        ]);
-        $response   = $request->getBody()->getContents();
-        $status     = json_decode((string) $response, true)['status']['statusCode'];
-
-        if ($status == '000') {
-            $result = 'success';
-        } else {
-            $result = 'empty';
-        }
-
-        return json_encode($result);
-    }
-
-    public function delete_sub_category(Request $request)
-    {
-        $client = new Client();
-        $url = $this->base_url . 'admin/category/delete';
-        $request = $client->post($url, [
+        $url        = $this->base_url . 'mitra/admin/kategori/disable';
+        $request    = $client->post($url, [
             'headers'   => [
                 'Authorization' => Session::get('admin_key')
             ],
@@ -211,248 +140,15 @@ class CategoryController extends Controller
                 ]
             ]
         ]);
+
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];
 
         if ($status == '000') {
-            $result = 'success';
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
         } else {
-            $result = 'empty';
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
         }
-
-        return json_encode($result);
     }
 
-    public function add_sub_category(Request $request)
-    {
-        $client = new Client();
-        $url = $this->base_url . 'admin/category/add';
-        $request = $client->post($url, [
-            'headers'   => [
-                'Authorization' => Session::get('admin_key')
-            ],
-            'json'      => [
-                "payload"   => [
-                    "name"         => $request->name,
-                    "parentId"     => $request->id
-                ]
-            ]
-        ]);
-        $response   = $request->getBody()->getContents();
-        $status     = json_decode((string) $response, true)['status']['statusCode'];
-
-        if ($status == '000') {
-            $result = 'success';
-        } else {
-            $result = 'empty';
-        }
-
-        return json_encode($result);
-    }
-
-    public function update_sub_category(Request $request)
-    {
-        $client = new Client();
-        $url = $this->base_url . 'admin/category/edit';
-        $request = $client->post($url, [
-            'headers'   => [
-                'Authorization' => Session::get('admin_key')
-            ],
-            'json'      => [
-                "payload"   => [
-                    "name"         => $request->name,
-                    "id"           => $request->id
-                ]
-            ]
-        ]);
-        $response   = $request->getBody()->getContents();
-        $status     = json_decode((string) $response, true)['status']['statusCode'];
-
-        if ($status == '000') {
-            $result = 'success';
-        } else {
-            $result = 'empty';
-        }
-
-        return json_encode($result);
-    }
-
-    public function change_sub_category(Request $request)
-    {
-        $client = new Client();
-        $url = $this->base_url . 'admin/category/ubah-kategori';
-        $request = $client->post($url, [
-            'headers'   => [
-                'Authorization' => Session::get('admin_key')
-            ],
-            'json'      => [
-                "payload"   => [
-                    "parentId"     => $request->kategori,
-                    "id"           => $request->idSubkategori
-                ]
-            ]
-        ]);
-        $response   = $request->getBody()->getContents();
-        $status     = json_decode((string) $response, true)['status']['statusCode'];
-
-        if ($status == '000') {
-            $result = 'success';
-        } else {
-            $result = 'empty';
-        }
-
-        return json_encode($result);
-    }
-
-    public function sub_sub_category($parentId, $id)
-    {
-        $client = new Client();
-
-        $url = $this->base_url . 'admin/sub-category/get';
-        $request = $client->post($url, [
-            'headers'   => [
-                'Authorization' => Session::get('admin_key')
-            ],
-            'json'      => [
-                "payload"   => [
-                    "limit"         => 100,
-                    "pageNumber"    => 0,
-                    "id"            => $id
-                ]
-            ]
-        ]);
-        $response   = $request->getBody()->getContents();
-        $status     = json_decode((string) $response, true)['status']['statusCode'];
-
-        $url_kategori       = $this->base_url . 'admin/category/get';
-        $request_kategori   = $client->post($url_kategori, [
-            'headers'   => [
-                'Authorization' => Session::get('admin_key')
-            ],
-            'json'      => [
-                "payload"   => [
-                    "limit"         => 100,
-                    "pageNumber"    => 0,
-                    "id"            => $parentId,
-                ]
-            ]
-        ]);
-        $response_kategori   = $request_kategori->getBody()->getContents();
-        $data_kategori       = json_decode((string) $response_kategori, true)['payload'];
-        
-        if ($status == '000') {
-            $result = json_decode((string) $response)->payload;
-        } else {
-            $result = 'empty';
-        }
-
-        return view('admin.masterData.subSubCategory', ['data' => $result, 'id' => $id, 'parentId' =>$parentId, 'data_kategori' => $data_kategori]);
-    }
-
-    public function add_sub_sub_category(Request $request)
-    {
-        $client = new Client();
-        $url = $this->base_url . 'admin/sub-category/add';
-        $request = $client->post($url, [
-            'headers'   => [
-                'Authorization' => Session::get('admin_key')
-            ],
-            'json'      => [
-                "payload"   => [
-                    "name"         => $request->name,
-                    "categoryId"   => $request->id
-                ]
-            ]
-        ]);
-        $response   = $request->getBody()->getContents();
-        $status     = json_decode((string) $response, true)['status']['statusCode'];
-
-        if ($status == '000') {
-            $result = 'success';
-        } else {
-            $result = 'empty';
-        }
-
-        return json_encode($result);
-    }
-
-    public function update_sub_sub_category(Request $request)
-    {
-        $client = new Client();
-        $url = $this->base_url . 'admin/sub-category/edit';
-        $request = $client->post($url, [
-            'headers'   => [
-                'Authorization' => Session::get('admin_key')
-            ],
-            'json'      => [
-                "payload"   => [
-                    "name"         => $request->name,
-                    "id"           => $request->id
-                ]
-            ]
-        ]);
-        $response   = $request->getBody()->getContents();
-        $status     = json_decode((string) $response, true)['status']['statusCode'];
-
-        if ($status == '000') {
-            $result = 'success';
-        } else {
-            $result = 'empty';
-        }
-
-        return json_encode($result);
-    }
-
-    public function change_sub_sub_category(Request $request)
-    {
-        $client = new Client();
-        $url = $this->base_url . 'admin/sub-category/ubah-kategori';
-        $request = $client->post($url, [
-            'headers'   => [
-                'Authorization' => Session::get('admin_key')
-            ],
-            'json'      => [
-                "payload"   => [
-                    "categoryId"   => $request->kategori,
-                    "id"           => $request->idSubkategori
-                ]
-            ]
-        ]);
-        $response   = $request->getBody()->getContents();
-        $status     = json_decode((string) $response, true)['status']['statusCode'];
-
-        if ($status == '000') {
-            $result = 'success';
-        } else {
-            $result = 'empty';
-        }
-
-        return json_encode($result);
-    }
-
-    public function delete_sub_sub_category(Request $request)
-    {
-        $client = new Client();
-        $url = $this->base_url . 'admin/sub-category/delete';
-        $request = $client->post($url, [
-            'headers'   => [
-                'Authorization' => Session::get('admin_key')
-            ],
-            'json'      => [
-                "payload"   => [
-                    "id"         => $request->id
-                ]
-            ]
-        ]);
-        $response   = $request->getBody()->getContents();
-        $status     = json_decode((string) $response, true)['status']['statusCode'];
-
-        if ($status == '000') {
-            $result = 'success';
-        } else {
-            $result = 'empty';
-        }
-
-        return json_encode($result);
-    }
 }

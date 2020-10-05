@@ -90,6 +90,7 @@ return [
     'cancel'                => 'Cancel',
     'yes'                   => 'Yes diabled it',
     'confirm'               => 'Are you sure to disable this partner',
+    'confirm_disable'       => 'Are you sure to disable',
     'text_confirm'          => 'Disable this partner will result in the partner unable to operate all partner features be it web, android and iOS',
     'setting'               => 'Setting',
     'category'              => 'Master Data',
@@ -137,7 +138,9 @@ return [
         'login'         => 'Login is successful. Welcome to Admin Mitra Nazar.id',
         'fail_login'    => 'login failed. Incorrect username or password',
         'success'       => 'Successfully saved data',
-        'fail'          => 'failed to save data',
+        'fail'          => 'Failed to save data',
+        'delete'        => 'Successfully deleted data',
+        'fail_delete'   => 'Failed to delete data',
 
     ),
 ]

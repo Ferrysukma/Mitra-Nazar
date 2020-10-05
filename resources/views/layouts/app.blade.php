@@ -274,6 +274,10 @@
     <script src="{{ asset('assets/admin/js/p-loading/p-loading.js') }}"></script>
     <!-- generic js -->
     <script src="{{ asset('assets/admin/js/generic.js') }}"></script>
+    <!-- bootbox js -->
+    <script src="{{ asset('assets/admin/js/bootbox/bootbox.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/bootbox/bootbox.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js.map"></script>
     
     @yield('script')
 
