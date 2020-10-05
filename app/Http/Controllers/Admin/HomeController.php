@@ -17,7 +17,7 @@ class HomeController extends Controller
     {
         $this->base_url = Controller::api();
         if (empty(Session::get('admin_key'))) {
-            return redirect('/login');
+            return redirect('/login_admin');
         }
     }
 

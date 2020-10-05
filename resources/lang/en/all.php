@@ -82,6 +82,7 @@ return [
         'back'              => 'Back',
         'edit'              => 'Edit',
         'delete'            => 'Delete',
+        'reset'             => 'Reset',
     ),
     'filter'                => 'Filter',
     'add_partner'           => 'Create Partner',
@@ -134,7 +135,10 @@ return [
     'comment_logout'    => 'Select "Logout" below if you are ready to end your current session.',
     'alert'             => array(
         'login'         => 'Login is successful. Welcome to Admin Mitra Nazar.id',
-        'fail_login'    => 'login failed. Incorrect username or password'
+        'fail_login'    => 'login failed. Incorrect username or password',
+        'success'       => 'Successfully saved data',
+        'fail'          => 'failed to save data',
+
     ),
 ]
 

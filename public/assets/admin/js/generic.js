@@ -1,7 +1,8 @@
-function resetForm($form)
+function resetForm(form)
 {
-    $form.find('input:text, input:password, input:file, select, textarea, input:hidden').val('');
-    $form.find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
+    $('#'+form)[0].reset();
+    $('#'+form).find('input:text, input:password, input:file, select, textarea, input:hidden').val('');
+    $('#'+form).find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
 }
 
 function populateForm($form, data)

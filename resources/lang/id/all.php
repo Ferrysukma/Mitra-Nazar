@@ -82,6 +82,7 @@ return [
         'back'              => 'Kembali',
         'edit'              => 'Ubah',
         'delete'            => 'Hapus',
+        'reset'             => 'Ulang',
     ),
     'filter'                => 'Saring',
     'add_partner'           => 'Tambah Mitra',
@@ -134,7 +135,9 @@ return [
     'comment_logout'    => 'Pilih "Keluar" di bawah ini jika Anda siap untuk mengakhiri sesi Anda saat ini.',
     'alert'             => array(
         'login'         => 'Login berhasil! Selamat Datang di Admin Mitra Nazar.id',
-        'fail_login'    => 'Login gagal! nama pengguna atau password salah.'
+        'fail_login'    => 'Login gagal! nama pengguna atau password salah.',
+        'success'       => 'Berhasil menyimpan data',
+        'fail'          => 'Gagal menyimpan data',
     ),
 ]
 
