@@ -125,6 +125,9 @@ return [
         'password'      => 'Kata sandi tidak boleh kosong',
         'old'           => 'Kata sandi lama tidak boleh kosong',
         'new'           => 'Kata sandi baru tidak boleh kosong',
+        'email'         => 'Email tidak boleh kosong',
+        'phone'         => 'No handphone tidak boleh kosong',
+        'integer'       => 'Hanya boleh angka',
     ),
     'buttonloader'      => array(
         'wait'          => 'Tunggu',

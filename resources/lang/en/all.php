@@ -125,6 +125,9 @@ return [
         'password'      => 'Password cannot be empty',
         'old'           => 'Old Password cannot be empty',
         'new'           => 'New Password cannot be empty',
+        'email'         => 'Email cannot be empty',
+        'phone'         => 'Phone Number cannot be empty',
+        'integer'       => 'Only numbers',
     ),
     'buttonloader'      => array(
         'wait'          => 'Wait',
