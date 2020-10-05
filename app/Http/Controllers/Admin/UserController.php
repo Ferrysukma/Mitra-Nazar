@@ -135,7 +135,7 @@ class UserController extends Controller
     {
         $client     = new Client();
         
-        $url        = $this->base_url . 'mitra/admin/kategori/disable';
+        $url        = $this->base_url . 'mitra/admin/user/disable';
         $request    = $client->post($url, [
             'headers'   => [
                 'Authorization' => Session::get('admin_key')

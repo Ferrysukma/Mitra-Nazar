@@ -216,9 +216,9 @@
             var row  = $(this).closest("tr"); 
             
             var col1 = row.find("td:eq(1)").text();
-            var col3 = row.find("td:eq(3)").text();
+            var col2 = row.find("td:eq(2)").text();
 
-            disable(col1, col3);
+            disable(col1, col2);
         });
     });
     
