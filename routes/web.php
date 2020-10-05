@@ -19,11 +19,19 @@ Auth::routes();
 
 Route::post('/login_by_pass', [App\Http\Controllers\Admin\LoginController::class, 'login_by_pass'])->name('login_by_pass');
 Route::get('/logout', [App\Http\Controllers\Admin\LoginController::class, 'logout'])->name('logout');
+
 Route::get('/partner', [App\Http\Controllers\Admin\PartnerController::class, 'index'])->name('partner');
+
 Route::get('/user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('user');
+Route::get('/loadListUser', [App\Http\Controllers\Admin\UserController::class, 'loadList'])->name('loadListUser');
+Route::post('/createUser', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('createUser');
+Route::post('/deleteUser', [App\Http\Controllers\Admin\UserController::class, 'delete'])->name('deleteUser');
+
 Route::get('/announcement', [App\Http\Controllers\Admin\AnnouncementController::class, 'index'])->name('announcement');
+
 Route::get('/category', [App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('category');
 Route::get('/loadListCategory', [App\Http\Controllers\Admin\CategoryController::class, 'loadList'])->name('loadListCategory');
 Route::post('/createCategory', [App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('createCategory');
 Route::post('/deleteCategory', [App\Http\Controllers\Admin\CategoryController::class, 'delete'])->name('deleteCategory');
+
 Route::get('lang/{language}', [App\Http\Controllers\LocalizationController::class, 'switch'])->name('localization.switch');

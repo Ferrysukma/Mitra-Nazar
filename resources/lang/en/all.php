@@ -141,8 +141,9 @@ return [
         'fail'          => 'Failed to save data',
         'delete'        => 'Successfully deleted data',
         'fail_delete'   => 'Failed to delete data',
-
     ),
+    'active'            => 'Active',
+    'noactive'          => 'Not Active',
 ]
 
 ?>

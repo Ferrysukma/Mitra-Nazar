@@ -28,7 +28,7 @@
                         <div class="col-sm-7"></div>
                         <div class="col-sm-3">
                             <input type="hidden" name="id" id="id">
-                            <input type="text" class="form-control" placeholder="{{ __('all.placeholder.name_category') }}" name="name" id="category_name">
+                            <input type="text" class="form-control readonly" placeholder="{{ __('all.placeholder.name_category') }}" name="name" id="category_name">
                         </div>
                         <div class="col-sm-2">
                             <div class="btn-group">
@@ -124,8 +124,6 @@
         });
     }
 
-    
-
     function disable(id, name) {
         bootbox.confirm({
             message: "{{ __('all.confirm_disable') }} <b>"+name+"</b>?",
@@ -200,7 +198,6 @@
             disable(col1, col3);
         });
     });
-
 
     $(document).on('keyup','#category_name', function () {
         var name = $('#category_name').val();

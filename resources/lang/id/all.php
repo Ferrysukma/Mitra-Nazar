@@ -142,6 +142,8 @@ return [
         'delete'        => 'Berhasil menghapus data',
         'fail_delete'   => 'Gagal menghapus data',
     ),
+    'active'            => 'Aktif',
+    'noactive'          => 'Tidak Aktif',
 ]
 
 ?>
