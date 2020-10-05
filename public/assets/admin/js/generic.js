@@ -76,6 +76,16 @@ $('select').select2({
     theme: 'bootstrap4',
 });
 
+function notif(type, title, info) {
+    Swal.fire({
+        icon    : type,
+        type    : type,
+        title   : title,
+        text    : info,
+        timer   : 2000,
+    });
+}
+
 function preventFormSubmit(idForm){
     $(idForm).submit(function(e){
         e.preventDefault();

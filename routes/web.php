@@ -13,12 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-use App\Http\Controllers\HomeController;
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
+Route::get('/login_admin', [App\Http\Controllers\Admin\LoginController::class, 'index'])->name('login_admin');
 Auth::routes();
 
-Route::get('/partner', [App\Http\Controllers\PartnerController::class, 'index'])->name('partner');
-Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user');
-Route::get('/announcement', [App\Http\Controllers\AnnouncementController::class, 'index'])->name('announcement');
-Route::get('/category', [App\Http\Controllers\CategoryController::class, 'index'])->name('category');
+Route::post('/login_by_pass', [App\Http\Controllers\Admin\LoginController::class, 'login_by_pass'])->name('login_by_pass');
+Route::get('/logout', [App\Http\Controllers\Admin\LoginController::class, 'logout'])->name('logout');
+Route::get('/partner', [App\Http\Controllers\Admin\PartnerController::class, 'index'])->name('partner');
+Route::get('/user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('user');
+Route::get('/announcement', [App\Http\Controllers\Admin\AnnouncementController::class, 'index'])->name('announcement');
+Route::get('/category', [App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('category');
 Route::get('lang/{language}', [App\Http\Controllers\LocalizationController::class, 'switch'])->name('localization.switch');

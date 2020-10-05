@@ -26,6 +26,10 @@
     <!-- Select 2 -->
     <link rel="stylesheet" href="{{ asset('assets/admin/css/select2/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/select2/select2-bootstrap4.min.css') }}">
+    <!-- datatable -->
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/dataTables.bootstrap4.min.css') }}">
+	<!-- ploading js -->
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/p-loading/p-loading.css') }}">
 
     <style>
         .readonly {
@@ -155,13 +159,13 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-white">Ready to Leave?</h5>
+                    <h5 class="modal-title text-white">{{ __('all.leave') }}</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">{{ __('all.comment_logout') }}</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">{{ __('all.cancel') }}</button>
-                    <a class="btn btn-primary" href="login.html">{{ __('all.logout') }}</a>
+                    <a class="btn btn-primary" href="{{ route('logout') }}">{{ __('all.logout') }}</a>
                 </div>
             </div>
         </div>
@@ -241,30 +245,32 @@
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('assets/admin/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
     <!-- Core plugin JavaScript-->
     <script src="{{ asset('assets/admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('assets/admin/js/bootstrap.min.js') }}"></script>
-
     <!-- Select 2 -->
     <script src="{{ asset('assets/admin/js/select2/select2.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/select2/id.js') }}"></script>
-
     <!-- Air Datepicker -->
     <script src="{{ asset('assets/admin/js/air-datepicker/datepicker.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/air-datepicker/datepicker.en.js') }}"></script>
-
     <!-- Chart js -->
     <script src="{{ asset('assets/admin/js/chart/chart.js') }}"></script>
     <script src="{{ asset('assets/admin/js/chart/chart.min.js') }}"></script>
-
     <!-- Google maps js -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7Ah8Zuhy2ECqqjBNF8ri2xJ7mwwtIbwo&callback=initMap"></script>
-
+    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7Ah8Zuhy2ECqqjBNF8ri2xJ7mwwtIbwo&callback=initMap"></script> -->
     <!-- generic js -->
     <script src="{{ asset('assets/admin/js/generic.js') }}"></script>
+    <!-- datatables -->
+    <script src="{{ asset('assets/admin/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/dataTables.bootstrap4.min.js') }}"></script>
+    <!-- sweetalert js -->
+    <script src="{{ asset('assets/admin/js/sweetalert.js') }}"></script>
+    <!-- validator js -->
+    <script src="{{ asset('assets/admin/jsbootstrapvalidator.min') }}"></script>
+    <!-- ploading js -->
+    <script src="{{ asset('assets/admin/js/p-loading/p-loading.js') }}"></script>
     
     @yield('script')
 

@@ -59,5 +59,30 @@
     }
 
     $('#show-form').hide();
+
+    $('#table-maps').DataTable({
+        "language"          : {
+            "lengthMenu"    : "{{ __('all.datatable.show_entries') }}",
+            "emptyTable"    : "{{ __('all.datatable.no_data') }}",
+            "info"        	: "{{ __('all.datatable.showing_start') }}",
+            "infoEmpty"     : "{{ __('all.datatable.showing_null') }}",
+            "loadingRecords": "{{ __('all.datatable.load') }}",
+            "processing"    : "{{ __('all.datatable.process') }}",
+            "search"      	: "{{ __('all.datatable.search') }}",
+            "zeroRecords"   : "{{ __('all.No matching records found') }}",
+            "paginate"      : 
+            {
+                "first"     : "{{ __('all.datatable.first') }}",
+                "last"      : "{{ __('all.datatable.last') }}",
+                "next"      : "{{ __('all.datatable.next') }}",
+                "previous"  : "{{ __('all.datatable.prev') }}",
+            }
+        },
+        "columnDefs"        : [ 
+            { targets       : [4], orderable: false, searchable: false },
+            { targets       : [0], orderable: false },
+            { className	    : "text-center", targets: [4]}
+        ],
+    });
 </script>
 @endsection

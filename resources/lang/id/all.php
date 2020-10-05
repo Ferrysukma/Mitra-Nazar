@@ -102,6 +102,37 @@ return [
     'show_date'             => 'Tanggal Tampil',
     'to'                    => 's.d',
     'modal_info'            => 'Penambahan mitra di admin hanya untuk mitra koordinator pusat saja',
+    'datatable'             => array(
+        'show_entries'  => 'Menampilkan _MENU_ entri',
+        'no_data'       => 'Tidak ada data',
+        'showing_start' => 'Menampilkan _START_ hingga _END_ dari _TOTAL_ entri',
+        'showing_null'  => 'Menampilkan 0 dari 0 entri',
+        'load'          => 'Memuat...',
+        'process'       => 'Proses...',
+        'search'        => 'Cari:',
+        'first'         => 'Partama',
+        'last'          => 'Terakhir',
+        'next'          => 'Selanjutnya',
+        'prev'          => 'Sebelumnya'
+    ),
+    'validation'        => array(
+        'username'      => 'Nama pengguna tidak boleh kosong',
+        'password'      => 'Kata sandi tidak boleh kosong',
+    ),
+    'buttonloader'      => array(
+        'wait'          => 'Tunggu',
+        'done'          => 'Selesai',
+    ),
+    'error'             => 'Kesalahan. Silakan coba lagi atau hubungi administrator',
+    'success'           => 'Berhasil',
+    'warning'           => 'Peringatan',
+    'danger'            => 'Kesalahan',
+    'leave'             => 'Siap Keluar?',
+    'comment_logout'    => 'Pilih "Keluar" di bawah ini jika Anda siap untuk mengakhiri sesi Anda saat ini.',
+    'alert'             => array(
+        'login'         => 'Login berhasil! Selamat Datang di Admin Mitra Nazar.id',
+        'fail_login'    => 'Login gagal! nama pengguna atau password salah.'
+    ),
 ]
 
 ?>

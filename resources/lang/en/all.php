@@ -102,6 +102,37 @@ return [
     'show_date'             => 'Show Date',
     'to'                    => 'To',
     'modal_info'            => 'Adding partners in admin is only for central coordinator partners',
+    'datatable'             => array(
+        'show_entries'  => 'Show _MENU_ entries',
+        'no_data'       => 'No data available in table',
+        'showing_start' => 'Showing _START_ to _END_ of _TOTAL_ entries',
+        'showing_null'  => 'Showing 0 to 0 of 0 entries',
+        'load'          => 'Loading...',
+        'process'       => 'Processing...',
+        'search'        => 'Search:',
+        'first'         => 'First',
+        'last'          => 'Last',
+        'next'          => 'Next',
+        'prev'          => 'Previous'
+    ),
+    'validation'        => array(
+        'username'      => 'Username cannot be empty',
+        'password'      => 'Password cannot be empty',
+    ),
+    'buttonloader'      => array(
+        'wait'          => 'Wait',
+        'done'          => 'Done',
+    ),
+    'error'             => 'Error. Please try again or contact an administrator',
+    'success'           => 'Success',
+    'warning'           => 'Warning',
+    'danger'            => 'Danger',
+    'leave'             => 'Ready to Leave?',
+    'comment_logout'    => 'Select "Logout" below if you are ready to end your current session.',
+    'alert'             => array(
+        'login'         => 'Login is successful. Welcome to Admin Mitra Nazar.id',
+        'fail_login'    => 'login failed. Incorrect username or password'
+    ),
 ]
 
 ?>
