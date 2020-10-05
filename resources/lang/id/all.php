@@ -24,6 +24,7 @@ return [
         'name_category'         => 'Masukkan nama kategori koordinator ....',
         'choose_coortype'       => 'Pilih Tipe Koordinator',
         'choose_coorcategory'   => 'Pilih Kategori Koordinator',
+        'key'                   => 'Masukkan kata kunci ....',
     ),
     'remember'  => 'Ingat saya',
     'forget'    => 'Lupa sandi?',
@@ -78,7 +79,9 @@ return [
     'desc_category'         => 'Anda dapat mengelola data kategori koordinator di sini',
     'button'                => array(
         'new'               => 'Buat Baru',
-        'back'              => 'Kembali'
+        'back'              => 'Kembali',
+        'edit'              => 'Ubah',
+        'delete'            => 'Hapus',
     ),
     'filter'                => 'Saring',
     'add_partner'           => 'Tambah Mitra',

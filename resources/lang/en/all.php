@@ -24,6 +24,7 @@ return [
         'name_category'         => 'Enter category coordinator name ....',
         'choose_coortype'       => 'Choose Coordinator Type',
         'choose_coorcategory'   => 'Choose Coordinator Category',
+        'key'                   => 'Enter key words ....'
     ),
     'remember'  => 'Remember me',
     'forget'    => 'Forget password?',
@@ -78,7 +79,9 @@ return [
     'desc_category'         => 'You can manage category coordinator data here',
     'button'                => array(
         'new'               => 'Create New',
-        'back'              => 'Back'
+        'back'              => 'Back',
+        'edit'              => 'Edit',
+        'delete'            => 'Delete',
     ),
     'filter'                => 'Filter',
     'add_partner'           => 'Create Partner',

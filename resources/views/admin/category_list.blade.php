@@ -32,18 +32,27 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body">
+            <div class="card-body table-category">
                 <div class="table-responsive-sm">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <span style="float:right">{{ __('all.datatable.search') }}</span>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" name="cari" id="cari" class="form-control" placeholder="{{ __('all.placeholder.key') }}">
+                        </div>
+                    </div><br>
                     <table class="table table-hover table-striped table-bordered table-consended" id="table-maps" width="100%">
                         <thead>
                             <tr>
-                                <th>No</th>
+                                <th style="text-align:center">No</th>
                                 <th>{{ __('all.table.create_dtm') }}</th>
                                 <th>{{ __('all.table.name_category') }}</th>
                                 <th>{{ __('all.table.created') }}</th>
-                                <th>{{ __('all.table.action') }}</th>
+                                <th style="text-align:center">{{ __('all.table.action') }}</th>
                             </tr>
                         </thead>
+                        <tbody id="showData"></tbody>
                     </table>
                 </div>
             </div>
@@ -54,35 +63,38 @@
 
 @section('script')
 <script>
-    function showForm() {
-        $('#show-form').show();
-    }
-
-    $('#show-form').hide();
-
-    $('#table-maps').DataTable({
-        "language"          : {
-            "lengthMenu"    : "{{ __('all.datatable.show_entries') }}",
-            "emptyTable"    : "{{ __('all.datatable.no_data') }}",
-            "info"        	: "{{ __('all.datatable.showing_start') }}",
-            "infoEmpty"     : "{{ __('all.datatable.showing_null') }}",
-            "loadingRecords": "{{ __('all.datatable.load') }}",
-            "processing"    : "{{ __('all.datatable.process') }}",
-            "search"      	: "{{ __('all.datatable.search') }}",
-            "zeroRecords"   : "{{ __('all.No matching records found') }}",
-            "paginate"      : 
-            {
-                "first"     : "{{ __('all.datatable.first') }}",
-                "last"      : "{{ __('all.datatable.last') }}",
-                "next"      : "{{ __('all.datatable.next') }}",
-                "previous"  : "{{ __('all.datatable.prev') }}",
+    function showData() {
+        $.ajax({
+            type    : "GET",
+            url     : "{{ route('loadListCategory') }}",
+            dataType: "JSON",
+            beforeSend: function(){
+                $('#showData').empty();
+                $(".table-category").parent().ploading({action : 'show'});
+            },
+            success     : function(data){
+                if (data.code == 0) {
+                    $('#showData').html(data.data);
+                } 
+            },
+            complete : function () {
+                $(".table-category").parent().ploading({action : 'hide'});
             }
-        },
-        "columnDefs"        : [ 
-            { targets       : [4], orderable: false, searchable: false },
-            { targets       : [0], orderable: false },
-            { className	    : "text-center", targets: [4]}
-        ],
+        })
+    }
+    
+    showData();
+
+    $(document).on('keyup','#cari', function () {
+        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+        var $rows = $('#table-maps tbody > tr');
+
+        $rows.show().filter(function() {
+            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+            return !~text.indexOf(val);
+        }).hide();
     });
+
+    // $('[data-toggle="tooltip"]').tooltip();
 </script>
 @endsection

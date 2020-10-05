@@ -249,6 +249,9 @@
     <script src="{{ asset('assets/admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('assets/admin/js/bootstrap.min.js') }}"></script>
+    <!-- js -->
+    <script src="{{ asset('assets/admin/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/moment.min.js') }}"></script>
     <!-- Select 2 -->
     <script src="{{ asset('assets/admin/js/select2/select2.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/select2/id.js') }}"></script>
@@ -260,17 +263,17 @@
     <script src="{{ asset('assets/admin/js/chart/chart.min.js') }}"></script>
     <!-- Google maps js -->
     <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7Ah8Zuhy2ECqqjBNF8ri2xJ7mwwtIbwo&callback=initMap"></script> -->
-    <!-- generic js -->
-    <script src="{{ asset('assets/admin/js/generic.js') }}"></script>
     <!-- datatables -->
-    <script src="{{ asset('assets/admin/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/datatable/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
     <!-- sweetalert js -->
     <script src="{{ asset('assets/admin/js/sweetalert.js') }}"></script>
     <!-- validator js -->
-    <script src="{{ asset('assets/admin/jsbootstrapvalidator.min') }}"></script>
+    <script src="{{ asset('assets/admin/js/bootstrapvalidator.min.js') }}"></script>
     <!-- ploading js -->
     <script src="{{ asset('assets/admin/js/p-loading/p-loading.js') }}"></script>
+    <!-- generic js -->
+    <script src="{{ asset('assets/admin/js/generic.js') }}"></script>
     
     @yield('script')
 

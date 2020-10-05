@@ -23,4 +23,5 @@ Route::get('/partner', [App\Http\Controllers\Admin\PartnerController::class, 'in
 Route::get('/user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('user');
 Route::get('/announcement', [App\Http\Controllers\Admin\AnnouncementController::class, 'index'])->name('announcement');
 Route::get('/category', [App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('category');
+Route::get('/loadListCategory', [App\Http\Controllers\Admin\CategoryController::class, 'loadList'])->name('loadListCategory');
 Route::get('lang/{language}', [App\Http\Controllers\LocalizationController::class, 'switch'])->name('localization.switch');
