@@ -66,7 +66,7 @@
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="line-chart-wp chart-display-nn">
-                                <canvas id="myChart" style="display:block;width:100px:height:100px"></canvas>
+                                <canvas id="myChart" style="height:100vh; width:80vw"></canvas>
                             </div>
                         </div>
                     </div>
@@ -236,8 +236,8 @@
             display: true,
             position: 'top',
             labels: {
-            boxWidth: 80,
-            fontColor: 'black'
+                boxWidth: 80,
+                fontColor: 'black'
             }
         }
     };
