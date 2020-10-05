@@ -39,7 +39,8 @@
                                 <form id="formFilter" class="px-4 py-3" action="#">
                                     <div class="form-group">
                                         <select name="status" id="status" class="form-control" style="width: 100% !important;">
-                                            <option value="" selected disabled>{{ __('all.placeholder.choose_status') }}</option>
+                                            <option value="1">{{ __('all.active') }}</option>
+                                            <option value="0">{{ __('all.noactive') }}</option>
                                         </select>
                                     </div>
                                 </form>
@@ -209,7 +210,7 @@
             $('#mail').attr('readonly', true).val(col4);
             $('#phone').val(col5);
             
-            $('#modal-mitra').find('.modal-title').text("{{ __('all.profile') }} #"+col1+"");
+            $('#modal-mitra').find('.modal-title').text("{{ __('all.edit_user') }} #"+col1+"");
         });
 
         $("#table-user").on('click','.action-delete',function(){

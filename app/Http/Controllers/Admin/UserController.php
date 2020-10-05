@@ -79,7 +79,6 @@ class UserController extends Controller
 
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
         } else {
-            die('hai');
             $result = 'empty';
             
             echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));

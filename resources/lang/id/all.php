@@ -87,6 +87,7 @@ return [
     'filter'                => 'Saring',
     'add_partner'           => 'Tambah Mitra',
     'add_user'              => 'Tambah Pengguna',
+    'edit_user'             => 'Ubah Pengguna',
     'cancel'                => 'Batal',
     'yes'                   => 'Ya, Nonaktifkan',
     'confirm'               => 'Anda yakin untuk menonaktifkan mitra ini',
