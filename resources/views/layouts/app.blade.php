@@ -61,8 +61,8 @@
                             <span><i class="fa fa-flag"></i> {{ __('all.language') }}</span>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item {{ app()->getLocale() == 'en' ? 'active' : '' }}" href="{{ route('localization.switch', 'en') }}">English</a>
-                            <a class="dropdown-item {{ app()->getLocale() == 'id' ? 'active' : '' }}" href="{{ route('localization.switch', 'id') }}">Bahasa Indonesia</a>
+                            <a class="dropdown-item {{ app()->getLocale() == 'en' ? 'active' : '' }}" href="{{ route('localization.switch', 'en') }}"><img src="{{ asset('assets/admin/image/en.png') }}" alt="en" srcset width="20%"> English</a>
+                            <a class="dropdown-item {{ app()->getLocale() == 'id' ? 'active' : '' }}" href="{{ route('localization.switch', 'id') }}"><img src="{{ asset('assets/admin/image/idn.png') }}" alt="idn" srcset width="20%"> Indonesia</a>
                         </div>
                     </div>
                     <!-- Topbar Navbar -->
