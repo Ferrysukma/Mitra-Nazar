@@ -99,11 +99,11 @@
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#" onclick="showModal('changePassword')">
+                                <a class="dropdown-item" href="#" onclick="showModal('changePassword','postpass')">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('all.change') }}
                                 </a>
-                                <a class="dropdown-item" href="#" onclick="showModal('editProfile')">
+                                <a class="dropdown-item" href="#" onclick="showModal('editProfile','postprofile')">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('all.profile') }}
                                 </a>
@@ -174,30 +174,39 @@
     <!-- Change Password Modal-->
     <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
+            <div class="modal-content create-pass">
                 <div class="modal-header">
                     <h5 class="modal-title text-white">{{ __('all.change') }}</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="#" method="post">
+                    <form action="#" method="post" id="postpass">
                         <div class="form-group row">
                             <label for="old" class="col-sm-3">{{ __('all.form.old_password') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
-                                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('all.placeholder.password') }}">
+                                <div class="input-group mb-3">
+                                    <input type="password" name="oldPassword" id="oldPassword" class="form-control" placeholder="{{ __('all.placeholder.password') }}" aria-describedby="basic-addon1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1" onclick="changeIcon('basic-addon1','oldPassword')"><i class="fa fa-eye"></i></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="old" class="col-sm-3">{{ __('all.form.new_password') }} <sup class="text-danger">*</sup></label>
-                            <div class="col-sm-9">
-                                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('all.placeholder.new_password') }}">
-                                
+                            <label for="old" class="col-sm-3">{{ __('all.form.new_password') }} <sup class="text-danger">*</sup></label><div class="col-sm-9">
+                                <div class="input-group mb-3">
+                                <input type="password" name="newPassword" id="newPassword" class="form-control" placeholder="{{ __('all.placeholder.new_password') }}" aria-describedby="basic-addon2">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon2" onclick="changeIcon('basic-addon2','newPassword')"><i class="fa fa-eye"></i></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                    <button type="button" class="btn btn-primary">{{ __('all.save') }}</button>
+                        <hr>
+                        <div align="right">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
+                            <button type="submit" class="btn btn-primary" id="btn-pass">{{ __('all.save') }}</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -213,7 +222,7 @@
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="#" method="post">
+                    <form action="#" method="post" id="postprofile">
                         <div class="form-group row">
                             <label for="old" class="col-sm-3">{{ __('all.form.username') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
@@ -280,6 +289,76 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js.map"></script>
     
     @yield('script')
+
+    <script>
+        function changeIcon(id, kd) {
+            if ($('#'+id).find('i').hasClass('fa fa-eye')) {
+                $('#'+id).find('i').attr('class','fa fa-eye-slash');
+                $('#'+kd).attr('type','text');
+            } else {
+                $('#'+id).find('i').attr('class','fa fa-eye');
+                $('#'+kd).attr('type','password');
+            }
+        }
+
+        $('#postpass').bootstrapValidator({
+            container: 'tooltip',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            submitHandler : function (validator, form, submitButton) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type	: "POST",
+                    url		: "{{ route('changePassword') }}",
+                    data	: $(form).serialize(),
+                    dataType: "JSON",
+                    beforeSend: function(){
+                        $("#btn-pass").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+                        $('.create-pass').ploading({action:'show'});
+                    },
+                    success     : function(data){
+                        if (data.code == 0) {
+                            notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
+                            window.location = "{{ route('logout') }}";
+                        } else {
+                            notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_pass") }}');
+                        }
+                    },
+                    complete    : function(){
+                    $("#btn-pass").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                        $('.create-pass').ploading({action:'hide'});
+                    },
+                    error 		: function(){
+                        notif('error', '{{ __("all.error") }}');
+                    }
+                });
+            },
+            fields: {
+                oldPassword: {
+                    validators: {
+                        notEmpty: {
+                            message: '<b class="text-danger">*{{ __("all.validation.old") }}</b>'
+                        },
+                    }
+                },
+                newPassword: {
+                    validators: {
+                        notEmpty: {
+                            message: '<b class="text-danger">*{{ __("all.validation.new") }}</b>'
+                        },
+                    }
+                },
+            },
+        });
+    </script>
 
 </body>
 

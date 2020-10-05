@@ -153,4 +153,31 @@ class UserController extends Controller
             return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
         }
     }
+
+    public function changePassword(Request $request)
+    {
+        $client = new Client();
+        
+        $url = $this->base_url . 'mitra/admin/user/change-password';
+        $request = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('admin_key')
+            ],
+            'json'      => [
+                "payload"   => [
+                    "oldPassword"     => $request->oldPassword,
+                    "newPassword"     => $request->newPassword,
+                ]
+            ]
+        ]);
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+        $description= json_decode((string) $response, true)['status']['statusDesc'];
+        
+        if ($status == '000') {
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
+        } else {
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+        }
+    }
 }

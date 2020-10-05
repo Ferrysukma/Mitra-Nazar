@@ -123,6 +123,8 @@ return [
     'validation'        => array(
         'username'      => 'Username cannot be empty',
         'password'      => 'Password cannot be empty',
+        'old'           => 'Old Password cannot be empty',
+        'new'           => 'New Password cannot be empty',
     ),
     'buttonloader'      => array(
         'wait'          => 'Wait',
@@ -141,6 +143,7 @@ return [
         'fail'          => 'Failed to save data',
         'delete'        => 'Successfully deleted data',
         'fail_delete'   => 'Failed to delete data',
+        'fail_pass'     => 'Old password is wrong'
     ),
     'active'            => 'Active',
     'noactive'          => 'Not Active',

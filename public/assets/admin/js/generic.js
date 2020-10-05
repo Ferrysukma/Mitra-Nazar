@@ -61,7 +61,11 @@ $.fn.buttonLoader = function(action = 'hide' ,text = null){
 
 }
 
-function showModal(modal) {
+function showModal(modal, form) {
+    if (form != null) {
+        resetForm(form);        
+    }
+    
     $('#'+modal).modal({backdrop: 'static', keyboard: false});
     $('#'+modal).modal('show');
 }
@@ -83,7 +87,7 @@ function notif(type, title, info) {
         type    : type,
         title   : title,
         text    : info,
-        timer   : 2000,
+        timer   : 4000,
     });
 }
 

@@ -101,7 +101,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                <button type="button" class="btn btn-primary">{{ __('all.save') }}</button>
+                <button type="button" class="btn btn-primary" id="btnSave">{{ __('all.save') }}</button>
                 </form>
             </div>
         </div>
@@ -255,6 +255,58 @@
             var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
             return !~text.indexOf(val);
         }).hide();
+    });
+
+    $('#postuser').bootstrapValidator({
+        container: 'tooltip',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            oldPassword: {
+                validators: {
+                    notEmpty: {
+                        message: '<b class="text-danger">*{{ __("all.validation.old") }}</b>'
+                    },
+                }
+            },
+            newPassword: {
+                validators: {
+                    notEmpty: {
+                        message: '<b class="text-danger">*{{ __("all.validation.ne") }}</b>'
+                    },
+                }
+            },
+        },
+        submitHandler : function (form) {
+            $.ajax({
+                type	: "POST",
+                url		: "{{ route('changePassword') }}",
+                data	: $('#postuser').serialize(),
+                dataType: "JSON",
+                beforeSend: function(){
+                    $("#btnSave").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+                    $('.create-user').ploading({action:'show'});
+                },
+                success     : function(data){
+                    if (data.code == 0) {
+                        notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
+                        showData();
+                    } else {
+                        notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
+                    }
+                },
+                complete    : function(){
+                $("#btnSave").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                    $('.create-user').ploading({action:'hide'});
+                },
+                error 		: function(){
+                    notif('error', '{{ __("all.error") }}');
+                }
+            });
+        }
     });
 
     // $('[data-toggle="tooltip"]').tooltip();

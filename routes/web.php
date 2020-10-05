@@ -26,6 +26,7 @@ Route::get('/user', [App\Http\Controllers\Admin\UserController::class, 'index'])
 Route::get('/loadListUser', [App\Http\Controllers\Admin\UserController::class, 'loadList'])->name('loadListUser');
 Route::post('/createUser', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('createUser');
 Route::post('/deleteUser', [App\Http\Controllers\Admin\UserController::class, 'delete'])->name('deleteUser');
+Route::post('/changePassword', [App\Http\Controllers\Admin\UserController::class, 'changePassword'])->name('changePassword');
 
 Route::get('/announcement', [App\Http\Controllers\Admin\AnnouncementController::class, 'index'])->name('announcement');
 

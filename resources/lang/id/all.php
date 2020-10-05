@@ -123,6 +123,8 @@ return [
     'validation'        => array(
         'username'      => 'Nama pengguna tidak boleh kosong',
         'password'      => 'Kata sandi tidak boleh kosong',
+        'old'           => 'Kata sandi lama tidak boleh kosong',
+        'new'           => 'Kata sandi baru tidak boleh kosong',
     ),
     'buttonloader'      => array(
         'wait'          => 'Tunggu',
@@ -141,6 +143,7 @@ return [
         'fail'          => 'Gagal menyimpan data',
         'delete'        => 'Berhasil menghapus data',
         'fail_delete'   => 'Gagal menghapus data',
+        'fail_pass'     => 'Kata sandi lama salah'
     ),
     'active'            => 'Aktif',
     'noactive'          => 'Tidak Aktif',
