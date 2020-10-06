@@ -215,7 +215,29 @@
 @endsection
 
 @section('script')
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7Ah8Zuhy2ECqqjBNF8ri2xJ7mwwtIbwo&callback=initMap" defer></script>
 <script>
+    // variabel global marker
+    var marker;
+
+    function taruhMarker(peta, posisiTitik){
+        if( marker ){
+        // pindahkan marker
+        marker.setPosition(posisiTitik);
+        } else {
+        // buat marker baru
+        marker = new google.maps.Marker({
+            position: posisiTitik,
+            map: peta,
+            animation: google.maps.Animation.BOUNCE
+        });
+        }
+
+        // isi nilai koordinat ke form
+        document.getElementById("lat").value = posisiTitik.lat();
+        document.getElementById("lng").value = posisiTitik.lng();
+    }
+
     // Google Maps
     function initialize(lat, lang) {
 
@@ -236,6 +258,9 @@
             animation: google.maps.Animation.BOUNCE
         });
     }
+
+    // event jendela di-load
+    google.maps.event.addDomListener(window, 'load', initialize);
 
     initialize(-34.397, 150.644);
 

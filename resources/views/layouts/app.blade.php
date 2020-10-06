@@ -30,7 +30,6 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/css/dataTables.bootstrap4.min.css') }}">
 	<!-- ploading js -->
     <link rel="stylesheet" href="{{ asset('assets/admin/css/p-loading/p-loading.css') }}">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7Ah8Zuhy2ECqqjBNF8ri2xJ7mwwtIbwo&callback=initMap" defer></script>
 
     <style>
         .readonly {
