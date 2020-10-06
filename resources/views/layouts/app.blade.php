@@ -38,8 +38,11 @@
         .datepicker{
             z-index:1151;
         }
+        #content {
+            min-height: calc(100vh - 70px);
+        }
         footer {
-            margin-top: 162px;
+            height: 4.375rem;
         }
     </style>
 
