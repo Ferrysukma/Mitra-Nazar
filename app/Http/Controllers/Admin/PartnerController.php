@@ -166,4 +166,29 @@ class PartnerController extends Controller
             return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
         }
     }
+
+    public function find(Request $request)
+    {
+        $client     = new Client();
+        
+        $url        = $this->base_url . 'mitra/admin/findUser';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('admin_key')
+            ],
+            'json'      => [
+                "payload"   => $request->id
+            ]
+        ]);
+
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
+        } else {
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+        }
+    }
 }

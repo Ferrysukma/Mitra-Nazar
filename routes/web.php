@@ -22,6 +22,7 @@ Route::get('/logout', [App\Http\Controllers\Admin\LoginController::class, 'logou
 
 Route::get('/partner', [App\Http\Controllers\Admin\PartnerController::class, 'index'])->name('partner');
 Route::post('/loadListPartner', [App\Http\Controllers\Admin\PartnerController::class, 'loadList'])->name('loadListPartner');
+Route::post('/findUser', [App\Http\Controllers\Admin\PartnerController::class, 'find'])->name('findUser');
 
 Route::get('/user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('user');
 Route::get('/loadListUser', [App\Http\Controllers\Admin\UserController::class, 'loadList'])->name('loadListUser');

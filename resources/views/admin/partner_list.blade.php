@@ -107,17 +107,23 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content create-mitra">
             <div class="modal-header">
-                <h3 class="modal-title text-white">{{ __('all.add_partner') }}</h3>
+                <h3 class="modal-title text-white"></h3>
                 <hr>
             </div>
             <div class="modal-body">
                 <b>{{ __('all.modal_info') }}</b>
                 <br><br>
                 <form action="#" method="post" id="postmitra">
+                    <input type="hidden" name="id" id="id">
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.code_user') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="code_user" id="code_user" class="form-control" placeholder="{{ __('all.placeholder.code_user') }}">
+                            <div class="input-group mb-3">
+                                <input type="text" name="userCode" id="userCode" class="form-control" placeholder="{{ __('all.placeholder.code_user') }}" aria-describedby="basic-addon1">
+                                <div class="input-group-prepend">
+                                    <button type="button" class="btn btn-primary input-group-text" id="basic-addon1" onclick="findUser()" disabled><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -207,7 +213,8 @@
     $(document).on('click','#add-mitra', function () {
         showModal('modal-mitra', 'postmitra');
         $('#id').val('');
-        $('#modal-mitra').find('.modal-title').text("{{ __('all.add_user') }}");
+        $('#basic-addon1').attr('disabled', true);
+        $('#modal-mitra').find('.modal-title').text("{{ __('all.add_partner') }}");
     });
 
     $(document).on('click','.remove-mitra', function () {
@@ -250,6 +257,36 @@
             },
             complete : function () {
                 $(".table-user").parent().ploading({action : 'hide'});
+            }
+        });
+    }
+
+    function findUser() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type    : "POST",
+            url     : "{{ route('findUser') }}",
+            data    : {
+                id  : $('#userCode').val(),
+            },
+            dataType: "JSON",
+            beforeSend: function(){
+                $("#basic-addon1").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+                $(".create-mitra").ploading({action : 'show'});
+            },
+            success     : function(data){
+                if (data.code == 0) {
+                    
+                } 
+            },
+            complete : function () {
+                $("#basic-addon1").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                $(".create-mitra").ploading({action : 'hide'});
             }
         });
     }
@@ -307,6 +344,15 @@
         });
     }
 
+    $(document).on('keyup','#userCode', function () {
+        var name = $('#userCode').val();
+        if (name != '') {
+            $('#basic-addon1').removeAttr('disabled');
+        } else {
+            $('#basic-addon1').attr('disabled', true);
+        }
+    });
+
     $(document).ready(function(){
         $("#table-user").on('click','.action-edit',function(){
             showModal('modal-mitra','postmitra');
@@ -338,7 +384,7 @@
     
     showData();
 
-    $(document).on('keyup','#cari', function () {
+    $(document).on('keyup','#search', function () {
         var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
         var $rows = $('#table-user tbody > tr');
 
