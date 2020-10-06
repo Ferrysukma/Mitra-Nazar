@@ -39,8 +39,8 @@
                                 <form id="formFilter" class="px-4 py-3" action="#">
                                     <div class="form-group">
                                         <select name="status" id="status" class="form-control" style="width: 100% !important;">
-                                            <option value="1">{{ __('all.active') }}</option>
-                                            <option value="0">{{ __('all.noactive') }}</option>
+                                            <option value="{{ __('all.active') }}">{{ __('all.active') }}</option>
+                                            <option value="{{ __('all.noactive') }}">{{ __('all.noactive') }}</option>
                                         </select>
                                     </div>
                                 </form>
@@ -226,6 +226,16 @@
     showData();
 
     $(document).on('keyup','#cari', function () {
+        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+        var $rows = $('#table-user tbody > tr');
+
+        $rows.show().filter(function() {
+            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+            return !~text.indexOf(val);
+        }).hide();
+    });
+
+    $(document).on('change','#status', function () {
         var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
         var $rows = $('#table-user tbody > tr');
 
