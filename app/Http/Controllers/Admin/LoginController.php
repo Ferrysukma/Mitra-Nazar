@@ -20,11 +20,8 @@ class LoginController extends Controller
 
     public function index()
     {
-        if (empty(Session::get('admin_key'))) {
-            return view('auth.login');
-        } else {
-            return redirect('/');
-        }
+        return view('auth.login');
+        
     }
 
     public function login_by_pass(Request $request)
