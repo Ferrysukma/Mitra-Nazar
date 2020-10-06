@@ -151,6 +151,7 @@ return [
     ),
     'active'            => 'Active',
     'noactive'          => 'Not Active',
+    'open_maps'         => 'Open Maps',
 ]
 
 ?>

@@ -151,6 +151,7 @@ return [
     ),
     'active'            => 'Aktif',
     'noactive'          => 'Tidak Aktif',
+    'open_maps'         => 'Buka Peta',
 ]
 
 ?>

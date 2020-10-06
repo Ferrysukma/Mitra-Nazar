@@ -66,7 +66,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body">
+            <div class="card-body table-user">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div id="googleMap"></div>
                 </div>
@@ -79,14 +79,22 @@
                     <table class="table table-hover table-striped table-condensed table-bordered" id="table-maps" width="100%">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>{{ __('all.table.date') }}</th>
+                                <th style="text-align:center">No</th>
+                                <th style="display: none;">Id</th>
+                                <th>{{ __('all.table.partner_id') }}</th>
+                                <th>{{ __('all.table.partner_nm') }}</th>
+                                <th>{{ __('all.table.coordinator_type') }}</th>
+                                <th>{{ __('all.category_coordinator') }}</th>
                                 <th>{{ __('all.table.prov') }}</th>
                                 <th>{{ __('all.table.city') }}</th>
-                                <th>{{ __('all.table.qty') }}</th>
-                                <th>{{ __('all.table.action') }}</th>
+                                <th>{{ __('all.form.district') }}</th>
+                                <th>{{ __('all.table.address') }}</th>
+                                <th>{{ __('all.table.coordinate') }}</th>
+                                <th>{{ __('all.table.status') }}</th>
+                                <th style="text-align:center">{{ __('all.table.action') }}</th>
                             </tr>
                         </thead>
+                        <tbody id="showData"></tbody>
                     </table>
                 </div>
             </div>
@@ -97,7 +105,7 @@
 <!-- Start Modal Change Password -->
 <div class="modal fade" id="modal-mitra" role="dialog">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content create-mitra">
             <div class="modal-header">
                 <h3 class="modal-title text-white">{{ __('all.add_partner') }}</h3>
                 <hr>
@@ -105,7 +113,7 @@
             <div class="modal-body">
                 <b>{{ __('all.modal_info') }}</b>
                 <br><br>
-                <form action="#" method="post">
+                <form action="#" method="post" id="postmitra">
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.code_user') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
@@ -171,9 +179,9 @@
 </div>
 <!-- End Modal Change Password -->
 <!-- Start Modal Change Password -->
-<div class="modal fade" id="modal-mitra" role="dialog">
+<div class="modal fade" id="disabled-mitra" role="dialog">
     <div class="modal-dialog modals-default">
-        <div class="modal-content">
+        <div class="modal-content delete-mitra">
             <div class="modal-header">
                 <h3 class="modal-title">{{ __('all.add_partner') }}</h3>
                 <hr>
@@ -197,7 +205,9 @@
 @section('script')
 <script>
     $(document).on('click','#add-mitra', function () {
-        showModal('modal-mitra');
+        showModal('modal-mitra', 'postmitra');
+        $('#id').val('');
+        $('#modal-mitra').find('.modal-title').text("{{ __('all.add_user') }}");
     });
 
     $(document).on('click','.remove-mitra', function () {
@@ -205,7 +215,7 @@
     });
 
     // variabel global marker
-	function initMap() {
+    function initMap() {
         // The location of Uluru
         var uluru = {lat: -25.344, lng: 131.036};
         // The map, centered at Uluru
@@ -214,5 +224,198 @@
         // The marker, positioned at Uluru
         var marker = new google.maps.Marker({position: uluru, map: map});
     }
+
+    function showData() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type    : "POST",
+            url     : "{{ route('loadListPartner') }}",
+            data    : {
+                search : $('#search').val()
+            },
+            dataType: "JSON",
+            beforeSend: function(){
+                $('#showData').empty();
+                $(".table-user").parent().ploading({action : 'show'});
+            },
+            success     : function(data){
+                if (data.code == 0) {
+                    $('#showData').html(data.data);
+                } 
+            },
+            complete : function () {
+                $(".table-user").parent().ploading({action : 'hide'});
+            }
+        });
+    }
+
+    function disable(id, name) {
+        bootbox.confirm({
+            message: "{{ __('all.confirm_disable') }} <b>"+name+"</b>?",
+            buttons: {
+                confirm: {
+                    label: '{{ __("all.yes") }}',
+                    className: 'btn-primary'
+                },
+                cancel: {
+                    label: '{{ __("all.cancel") }}',
+                    className: 'btn-secondary'
+                }
+            },
+            callback: function (res) {
+                if(res){
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                        type    : "POST",
+                        url     : "{{ route('deleteUser') }}",
+                        data	: {
+                            id  : id,
+                        },
+                        dataType: "JSON",
+                        beforeSend: function(){
+                            $(this).buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+                            $(".table-user").parent().ploading({action : 'show'});
+                        },
+                        success     : function(data){
+                            if (data.code == 0) {
+                                notif('success', '{{ __("all.success") }}', '{{ __("all.alert.delete") }}');
+                                showData();
+                            } else {
+                                notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_delete") }}');
+                            }
+                        },
+                        complete    : function(){
+                            $(this).buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                            $(".table-user").parent().ploading({action : 'hide'});
+                        },
+                        error 		: function(){
+                            notif('error', '{{ __("all.error") }}');
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    $(document).ready(function(){
+        $("#table-user").on('click','.action-edit',function(){
+            showModal('modal-mitra','postmitra');
+            var row  = $(this).closest("tr"); 
+
+            var col1 = row.find("td:eq(0)").text();
+            var col2 = row.find("td:eq(1)").text();
+            var col3 = row.find("td:eq(2)").text();
+            var col4 = row.find("td:eq(3)").text();
+            var col5 = row.find("td:eq(4)").text();
+
+            $('#id').val(col2);
+            $('#nama').val(col3);
+            $('#mail').attr('readonly', true).val(col4);
+            $('#phone').val(col5);
+            
+            $('#modal-mitra').find('.modal-title').text("{{ __('all.edit_user') }} #"+col1+"");
+        });
+
+        $("#table-user").on('click','.action-delete',function(){
+            var row  = $(this).closest("tr"); 
+            
+            var col1 = row.find("td:eq(1)").text();
+            var col2 = row.find("td:eq(2)").text();
+
+            disable(col1, col2);
+        });
+    });
+    
+    showData();
+
+    $(document).on('keyup','#cari', function () {
+        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+        var $rows = $('#table-user tbody > tr');
+
+        $rows.show().filter(function() {
+            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+            return !~text.indexOf(val);
+        }).hide();
+    });
+
+    $('#postuser').bootstrapValidator({
+        container: 'tooltip',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            nama: {
+                validators: {
+                    notEmpty: {
+                        message: '<b class="text-danger">*{{ __("all.validation.username") }}</b>'
+                    },
+                }
+            },
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: '<b class="text-danger">*{{ __("all.validation.email") }}</b>'
+                    },
+                }
+            },
+            phone: {
+                validators: {
+                    notEmpty: {
+                        message: '<b class="text-danger">*{{ __("all.validation.phone") }}</b>'
+                    },
+                }
+            },
+        },
+        submitHandler : function (form) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type	: "POST",
+                url		: "{{ route('createUser') }}",
+                data	: $('#postuser').serialize(),
+                dataType: "JSON",
+                beforeSend: function(){
+                    $("#btnSave").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+                    $('.create-user').ploading({action:'show'});
+                },
+                success     : function(data){
+                    if (data.code == 0) {
+                        notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
+                        showData();
+                        resetForm('postuser');
+                        $('#modal-mitra').modal('hide');
+                        $('#mail').removeAttr('readonly');
+                    } else {
+                        notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
+                    }
+                },
+                complete    : function(){
+                    $("#btnSave").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                    $('.create-user').ploading({action:'hide'});
+                },
+                error 		: function(){
+                    notif('error', '{{ __("all.error") }}');
+                }
+            });
+        }
+    });
+
+    // $('[data-toggle="tooltip"]').tooltip();
 </script>
 @endsection

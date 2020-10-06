@@ -21,6 +21,7 @@ Route::post('/login_by_pass', [App\Http\Controllers\Admin\LoginController::class
 Route::get('/logout', [App\Http\Controllers\Admin\LoginController::class, 'logout'])->name('logout');
 
 Route::get('/partner', [App\Http\Controllers\Admin\PartnerController::class, 'index'])->name('partner');
+Route::post('/loadListPartner', [App\Http\Controllers\Admin\PartnerController::class, 'loadList'])->name('loadListPartner');
 
 Route::get('/user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('user');
 Route::get('/loadListUser', [App\Http\Controllers\Admin\UserController::class, 'loadList'])->name('loadListUser');
