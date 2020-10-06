@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/css/dataTables.bootstrap4.min.css') }}">
 	<!-- ploading js -->
     <link rel="stylesheet" href="{{ asset('assets/admin/css/p-loading/p-loading.css') }}">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7Ah8Zuhy2ECqqjBNF8ri2xJ7mwwtIbwo&callback=initMap" defer></script>
 
     <style>
         .readonly {
@@ -188,7 +189,7 @@
                                 <div class="input-group mb-3">
                                     <input type="password" name="oldPassword" id="oldPassword" class="form-control" placeholder="{{ __('all.placeholder.password') }}" aria-describedby="basic-addon1">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1" onclick="changeIcon('basic-addon1','oldPassword')"><i class="fa fa-eye"></i></span>
+                                        <button type="button" class="btn btn-primary input-group-text" id="basic-addon1" onclick="changeIcon('basic-addon1','oldPassword')"><i class="fa fa-eye"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -198,7 +199,7 @@
                                 <div class="input-group mb-3">
                                     <input type="password" name="newPassword" id="newPassword" class="form-control" placeholder="{{ __('all.placeholder.new_password') }}" aria-describedby="basic-addon2">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon2" onclick="changeIcon('basic-addon2','newPassword')"><i class="fa fa-eye"></i></span>
+                                        <button type="button" class="btn btn-primary input-group-text" id="basic-addon2" onclick="changeIcon('basic-addon2','newPassword')"><i class="fa fa-eye"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -271,8 +272,6 @@
     <!-- Chart js -->
     <script src="{{ asset('assets/admin/js/chart/chart.js') }}"></script>
     <script src="{{ asset('assets/admin/js/chart/chart.min.js') }}"></script>
-    <!-- Google maps js -->
-    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7Ah8Zuhy2ECqqjBNF8ri2xJ7mwwtIbwo&callback=initMap"></script> -->
     <!-- datatables -->
     <script src="{{ asset('assets/admin/js/datatable/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
@@ -288,6 +287,9 @@
     <script src="{{ asset('assets/admin/js/bootbox/bootbox.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/bootbox/bootbox.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js.map"></script>
+
+    <!-- api google maps -->
+    <script src="{{ asset('assets/admin/js/maps.js') }}"></script>
     
     @yield('script')
 

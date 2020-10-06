@@ -129,19 +129,19 @@
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.table.partner_nm') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="partner_nm" id="partner_nm" class="form-control readonly" readonly>
+                            <input type="text" name="nama" id="nama" class="form-control readonly" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.table.coordinator_type') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="coordinator_type" id="coordinator_type" class="form-control readonly" readonly>
+                            <input type="text" name="tipe" id="tipe" class="form-control readonly" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="category" class="col-sm-3">{{ __('all.category_coordinator') }}</label>
                         <div class="col-sm-9">
-                            <select name="coordinator_category" id="coor_category" class="form-control"></select>
+                            <select name="kategori" id="kategori" class="form-control"></select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -168,16 +168,21 @@
                             <input type="text" name="coordinate" id="coordinate" class="form-control readonly" readonly>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div id="googleMap" style="width:100%;height:40vh; display:none;"></div>
+                    </div>
+                    <input type="hidden" required id="lat" name="lat" placeholder="" class="form-control">
+                    <input type="hidden" required id="lng" name="long" placeholder="" class="form-control">
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.table.address') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
                             <textarea name="address" id="address" class="form-control readonly" cols="30" rows="10" readonly></textarea>
                         </div>
                     </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                <button type="submit" class="btn btn-primary">{{ __('all.save') }}</button>
+                    <div align="right">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __('all.save') }}</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -211,23 +216,58 @@
 
 @section('script')
 <script>
+    // Google Maps
+    function initialize(lat, lang) {
+
+        var propertiPeta = {
+            center:new google.maps.LatLng(lat, lang),
+            zoom:15,
+            mapTypeId:google.maps.MapTypeId.ROADMAP
+        };
+        var peta = new google.maps.Map(document.getElementById("googleMap"), propertiPeta);
+        // even listner ketika peta diklik
+        google.maps.event.addListener(peta, 'click', function(event) {
+            taruhMarker(this, event.latLng);
+        });
+
+        marker=new google.maps.Marker({
+            position: new google.maps.LatLng(lat,lang),
+            map: peta,
+            animation: google.maps.Animation.BOUNCE
+        });
+    }
+
+    initialize(-34.397, 150.644);
+
     $(document).on('click','#add-mitra', function () {
         showModal('modal-mitra', 'postmitra');
         $('#id').val('');
+        $('#tipe').val('pusat');
         $('#basic-addon1').attr('disabled', true);
         $('#modal-mitra').find('.modal-title').text("{{ __('all.add_partner') }}");
     });
 
-    // variabel global marker
-    function initMap() {
-        // The location of Uluru
-        var uluru = {lat: -25.344, lng: 131.036};
-        // The map, centered at Uluru
-        var map = new google.maps.Map(
-            document.getElementById('googleMap'), {zoom: 4, center: uluru});
-        // The marker, positioned at Uluru
-        var marker = new google.maps.Marker({position: uluru, map: map});
+    function showCategory() {
+        $.ajax({
+            type    : "GET",
+            url     : "{{ route('listAll') }}",
+            dataType: "JSON",
+            success     : function(data){
+                if (data.code == 0) {
+                    $('#kategori').empty();
+
+                    list = data.data;
+                    if(list.length > 0){
+                        $.each(list, function(idx, ref){
+                            $('#kategori').append('<option value="'+ref.id+'">'+ref.name+'</option>');
+                        });
+                    }
+                } 
+            },
+        });
     }
+
+    showCategory();
 
     function showData() {
         $.ajaxSetup({
@@ -278,7 +318,7 @@
             },
             success     : function(data){
                 if (data.code == 0) {
-
+                    $('#nama').val(data.data.name);
                 } 
             },
             complete : function () {
