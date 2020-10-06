@@ -177,7 +177,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                <button type="button" class="btn btn-primary">{{ __('all.save') }}</button>
+                <button type="submit" class="btn btn-primary">{{ __('all.save') }}</button>
                 </form>
             </div>
         </div>
@@ -189,7 +189,7 @@
     <div class="modal-dialog modals-default">
         <div class="modal-content delete-mitra">
             <div class="modal-header">
-                <h3 class="modal-title">{{ __('all.add_partner') }}</h3>
+                <h3 class="modal-title text-white"></h3>
                 <hr>
             </div>
             <div class="modal-body">
@@ -197,10 +197,11 @@
                     <span>{{ __('all.confirm') }} ?</span>
                     <span>{{ __('all.text_confirm') }}</span>
                 </center>
+                <input type="hidden" name="partner_id" id="partner_id">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.cancel') }}</button>
-                <button type="button" class="btn btn-primary">{{ __('all.yes') }}</button>
+                <button type="button" class="btn btn-primary" onclick="disabledP()" id="btnClose">{{ __('all.yes') }}</button>
             </div>
         </div>
     </div>
@@ -215,10 +216,6 @@
         $('#id').val('');
         $('#basic-addon1').attr('disabled', true);
         $('#modal-mitra').find('.modal-title').text("{{ __('all.add_partner') }}");
-    });
-
-    $(document).on('click','.remove-mitra', function () {
-        showModal('remove-mitra'); 
     });
 
     // variabel global marker
@@ -281,7 +278,7 @@
             },
             success     : function(data){
                 if (data.code == 0) {
-                    
+
                 } 
             },
             complete : function () {
@@ -291,55 +288,39 @@
         });
     }
 
-    function disable(id, name) {
-        bootbox.confirm({
-            message: "{{ __('all.confirm_disable') }} <b>"+name+"</b>?",
-            buttons: {
-                confirm: {
-                    label: '{{ __("all.yes") }}',
-                    className: 'btn-primary'
-                },
-                cancel: {
-                    label: '{{ __("all.cancel") }}',
-                    className: 'btn-secondary'
+    function disabledP() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type    : "POST",
+            url     : "{{ route('deletePartner') }}",
+            data	: {
+                id  : $('#partner_id').val(),
+            },
+            dataType: "JSON",
+            beforeSend: function(){
+                $('#btnClose').buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+                $(".delete-mitra").ploading({action : 'show'});
+            },
+            success     : function(data){
+                if (data.code == 0) {
+                    notif('success', '{{ __("all.success") }}', '{{ __("all.alert.delete") }}');
+                    $('#disabled-mitra').modal('hide');
+                    showData();
+                } else {
+                    notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_delete") }}');
                 }
             },
-            callback: function (res) {
-                if(res){
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-
-                    $.ajax({
-                        type    : "POST",
-                        url     : "{{ route('deleteUser') }}",
-                        data	: {
-                            id  : id,
-                        },
-                        dataType: "JSON",
-                        beforeSend: function(){
-                            $(this).buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
-                            $(".table-user").parent().ploading({action : 'show'});
-                        },
-                        success     : function(data){
-                            if (data.code == 0) {
-                                notif('success', '{{ __("all.success") }}', '{{ __("all.alert.delete") }}');
-                                showData();
-                            } else {
-                                notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_delete") }}');
-                            }
-                        },
-                        complete    : function(){
-                            $(this).buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
-                            $(".table-user").parent().ploading({action : 'hide'});
-                        },
-                        error 		: function(){
-                            notif('error', '{{ __("all.error") }}');
-                        }
-                    });
-                }
+            complete    : function(){
+                $('#btnClose').buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                $(".delete-mitra").ploading({action : 'hide'});
+            },
+            error 		: function(){
+                notif('error', '{{ __("all.error") }}');
             }
         });
     }
@@ -372,13 +353,15 @@
             $('#modal-mitra').find('.modal-title').text("{{ __('all.edit_user') }} #"+col1+"");
         });
 
-        $("#table-user").on('click','.action-delete',function(){
+        $("#table-maps").on('click','.action-delete',function(){
             var row  = $(this).closest("tr"); 
             
             var col1 = row.find("td:eq(1)").text();
-            var col2 = row.find("td:eq(2)").text();
+            var col2 = row.find("td:eq(3)").text();
 
-            disable(col1, col2);
+            showModal('disabled-mitra'); 
+            $('#partner_id').val(col1);
+            $('#disabled-mitra').find('.modal-title').text("{{ __('all.disabled_partner') }} "+col2+"");
         });
     });
     
@@ -386,7 +369,7 @@
 
     $(document).on('keyup','#search', function () {
         var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-        var $rows = $('#table-user tbody > tr');
+        var $rows = $('#table-maps tbody > tr');
 
         $rows.show().filter(function() {
             var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();

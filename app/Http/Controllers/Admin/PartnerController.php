@@ -101,7 +101,7 @@ class PartnerController extends Controller
         $client     = new Client();
         
         if (isset($request->id) && !empty($request->id)) {
-            $url        = $this->base_url . 'mitra/admin/user/edit';
+            $url        = $this->base_url . 'mitra/admin/edit-mitra';
             $request    = $client->post($url, [
                 'headers'   => [
                     'Authorization' => Session::get('admin_key')
@@ -115,7 +115,7 @@ class PartnerController extends Controller
                 ]
             ]);
         } else {
-            $url        = $this->base_url . 'mitra/admin/user/add';
+            $url        = $this->base_url . 'mitra/admin/register-mitra';
             $request    = $client->post($url, [
                 'headers'   => [
                     'Authorization' => Session::get('admin_key')
@@ -145,7 +145,7 @@ class PartnerController extends Controller
     {
         $client     = new Client();
         
-        $url        = $this->base_url . 'mitra/admin/user/disable';
+        $url        = $this->base_url . 'mitra/admin/disable-mitra';
         $request    = $client->post($url, [
             'headers'   => [
                 'Authorization' => Session::get('admin_key')

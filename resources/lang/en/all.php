@@ -152,6 +152,7 @@ return [
     'active'            => 'Active',
     'noactive'          => 'Not Active',
     'open_maps'         => 'Open Maps',
+    'disabled_partner'  => 'Disable Partner',
 ]
 
 ?>
