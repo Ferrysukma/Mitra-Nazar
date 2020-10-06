@@ -93,6 +93,7 @@
 
     function resetData() {
         $('#id').val('');
+        $('#category_name').val('');
         $('#btnSave').attr('disabled', true);
     }
 
@@ -104,6 +105,7 @@
             dataType: "JSON",
             beforeSend: function(){
                 $("#btnSave").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+                $(".table-category").parent().ploading({action : 'show'});
                 $('#category_name').attr('readonly', true);
             },
             success     : function(data){
@@ -116,6 +118,8 @@
             },
             complete    : function(){
                 $("#btnSave").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                resetData();
+                $(".table-category").parent().ploading({action : 'hide'});
                 $('#category_name').removeAttr('readonly');
             },
             error 		: function(){
