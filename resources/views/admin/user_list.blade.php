@@ -238,6 +238,7 @@
     $(document).on('change','#status', function () {
         var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
         var $rows = $('#table-user tbody > tr');
+        console.log($rows);
 
         $rows.show().filter(function() {
             var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();

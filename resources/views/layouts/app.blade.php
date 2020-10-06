@@ -60,6 +60,7 @@
                 <nav class="navbar navbar-expand navbar-light bg-primary topbar mb-4 static-top shadow">
 
                     <!-- Topbar Search -->
+                    <img src="{{ asset('assets/admin/image/logo/logo-header.png') }}" width="150px" alt="logo" srcset>
                     
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
