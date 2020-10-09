@@ -91,33 +91,22 @@ class UserController extends Controller
         
         if (isset($request->id) && !empty($request->id)) {
             $url        = $this->base_url . 'mitra/admin/user/edit';
-            $request    = $client->post($url, [
-                'headers'   => [
-                    'Authorization' => Session::get('admin_key')
-                ],
-                'json'      => [
-                    "payload"   => [
-                        "id"            => $request->id,
-                        "nama"          => $request->nama,
-                        "phone"         => $request->phone,
-                    ]
-                ]
-            ]);
         } else {
             $url        = $this->base_url . 'mitra/admin/user/add';
-            $request    = $client->post($url, [
-                'headers'   => [
-                    'Authorization' => Session::get('admin_key')
-                ],
-                'json'      => [
-                    "payload"   => [
-                        "nama"         => $request->nama,
-                        "email"        => $request->email,
-                        "phone"        => $request->phone,
-                    ]
-                ]
-            ]);
         }
+
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('admin_key')
+            ],
+            'json'      => [
+                "payload"   => [
+                    "nama"         => $request->nama,
+                    "email"        => $request->email,
+                    "phone"        => $request->phone,
+                ]
+            ]
+        ]);
         
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];
