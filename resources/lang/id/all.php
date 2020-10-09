@@ -19,7 +19,7 @@ return [
         'choose_kab'            => 'Pilih Kabupaten',
         'choose_status'         => 'Pilih Status',
         'filter'                => 'Cari ....',
-        'code_user'             => 'temukan kode user disini',
+        'code_user'             => 'temukan kode mitra disini',
         'title'                 => 'Masukkan judul pengumuman ....',
         'name_category'         => 'Masukkan nama kategori koordinator ....',
         'choose_coortype'       => 'Pilih Tipe Koordinator',
@@ -42,7 +42,7 @@ return [
         'email'         => 'Email',
         'telp'          => 'No Handphone',
         'district'      => 'Kecamatan',
-        'code_user'     => 'Kode User'
+        'code_user'     => 'Kode Mitra'
     ),
     'chart'         => 'Grafik',
     'maps'          => 'Peta',
@@ -130,6 +130,15 @@ return [
         'email'         => 'Email tidak boleh kosong',
         'phone'         => 'No handphone tidak boleh kosong',
         'integer'       => 'Hanya boleh angka',
+        'usercode'      => 'Kode mitra tidak boleh kosong',
+        'name'          => 'Nama mitra tidak boleh kosong',
+        'tipe'          => 'Tipe koordinator tidak boleh kosong',
+        'cat'           => 'Kategori koordinator tidak boleh kosong',
+        'city'          => 'Kota/kabupaten tidak boleh kosong',
+        'province'      => 'Provinsi tidak boleh kosong',
+        'district'      => 'Kecamatan tidak boleh kosong',
+        'coordinate'    => 'Koordinate tidak boleh kosong',
+        'address'       => 'Alamat tidak boleh kosong',
     ),
     'buttonloader'      => array(
         'wait'          => 'Tunggu',

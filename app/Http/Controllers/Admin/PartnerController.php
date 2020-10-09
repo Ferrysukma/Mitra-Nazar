@@ -108,9 +108,14 @@ class PartnerController extends Controller
                 ],
                 'json'      => [
                     "payload"   => [
-                        "id"            => $request->id,
+                        "userCode"      => $request->userCode,
                         "nama"          => $request->nama,
-                        "phone"         => $request->phone,
+                        "kategori"      => $request->kategori,
+                        "provinsi"      => $request->province,
+                        "kota"          => $request->city,
+                        "kecamatan"     => $request->district,
+                        "alamat"        => $request->address,
+                        "koordinat"     => $request->lat.", ".$request->long
                     ]
                 ]
             ]);
@@ -122,9 +127,14 @@ class PartnerController extends Controller
                 ],
                 'json'      => [
                     "payload"   => [
-                        "nama"         => $request->nama,
-                        "email"        => $request->email,
-                        "phone"        => $request->phone,
+                        "userCode"      => $request->userCode,
+                        "nama"          => $request->nama,
+                        "kategori"      => $request->kategori,
+                        "provinsi"      => $request->province,
+                        "kota"          => $request->city,
+                        "kecamatan"     => $request->district,
+                        "alamat"        => $request->address,
+                        "koordinat"     => $request->lat.", ".$request->long
                     ]
                 ]
             ]);
@@ -138,7 +148,6 @@ class PartnerController extends Controller
         } else {
             return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
         }
-            
     }
 
     public function delete(Request $request)

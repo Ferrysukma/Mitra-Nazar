@@ -28,6 +28,7 @@ Route::group(['middleware' => 'CheckToken'], function () {
     Route::post('/loadListPartner', [App\Http\Controllers\Admin\PartnerController::class, 'loadList'])->name('loadListPartner');
     Route::post('/findUser', [App\Http\Controllers\Admin\PartnerController::class, 'find'])->name('findUser');
     Route::post('/deletePartner', [App\Http\Controllers\Admin\PartnerController::class, 'delete'])->name('deletePartner');
+    Route::post('/createPartner', [App\Http\Controllers\Admin\PartnerController::class, 'create'])->name('createPartner');
 
     Route::get('/user', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('user');
     Route::get('/loadListUser', [App\Http\Controllers\Admin\UserController::class, 'loadList'])->name('loadListUser');

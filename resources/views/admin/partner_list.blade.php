@@ -140,7 +140,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="category" class="col-sm-3">{{ __('all.category_coordinator') }}</label>
+                            <label for="category" class="col-sm-3">{{ __('all.category_coordinator') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
                                 <select name="kategori" id="kategori" class="form-control select2 create-cat"></select>
                             </div>
@@ -159,7 +159,7 @@
                         <div class="form-group row">
                             <label for="old" class="col-sm-3">{{ __('all.table.prov') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
-                                <input type="text" name="priovince" id="province" class="form-control readonly" readonly>
+                                <input type="text" name="province" id="province" class="form-control readonly" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -185,7 +185,7 @@
                         <hr>
                         <div align="right">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                            <button type="submit" class="btn btn-primary">{{ __('all.save') }}</button>
+                            <button type="submit" class="btn btn-primary" id="save-mitra">{{ __('all.save') }}</button>
                         </div>
                     </form>
                 </div>
@@ -343,13 +343,18 @@
             success     : function(data){
                 if (data.code == 0) {
                     $('#kategori').empty();
-
+                    txt  = '';
                     list = data.data;
+                    
+                    txt += '<option value="" selected>{{ __("all.") }}</option>';
                     if(list.length > 0){
                         $.each(list, function(idx, ref){
-                            $('#kategori').append('<option value="'+ref.id+'">'+ref.name+'</option>');
+                            txt += '<option value="'+ref.name+'">'+ref.name+'</option>';
                         });
                     }
+
+                    $('#kategori').append(txt);
+                }
                 } 
             },
         });
@@ -506,7 +511,7 @@
         }).hide();
     });
 
-    $('#postuser').bootstrapValidator({
+    $('#postmitra').bootstrapValidator({
         container: 'tooltip',
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
@@ -514,24 +519,66 @@
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
+            userCode: {
+                validators: {
+                    notEmpty: {
+                        message: '<b class="text-danger">*{{ __("all.validation.usercode") }}</b>'
+                    },
+                }
+            },
             nama: {
                 validators: {
                     notEmpty: {
-                        message: '<b class="text-danger">*{{ __("all.validation.username") }}</b>'
+                        message: '<b class="text-danger">*{{ __("all.validation.name") }}</b>'
                     },
                 }
             },
-            email: {
+            tipe: {
                 validators: {
                     notEmpty: {
-                        message: '<b class="text-danger">*{{ __("all.validation.email") }}</b>'
+                        message: '<b class="text-danger">*{{ __("all.validation.tipe") }}</b>'
                     },
                 }
             },
-            phone: {
+            kategori: {
                 validators: {
                     notEmpty: {
-                        message: '<b class="text-danger">*{{ __("all.validation.phone") }}</b>'
+                        message: '<b class="text-danger">*{{ __("all.validation.cat") }}</b>'
+                    },
+                }
+            },
+            city: {
+                validators: {
+                    notEmpty: {
+                        message: '<b class="text-danger">*{{ __("all.validation.city") }}</b>'
+                    },
+                }
+            },
+            province: {
+                validators: {
+                    notEmpty: {
+                        message: '<b class="text-danger">*{{ __("all.validation.province") }}</b>'
+                    },
+                }
+            },
+            district: {
+                validators: {
+                    notEmpty: {
+                        message: '<b class="text-danger">*{{ __("all.validation.district") }}</b>'
+                    },
+                }
+            },
+            lat: {
+                validators: {
+                    notEmpty: {
+                        message: '<b class="text-danger">*{{ __("all.validation.coordinate") }}</b>'
+                    },
+                }
+            },
+            address: {
+                validators: {
+                    notEmpty: {
+                        message: '<b class="text-danger">*{{ __("all.validation.address") }}</b>'
                     },
                 }
             },
@@ -545,27 +592,26 @@
 
             $.ajax({
                 type	: "POST",
-                url		: "{{ route('createUser') }}",
-                data	: $('#postuser').serialize(),
+                url		: "{{ route('createPartner') }}",
+                data	: $('#postmitra').serialize(),
                 dataType: "JSON",
                 beforeSend: function(){
-                    $("#btnSave").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
-                    $('.create-user').ploading({action:'show'});
+                    $("#save-mitra").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+                    $('.create-mitra').ploading({action:'show'});
                 },
                 success     : function(data){
                     if (data.code == 0) {
                         notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
                         showData();
-                        resetForm('postuser');
+                        resetForm('postmitra','id');
                         $('#modal-mitra').modal('hide');
-                        $('#mail').removeAttr('readonly');
                     } else {
                         notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
                     }
                 },
                 complete    : function(){
-                    $("#btnSave").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
-                    $('.create-user').ploading({action:'hide'});
+                    $("#save-mitra").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                    $('.create-mitra').ploading({action:'hide'});
                 },
                 error 		: function(){
                     notif('error', '{{ __("all.error") }}');

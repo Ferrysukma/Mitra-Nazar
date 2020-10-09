@@ -123,4 +123,5 @@ class HomeController extends Controller
 
         return json_encode(array('code' => 0, 'info' => true, 'data' => array('lat' => $latitude, 'long' => $longitude)));
     }
+    
 }
