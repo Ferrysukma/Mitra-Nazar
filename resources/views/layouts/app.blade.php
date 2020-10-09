@@ -44,6 +44,12 @@
         footer {
             height: 4.375rem;
         }
+        .select2-link {
+            background-color: #42A5F5;
+            color           : #fff!important;
+            text-align      : center;
+            padding         : 10px 10px 10px 10px;
+        }
     </style>
 
 </head>
@@ -369,6 +375,61 @@
                 event.preventDefault();
             }
         });
+
+        function filterCoordinate(filter, code, show) {
+            var input, filter;
+            input  = document.getElementById(filter);
+            filter = input.value.toUpperCase();
+
+            $('#'+show).toggle('show');
+
+            $.ajax({
+                type        : "POST",
+                url         : "{{ route('getCoordinate') }}",
+                headers     : {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data        : {
+                    filter  : filter
+                },
+                dataType    : 'JSON',
+                beforeSend  : function () {
+                    $('.'+code).ploading({action:'show'});
+                },
+                success     : function (res) {
+                    $('.'+code).html(res.data);
+                },
+                complete    : function () {
+                    $('.'+code).ploading({action:'hide'});
+                }
+            });
+        }
+
+        function getLatLong(district, id, map) {
+            $.ajax({
+                type        : "POST",
+                url         : "{{ route('getLatLong') }}",
+                headers     : {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    address : district
+                },
+                dataType    : "JSON",
+                beforeSend  : function () {
+                    $('#'+map).ploading({action:'show'});
+                },
+                success     : function (res) {
+                    $('#lat').val(res.data.lat);
+                    $('#lng').val(res.data.long);
+                    initialize(res.data.lat, res.data.long, id);
+                    $('#'+id).show();
+                },
+                complete    : function () {
+                    $('#'+map).ploading({action:'hide'});
+                }
+            });
+        }
     </script>
 
 </body>

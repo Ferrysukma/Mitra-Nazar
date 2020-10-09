@@ -21,7 +21,6 @@ class LoginController extends Controller
     public function index()
     {
         return view('auth.login');
-        
     }
 
     public function login_by_pass(Request $request)
@@ -45,7 +44,7 @@ class LoginController extends Controller
 
         if ($response->getStatusCode() == '200') {
             Session::put('admin_key', json_decode((string) $responseBodyAsString, true)['token']);
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $request->username));
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('admin_key')));
         } else {
             echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
         }

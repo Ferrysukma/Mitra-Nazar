@@ -86,6 +86,7 @@ return [
     ),
     'filter'                => 'Saring',
     'add_partner'           => 'Tambah Mitra',
+    'add_cat'               => 'Tambah Kategori Koordinator',
     'add_user'              => 'Tambah Pengguna',
     'edit_user'             => 'Ubah Pengguna',
     'cancel'                => 'Batal',
@@ -153,6 +154,7 @@ return [
     'noactive'          => 'Tidak Aktif',
     'open_maps'         => 'Buka Peta',
     'disabled_partner'  => 'Non Aktifkan Mitra',
+    'showAll'           => 'Semuanya',
 ]
 
 ?>

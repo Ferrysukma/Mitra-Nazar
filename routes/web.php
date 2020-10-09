@@ -21,7 +21,9 @@ Route::get('/logout', [App\Http\Controllers\Admin\LoginController::class, 'logou
 
 Route::group(['middleware' => 'CheckToken'], function () {
     Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
-    
+    Route::post('/getCoordinate', [App\Http\Controllers\Admin\HomeController::class, 'getCoordinate'])->name('getCoordinate');
+    Route::post('/getLatLong', [App\Http\Controllers\Admin\HomeController::class, 'getLatLong'])->name('getLatLong');
+
     Route::get('/partner', [App\Http\Controllers\Admin\PartnerController::class, 'index'])->name('partner');
     Route::post('/loadListPartner', [App\Http\Controllers\Admin\PartnerController::class, 'loadList'])->name('loadListPartner');
     Route::post('/findUser', [App\Http\Controllers\Admin\PartnerController::class, 'find'])->name('findUser');
@@ -37,7 +39,7 @@ Route::group(['middleware' => 'CheckToken'], function () {
 
     Route::get('/category', [App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('category');
     Route::get('/listAll', [App\Http\Controllers\Admin\CategoryController::class, 'listAll'])->name('listAll');
-    Route::get('/loadListCategory', [App\Http\Controllers\Admin\CategoryController::class, 'loadList'])->name('loadListCategory');
+    Route::post('/loadListCategory', [App\Http\Controllers\Admin\CategoryController::class, 'loadList'])->name('loadListCategory');
     Route::post('/createCategory', [App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('createCategory');
     Route::post('/deleteCategory', [App\Http\Controllers\Admin\CategoryController::class, 'delete'])->name('deleteCategory');
 

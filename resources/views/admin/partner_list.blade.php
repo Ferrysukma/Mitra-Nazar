@@ -111,82 +111,100 @@
                 <hr>
             </div>
             <div class="modal-body">
-                <b>{{ __('all.modal_info') }}</b>
-                <br><br>
-                <form action="#" method="post" id="postmitra">
-                    <input type="hidden" name="id" id="id">
-                    <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.form.code_user') }} <sup class="text-danger">*</sup></label>
-                        <div class="col-sm-9">
-                            <div class="input-group mb-3">
-                                <input type="text" name="userCode" id="userCode" class="form-control" placeholder="{{ __('all.placeholder.code_user') }}" aria-describedby="basic-addon1">
-                                <div class="input-group-prepend">
-                                    <button type="button" class="btn btn-primary input-group-text" id="basic-addon1" onclick="findUser()" disabled><i class="fa fa-search"></i></button>
+                <div class="container-fluid" id="form-mitra">
+                    <b>{{ __('all.modal_info') }}</b>
+                    <br><br>
+                    <form action="#" method="post" id="postmitra">
+                        <input type="hidden" name="id" id="id">
+                        <div class="form-group row">
+                            <label for="old" class="col-sm-3">{{ __('all.form.code_user') }} <sup class="text-danger">*</sup></label>
+                            <div class="col-sm-9">
+                                <div class="input-group mb-3">
+                                    <input type="text" name="userCode" id="userCode" class="form-control" placeholder="{{ __('all.placeholder.code_user') }}" aria-describedby="basic-addon1">
+                                    <div class="input-group-prepend">
+                                        <button type="button" class="btn btn-primary input-group-text" id="basic-addon1" onclick="findUser()" disabled><i class="fa fa-search"></i></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.table.partner_nm') }} <sup class="text-danger">*</sup></label>
-                        <div class="col-sm-9">
-                            <input type="text" name="nama" id="nama" class="form-control readonly" readonly>
+                        <div class="form-group row">
+                            <label for="old" class="col-sm-3">{{ __('all.table.partner_nm') }} <sup class="text-danger">*</sup></label>
+                            <div class="col-sm-9">
+                                <input type="text" name="nama" id="nama" class="form-control readonly" readonly>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.table.coordinator_type') }} <sup class="text-danger">*</sup></label>
-                        <div class="col-sm-9">
-                            <input type="text" name="tipe" id="tipe" class="form-control readonly" readonly>
+                        <div class="form-group row">
+                            <label for="old" class="col-sm-3">{{ __('all.table.coordinator_type') }} <sup class="text-danger">*</sup></label>
+                            <div class="col-sm-9">
+                                <input type="text" name="tipe" id="tipe" class="form-control readonly" readonly>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="category" class="col-sm-3">{{ __('all.category_coordinator') }}</label>
-                        <div class="col-sm-9">
-                            <select name="kategori" id="kategori" class="form-control"></select>
+                        <div class="form-group row">
+                            <label for="category" class="col-sm-3">{{ __('all.category_coordinator') }}</label>
+                            <div class="col-sm-9">
+                                <select name="kategori" id="kategori" class="form-control select2 create-cat"></select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.table.prov') }} <sup class="text-danger">*</sup></label>
-                        <div class="col-sm-9">
-                            <input type="text" name="prov" id="prov" class="form-control readonly" readonly>
+                        <div class="form-group row">
+                            <label for="old" class="col-sm-3">{{ __('all.table.city') }} <sup class="text-danger">*</sup></label>
+                            <div class="col-sm-9">
+                                <div class="dropdown">
+                                    <input type="text" name="city" class="form-control dropdown-toggle" id="dropCity" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('dropCity', 'data-city', 'showCity')" placeholder="{{ __('all.placeholder.key') }}">
+                                    <div class="dropdown-menu data-city" id="showCity">
+                                        <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.table.city') }} <sup class="text-danger">*</sup></label>
-                        <div class="col-sm-9">
-                            <input type="text" name="city" id="city" class="form-control readonly" readonly>
+                        <div class="form-group row">
+                            <label for="old" class="col-sm-3">{{ __('all.table.prov') }} <sup class="text-danger">*</sup></label>
+                            <div class="col-sm-9">
+                                <input type="text" name="priovince" id="province" class="form-control readonly" readonly>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.form.district') }} <sup class="text-danger">*</sup></label>
-                        <div class="col-sm-9">
-                            <input type="text" name="district" id="district" class="form-control readonly" readonly>
+                        <div class="form-group row">
+                            <label for="old" class="col-sm-3">{{ __('all.form.district') }} <sup class="text-danger">*</sup></label>
+                            <div class="col-sm-9">
+                                <input type="text" name="district" id="district" class="form-control readonly" readonly>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.table.coordinate') }} <sup class="text-danger">*</sup></label>
-                        <div class="col-sm-9">
-                            <input type="text" name="coordinate" id="coordinate" class="form-control readonly" readonly>
+                        <div class="form-group row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-9" id="maps-mitra">
+                                <div id="map_canvas" style="width:100%;height:40vh"></div>
+                                <input type="hidden" id="lat" name="lat">
+                                <input type="hidden" id="lng" name="long">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-3"></div>
-                        <div class="col-sm-9">
-                            <div id="map_canvas" style="width:100%;height:40vh"></div>
+                        <div class="form-group row">
+                            <label for="old" class="col-sm-3">{{ __('all.table.address') }} <sup class="text-danger">*</sup></label>
+                            <div class="col-sm-9">
+                                <textarea name="address" id="address" class="form-control readonly" cols="30" rows="5"></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <input type="hidden" required id="lat" name="lat" placeholder="" class="form-control">
-                    <input type="hidden" required id="lng" name="long" placeholder="" class="form-control">
-                    <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.table.address') }} <sup class="text-danger">*</sup></label>
-                        <div class="col-sm-9">
-                            <textarea name="address" id="address" class="form-control readonly" cols="30" rows="10" readonly></textarea>
+                        <hr>
+                        <div align="right">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
+                            <button type="submit" class="btn btn-primary">{{ __('all.save') }}</button>
                         </div>
-                    </div>
-                    <div align="right">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                        <button type="submit" class="btn btn-primary">{{ __('all.save') }}</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+
+                <div class="container-fluid" id="form-cat">
+                    <form action="#" method="post" id="postcat">
+                        <div class="form-group row">
+                            <label for="cat" class="col-sm-3">{{ __('all.category_coordinator') }}</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="name" id="cat_name" placeholder="{{ __('all.placeholder.name_category') }}">
+                            </div>
+                        </div>
+                        <hr>
+                        <div align="right">
+                            <button type="button" class="btn btn-secondary" onClick="formMitra()">{{ __('all.close') }}</button>
+                            <button type="submit" class="btn btn-primary" id="save-cat" disabled onClick="saveCat()">{{ __('all.save') }}</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -220,10 +238,20 @@
 @section('script')
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7Ah8Zuhy2ECqqjBNF8ri2xJ7mwwtIbwo&callback=initMap" defer></script>
 <script>
-    $(function(){ 
-        // initialize(-34.397, 150.644, 'map_canvas');
-        getLocation('map_canvas');
+    $(document).on('click','.dropdown-item.select', function () {
+        var prov        = $(this).attr('provinsi');
+        var city        = $(this).attr('city');
+        var district    = $(this).attr('district');
+
+        $('#province').val(prov);
+        $('#city').val(dropCity);
+        $('#district').val(district);
+
+        $('.data-city').hide(); 
+        getLatLong(district, 'map_canvas', 'maps-mitra');
     });
+
+    $('#form-cat').hide();
 
     $(document).on('click','#add-mitra', function () {
         showModal('modal-mitra', 'postmitra');
@@ -232,6 +260,80 @@
         $('#basic-addon1').attr('disabled', true);
         $('#modal-mitra').find('.modal-title').text("{{ __('all.add_partner') }}");
     });
+
+    $('.create-cat').select2({
+        theme           : 'bootstrap4',
+    }).on('select2:open', function () {
+        var val = $(this).val();
+        var a   = $(this).data('select2');
+        if (!$('.select2-link').length) {
+            a.$results.parents('.select2-results')
+                    .append('<div class="select2-link"><a><i class="fa fa-plus"></i> {{ __("all.button.new") }}</a></div>')
+                    .on('click', function (b) {
+                        a.trigger('close');
+                        if (val == null || val == '') {
+                            formCategory();
+                            $('#modal-mitra').find('.modal-title').text("{{ __('all.add_cat') }}");
+                        }
+                    });
+        }
+    });
+
+    function formMitra() {
+        $('#modal-mitra').find('.modal-title').text("{{ __('all.add_partner') }}");
+        $("#form-cat").animate({
+            width: [ "toggle", "swing" ],
+            height: [ "toggle", "swing" ],
+            opacity: "toggle"
+        }, 1000, "linear", function() {
+            $('#form-mitra').show('slow');
+        });
+    }
+
+    function formCategory() {
+        $("#form-mitra").animate({
+            width: [ "toggle", "swing" ],
+            height: [ "toggle", "swing" ],
+            opacity: "toggle"
+        }, 1000, "linear", function() {
+            $('#form-cat').show('slow');
+        });
+    }
+    
+    $(document).on('keyup','#cat_name', function () {
+        $('#save-cat').removeAttr('disabled');
+    });
+
+    function saveCat() {
+        $.ajax({
+            type    : "POST",
+            url     : "{{ route('createCategory') }}",
+            data	: $('#postcat').serialize(),
+            dataType: "JSON",
+            beforeSend: function(){
+                $("#save-cat").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+                $(".create-mitra").ploading({action : 'show'});
+            },
+            success     : function(data){
+                if (data.code == 0) {
+                    notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
+                    formMitra();
+                    showCategory();
+                } else {
+                    notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
+                }
+            },
+            complete    : function(){
+                $("#save-cat").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                $('#cat_name').val('');
+                $('#save-cat').attr('disabled', true);
+                $(".create-mitra").ploading({action : 'hide'});
+            },
+            error 		: function(){
+                notif('error', '{{ __("all.error") }}');
+            }
+        });
+    }
 
     function showCategory() {
         $.ajax({

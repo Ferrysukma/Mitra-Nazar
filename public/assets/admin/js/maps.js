@@ -69,7 +69,7 @@ function initialize(lat, lang, id) {
     };
     var peta = new google.maps.Map(document.getElementById(id), propertiPeta);
     // even listner ketika peta diklik
-    google.maps.event.addListener(peta, 'click', function(event) {
+    google.maps.event.addListener(peta, 'click', function() {
         // taruhMarker(this, event.latLng);
         taruhMarker(lat, lang);
     });

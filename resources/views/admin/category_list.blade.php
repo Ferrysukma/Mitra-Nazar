@@ -42,7 +42,17 @@
             <div class="card-body table-category">
                 <div class="table-responsive-sm">
                     <div class="row">
-                        <div class="col-sm-9">
+                        <div class="col-sm-6">
+                            <select name="maxRox" id="maxRow" class="form-control" style="width:150px">
+                                <option value="10000000">{{ __('all.showAll') }}</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
                             <span style="float:right">{{ __('all.datatable.search') }}</span>
                         </div>
                         <div class="col-sm-3">
@@ -62,6 +72,11 @@
                         </thead>
                         <tbody id="showData"></tbody>
                     </table>
+                    <div class="pagination-container">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination"></ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
@@ -71,10 +86,19 @@
 
 @section('script')
 <script>
+
+
     function showData() {
         $.ajax({
-            type    : "GET",
+            type    : "POST",
             url     : "{{ route('loadListCategory') }}",
+            data    : {
+                limit   : 10,
+                page    : 0
+            },
+            headers : {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             dataType: "JSON",
             beforeSend: function(){
                 $('#showData').empty();

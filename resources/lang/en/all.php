@@ -24,7 +24,7 @@ return [
         'name_category'         => 'Enter category coordinator name ....',
         'choose_coortype'       => 'Choose Coordinator Type',
         'choose_coorcategory'   => 'Choose Coordinator Category',
-        'key'                   => 'Enter key words ....'
+        'key'                   => 'Enter key words ....',
     ),
     'remember'  => 'Remember me',
     'forget'    => 'Forget password?',
@@ -87,6 +87,7 @@ return [
     'filter'                => 'Filter',
     'add_partner'           => 'Create Partner',
     'add_user'              => 'Create User',
+    'add_cat'               => 'Create Category Coordinator',
     'edit_user'             => 'Edit User',
     'cancel'                => 'Cancel',
     'yes'                   => 'Yes diabled it',
@@ -110,7 +111,7 @@ return [
     'modal_info'            => 'Adding partners in admin is only for central coordinator partners',
     'datatable'             => array(
         'show_entries'  => 'Show _MENU_ entries',
-        'no_data'       => 'No data available in table',
+        'no_data'       => 'No data available',
         'showing_start' => 'Showing _START_ to _END_ of _TOTAL_ entries',
         'showing_null'  => 'Showing 0 to 0 of 0 entries',
         'load'          => 'Loading...',
@@ -153,6 +154,7 @@ return [
     'noactive'          => 'Not Active',
     'open_maps'         => 'Open Maps',
     'disabled_partner'  => 'Disable Partner',
+    'showAll'           => 'Show All',
 ]
 
 ?>

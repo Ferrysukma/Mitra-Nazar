@@ -35,8 +35,8 @@ class CategoryController extends Controller
             ],
             'json'      => [
                 "payload"   => [
-                    "limit"         => 5,
-                    "pageNumber"    => 0,
+                    "limit"         => $request->limit,
+                    "pageNumber"    => $request->page,
                 ]
             ]
         ]);
@@ -92,7 +92,7 @@ class CategoryController extends Controller
             ],
             'json'      => [
                 "payload"   => [
-                    "limit"         => 5,
+                    "limit"         => 1000,
                     "pageNumber"    => 0,
                 ]
             ]
