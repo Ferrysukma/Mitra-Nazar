@@ -90,6 +90,7 @@ return [
     'add_partner'           => 'Tambah Mitra',
     'add_cat'               => 'Tambah Kategori Koordinator',
     'add_user'              => 'Tambah Pengguna',
+    'add_ann'               => 'Tambah Pengumuman',
     'edit_user'             => 'Ubah Pengguna',
     'edit_partner'          => 'Ubah Mitra',
     'cancel'                => 'Batal',

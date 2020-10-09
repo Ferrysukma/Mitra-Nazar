@@ -90,6 +90,7 @@ return [
     'add_partner'           => 'Create Partner',
     'add_user'              => 'Create User',
     'add_cat'               => 'Create Category Coordinator',
+    'add_ann'               => 'Create Announcement',
     'edit_user'             => 'Edit User',
     'edit_partner'          => 'Edit Partner',
     'cancel'                => 'Cancel',

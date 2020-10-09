@@ -20,7 +20,7 @@
 <div class="row">
     <div class="col-lg-12 mb-4">
         <!-- Approach table -->
-        <div class="card shadow mb-4" id="show-table">
+        <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <div class="btn-group" role="group" style="float:right">
                     <button type="button" class="btn btn-primary btn-sm" id="add-ann" onclick="showForm()"><i class="fa fa-plus"></i> {{ __('all.button.new') }}</button>
@@ -69,96 +69,101 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <!-- Approach form -->
-        <div class="card shadow mb-4" id="show-form">
-            <div class="card-body">
-                <form action="#" method="post" id="postann">
-                    <div class="form-group row">
-                        <label for="purpose" class="col-sm-3">{{ __('all.table.purpose') }}</label>
-                        <div class="col-sm-9">
-                            <div class="fm-checkbox row">
-                                <div class="col-sm-6">
-                                    <label><input type="checkbox" class="i-checks"> {{ __('all.checkbox.central') }} </label>
+<!-- Modal -->
+<div class="modal fade" id="modal-ann">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content create-ann">
+            <div class="modal-header">
+                <h5 class="modal-title text-white"></h5>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form action="#" method="post" id="postann">
+                        <div class="form-group row">
+                            <label for="purpose" class="col-sm-3">{{ __('all.table.purpose') }}</label>
+                            <div class="col-sm-9">
+                                <div class="fm-checkbox row">
+                                    <div class="col-sm-6">
+                                        <label><input type="checkbox" class="i-checks"> {{ __('all.checkbox.central') }} </label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label><input type="checkbox" class="i-checks"> {{ __('all.checkbox.regional') }} </label>
+                                    </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <label><input type="checkbox" class="i-checks"> {{ __('all.checkbox.regional') }} </label>
+                                <div class="fm-checkbox row">
+                                    <div class="col-sm-6">
+                                        <label><input type="checkbox" class="i-checks"> {{ __('all.checkbox.city') }} </label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label><input type="checkbox" class="i-checks"> {{ __('all.checkbox.district') }} </label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="fm-checkbox row">
-                                <div class="col-sm-6">
-                                    <label><input type="checkbox" class="i-checks"> {{ __('all.checkbox.city') }} </label>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label><input type="checkbox" class="i-checks"> {{ __('all.checkbox.district') }} </label>
-                                </div>
-                            </div>
-                            <div class="fm-checkbox row">
-                                <div class="col-sm-6">
-                                    <label><input type="checkbox" class="i-checks"> {{ __('all.checkbox.village') }} </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="purpose" class="col-sm-3">{{ __('all.category_coordinator') }}</label>
-                        <div class="col-sm-9">
-                            <div class="fm-checkbox row">
-                                <div class="col-sm-6">
-                                    <label><input type="checkbox" class="i-checks"> Example 1 </label>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label><input type="checkbox" class="i-checks"> Example 2 </label>
-                                </div>
-                            </div>
-                            <div class="fm-checkbox row">
-                                <div class="col-sm-6">
-                                    <label><input type="checkbox" class="i-checks"> Example 3 </label>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label><input type="checkbox" class="i-checks"> Example 4 </label>
-                                </div>
-                            </div>
-                            <div class="fm-checkbox row">
-                                <div class="col-sm-6">
-                                    <label><input type="checkbox" class="i-checks"> Example 5 </label>
+                                <div class="fm-checkbox row">
+                                    <div class="col-sm-6">
+                                        <label><input type="checkbox" class="i-checks"> {{ __('all.checkbox.village') }} </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="show_date" class="col-sm-3">{{ __('all.show_date') }}</label>
-                        <div class="col-sm-6">
-                            <div class="input-group">
-                                <input type="text" class="form-control readonly" name="start_date" id="start_date" placeholder="{{ __('all.start_date') }}" readonly autocomplete=off>
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">{{ __('all.to') }}</span>
+                        <div class="form-group row">
+                            <label for="purpose" class="col-sm-3">{{ __('all.category_coordinator') }}</label>
+                            <div class="col-sm-9">
+                                <div class="fm-checkbox row">
+                                    <div class="col-sm-6">
+                                        <label><input type="checkbox" class="i-checks"> Example 1 </label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label><input type="checkbox" class="i-checks"> Example 2 </label>
+                                    </div>
                                 </div>
-                                <input type="text" class="form-control readonly" name="end_date" id="end_date" placeholder="{{ __('all.end_date') }}" readonly autocomplete=off>
+                                <div class="fm-checkbox row">
+                                    <div class="col-sm-6">
+                                        <label><input type="checkbox" class="i-checks"> Example 3 </label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label><input type="checkbox" class="i-checks"> Example 4 </label>
+                                    </div>
+                                </div>
+                                <div class="fm-checkbox row">
+                                    <div class="col-sm-6">
+                                        <label><input type="checkbox" class="i-checks"> Example 5 </label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="title" class="col-sm-3">{{ __('all.table.title') }}</label>
-                        <div class="col-sm-6">
-                            <input type="text" name="title" id="title" class="form-control" placeholder="{{ __('all.placeholder.title') }}">
+                        <div class="form-group row">
+                            <label for="show_date" class="col-sm-3">{{ __('all.show_date') }}</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input type="text" class="form-control readonly" name="start_date" id="start_date" placeholder="{{ __('all.start_date') }}" readonly autocomplete=off>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">{{ __('all.to') }}</span>
+                                    </div>
+                                    <input type="text" class="form-control readonly" name="end_date" id="end_date" placeholder="{{ __('all.end_date') }}" readonly autocomplete=off>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="title" class="col-sm-3">{{ __('all.table.contents') }}</label>
-                        <div class="col-sm-6">
-                            <textarea name="contents" id="contents" cols="30" rows="10" class="form-control"></textarea>
+                        <div class="form-group row">
+                            <label for="title" class="col-sm-3">{{ __('all.table.title') }}</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="title" id="title" class="form-control" placeholder="{{ __('all.placeholder.title') }}">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6"></div>
-                        <div class="col-sm-3">
-                            <button type="button" class="btn btn-secondary" onclick="showTable()">{{ __('all.button.back') }}</button>
-                            <button type="button" class="btn btn-primary">{{ __('all.save') }}</button>
+                        <div class="form-group row">
+                            <label for="title" class="col-sm-3">{{ __('all.table.contents') }}</label>
+                            <div class="col-sm-9">
+                                <textarea name="contents" id="contents" cols="30" rows="5" class="form-control"></textarea>
+                            </div>
                         </div>
-                        <div class="col-sm-3"></div>
-                    </div>
-                </form>
+                        <div align="right">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.button.back') }}</button>
+                            <button type="submit" class="btn btn-primary" id="save-ann">{{ __('all.save') }}</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -168,23 +173,8 @@
 @section('script')
 <script>
     function showForm() {
-        $("#show-table").animate({
-            width: [ "toggle", "swing" ],
-            height: [ "toggle", "swing" ],
-            opacity: "toggle"
-        }, 1000, "linear", function() {
-            $('#show-form').show('slow');
-        });
-    }
-
-    function showTable() {
-        $("#show-form").animate({
-            width: [ "toggle", "swing" ],
-            height: [ "toggle", "swing" ],
-            opacity: "toggle"
-        }, 1000, "linear", function() {
-            $('#show-table').show('slow');
-        });
+        showModal('modal-ann', 'postann');
+        $('#modal-ann').find('.modal-title').text('{{ __("all.add_ann") }}');
     }
 
     $('#start_date').datepicker({
@@ -207,7 +197,5 @@
                 .update('maxDate', date);
         }
     });
-
-    $('#show-form').hide();
 </script>
 @endsection
