@@ -51,7 +51,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <select name="coordinator_category" id="coordinator_category" class="form-control" style="width: 100% !important;">
+                                        <select name="coordinator_category" id="coordinator_category" class="form-control" style="width: 100% !important;" onclick="showData()">
                                             <option value="" selected disabled>{{ __('all.placeholder.choose_coorcategory') }}</option>
                                         </select>
                                     </div>

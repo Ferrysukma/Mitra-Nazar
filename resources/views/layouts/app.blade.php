@@ -167,7 +167,7 @@
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content modal-logout">
                 <div class="modal-header">
                     <h5 class="modal-title text-white">{{ __('all.leave') }}</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
@@ -175,7 +175,7 @@
                 <div class="modal-body">{{ __('all.comment_logout') }}</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">{{ __('all.cancel') }}</button>
-                    <a class="btn btn-primary" href="{{ route('logout') }}">{{ __('all.logout') }}</a>
+                    <a class="btn btn-primary" id="btn-logout" onclick="logout()"><span class="text-white">{{ __('all.logout') }}</span></a>
                 </div>
             </div>
         </div>
@@ -302,6 +302,12 @@
     @yield('script')
 
     <script>
+        function logout() {
+            $("#btn-logout").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+            $('.modal-logout').ploading({action:'show'});
+            window.location = "{{ route('logout') }}";
+        }
+
         function changeIcon(id, kd) {
             if ($('#'+id).find('i').hasClass('fa fa-eye')) {
                 $('#'+id).find('i').attr('class','fa fa-eye-slash');
@@ -344,7 +350,7 @@
                         }
                     },
                     complete    : function(){
-                    $("#btn-pass").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                        $("#btn-pass").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
                         $('.create-pass').ploading({action:'hide'});
                     },
                     error 		: function(){
