@@ -35,6 +35,7 @@
 		}
 
 		.nav-custome .nav-link.disabled, .show > .nav-custome .nav-link {
+			background-color 	: lightgrey;
 			font-weight			: 900;
 		}
 	</style>
@@ -257,6 +258,7 @@
 						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 					},
 					data		: {
+						"_token": "{{ csrf_token() }}",
 						email	: $('#email').val()
 					},
 					dataType: "JSON",
@@ -292,6 +294,7 @@
 						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 					},
 					data		: {
+						"_token": "{{ csrf_token() }}",
 						email	: $('#email').val(),
 						token	: $('#token').val()
 					},
@@ -328,6 +331,7 @@
 						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 					},
 					data		: {
+						"_token": "{{ csrf_token() }}",
 						email	: $('#email').val(),
 						token	: $('#token').val(),
 						password: $('#newpassword').val()
