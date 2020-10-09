@@ -102,27 +102,44 @@ class PartnerController extends Controller
         
         if (isset($request->id) && !empty($request->id)) {
             $url        = $this->base_url . 'mitra/admin/edit-mitra';
+            $request    = $client->post($url, [
+                'headers'   => [
+                    'Authorization' => Session::get('admin_key')
+                ],
+                'json'      => [
+                    "payload"   => [
+                        "id"            => $request->id,
+                        "userCode"      => $request->userCode,
+                        "nama"          => $request->nama,
+                        "kategori"      => $request->kategori,
+                        "provinsi"      => $request->province,
+                        "kota"          => $request->city,
+                        "kecamatan"     => $request->district,
+                        "alamat"        => $request->address,
+                        "koordinat"     => $request->lat.", ".$request->long
+                    ]
+                ]
+            ]);
         } else {
             $url        = $this->base_url . 'mitra/admin/register-mitra';
-        }
-
-        $request    = $client->post($url, [
-            'headers'   => [
-                'Authorization' => Session::get('admin_key')
-            ],
-            'json'      => [
-                "payload"   => [
-                    "userCode"      => $request->userCode,
-                    "nama"          => $request->nama,
-                    "kategori"      => $request->kategori,
-                    "provinsi"      => $request->province,
-                    "kota"          => $request->city,
-                    "kecamatan"     => $request->district,
-                    "alamat"        => $request->address,
-                    "koordinat"     => $request->lat.", ".$request->long
+            $request    = $client->post($url, [
+                'headers'   => [
+                    'Authorization' => Session::get('admin_key')
+                ],
+                'json'      => [
+                    "payload"   => [
+                        "userCode"      => $request->userCode,
+                        "nama"          => $request->nama,
+                        "kategori"      => $request->kategori,
+                        "provinsi"      => $request->province,
+                        "kota"          => $request->city,
+                        "kecamatan"     => $request->district,
+                        "koordinat"     => $request->lat.", ".$request->long,
+                        "alamat"        => $request->address,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
+        }
         
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];

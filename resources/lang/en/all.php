@@ -89,6 +89,7 @@ return [
     'add_user'              => 'Create User',
     'add_cat'               => 'Create Category Coordinator',
     'edit_user'             => 'Edit User',
+    'edit_partner'          => 'Edit Partner',
     'cancel'                => 'Cancel',
     'yes'                   => 'Yes diabled it',
     'confirm'               => 'Are you sure to disable this partner',
@@ -157,7 +158,8 @@ return [
         'fail'          => 'Failed to save data',
         'delete'        => 'Successfully deleted data',
         'fail_delete'   => 'Failed to delete data',
-        'fail_pass'     => 'Old password is wrong'
+        'fail_pass'     => 'Old password is wrong',
+        'fail_partner'  => 'Partner is no longer active',
     ),
     'active'            => 'Active',
     'noactive'          => 'Not Active',

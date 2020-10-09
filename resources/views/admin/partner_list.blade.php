@@ -120,7 +120,7 @@
                             <label for="old" class="col-sm-3">{{ __('all.form.code_user') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
                                 <div class="input-group mb-3">
-                                    <input type="text" name="userCode" id="userCode" class="form-control" placeholder="{{ __('all.placeholder.code_user') }}" aria-describedby="basic-addon1">
+                                    <input type="text" name="userCode" id="userCode" class="form-control readonly" placeholder="{{ __('all.placeholder.code_user') }}" aria-describedby="basic-addon1">
                                     <div class="input-group-prepend">
                                         <button type="button" class="btn btn-primary input-group-text" id="basic-addon1" onclick="findUser()" disabled><i class="fa fa-search"></i></button>
                                     </div>
@@ -258,6 +258,8 @@
         $('#id').val('');
         $('#tipe').val('pusat');
         $('#basic-addon1').attr('disabled', true);
+        $('#userCode').removeAttr('readonly');
+        $('#kategori').val('').change();
         $('#modal-mitra').find('.modal-title').text("{{ __('all.add_partner') }}");
     });
 
@@ -303,6 +305,36 @@
     $(document).on('keyup','#cat_name', function () {
         $('#save-cat').removeAttr('disabled');
     });
+    
+    $("#table-maps").on('click','.action-edit',function() {
+        showModal('modal-mitra','postmitra');
+        var row  = $(this).closest("tr"); 
+
+        var col1 = row.find("td:eq(0)").text();
+        var col2 = row.find("td:eq(1)").text();
+        var col3 = row.find("td:eq(2)").text();
+        var col4 = row.find("td:eq(3)").text();
+        var col5 = row.find("td:eq(4)").text();
+        var col6 = row.find("td:eq(5)").text();
+        var col7 = row.find("td:eq(6)").text();
+        var col8 = row.find("td:eq(7)").text();
+        var col9 = row.find("td:eq(8)").text();
+        var col10= row.find("td:eq(9)").text();
+
+        $('#id').val(col2);
+        $('#userCode').val(col3).attr('readonly', true);
+        $('#nama').val(col4);
+        $('#tipe').val(col5)
+        $('#kategori').val(col6).change();
+        $('#dropCity').val(col8);
+        $('#province').val(col7);
+        $('#district').val(col9);
+        $('#address').val(col10);
+
+        getLatLong(col9, 'map_canvas', 'maps-mitra');
+        
+        $('#modal-mitra').find('.modal-title').text("{{ __('all.edit_user') }} #"+col1+"");
+    });
 
     function saveCat() {
         $.ajax({
@@ -346,7 +378,7 @@
                     txt  = '';
                     list = data.data;
                     
-                    txt += '<option value="" selected>{{ __("all.") }}</option>';
+                    txt += '<option value="" selected>{{ __("all.placeholder.choose_coorcategory") }}</option>';
                     if(list.length > 0){
                         $.each(list, function(idx, ref){
                             txt += '<option value="'+ref.name+'">'+ref.name+'</option>';
@@ -354,7 +386,6 @@
                     }
 
                     $('#kategori').append(txt);
-                }
                 } 
             },
         });

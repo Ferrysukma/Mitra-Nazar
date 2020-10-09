@@ -123,20 +123,30 @@ class CategoryController extends Controller
         
         if (isset($request->id) && !empty($request->id)) {
             $url        = $this->base_url . 'mitra/admin/kategori/edit';
+            $request    = $client->post($url, [
+                'headers'   => [
+                    'Authorization' => Session::get('admin_key')
+                ],
+                'json'      => [
+                    "payload"   => [
+                        "id"    => $request->id,
+                        "name"  => $request->name,
+                    ]
+                ]
+            ]);
         } else {
             $url        = $this->base_url . 'mitra/admin/kategori/create';
-        }
-
-        $request    = $client->post($url, [
-            'headers'   => [
-                'Authorization' => Session::get('admin_key')
-            ],
-            'json'      => [
-                "payload"   => [
-                    "name"         => $request->name,
+            $request    = $client->post($url, [
+                'headers'   => [
+                    'Authorization' => Session::get('admin_key')
+                ],
+                'json'      => [
+                    "payload"   => [
+                        "name"  => $request->name,
+                    ]
                 ]
-            ]
-        ]);
+            ]);
+        }
         
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];

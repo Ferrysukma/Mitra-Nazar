@@ -89,6 +89,7 @@ return [
     'add_cat'               => 'Tambah Kategori Koordinator',
     'add_user'              => 'Tambah Pengguna',
     'edit_user'             => 'Ubah Pengguna',
+    'edit_partner'          => 'Ubah Mitra',
     'cancel'                => 'Batal',
     'yes'                   => 'Ya, Nonaktifkan',
     'confirm'               => 'Anda yakin untuk menonaktifkan mitra ini',
@@ -157,7 +158,8 @@ return [
         'fail'          => 'Gagal menyimpan data',
         'delete'        => 'Berhasil menghapus data',
         'fail_delete'   => 'Gagal menghapus data',
-        'fail_pass'     => 'Kata sandi lama salah'
+        'fail_pass'     => 'Kata sandi lama salah',
+        'fail_partner'  => 'Mitra sudah tidak aktif',
     ),
     'active'            => 'Aktif',
     'noactive'          => 'Tidak Aktif',
