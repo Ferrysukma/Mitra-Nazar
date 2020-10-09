@@ -25,6 +25,7 @@ return [
         'choose_coortype'       => 'Pilih Tipe Koordinator',
         'choose_coorcategory'   => 'Pilih Kategori Koordinator',
         'key'                   => 'Masukkan kata kunci ....',
+        'token'                 => 'Masukkan token ....',
     ),
     'remember'  => 'Ingat saya',
     'forget'    => 'Lupa sandi?',
@@ -83,6 +84,7 @@ return [
         'edit'              => 'Ubah',
         'delete'            => 'Hapus',
         'reset'             => 'Ulang',
+        'newP'              => 'Sandi Baru',
     ),
     'filter'                => 'Saring',
     'add_partner'           => 'Tambah Mitra',
@@ -140,6 +142,7 @@ return [
         'district'      => 'Kecamatan tidak boleh kosong',
         'coordinate'    => 'Koordinate tidak boleh kosong',
         'address'       => 'Alamat tidak boleh kosong',
+        'token'         => 'Token tidak boleh kosong',
     ),
     'buttonloader'      => array(
         'wait'          => 'Tunggu',
@@ -166,6 +169,7 @@ return [
     'open_maps'         => 'Buka Peta',
     'disabled_partner'  => 'Non Aktifkan Mitra',
     'showAll'           => 'Semuanya',
+    'comment_token'     => 'Silahkan cek email anda untuk mendapatkan token',
 ]
 
 ?>

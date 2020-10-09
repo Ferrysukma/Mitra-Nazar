@@ -26,13 +26,24 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/css/p-loading/p-loading.css') }}">
 	<!-- Select 2 -->
     <link rel="stylesheet" href="{{ asset('assets/admin/css/select2/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/admin/css/select2/select2-bootstrap4.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/admin/css/select2/select2-bootstrap4.min.css') }}">
+	<style>
+		.nav-custome .nav-link.active, .show > .nav-custome .nav-link {
+			background-color 	: #004185;
+			color				: #fff!important;
+			font-weight			: 900;
+		}
+
+		.nav-custome .nav-link.disabled, .show > .nav-custome .nav-link {
+			font-weight			: 900;
+		}
+	</style>
 </head>
 <body>
 	
 	<div class="limiter">
 		<div class="container-login100">
-			<div class="wrap-login100 p-t-50 p-b-90">
+			<div class="wrap-login100 p-t-50 p-b-90" id="show-login">
 				<form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postlogin">
 					@csrf
 					<span class="login100-form-title p-b-51">
@@ -62,7 +73,7 @@
 						</div>
 
 						<div>
-							<a href="#" class="txt1">
+							<a href="#" class="txt1" onclick="showEmail()">
 								{{ __('all.forget') }}
 							</a>
 						</div>
@@ -76,9 +87,95 @@
 
 				</form>
 			</div>
+			
+			<div class="wrap-login100 p-t-50 p-b-90" id="show-email" hidden>
+				<div class="back-login">
+					<a href="#" onclick="showLogin()" id="backLogin"><span class="fa fa-arrow-left" style="font-weight:900"> Login</span> </a> 
+					<hr>
+				</div>
+				<span class="login100-form-title p-b-51">
+					{{ __('all.welcome') }} <br>
+				</span>
+				
+				<span class="login100-form-subtitle">
+					<nav class="nav nav-custome nav-justified">
+						<a class="nav-item nav-link disabled email" href="#">Email</a>
+						<a class="nav-item nav-link disabled token" href="#">Token</a>
+						<a class="nav-item nav-link disabled password" href="#">{{ __('all.button.newP') }}</a>
+					</nav> <br>
+				</span>
+
+				<form class="login100-form validate-form flex-sb flex-w" method="post" action="#">
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "{{ __('all.validation.email') }}">
+						<input class="input100" type="email" name="email" id="email" placeholder="{{ __('all.placeholder.email') }}">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="container-login100-form-btn m-t-17">
+						<button type="submit" class="login100-form-btn" id="save-email" onclick="generateToken()">
+							{{ __('all.save') }}
+						</button>
+					</div>
+				</form>
+			</div>
+
+			<div class="wrap-login100 p-t-50 p-b-90" id="show-token" hidden>
+				<span class="login100-form-title p-b-51">
+					{{ __('all.welcome') }} <br>
+				</span>
+				
+				<span class="login100-form-subtitle">
+					<nav class="nav nav-custome nav-justified">
+						<a class="nav-item nav-link disabled email" href="#">Email</a>
+						<a class="nav-item nav-link disabled token" href="#">Token</a>
+						<a class="nav-item nav-link disabled password" href="#">{{ __('all.button.newP') }}</a>
+					</nav> <br>
+				</span>
+
+				<form class="login100-form validate-form flex-sb flex-w" method="post" action="#">
+					<b>* {{ __('all.comment_token') }}</b>
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "{{ __('all.validation.token') }}">
+						<input class="input100" type="text" name="token" id="token" placeholder="{{ __('all.placeholder.token') }}">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="container-login100-form-btn m-t-17">
+						<button type="submit" class="login100-form-btn" id="save-token" onclick="verifyToken()">
+							{{ __('all.save') }}
+						</button>
+					</div>
+				</form>
+
+			</div>
+
+			<div class="wrap-login100 p-t-50 p-b-90" id="show-password" hidden>
+				<span class="login100-form-title p-b-51">
+					{{ __('all.welcome') }} <br>
+				</span>
+				
+				<span class="login100-form-subtitle">
+					<nav class="nav nav-custome nav-justified">
+						<a class="nav-item nav-link disabled email" href="#">Email</a>
+						<a class="nav-item nav-link disabled token" href="#">Token</a>
+						<a class="nav-item nav-link disabled password" href="#">{{ __('all.button.newP') }}</a>
+					</nav> <br>
+				</span>
+
+				<form class="login100-form validate-form flex-sb flex-w" method="post" action="#">
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "{{ __('all.validation.new') }}">
+						<input class="input100" type="text" name="password" id="newpassword" placeholder="{{ __('all.placeholder.new_password') }}">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="container-login100-form-btn m-t-17">
+						<button type="submit" class="login100-form-btn" id="save-password" onclick="createPassword()">
+							{{ __('all.save') }}
+						</button>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
-	
 
 	<div id="dropDownSelect1"></div>
 	
@@ -138,6 +235,169 @@
 				});
 				
 			}
+		}
+
+		function navigasi(id, kd, cd) {
+			$('#show-'+id).removeAttr('hidden');
+			$('#show-'+id).find('.disabled.'+id).removeClass('disabled').addClass('active');
+
+			$('#show-'+kd).attr('hidden', true);
+			$('#show-'+kd).find('.disabled.'+kd).removeClass('active').addClass('disabled');
+
+			$('#show-'+cd).attr('hidden', true);
+			$('#show-'+cd).find('.disabled.'+cd).removeClass('active').addClass('disabled');
+		}
+
+		function generateToken() {
+			if ($('#email').val() != null && $('#email').val() != '') {
+				$.ajax({
+					type		: "POST",
+					url			: "{{ route('generateToken') }}",
+					headers		: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					data		: {
+						email	: $('#email').val()
+					},
+					dataType: "JSON",
+					beforeSend: function(){
+						$("#save-email").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+						$("#show-email").ploading({action : 'show'});
+					},
+					success     : function(data){
+						if (data.code == 0) {
+							notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
+							showToken();
+						} else {
+							notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
+						}
+					},
+					complete    : function(){
+						$("#save-email").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+						$("#show-email").ploading({action : 'hide'});
+					},
+					error 		: function(){
+						notif('error', '{{ __("all.error") }}');
+					}
+				})
+			}
+		}
+
+		function verifyToken() {
+			if ($('#token').val() != null && $('#token').val() != '') {
+				$.ajax({
+					type		: "POST",
+					url			: "{{ route('verifyToken') }}",
+					headers		: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					data		: {
+						email	: $('#email').val(),
+						token	: $('#token').val()
+					},
+					dataType: "JSON",
+					beforeSend: function(){
+						$("#save-token").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+						$("#show-token").ploading({action : 'show'});
+					},
+					success     : function(data){
+						if (data.code == 0) {
+							notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
+							showPassword();
+						} else {
+							notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
+						}
+					},
+					complete    : function(){
+						$("#save-token").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+						$("#show-token").ploading({action : 'hide'});
+					},
+					error 		: function(){
+						notif('error', '{{ __("all.error") }}');
+					}
+				})
+			}
+		}
+
+		function createPassword() {
+			if ($('#newpassword').val() != null && $('#newpassword').val() != '') {
+				$.ajax({
+					type		: "POST",
+					url			: "{{ route('createPassword') }}",
+					headers		: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					data		: {
+						email	: $('#email').val(),
+						token	: $('#token').val(),
+						password: $('#newpassword').val()
+					},
+					dataType: "JSON",
+					beforeSend: function(){
+						$("#save-password").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+						$("#show-password").ploading({action : 'show'});
+					},
+					success     : function(data){
+						if (data.code == 0) {
+							notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
+							$('#show-password').hide();
+							$('#show-login').show();
+						} else {
+							notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
+						}
+					},
+					complete    : function(){
+						$("#save-password").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+						$("#show-password").ploading({action : 'hide'});
+					},
+					error 		: function(){
+						notif('error', '{{ __("all.error") }}');
+					}
+				})
+			}
+		}
+
+		function showLogin() {
+			$("#show-email").animate({
+				width: [ "toggle", "swing" ],
+				height: [ "toggle", "swing" ],
+				opacity: "toggle"
+			}, 1000, "linear", function() {
+				$('#show-login').show('slow');
+			});
+		}
+
+		function showEmail() {
+			$("#show-login").animate({
+				width: [ "toggle", "swing" ],
+				height: [ "toggle", "swing" ],
+				opacity: "toggle"
+			}, 500, "linear", function() {
+				$('#show-email').show('slow');
+				navigasi('email','token','password');
+			});
+		}
+
+		function showToken() {
+			$("#show-email").animate({
+				width: [ "toggle", "swing" ],
+				height: [ "toggle", "swing" ],
+				opacity: "toggle"
+			}, 1000, "linear", function() {
+				$('#show-token').show('slow');
+				navigasi('token','email','password');
+			});
+		}
+
+		function showPassword() {
+			$("#show-token").animate({
+				width: [ "toggle", "swing" ],
+				height: [ "toggle", "swing" ],
+				opacity: "toggle"
+			}, 1000, "linear", function() {
+				$('#show-password').show('slow');
+				navigasi('password','token','email');
+			});
 		}
 	</script>
 

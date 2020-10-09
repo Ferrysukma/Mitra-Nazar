@@ -25,6 +25,7 @@ return [
         'choose_coortype'       => 'Choose Coordinator Type',
         'choose_coorcategory'   => 'Choose Coordinator Category',
         'key'                   => 'Enter key words ....',
+        'token'                 => 'Enter token here ....',
     ),
     'remember'  => 'Remember me',
     'forget'    => 'Forget password?',
@@ -83,6 +84,7 @@ return [
         'edit'              => 'Edit',
         'delete'            => 'Delete',
         'reset'             => 'Reset',
+        'newP'              => 'New Password',
     ),
     'filter'                => 'Filter',
     'add_partner'           => 'Create Partner',
@@ -140,6 +142,7 @@ return [
         'district'      => 'District cannot be empty',
         'coordinate'    => 'Coordinate cannot be empty',
         'address'       => 'Address cannot be empty',
+        'token'         => 'Token cannot be empty',
     ),
     'buttonloader'      => array(
         'wait'          => 'Wait',
@@ -166,6 +169,7 @@ return [
     'open_maps'         => 'Open Maps',
     'disabled_partner'  => 'Disable Partner',
     'showAll'           => 'Show All',
+    'comment_token'     => 'Please check your email to get a token',
 ]
 
 ?>

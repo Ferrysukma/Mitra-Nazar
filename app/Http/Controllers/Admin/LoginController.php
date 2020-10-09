@@ -26,7 +26,6 @@ class LoginController extends Controller
     public function login_by_pass(Request $request)
     {   
         $client = new Client();
-
         $url = $this->base_url . 'mitra/admin/login';
         try {
             $response = $client->post($url, [
@@ -55,34 +54,70 @@ class LoginController extends Controller
         Session::flush();
         return redirect('/login_admin');
     }
-
-    public function change_password(Request $request)
+    
+    public function generateToken(Request $request)
     {
         $client = new Client();
-
-        $url = $this->base_url . 'admin/user/change-password';
+        $url = $this->base_url . 'mitra/admin/reset-password';
         $request = $client->post($url, [
-            'headers'   => [
-                'Authorization' => Session::get('admin_key')
-            ],
             'json'      => [
-                "payload"   => [
-                    "oldPassword"     => $request->oldPassword,
-                    "newPassword"     => $request->newPassword,
-                    "confirmPassword" => $request->confirmPassword
-                ]
+                "email"     => $request->email,
             ]
         ]);
+
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];
         $description= json_decode((string) $response, true)['status']['statusDesc'];
-
+        
         if ($status == '000') {
-            $result = 'success';
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
         } else {
-            $result = $description;
-        }
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+        }   
+    }
 
-        return json_encode($result);
+    public function verifyToken(Request $request)
+    {
+        $client = new Client();
+        $url = $this->base_url . 'mitra/admin/verify-reset-password';
+        $request = $client->post($url, [
+            'json'      => [
+                "email"     => $request->email,
+                "token"     => $request->token
+            ]
+        ]);
+
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+        $description= json_decode((string) $response, true)['status']['statusDesc'];
+        
+        if ($status == '000') {
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
+        } else {
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+        }   
+    }
+
+    public function createPassword(Request $request)
+    {
+        $client = new Client();
+        $url = $this->base_url . 'mitra/admin/generate-password';
+        $request = $client->post($url, [
+            'json'      => [
+                "email"     => $request->email,
+                "token"     => $request->token,
+                "password"  => $request->password
+            ]
+        ]);
+
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+        $description= json_decode((string) $response, true)['status']['statusDesc'];
+        
+        if ($status == '000') {
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
+        } else {
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+        }   
     }
 }
