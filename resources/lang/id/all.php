@@ -24,6 +24,7 @@ return [
         'name_category'         => 'Masukkan nama kategori koordinator ....',
         'choose_coortype'       => 'Pilih Tipe Koordinator',
         'choose_coorcategory'   => 'Pilih Kategori Koordinator',
+        'purpose'               => 'Pilih Tujuan',
         'key'                   => 'Masukkan kata kunci ....',
         'token'                 => 'Masukkan token ....',
     ),
@@ -144,6 +145,11 @@ return [
         'coordinate'    => 'Koordinate tidak boleh kosong',
         'address'       => 'Alamat tidak boleh kosong',
         'token'         => 'Token tidak boleh kosong',
+        'purpose'       => 'Tujuan pengumuman tidak boleh kosong',
+        'sdate'         => 'Tanggal awal tidak boleh kosong',
+        'edate'         => 'Tanggal akhir tidak boleh kosong',
+        'title'         => 'Judul pengumuman tidak boleh kosong',
+        'contents'      => 'Isi Pengumuman tidak boleh kosong'
     ),
     'buttonloader'      => array(
         'wait'          => 'Tunggu',

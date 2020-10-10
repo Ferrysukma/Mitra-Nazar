@@ -96,69 +96,42 @@ class AnnouncementController extends Controller
         }
     }
 
-    public function listAll(Request $request)
-    {
-        $client     = new Client();
-
-        $url        = $this->base_url . 'mitra/admin/kategori/list';
-        
-        $request    = $client->post($url, [
-            'headers'   => [
-                'Authorization' => Session::get('admin_key')
-            ],
-            'json'      => [
-                "payload"   => [
-                    "limit"         => 1000,
-                    "pageNumber"    => 0,
-                ]
-            ]
-        ]);
-        
-        $response   = $request->getBody()->getContents();
-        $status     = json_decode((string) $response, true)['status']['statusCode'];
-
-        if ($status == '000') {
-            $result = json_decode((string) $response)->payload;
-            
-            $row    = [];
-            foreach ($result as $key => $value) {
-                $row[]  = $value;
-            }
-
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
-        } else {
-            $result = 'empty';
-            
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
-        }
-    }
-
     public function create(Request $request)
     {
         $client     = new Client();
         
         if (isset($request->id) && !empty($request->id)) {
-            $url        = $this->base_url . 'mitra/admin/kategori/edit';
+            $url        = $this->base_url . 'mitra/admin/pengumuman/edit';
             $request    = $client->post($url, [
                 'headers'   => [
                     'Authorization' => Session::get('admin_key')
                 ],
                 'json'      => [
                     "payload"   => [
-                        "id"    => $request->id,
-                        "name"  => $request->name,
+                        "id"            => $request->id,
+                        "judul"         => $request->judul,
+                        "isi"           => $request->isi,
+                        "tanggalMulai"  => date('Y-m-d', strtotime($request->start_date)),
+                        "tanggalSelesai"=> date('Y-m-d', strtotime($request->end_date)),
+                        "tujuan"        => $request->tujuan,
+                        "kategori"      => $request->kategori
                     ]
                 ]
             ]);
         } else {
-            $url        = $this->base_url . 'mitra/admin/kategori/create';
+            $url        = $this->base_url . 'mitra/admin/pengumuman/create';
             $request    = $client->post($url, [
                 'headers'   => [
                     'Authorization' => Session::get('admin_key')
                 ],
                 'json'      => [
                     "payload"   => [
-                        "name"  => $request->name,
+                        "judul"         => $request->judul,
+                        "isi"           => $request->isi,
+                        "tanggalMulai"  => date('Y-m-d', strtotime($request->tanggalMulai)),
+                        "tanggalSelesai"=> date('Y-m-d', strtotime($request->tanggalSelesai)),
+                        "tujuan"        => $request->tujuan,
+                        "kategori"      => $request->kategori
                     ]
                 ]
             ]);

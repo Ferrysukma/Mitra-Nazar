@@ -86,8 +86,6 @@
 
 @section('script')
 <script>
-
-
     function showData() {
         $.ajax({
             type    : "POST",

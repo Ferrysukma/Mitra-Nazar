@@ -193,7 +193,7 @@
                 <div class="container-fluid" id="form-cat">
                     <form action="#" method="post" id="postcat">
                         <div class="form-group row">
-                            <label for="cat" class="col-sm-3">{{ __('all.category_coordinator') }}</label>
+                            <label for="cat" class="col-sm-3">{{ __('all.category_coordinator') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="name" id="cat_name" placeholder="{{ __('all.placeholder.name_category') }}">
                             </div>
@@ -303,7 +303,12 @@
     }
     
     $(document).on('keyup','#cat_name', function () {
-        $('#save-cat').removeAttr('disabled');
+        var name = $('#cat_name').val();
+        if (name != '') {
+            $('#save-cat').removeAttr('disabled');
+        } else {
+            $('#save-cat').attr('disabled', true);
+        }
     });
     
     $("#table-maps").on('click','.action-edit',function() {

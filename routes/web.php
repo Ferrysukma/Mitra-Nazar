@@ -41,7 +41,7 @@ Route::group(['middleware' => 'CheckToken'], function () {
 
     Route::get('/announcement', [App\Http\Controllers\Admin\AnnouncementController::class, 'index'])->name('announcement');
     Route::post('/loadListAnnouncement', [App\Http\Controllers\Admin\AnnouncementController::class, 'loadList'])->name('loadListAnnouncement');
-    Route::post('/createCategory', [App\Http\Controllers\Admin\AnnouncementController::class, 'create'])->name('createCategory');
+    Route::post('/createAnnouncement', [App\Http\Controllers\Admin\AnnouncementController::class, 'create'])->name('createAnnouncement');
     Route::post('/deleteCategory', [App\Http\Controllers\Admin\AnnouncementController::class, 'delete'])->name('deleteCategory');
 
     Route::get('/category', [App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('category');

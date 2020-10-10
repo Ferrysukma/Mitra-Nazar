@@ -24,6 +24,7 @@ return [
         'name_category'         => 'Enter category coordinator name ....',
         'choose_coortype'       => 'Choose Coordinator Type',
         'choose_coorcategory'   => 'Choose Coordinator Category',
+        'purpose'               => 'Choose Purpose',
         'key'                   => 'Enter key words ....',
         'token'                 => 'Enter token here ....',
     ),
@@ -144,6 +145,11 @@ return [
         'coordinate'    => 'Coordinate cannot be empty',
         'address'       => 'Address cannot be empty',
         'token'         => 'Token cannot be empty',
+        'purpose'       => 'The purpose of the announcement cannot be empty',
+        'sdate'         => 'Start date cannot be empty',
+        'edate'         => 'End date cannot be empty',
+        'title'         => 'The Title of the announcement cannot be empty',
+        'contents'      => 'The Contents of the announcement cannot be empty'
     ),
     'buttonloader'      => array(
         'wait'          => 'Wait',
