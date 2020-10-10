@@ -35,6 +35,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th style="display: none;">Id</th>
                                 <th>{{ __('all.table.create_dtm') }}</th>
                                 <th>{{ __('all.table.purpose') }}</th>
                                 <th>{{ __('all.start_date') }}</th>
@@ -44,6 +45,7 @@
                                 <th>{{ __('all.table.action') }}</th>
                             </tr>
                         </thead>
+                        <tbody id="show-active"></tbody>
                     </table>
                 </div>
             </div>
@@ -56,6 +58,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th style="display: none;">Id</th>
                                 <th>{{ __('all.table.create_dtm') }}</th>
                                 <th>{{ __('all.table.purpose') }}</th>
                                 <th>{{ __('all.start_date') }}</th>
@@ -65,6 +68,7 @@
                                 <th>{{ __('all.table.action') }}</th>
                             </tr>
                         </thead>
+                        <tbody id="show-history"></tbody>
                     </table>
                 </div>
             </div>
@@ -176,6 +180,50 @@
         showModal('modal-ann', 'postann');
         $('#modal-ann').find('.modal-title').text('{{ __("all.add_ann") }}');
     }
+
+    function showData(params) {
+        $.ajax({
+            type    : "POST",
+            url     : "{{ route('loadListAnnouncement') }}",
+            data    : {
+                limit   : 10,
+                page    : 0,
+                params  : params
+            },
+            headers : {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType: "JSON",
+            beforeSend: function(){
+                if (params == 1) {
+                    $('#show-active').empty();
+                    $("#table-chart").parent().ploading({action : 'show'});
+                } else {
+                    $('#show-history').empty();
+                    $("#table-maps").parent().ploading({action : 'show'});
+                }
+            },
+            success     : function(data){
+                if (data.code == 0) {
+                    if (params == 1) {
+                        $('#show-active').html(data.data);
+                    } else {
+                        $('#show-history').html(data.data);
+                    }
+                } 
+            },
+            complete : function () {
+                if (params == 1) {
+                    $("#table-chart").parent().ploading({action : 'hide'});
+                } else {
+                    $("#table-maps").parent().ploading({action : 'hide'});
+                }
+            }
+        })
+    }
+
+    showData(1);
+    showData(2);
 
     $('#start_date').datepicker({
         language: 'en',
