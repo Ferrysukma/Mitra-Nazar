@@ -98,8 +98,8 @@
                 <br>
                 <div class="wrap-input100 validate-input m-b-16">
                     <nav class="list-group">
-                        <a href="#" class="list-group-item shadow-sm" onclick="showPin()"><i class="fa fa-map-pin mr-2"></i></i> {{ __('all.pin') }} <span class="float-right"><i class="fa fa-arrow-right"></i></span></a>
-                        <a href="#" class="list-group-item shadow-sm" onclick="loginbyOtp()"><i class="fa fa-mobile mr-2"></i></i> {{ __('all.phone') }} <span class="float-right"><i class="fa fa-arrow-right"></i></span></a>
+                        <a href="#" class="list-group-item shadow-sm" onclick="showForm('show-pin', 'show-method')"><i class="fa fa-map-pin mr-2"></i></i> {{ __('all.pin') }} <span class="float-right"><i class="fa fa-arrow-right"></i></span></a>
+                        <a href="#" class="list-group-item shadow-sm" onclick="sendCode('show-method')"><i class="fa fa-mobile mr-2"></i></i> {{ __('all.phone') }} <span class="float-right"><i class="fa fa-arrow-right"></i></span></a>
                     </nav>
                 </div>
 			</div> 
@@ -114,7 +114,10 @@
                         {{ __('all.welcome_us') }} <br>
                     </span>
 
-                    <span style="text-align:center;width:100%"><b>{{ __('all.placeholder.pin') }}</b></span>
+                    <span style="text-align:center;width:100%">
+                        <b>{{ __('all.placeholder.pin') }}</b> <br>
+                        {{ __('all.comment_pin') }}
+                    </span>
                     <br><br>
                     <div class="wrap-input100 validate-input m-b-16">
                         <div class="form-group">
@@ -135,7 +138,41 @@
                         </button>
                     </div>
                 </form>
-			</div>  
+            </div>  
+            
+            <div class="wrap-login100 p-t-50 p-b-90" id="show-otp">
+				<form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postpin">
+                    <span class="login100-form-title p-b-51">
+                        {{ __('all.login') }}
+                    </span>
+                    
+                    <span class="login100-form-subtitle">
+                        {{ __('all.welcome_us') }} <br>
+                    </span>
+
+                    <span style="text-align:center;width:100%">
+                        <b>{{ __('all.placeholder.otp') }}</b> <br>
+                        {{ __('all.comment_otp') }}
+                    </span>
+                    <br><br>
+                    <div class="wrap-input100 validate-input m-b-16">
+                        <div class="form-group">
+                            <div class="input-pin d-flex justify-content-center">
+                                <input name="pin1" id="pin1" class="form-control form-pin only-number" maxLength="1" required type="text">
+                                <input name="pin2" id="pin2" class="form-control form-pin only-number" maxLength="1" required type="text">
+                                <input name="pin3" id="pin3" class="form-control form-pin only-number" maxLength="1" required type="text">
+                                <input name="pin4" id="pin4" class="form-control form-pin only-number" maxLength="1" required type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-login100-form-btn m-t-17">
+                        <button type="button" class="login100-form-btn btnSave" disabled id="save-pin" onclick="loginbyOtp('show-otp')">
+                            {{ __('all.login') }}
+                        </button>
+                    </div>
+                </form>
+			</div> 
 
 		</div>
 	</div>
@@ -166,6 +203,11 @@
 	<script src="{{ asset('assets/admin/js/generic.js') }}"></script>
 	
 	<script>
+        $('#show-password').hide();
+        $('#show-method').hide();
+        $('#show-pin').hide();
+        $('#show-otp').hide();
+
 		function validasiLogin(params) {
 			username = $('#email').val();
 
@@ -282,14 +324,77 @@
             }
         }
 
-        $('#show-email').show();
-        $('#show-password').hide();
-        $('#show-method').hide();
-        $('#show-pin').hide();
+        function sendCode(params) {
+            $.ajax({
+                type	: "POST",
+                url		: "{{ route('sendCode') }}",
+                data	: {
+                    _token  : "{{ csrf_token() }}",
+                    phone   : $('#email').val(),
+                },
+                dataType: "JSON",
+                beforeSend: function(){
+                    $(".btnSave").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+                    $("#"+params).ploading({action : 'show'});
+                },
+                success      : function (data) {
+                    if (data.code == 0) {
+                        showForm('show-otp','show-method');
+                    }
+                },
+                complete     : function(){
+                    $(".btnSave").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                    $("#"+params).ploading({action : 'hide'});
+                },
+                error 		: function(){
+                    notif('error', '{{ __("all.error") }}');
+                }
+            });
+        }
 
-        function showPin() {
-            $('#show-pin').show();
-            $('#show-method').hide();
+        function loginbyOtp(params) {
+            var pin1    = $('#pin1').val();
+            var pin2    = $('#pin2').val();
+            var pin3    = $('#pin3').val();
+            var pin4    = $('#pin4').val();
+
+            if (pin1 != '' || pin2 != '' || pin3 != '' || pin4 != '') {
+				$.ajax({
+					type	: "POST",
+                    url		: "{{ route('loginbyOtp') }}",
+					data	: {
+                        _token  : "{{ csrf_token() }}",
+                        email   : $('#email').val(),
+                        token   : $('#pin1').val()+''+$('#pin2').val()+''+$('#pin3').val()+''+$('#pin4').val()
+                    },
+					dataType: "JSON",
+					beforeSend: function(){
+						$(".btnSave").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+						$("#"+params).ploading({action : 'show'});
+					},
+					success     : function(data){
+						if (data.code == 0) {
+                            window.location = "{{ route('home') }}";
+						} else {
+							notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_login") }}');
+						}
+					},
+					complete    : function(){
+						$(".btnSave").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+						$("#"+params).ploading({action : 'hide'});
+					},
+					error 		: function(){
+						notif('error', '{{ __("all.error") }}');
+					}
+				});
+            } else {
+                notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_login") }}');
+            }
+        }
+
+        function showForm(id, kd) {
+            $('#'+id).show();
+            $('#'+kd).hide();
         }
 
         $(document).ready(function () {

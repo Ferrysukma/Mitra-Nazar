@@ -76,6 +76,33 @@ class LoginController extends Controller
         }
     }
 
+    public function sendCode(Request $request)
+    {
+        $client     = new Client();
+        $url        = $this->base_url . 'user/request-otp';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Content-Type'  => 'application/json'
+            ],
+            'json'      => [
+                'payload'       => [
+                    'phoneNumber'   => $request->phone,
+                    'randomDigit'   => 4,
+                    'type'          => 'LOGIN'
+                ]
+            ]
+        ]);
+
+        $response       = $request->getBody()->getContents();
+        $data           = json_decode($response);
+
+        if ($data->status->statusCode == '000') {
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
+        } else {
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+        }
+    }
+
     public function loginbyPin(Request $request)
     {   
         $client = new Client();
@@ -86,6 +113,37 @@ class LoginController extends Controller
                     'emailOrPhone'  => $request->email,
                     'pin'           => $request->pin,
                     'type'          => 'pin'
+                ]
+            ]);
+
+            $responseBodyAsString = $response->getBody()->getContents();
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response             = $e->getResponse();
+            $responseBodyAsString = $response->getBody()->getContents();
+        }
+
+        if ($response->getStatusCode() == '200') {
+            Session::put('admin_key', json_decode((string) $responseBodyAsString, true)['token']);
+            Session::put('type', json_decode((string) $responseBodyAsString, true))['type'];
+            Session::put('storeLink', json_decode((string) $responseBodyAsString, true))['storeLink'];
+            Session::put('idUser', json_decode((string) $responseBodyAsString, true))['id'];
+
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('admin_key')));
+        } else {
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+        }
+    }
+
+    public function loginbyOtp(Request $request)
+    {   
+        $client = new Client();
+        try {
+            $url        = $this->base_url . 'user/login-mitra';
+            $response   = $client->post($url, [
+                'json'      => [
+                    'emailOrPhone'  => $request->email,
+                    'token'         => $request->token,
+                    'type'          => 'token'
                 ]
             ]);
 
