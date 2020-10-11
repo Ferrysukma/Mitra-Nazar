@@ -1,0 +1,84 @@
+<?php
+
+namespace App\Http\Controllers\User;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+
+// Guzzle
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Stream\Stream;
+
+class LoginController extends Controller
+{
+    public function __construct()
+    {
+        $this->base_url = Controller::api();
+    }
+
+    public function index()
+    {
+        return view('user.login');
+    }
+
+    public function validateLogin(Request $request)
+    {
+        $client     = new Client();
+        $email      = $request->email;
+        $url        = $this->base_url . 'user/validate';
+        $request    = $client->post($url, [
+            'json'      => [
+                'payload'       => $email
+            ]
+        ]);
+
+        $response       = $request->getBody()->getContents();
+        $data           = json_decode($response);
+
+        strstr($email, '@') ? $type = 'email' : $type = 'phone';
+
+        if ($data->status->statusCode == '000') {
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $type));
+        } else {
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+        }
+    }
+
+    public function loginbyPassword(Request $request)
+    {   
+        $client = new Client();
+        try {
+            $url        = $this->base_url . 'user/login-mitra';
+            $response   = $client->post($url, [
+                'json'      => [
+                    'emailOrPhone'   => $request->email,
+                    'password'       => $request->password,
+                ]
+            ]);
+
+            $responseBodyAsString = $response->getBody()->getContents();
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response             = $e->getResponse();
+            $responseBodyAsString = $response->getBody()->getContents();
+        }
+
+        if ($response->getStatusCode() == '200') {
+            Session::put('admin_key', json_decode((string) $responseBodyAsString, true)['token']);
+            Session::put('type', json_decode((string) $responseBodyAsString, true))['type'];
+            Session::put('storeLink', json_decode((string) $responseBodyAsString, true))['storeLink'];
+            Session::put('idUser', json_decode((string) $responseBodyAsString, true))['id'];
+
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('admin_key')));
+        } else {
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+        }
+    }
+
+    public function logout()
+    {
+        Session::flush();
+        return redirect('/user/login');
+    }
+}

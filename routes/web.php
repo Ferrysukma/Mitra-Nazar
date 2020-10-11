@@ -13,16 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Admin
 Route::get('/login_admin', [App\Http\Controllers\Admin\LoginController::class, 'index'])->name('login_admin');
-Auth::routes();
-
 Route::post('/login_by_pass', [App\Http\Controllers\Admin\LoginController::class, 'login_by_pass'])->name('login_by_pass');
 Route::get('/logout', [App\Http\Controllers\Admin\LoginController::class, 'logout'])->name('logout');
 Route::post('/generateToken', [App\Http\Controllers\Admin\LoginController::class, 'generateToken'])->name('generateToken');
 Route::post('/verifyToken', [App\Http\Controllers\Admin\LoginController::class, 'verifyToken'])->name('verifyToken');
 Route::post('/createPassword', [App\Http\Controllers\Admin\LoginController::class, 'createPassword'])->name('createPassword');
 
+// User
+Route::get('/user/login', [App\Http\Controllers\User\LoginController::class, 'index'])->name('login');
+Route::post('/user/validateLogin', [App\Http\Controllers\User\LoginController::class, 'validateLogin'])->name('validateLogin');
+Route::post('/user/loginbyPassword', [App\Http\Controllers\User\LoginController::class, 'loginbyPassword'])->name('loginbyPassword');
+Route::post('/user/logoutUser', [App\Http\Controllers\User\LoginController::class, 'logout'])->name('logoutUser');
+
+Auth::routes();
+
 Route::group(['middleware' => 'CheckToken'], function () {
+    // Admin
     Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
     Route::post('/getCoordinate', [App\Http\Controllers\Admin\HomeController::class, 'getCoordinate'])->name('getCoordinate');
     Route::post('/getLatLong', [App\Http\Controllers\Admin\HomeController::class, 'getLatLong'])->name('getLatLong');
@@ -52,4 +60,7 @@ Route::group(['middleware' => 'CheckToken'], function () {
     Route::post('/deleteCategory', [App\Http\Controllers\Admin\CategoryController::class, 'delete'])->name('deleteCategory');
 
     Route::get('lang/{language}', [App\Http\Controllers\LocalizationController::class, 'switch'])->name('localization.switch');
+
+    // User
+    Route::get('/user/home', [App\Http\Controllers\User\HomeController::class, 'index'])->name('home');
 });

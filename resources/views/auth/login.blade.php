@@ -208,7 +208,7 @@
 			username = $('#username').val();
 			password = $('#password').val();
 
-			if (username != '' && password != '') {
+			if (username != '' || password != '') {
 				$.ajax({
 					type	: "POST",
 					url		: "{{ route('login_by_pass') }}",
