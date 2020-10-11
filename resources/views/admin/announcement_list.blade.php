@@ -38,8 +38,10 @@
                                 <th style="display: none;">Id</th>
                                 <th>{{ __('all.table.create_dtm') }}</th>
                                 <th>{{ __('all.table.purpose') }}</th>
+                                <th>{{ __('all.category_coordinator') }}</th>
                                 <th>{{ __('all.start_date') }}</th>
                                 <th>{{ __('all.end_date') }}</th>
+                                <th>{{ __('all.table.title') }}</th>
                                 <th>{{ __('all.table.contents') }}</th>
                                 <th>{{ __('all.table.created') }}</th>
                                 <th>{{ __('all.table.action') }}</th>
@@ -61,8 +63,10 @@
                                 <th style="display: none;">Id</th>
                                 <th>{{ __('all.table.create_dtm') }}</th>
                                 <th>{{ __('all.table.purpose') }}</th>
+                                <th>{{ __('all.category_coordinator') }}</th>
                                 <th>{{ __('all.start_date') }}</th>
                                 <th>{{ __('all.end_date') }}</th>
+                                <th>{{ __('all.table.title') }}</th>
                                 <th>{{ __('all.table.contents') }}</th>
                                 <th>{{ __('all.table.created') }}</th>
                                 <th>{{ __('all.table.action') }}</th>
@@ -109,11 +113,11 @@
                             <label for="show_date" class="col-sm-3">{{ __('all.show_date') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    <input type="text" class="form-control readonly" name="start_date" id="start_date" placeholder="{{ __('all.start_date') }}" readonly autocomplete=off>
+                                    <input type="text" class="form-control readonly" name="start_date" id="start_date" placeholder="{{ __('all.start_date') }}" readonly>
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">{{ __('all.to') }}</span>
                                     </div>
-                                    <input type="text" class="form-control readonly" name="end_date" id="end_date" placeholder="{{ __('all.end_date') }}" readonly autocomplete=off>
+                                    <input type="text" class="form-control readonly" name="end_date" id="end_date" placeholder="{{ __('all.end_date') }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -305,6 +309,17 @@
             }
         });
     }
+
+    function multiple(params, values) {
+        var splitValues = values.split(', ');
+
+        join    = [];
+        for (var i = 0; i < splitValues.length; i++) {
+            join[i] = splitValues[i];
+        }
+
+        $('#'+params).val(join).change();
+    }
     
     $(document).on('keyup','#cat_name', function () {
         var name = $('#cat_name').val();
@@ -337,6 +352,53 @@
     });
 
     $('#form-cat').hide();
+
+    $(document).ready(function(){
+        $("#table-chart").on('click','.action-edit',function(){
+            showModal('modal-ann','postann');
+            var row  = $(this).closest("tr"); 
+            
+            var col1 = row.find("td:eq(0)").text();
+            var col2 = row.find("td:eq(1)").text();
+            var col3 = row.find("td:eq(2)").text();
+            var col4 = row.find("td:eq(3)").text();
+            var col5 = row.find("td:eq(4)").text();
+            var col6 = row.find("td:eq(5)").text();
+            var col7 = row.find("td:eq(6)").text();
+            var col8 = row.find("td:eq(7)").text();
+            var col9 = row.find("td:eq(8)").text();
+
+            $('#id').val(col2);
+            multiple('kategori', col5);
+            multiple('tujuan', col4);
+            $('#start_date').data('datepicker').selectDate(new Date(col6));
+            $('#end_date').data('datepicker').selectDate(new Date(col7));
+            $('#title').val(col8);
+            $('#contents').val(col9);
+            
+            $('#modal-ann').find('.modal-title').text("{{ __('all.edit_ann') }} #"+col1+"");
+        });
+
+        $("#table-maps").on('click','.action-edit',function(){
+            showModal('modal-ann','postann');
+            var row  = $(this).closest("tr"); 
+
+            var col1 = row.find("td:eq(0)").text();
+            var col2 = row.find("td:eq(1)").text();
+            var col3 = row.find("td:eq(2)").text();
+            var col4 = row.find("td:eq(3)").text();
+            var col5 = row.find("td:eq(4)").text();
+            var col6 = row.find("td:eq(4)").text();
+            var col7 = row.find("td:eq(4)").text();
+
+            $('#id').val(col2);
+            $('#tujuan').val(col4);
+            $('#kategori').val(col5);
+            $('#phone').val(col5);
+            
+            $('#modal-mitra').find('.modal-title').text("{{ __('all.edit_ann') }} #"+col1+"");
+        });
+    });
 
     $('#postann').bootstrapValidator({
         container: 'tooltip',
@@ -411,7 +473,7 @@
                         showData(1);
                         showData(2);
                         resetForm('postann','id');
-                        $('#modal-mitra').modal('hide');
+                        $('#modal-ann').modal('hide');
                     } else {
                         notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
                     }

@@ -94,6 +94,7 @@ return [
     'add_ann'               => 'Create Announcement',
     'edit_user'             => 'Edit User',
     'edit_partner'          => 'Edit Partner',
+    'edit_ann'              => 'Edit Announcement',
     'cancel'                => 'Cancel',
     'yes'                   => 'Yes diabled it',
     'confirm'               => 'Are you sure to disable this partner',

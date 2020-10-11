@@ -94,6 +94,7 @@ return [
     'add_ann'               => 'Tambah Pengumuman',
     'edit_user'             => 'Ubah Pengguna',
     'edit_partner'          => 'Ubah Mitra',
+    'edit_ann'              => 'Ubah Pengumuman',
     'cancel'                => 'Batal',
     'yes'                   => 'Ya, Nonaktifkan',
     'confirm'               => 'Anda yakin untuk menonaktifkan mitra ini',

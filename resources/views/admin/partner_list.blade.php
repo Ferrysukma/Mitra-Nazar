@@ -520,7 +520,7 @@
             $('#mail').attr('readonly', true).val(col4);
             $('#phone').val(col5);
             
-            $('#modal-mitra').find('.modal-title').text("{{ __('all.edit_user') }} #"+col1+"");
+            $('#modal-mitra').find('.modal-title').text("{{ __('all.edit_partner') }} #"+col1+"");
         });
 
         $("#table-maps").on('click','.action-delete',function(){

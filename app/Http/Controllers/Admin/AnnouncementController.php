@@ -55,10 +55,19 @@ class AnnouncementController extends Controller
             
             $row    = [];
             foreach ($result as $key => $value) {
+                // array tujuan
                 $dataT  = [];
                 if (isset($value->tujuan) && !empty($value->tujuan)) {
                     foreach ($value->tujuan as $val) {
                         $dataT[]  .= $val;
+                    }
+                }
+
+                // array kategori
+                $dataK  = [];
+                if (isset($value->kategori) && !empty($value->kategori)) {
+                    foreach ($value->kategori as $cell) {
+                        $dataK[]  .= $cell;
                     }
                 }
 
@@ -67,9 +76,11 @@ class AnnouncementController extends Controller
                                 <td align='center'>".$no."</td>
                                 <td style='display:none'>".$value->id."</td>
                                 <td>".date('d F Y H:i:s', strtotime($value->cdate))."</td>
-                                <td>".implode('<br>', $dataT)."</td>
+                                <td>".implode(', ', $dataT)."</td>
+                                <td>".implode(', ', $dataK)."</td>
                                 <td>".date('d F Y H:i:s', strtotime($value->tanggalMulai))."</td>
                                 <td>".date('d F Y H:i:s', strtotime($value->tanggalSelesai))."</td>
+                                <td>".$value->judul."</td>
                                 <td>".$value->isi."</td>
                                 <td>".$value->cby."</td>
                                 <td align='center'>
