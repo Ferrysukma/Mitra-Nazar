@@ -320,6 +320,63 @@
 
         $('#'+params).val(join).change();
     }
+
+    function disable(id, name, params) {
+        bootbox.confirm({
+            message: "{{ __('all.confirm_disable') }} <b>"+name+"</b>?",
+            buttons: {
+                confirm: {
+                    label: '{{ __("all.yes") }}',
+                    className: 'btn-primary'
+                },
+                cancel: {
+                    label: '{{ __("all.cancel") }}',
+                    className: 'btn-secondary'
+                }
+            },
+            callback: function (res) {
+                if(res){
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                        type    : "POST",
+                        url     : "{{ route('deleteAnnoucement') }}",
+                        data	: {
+                            id  : id,
+                        },
+                        dataType: "JSON",
+                        beforeSend: function(){
+                            $(this).buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+                            $("#"+params).parent().ploading({action : 'show'});
+                        },
+                        success     : function(data){
+                            if (data.code == 0) {
+                                notif('success', '{{ __("all.success") }}', '{{ __("all.alert.delete") }}');
+                                if (params == 1) {
+                                    showData(1);
+                                } else {
+                                    showData(2);
+                                }
+                            } else {
+                                notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_delete") }}');
+                            }
+                        },
+                        complete    : function(){
+                            $(this).buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                            $("#"+params).parent().ploading({action : 'hide'});
+                        },
+                        error 		: function(){
+                            notif('error', '{{ __("all.error") }}');
+                        }
+                    });
+                }
+            }
+        });
+    }
     
     $(document).on('keyup','#cat_name', function () {
         var name = $('#cat_name').val();
@@ -396,7 +453,25 @@
             $('#kategori').val(col5);
             $('#phone').val(col5);
             
-            $('#modal-mitra').find('.modal-title').text("{{ __('all.edit_ann') }} #"+col1+"");
+            $('#modal-ann').find('.modal-title').text("{{ __('all.edit_ann') }} #"+col1+"");
+        });
+
+        $("#table-chart").on('click','.action-delete',function(){
+            var row  = $(this).closest("tr"); 
+            
+            var col1 = row.find("td:eq(1)").text();
+            var col2 = row.find("td:eq(8)").text();
+
+            disable(col1, col2, 'table-chart');
+        });
+
+        $("#table-maps").on('click','.action-delete',function(){
+            var row  = $(this).closest("tr"); 
+            
+            var col1 = row.find("td:eq(1)").text();
+            var col2 = row.find("td:eq(8)").text();
+
+            disable(col1, col2, 'table-maps');
         });
     });
 

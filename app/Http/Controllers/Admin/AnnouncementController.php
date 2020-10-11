@@ -89,10 +89,6 @@ class AnnouncementController extends Controller
                                             title='".__('all.button.edit')."' data-toggle='tooltip' data-placement='top'>
                                             <i class='fa fa-edit'></i>
                                         </button>
-                                        <button type='button' class='btn btn-sm btn-danger action-delete'  
-                                            title='".__('all.button.delete')."' data-toggle='tooltip' data-placement='top'>
-                                            <i class='fa fa-trash'></i>
-                                        </button>
                                     </div>
                                 </td>
                             </tr>";

@@ -42,7 +42,7 @@ Route::group(['middleware' => 'CheckToken'], function () {
     Route::get('/announcement', [App\Http\Controllers\Admin\AnnouncementController::class, 'index'])->name('announcement');
     Route::post('/loadListAnnouncement', [App\Http\Controllers\Admin\AnnouncementController::class, 'loadList'])->name('loadListAnnouncement');
     Route::post('/createAnnouncement', [App\Http\Controllers\Admin\AnnouncementController::class, 'create'])->name('createAnnouncement');
-    Route::post('/deleteCategory', [App\Http\Controllers\Admin\AnnouncementController::class, 'delete'])->name('deleteCategory');
+    Route::post('/deleteAnnoucement', [App\Http\Controllers\Admin\AnnouncementController::class, 'delete'])->name('deleteAnnoucement');
 
     Route::get('/category', [App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('category');
     Route::get('/listAll', [App\Http\Controllers\Admin\CategoryController::class, 'listAll'])->name('listAll');
