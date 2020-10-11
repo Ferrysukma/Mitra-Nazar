@@ -66,9 +66,9 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body table-user">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div id="googleMap"></div>
+            <div class="card-body">
+                <div id="maps-homeMitra">
+                    <div id="mapsHomeMitra" style="width:100%;height:50vh"></div>
                 </div>
             </div>
             <div class="card-footer">
@@ -171,7 +171,7 @@
                         <div class="form-group row">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9" id="maps-mitra">
-                                <div id="map_canvas" style="width:100%;height:40vh"></div>
+                                <div id="map_canvas" style="width:100%;height:50vh"></div>
                                 <input type="hidden" id="lat" name="lat">
                                 <input type="hidden" id="lng" name="long">
                             </div>
@@ -414,7 +414,7 @@
             dataType: "JSON",
             beforeSend: function(){
                 $('#showData').empty();
-                $(".table-user").parent().ploading({action : 'show'});
+                $("#table-maps").parent().ploading({action : 'show'});
             },
             success     : function(data){
                 if (data.code == 0) {
@@ -422,10 +422,29 @@
                 } 
             },
             complete : function () {
-                $(".table-user").parent().ploading({action : 'hide'});
+                $("#table-maps").parent().ploading({action : 'hide'});
             }
         });
     }
+
+    function maps() {
+        $.ajax({
+            type    : "GET",
+            url     : "{{ route('listAllPartner') }}",
+            dataType: "JSON",
+            beforeSend: function(){
+                $("#maps-homeMitra").ploading({action : 'show'});
+            },
+            success     : function(data){
+                initMaps(data.data, 'mapsHomeMitra');
+            },
+            complete : function () {
+                $("#maps-homeMitra").ploading({action : 'hide'});
+            }
+        });
+    }
+
+    maps();
 
     function findUser() {
         $.ajaxSetup({

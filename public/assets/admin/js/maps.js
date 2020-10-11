@@ -43,15 +43,13 @@ function positionError(error) {
 
 function taruhMarker(peta, posisiTitik){
     if( marker ){
-    // pindahkan marker
-    marker.setPosition(posisiTitik);
+        marker.setPosition(posisiTitik);
     } else {
-    // buat marker baru
-    marker = new google.maps.Marker({
-        position: posisiTitik,
-        map: peta,
-        animation: google.maps.Animation.BOUNCE
-    });
+        marker = new google.maps.Marker({
+            position: posisiTitik,
+            map: peta,
+            animation: google.maps.Animation.BOUNCE
+        });
     }
 
     // isi nilai koordinat ke form
@@ -74,7 +72,7 @@ function initialize(lat, lang, id) {
         taruhMarker(lat, lang);
     });
 
-    marker=new google.maps.Marker({
+    marker  = new google.maps.Marker({
         position: new google.maps.LatLng(lat,lang),
         map: peta,
         animation: google.maps.Animation.BOUNCE
