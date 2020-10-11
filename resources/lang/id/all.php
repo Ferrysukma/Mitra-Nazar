@@ -28,6 +28,7 @@ return [
         'purpose'               => 'Pilih Tujuan',
         'key'                   => 'Masukkan kata kunci ....',
         'token'                 => 'Masukkan token ....',
+        'pin'                   => 'Masukkan PIN Anda',
     ),
     'remember'  => 'Ingat saya',
     'forget'    => 'Lupa sandi?',
@@ -182,6 +183,10 @@ return [
     'disabled_partner'  => 'Non Aktifkan Mitra',
     'showAll'           => 'Semuanya',
     'comment_token'     => 'Silahkan cek email anda untuk mendapatkan token',
+    'pin'               => 'Melalui PIN',
+    'phone'             => 'Melalui SMS ke No Handphone',
+    'header_pass'       => 'Pilih Metode Verifikasi',
+    'subheader_pass'    => 'Pilih metode di bawah ini untuk melanjutkan proses login.'
 ]
 
 ?>

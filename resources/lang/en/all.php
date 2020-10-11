@@ -28,6 +28,7 @@ return [
         'purpose'               => 'Choose Purpose',
         'key'                   => 'Enter key words ....',
         'token'                 => 'Enter token here ....',
+        'pin'                   => 'Enter your Pin',
     ),
     'remember'  => 'Remember me',
     'forget'    => 'Forget password?',
@@ -182,6 +183,10 @@ return [
     'disabled_partner'  => 'Disable Partner',
     'showAll'           => 'Show All',
     'comment_token'     => 'Please check your email to get a token',
+    'pin'               => 'Via PIN',
+    'phone'             => 'Via SMS to Phone Number',
+    'header_pass'       => 'Select a Verification Method',
+    'subheader_pass'    => 'Select a method below to continue with the login process.'
 ]
 
 ?>

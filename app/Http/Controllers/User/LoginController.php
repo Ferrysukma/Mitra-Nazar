@@ -76,6 +76,37 @@ class LoginController extends Controller
         }
     }
 
+    public function loginbyPin(Request $request)
+    {   
+        $client = new Client();
+        try {
+            $url        = $this->base_url . 'user/login-mitra';
+            $response   = $client->post($url, [
+                'json'      => [
+                    'emailOrPhone'  => $request->email,
+                    'pin'           => $request->pin,
+                    'type'          => 'pin'
+                ]
+            ]);
+
+            $responseBodyAsString = $response->getBody()->getContents();
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response             = $e->getResponse();
+            $responseBodyAsString = $response->getBody()->getContents();
+        }
+
+        if ($response->getStatusCode() == '200') {
+            Session::put('admin_key', json_decode((string) $responseBodyAsString, true)['token']);
+            Session::put('type', json_decode((string) $responseBodyAsString, true))['type'];
+            Session::put('storeLink', json_decode((string) $responseBodyAsString, true))['storeLink'];
+            Session::put('idUser', json_decode((string) $responseBodyAsString, true))['id'];
+
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('admin_key')));
+        } else {
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+        }
+    }
+
     public function logout()
     {
         Session::flush();

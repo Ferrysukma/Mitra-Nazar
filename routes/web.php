@@ -25,7 +25,8 @@ Route::post('/createPassword', [App\Http\Controllers\Admin\LoginController::clas
 Route::get('/user/login', [App\Http\Controllers\User\LoginController::class, 'index'])->name('login');
 Route::post('/user/validateLogin', [App\Http\Controllers\User\LoginController::class, 'validateLogin'])->name('validateLogin');
 Route::post('/user/loginbyPassword', [App\Http\Controllers\User\LoginController::class, 'loginbyPassword'])->name('loginbyPassword');
-Route::post('/user/logoutUser', [App\Http\Controllers\User\LoginController::class, 'logout'])->name('logoutUser');
+Route::post('/user/loginbyPin', [App\Http\Controllers\User\LoginController::class, 'loginbyPin'])->name('loginbyPin');
+Route::get('/user/logoutUser', [App\Http\Controllers\User\LoginController::class, 'logout'])->name('logoutUser');
 
 Auth::routes();
 

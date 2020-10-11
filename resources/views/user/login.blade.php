@@ -28,16 +28,9 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/css/select2/select2.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/admin/css/select2/select2-bootstrap4.min.css') }}">
 	<style>
-		.nav-custome .nav-link.active, .show > .nav-custome .nav-link {
-			background-color 	: #004185;
-			color				: #fff!important;
-			font-weight			: 900;
-		}
-
-		.nav-custome .nav-link.disabled, .show > .nav-custome .nav-link {
-			background-color 	: lightgrey;
-			font-weight			: 900;
-		}
+        form .form-pin input[type="text"]:focus {
+            outline: none;
+        }
 	</style>
 </head>
 <body>
@@ -89,6 +82,61 @@
                     </div>
 				</form>
 			</div>
+
+            <div class="wrap-login100 p-t-50 p-b-90" id="show-method">
+                <span class="login100-form-title p-b-51">
+                    {{ __('all.login') }} <br>
+                </span>
+                
+                <span class="login100-form-subtitle">
+                    {{ __('all.welcome_us') }} <br>
+                </span>
+
+                <center>
+                    <h4><b>{{ __('all.header_pass') }}</b></h4>
+                </center>
+                <br>
+                <div class="wrap-input100 validate-input m-b-16">
+                    <nav class="list-group">
+                        <a href="#" class="list-group-item shadow-sm" onclick="showPin()"><i class="fa fa-map-pin mr-2"></i></i> {{ __('all.pin') }} <span class="float-right"><i class="fa fa-arrow-right"></i></span></a>
+                        <a href="#" class="list-group-item shadow-sm" onclick="loginbyOtp()"><i class="fa fa-mobile mr-2"></i></i> {{ __('all.phone') }} <span class="float-right"><i class="fa fa-arrow-right"></i></span></a>
+                    </nav>
+                </div>
+			</div> 
+
+            <div class="wrap-login100 p-t-50 p-b-90" id="show-pin">
+				<form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postpin">
+                    <span class="login100-form-title p-b-51">
+                        {{ __('all.login') }}
+                    </span>
+                    
+                    <span class="login100-form-subtitle">
+                        {{ __('all.welcome_us') }} <br>
+                    </span>
+
+                    <span style="text-align:center;width:100%"><b>{{ __('all.placeholder.pin') }}</b></span>
+                    <br><br>
+                    <div class="wrap-input100 validate-input m-b-16">
+                        <div class="form-group">
+                            <div class="input-pin d-flex justify-content-center">
+                                <input name="pin1" id="pin1" class="form-control form-pin only-number" maxLength="1" required type="text">
+                                <input name="pin2" id="pin2" class="form-control form-pin only-number" maxLength="1" required type="text">
+                                <input name="pin3" id="pin3" class="form-control form-pin only-number" maxLength="1" required type="text">
+                                <input name="pin4" id="pin4" class="form-control form-pin only-number" maxLength="1" required type="text">
+                                <input name="pin5" id="pin5" class="form-control form-pin only-number" maxLength="1" required type="text">
+                                <input name="pin6" id="pin6" class="form-control form-pin only-number" maxLength="1" required type="text">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-login100-form-btn m-t-17">
+                        <button type="button" class="login100-form-btn btnSave" disabled id="save-pin" onclick="loginbyPin('show-pin')">
+                            {{ __('all.login') }}
+                        </button>
+                    </div>
+                </form>
+			</div>  
+
 		</div>
 	</div>
 
@@ -139,7 +187,9 @@
                             $('#show-email').hide();
                             if (data.data == 'email') {
                                 $('#show-password').show();
-                            } 
+                            } else {
+                                $('#show-method').show();
+                            }
 						} else {
 							notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_login") }}');
 						}
@@ -190,8 +240,69 @@
 			}
         }
 
+        function loginbyPin(params) {
+            var pin1    = $('#pin1').val();
+            var pin2    = $('#pin2').val();
+            var pin3    = $('#pin3').val();
+            var pin4    = $('#pin4').val();
+            var pin5    = $('#pin5').val();
+            var pin6    = $('#pin6').val();
+
+            if (pin1 != '' || pin2 != '' || pin3 != '' || pin4 != '' || pin5 != '' || pin6 != '') {
+				$.ajax({
+					type	: "POST",
+                    url		: "{{ route('loginbyPin') }}",
+					data	: {
+                        _token  : "{{ csrf_token() }}",
+                        email   : $('#email').val(),
+                        pin     : $('#pin1').val()+''+$('#pin2').val()+''+$('#pin3').val()+''+$('#pin4').val()+''+$('#pin5').val()+''+$('#pin6').val()
+                    },
+					dataType: "JSON",
+					beforeSend: function(){
+						$(".btnSave").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+						$("#"+params).ploading({action : 'show'});
+					},
+					success     : function(data){
+						if (data.code == 0) {
+                            window.location = "{{ route('home') }}";
+						} else {
+							notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_login") }}');
+						}
+					},
+					complete    : function(){
+						$(".btnSave").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+						$("#"+params).ploading({action : 'hide'});
+					},
+					error 		: function(){
+						notif('error', '{{ __("all.error") }}');
+					}
+				});
+            } else {
+                notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_login") }}');
+            }
+        }
+
         $('#show-email').show();
         $('#show-password').hide();
+        $('#show-method').hide();
+        $('#show-pin').hide();
+
+        function showPin() {
+            $('#show-pin').show();
+            $('#show-method').hide();
+        }
+
+        $(document).ready(function () {
+            $(".form-pin").keyup(function (e) {
+                if (this.value.length == this.maxLength) {
+                    $(this).next('.form-pin').focus();
+                } 
+
+                if (e.code == 'Backspace') {
+                    // $(this).next('.form-pin').focus();
+                }
+            });
+        });
 	</script>
 
 </body>
