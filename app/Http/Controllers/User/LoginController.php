@@ -137,14 +137,18 @@ class LoginController extends Controller
     public function loginbyOtp(Request $request)
     {   
         $client = new Client();
+        $phone  = $request->email;
+        $token  = $request->token;
         try {
-            $url        = $this->base_url . 'user/login-mitra';
-            $response   = $client->post($url, [
-                'json'      => [
-                    'emailOrPhone'  => $request->email,
-                    'token'         => $request->token,
-                    'type'          => 'token'
-                ]
+            $url_otp      = $this->base_url . 'user/request-otp/validate';
+            $request_otp  = $client->post($url_otp, [
+                'json'    => [
+                    "payload" => [
+                        "phoneNumber" => $email,
+                        "token"       => $token,
+                        "type"        => 'token'
+                    ]
+                ],
             ]);
 
             $responseBodyAsString = $response->getBody()->getContents();
@@ -154,12 +158,28 @@ class LoginController extends Controller
         }
 
         if ($response->getStatusCode() == '200') {
-            Session::put('admin_key', json_decode((string) $responseBodyAsString, true)['token']);
-            Session::put('type', json_decode((string) $responseBodyAsString, true))['type'];
-            Session::put('storeLink', json_decode((string) $responseBodyAsString, true))['storeLink'];
-            Session::put('idUser', json_decode((string) $responseBodyAsString, true))['id'];
+            $url        = $this->base_url . 'user/login-mitra';
+            $requestL   = $client->post($url, [
+                'json'      => [
+                    'emailOrPhone'  => $phone,
+                    'token'         => $token,
+                    'type'          => 'token'
+                ]
+            ]);
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('admin_key')));
+            $responseL          = $requestL->getBody()->getContents();
+            $data               = json_decode($responseL);
+
+            if ($data->status->statusCode == '000') {
+                Session::put('admin_key', json_decode((string) $responseBodyAsString, true)['token']);
+                Session::put('type', json_decode((string) $responseBodyAsString, true))['type'];
+                Session::put('storeLink', json_decode((string) $responseBodyAsString, true))['storeLink'];
+                Session::put('idUser', json_decode((string) $responseBodyAsString, true))['id'];
+
+                echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('admin_key')));
+            } else {
+                echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            }
         } else {
             echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
         }
