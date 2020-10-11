@@ -441,8 +441,8 @@
         function initMaps(locations, id) {
             
             var map = new google.maps.Map(document.getElementById(id), {
-                zoom        : 10,
-                center      : new google.maps.LatLng(-6.200000, 106.816666),
+                zoom        : 5,
+                center      : new google.maps.LatLng(-4.793287, 116.885929),
                 mapTypeId   : google.maps.MapTypeId.ROADMAP
             });
 
