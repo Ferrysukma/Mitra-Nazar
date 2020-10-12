@@ -57,7 +57,26 @@
                             {{ __('all.login') }}
                         </button>
                     </div>
-				</form>
+                </form>
+                
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <p class="text-center mt-4">hai</p>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <a href="" class="btn btn-facebook btn-block mb-2"> <i class="fa fa-facebook-f"></i> Facebook</a>
+                    </div>
+                    <div class="col-6">
+                        <a href="#" id="googleLogin" class="btn btn-google btn-block mb-4"> <i class="fa fa-google"></i> Google</a>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
+                    </div>
+                </div>
 			</div>
 
             <div class="wrap-login100 p-t-50 p-b-90" id="show-password">
@@ -173,8 +192,6 @@
                     </div>
                 </form>
 			</div> 
-
-		</div>
 	</div>
 
 	<div id="dropDownSelect1"></div>
