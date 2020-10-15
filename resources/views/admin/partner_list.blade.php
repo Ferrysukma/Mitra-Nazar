@@ -375,7 +375,7 @@
     function showCategory() {
         $.ajax({
             type    : "GET",
-            url     : "{{ route('listAll') }}",
+            url     : "{{ route('loadListCategory') }}",
             dataType: "JSON",
             success     : function(data){
                 if (data.code == 0) {

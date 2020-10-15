@@ -1,6 +1,9 @@
 function resetForm(form)
 {
-    $('#'+form)[0].reset();
+    $("#"+form).find('.is-invalid').removeClass("is-invalid");
+    $("#"+form).find('.is-valid').removeClass("is-valid");
+    $("#"+form)[0].reset();
+    $('#'+form).validate().resetForm();
     $('#'+form).find('input:text, input:password, input:file, select, textarea, input:hidden').val('');
     $('#'+form).find('input:radio, input:checkbox').removeAttr('checked').removeAttr('selected');
 }

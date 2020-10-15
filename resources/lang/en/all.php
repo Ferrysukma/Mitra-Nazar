@@ -95,6 +95,7 @@ return [
     'add_partner'           => 'Create Partner',
     'add_user'              => 'Create User',
     'add_cat'               => 'Create Category Coordinator',
+    'edit_cat'              => 'Edit Category Coordinator',
     'add_ann'               => 'Create Announcement',
     'edit_user'             => 'Edit User',
     'edit_partner'          => 'Edit Partner',
@@ -130,7 +131,9 @@ return [
         'first'         => 'First',
         'last'          => 'Last',
         'next'          => 'Next',
-        'prev'          => 'Previous'
+        'prev'          => 'Previous',
+        'zero'          => 'No matching records found',
+        'filter'        => '(filtered from _MAX_ total records)',
     ),
     'validation'        => array(
         'username'      => 'Username cannot be empty',

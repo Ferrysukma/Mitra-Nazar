@@ -94,6 +94,7 @@ return [
     'filter'                => 'Saring',
     'add_partner'           => 'Tambah Mitra',
     'add_cat'               => 'Tambah Kategori Koordinator',
+    'edit_cat'              => 'Edit Kategori Koordinator',
     'add_user'              => 'Tambah Pengguna',
     'add_ann'               => 'Tambah Pengumuman',
     'edit_user'             => 'Ubah Pengguna',
@@ -130,7 +131,9 @@ return [
         'first'         => 'Partama',
         'last'          => 'Terakhir',
         'next'          => 'Selanjutnya',
-        'prev'          => 'Sebelumnya'
+        'prev'          => 'Sebelumnya',
+        'zero'          => 'Tidak ditemukan catatan yang cocok',
+        'filter'        => '(disaring dari _MAX_ total catatan)',
     ),
     'validation'        => array(
         'username'      => 'Nama pengguna tidak boleh kosong',

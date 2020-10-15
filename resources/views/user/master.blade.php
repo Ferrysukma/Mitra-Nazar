@@ -142,7 +142,7 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    @yield('content')
+                    @yield('contentUser')
                 </div>
                 <!-- /.container-fluid -->
             </div>

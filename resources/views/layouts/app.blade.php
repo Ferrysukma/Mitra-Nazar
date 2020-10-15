@@ -295,6 +295,8 @@
     <script src="{{ asset('assets/admin/js/bootbox/bootbox.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/bootbox/bootbox.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js.map"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.min.js"></script>
 
     <!-- api google maps -->
     <script src="{{ asset('assets/admin/js/maps.js') }}"></script>

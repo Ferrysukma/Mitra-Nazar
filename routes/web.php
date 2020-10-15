@@ -57,13 +57,12 @@ Route::group(['middleware' => 'CheckToken'], function () {
     Route::post('/deleteAnnoucement', [App\Http\Controllers\Admin\AnnouncementController::class, 'delete'])->name('deleteAnnoucement');
 
     Route::get('/category', [App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('category');
-    Route::get('/listAll', [App\Http\Controllers\Admin\CategoryController::class, 'listAll'])->name('listAll');
-    Route::post('/loadListCategory', [App\Http\Controllers\Admin\CategoryController::class, 'loadList'])->name('loadListCategory');
+    Route::get('/loadListCategory', [App\Http\Controllers\Admin\CategoryController::class, 'loadList'])->name('loadListCategory');
     Route::post('/createCategory', [App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('createCategory');
     Route::post('/deleteCategory', [App\Http\Controllers\Admin\CategoryController::class, 'delete'])->name('deleteCategory');
 
     Route::get('lang/{language}', [App\Http\Controllers\LocalizationController::class, 'switch'])->name('localization.switch');
 
     // User
-    Route::get('/user/home', [App\Http\Controllers\User\HomeController::class, 'index'])->name('home');
+    Route::get('/user/home', [App\Http\Controllers\User\HomeController::class, 'index'])->name('index');
 });
