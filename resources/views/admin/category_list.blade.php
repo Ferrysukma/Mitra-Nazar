@@ -21,13 +21,15 @@
     <div class="col-lg-12 mb-4">
         <!-- Approach -->
         <div class="card shadow mb-4">
+            <div class="card-header">
+                <div class="btn-group" id="gpCat" style="float:right">
+                    <button type="button" class="btn btn-primary btn-sm ml-1" onclick="modalshow()">
+                        <i class="fa fa-plus"></i> {{ __('all.button.new') }}
+                    </button>
+                </div>
+            </div>
             <div class="card-body table-category">
                 <div class="table-responsive">
-                    <div class="btn-group" id="gpCat">
-                        <button type="button" class="btn btn-primary btn-sm ml-1" onclick="modalshow()">
-                            <i class="fa fa-plus"></i> {{ __('all.button.new') }}
-                        </button>
-                    </div>
                     <table class="table table-hover table-striped table-bordered table-consended" id="table-maps" width="100%">
                         <thead>
                             <tr>
@@ -104,7 +106,6 @@
             { targets: [4], orderable: false, searchable: false, className	: "text-center" },
         ],
         "initComplete"      : function() {
-            $("#table-maps_filter").append($("#gpCat"));
             $('[data-toggle="tooltip"]').tooltip();
         },
     });

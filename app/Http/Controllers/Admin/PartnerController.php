@@ -39,9 +39,9 @@ class PartnerController extends Controller
             ],
             'json'      => [
                 "payload"   => [
-                    "limit"         => 10,
+                    "limit"         => 10000000,
                     "pageNumber"    => 0,
-                    "search"        => $search,
+                    "search"        => '',
                 ]
             ]
         ]);
@@ -53,39 +53,9 @@ class PartnerController extends Controller
             $result = json_decode((string) $response)->payload;
             $row    = [];
             foreach ($result as $key => $value) {
-                $status = $value->active == '1' ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
-                $no = $key + 1;
-                $rows   =   "<tr>
-                                <td align='center'>".$no."</td>
-                                <td style='display:none'>".$value->id."</td>
-                                <td>".$value->userCode."</td>
-                                <td>".$value->nama."</td>
-                                <td>".$value->tipe."</td>
-                                <td>".$value->kategori."</td>
-                                <td>".$value->provinsi."</td>
-                                <td>".$value->kota."</td>
-                                <td>".$value->kecamatan."</td>
-                                <td>".$value->alamat."</td>
-                                <td>
-                                <a target='_blank' href='http://maps.google.com/?ll=".$value->koordinat."'>
-                                    ".__('all.open_maps')." <i class='fa fa-map-marker-alt'></i>
-                                </a>
-                                </td>
-                                <td>".$status."</td>
-                                <td align='center'>
-                                    <div class='btn-group'>
-                                        <button type='button' class='btn btn-sm btn-warning action-edit'  
-                                            title='".__('all.button.edit')."' data-toggle='tooltip' data-placement='top'>
-                                            <i class='fa fa-edit'></i>
-                                        </button>
-                                        <button type='button' class='btn btn-sm btn-danger action-delete'  
-                                            title='".__('all.button.delete')."' data-toggle='tooltip' data-placement='top'>
-                                            <i class='fa fa-trash'></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>";
-                $row[]  = $rows;
+                $value->active      = $value->active == '1' ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
+                $value->koordinat   = "<a target='_blank' href='http://maps.google.com/?ll=".$value->koordinat."'>".__('all.open_maps')." <i class='fa fa-map-marker-alt'></i></a>";
+                $row[]              = $value;
             }
 
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));

@@ -38,7 +38,7 @@ class UserController extends Controller
             ],
             'json'      => [
                 "payload"   => [
-                    "limit"         => 10,
+                    "limit"         => 100000000,
                     "pageNumber"    => 0,
                 ]
             ]
@@ -52,29 +52,8 @@ class UserController extends Controller
             
             $row    = [];
             foreach ($result as $key => $value) {
-                $status = $value->active == '1' ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
-                $no = $key + 1;
-                $rows   =   "<tr>
-                                <td align='center'>".$no."</td>
-                                <td style='display:none'>".$value->id."</td>
-                                <td>".$value->nama."</td>
-                                <td>".$value->email."</td>
-                                <td>".$value->phone."</td>
-                                <td>".$status."</td>
-                                <td align='center'>
-                                    <div class='btn-group'>
-                                        <button type='button' class='btn btn-sm btn-warning action-edit'  
-                                            title='".__('all.button.edit')."' data-toggle='tooltip' data-placement='top'>
-                                            <i class='fa fa-edit'></i>
-                                        </button>
-                                        <button type='button' class='btn btn-sm btn-danger action-delete'  
-                                            title='".__('all.button.delete')."' data-toggle='tooltip' data-placement='top'>
-                                            <i class='fa fa-trash'></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>";
-                $row[]  = $rows;
+                $value->active  = $value->active == '1' ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
+                $row[]          = $value;
             }
 
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));

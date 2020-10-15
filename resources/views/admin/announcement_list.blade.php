@@ -231,10 +231,10 @@
             dataType: "JSON",
             beforeSend: function(){
                 if (params == 1) {
-                    $('#show-active').empty();
+                    table.clear().draw();
                     $("#table-chart").parent().ploading({action : 'show'});
                 } else {
-                    $('#show-history').empty();
+                    tables.clear().draw();
                     $("#table-maps").parent().ploading({action : 'show'});
                 }
             },
@@ -385,10 +385,6 @@
                 notif('error', '{{ __("all.error") }}');
             }
         });
-    }
-
-    function multiple(params, values) {
-        $('#'+params).val(join).change();
     }
 
     $('#start_date').datepicker({
