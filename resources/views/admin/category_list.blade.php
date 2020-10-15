@@ -22,7 +22,7 @@
         <!-- Approach -->
         <div class="card shadow mb-4">
             <div class="card-body table-category">
-                <div class="table-responsive-sm">
+                <div class="table-responsive">
                     <div class="btn-group" id="gpCat">
                         <button type="button" class="btn btn-primary btn-sm ml-1" onclick="modalshow()">
                             <i class="fa fa-plus"></i> {{ __('all.button.new') }}
@@ -119,9 +119,6 @@
         $.ajax({
             type    : "GET",
             url     : "{{ route('loadListCategory') }}",
-            headers : {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
             dataType: "JSON",
             beforeSend: function(){
                 table.clear().draw();
@@ -265,7 +262,7 @@
             name     : "required",
         },
         messages: {
-            name     : "tidak boleh kosong",
+            name     : "{{ __('all.validation.cat_name') }}",
         },
         errorClass      : "invalid-feedback",
         errorElement    : "div",

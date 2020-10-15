@@ -27,15 +27,15 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="table-responsive-sm">
+                <div class="table-responsive">
                     <div class="card-title">
                         <h4>{{ __('all.announcement_on') }}</h4>
                     </div>
+                    <hr>
                     <table class="table table-hover table-striped table-bordered table-condensed" id="table-chart" width="100%">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th style="display: none;">Id</th>
                                 <th>{{ __('all.table.create_dtm') }}</th>
                                 <th>{{ __('all.table.purpose') }}</th>
                                 <th>{{ __('all.category_coordinator') }}</th>
@@ -47,20 +47,19 @@
                                 <th>{{ __('all.table.action') }}</th>
                             </tr>
                         </thead>
-                        <tbody id="show-active"></tbody>
                     </table>
                 </div>
             </div>
             <div class="card-footer">
-                <div class="table-responsive-sm">
+                <div class="table-responsive">
                     <div class="card-title">
                         <h4>{{ __('all.announcement_history') }}</h4>
                     </div>
+                    <hr>
                     <table class="table table-hover table-striped table-bordered table-cosended" id="table-maps" width="100%">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th style="display: none;">Id</th>
                                 <th>{{ __('all.table.create_dtm') }}</th>
                                 <th>{{ __('all.table.purpose') }}</th>
                                 <th>{{ __('all.category_coordinator') }}</th>
@@ -72,7 +71,6 @@
                                 <th>{{ __('all.table.action') }}</th>
                             </tr>
                         </thead>
-                        <tbody id="show-history"></tbody>
                     </table>
                 </div>
             </div>
@@ -88,6 +86,22 @@
                 <h5 class="modal-title text-white"></h5>
             </div>
             <div class="modal-body">
+                <div class="container-fluid" id="form-cat">
+                    <form action="#" method="post" id="postcat">
+                        <div class="form-group row">
+                            <label for="cat" class="col-sm-3">{{ __('all.category_coordinator') }}</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="name" id="cat_name" placeholder="{{ __('all.placeholder.name_category') }}">
+                            </div>
+                        </div>
+                        <hr>
+                        <div align="right">
+                            <button type="button" class="btn btn-secondary" onClick="formAnn()">{{ __('all.close') }}</button>
+                            <button type="submit" class="btn btn-primary" id="save-cat" disabled onClick="saveCat()">{{ __('all.save') }}</button>
+                        </div>
+                    </form>
+                </div>
+
                 <div class="container-fluid" id="form-ann">
                     <form action="#" method="post" id="postann">
                         <input type="hidden" name="id" id="id">
@@ -139,22 +153,6 @@
                         </div>
                     </form>
                 </div>
-
-                <div class="container-fluid" id="form-cat">
-                    <form action="#" method="post" id="postcat">
-                        <div class="form-group row">
-                            <label for="cat" class="col-sm-3">{{ __('all.category_coordinator') }}</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" name="name" id="cat_name" placeholder="{{ __('all.placeholder.name_category') }}">
-                            </div>
-                        </div>
-                        <hr>
-                        <div align="right">
-                            <button type="button" class="btn btn-secondary" onClick="formAnn()">{{ __('all.close') }}</button>
-                            <button type="submit" class="btn btn-primary" id="save-cat" disabled onClick="saveCat()">{{ __('all.save') }}</button>
-                        </div>
-                    </form>
-                </div>
             </div>
         </div>
     </div>
@@ -163,6 +161,58 @@
 
 @section('script')
 <script>
+    var table = $('#table-chart').DataTable({
+        "language" : {
+            "lengthMenu"    : "{{ __('all.datatable.show_entries') }}",
+            "emptyTable"    : "{{ __('all.datatable.no_data') }}",
+            "info"        	: "{{ __('all.datatable.showing_start') }}",
+            "infoFiltered"  : "{{ __('all.datatable.filter') }}",
+            "infoEmpty"     : "{{ __('all.datatable.showing_null') }}",
+            "loadingRecords": "{{ __('all.datatable.load') }}",
+            "processing"    : "{{ __('all.datatable.process') }}",
+            "search"      	: "{{ __('all.datatable.search') }}",
+            "zeroRecords"   : "{{ __('all.datatable.zero') }}",
+            "paginate"      : 
+            {
+                "first"     : "{{ __('all.datatable.first') }}",
+                "last"      : "{{ __('all.datatable.last') }}",
+                "next"      : "{{ __('all.datatable.next') }}",
+                "previous"  : "{{ __('all.datatable.prev') }}",
+            }
+        },
+        "responsive"        : true,
+        "columnDefs"        : [ 
+            { targets: [0], orderable: false, className	: "text-center" },
+            { targets: [9], orderable: false, searchable: false, className	: "text-center" },
+        ],
+    });
+
+    var tables = $('#table-maps').DataTable({
+        "language" : {
+            "lengthMenu"    : "{{ __('all.datatable.show_entries') }}",
+            "emptyTable"    : "{{ __('all.datatable.no_data') }}",
+            "info"        	: "{{ __('all.datatable.showing_start') }}",
+            "infoFiltered"  : "{{ __('all.datatable.filter') }}",
+            "infoEmpty"     : "{{ __('all.datatable.showing_null') }}",
+            "loadingRecords": "{{ __('all.datatable.load') }}",
+            "processing"    : "{{ __('all.datatable.process') }}",
+            "search"      	: "{{ __('all.datatable.search') }}",
+            "zeroRecords"   : "{{ __('all.datatable.zero') }}",
+            "paginate"      : 
+            {
+                "first"     : "{{ __('all.datatable.first') }}",
+                "last"      : "{{ __('all.datatable.last') }}",
+                "next"      : "{{ __('all.datatable.next') }}",
+                "previous"  : "{{ __('all.datatable.prev') }}",
+            }
+        },
+        "responsive"        : true,
+        "columnDefs"        : [ 
+            { targets: [0], orderable: false, className	: "text-center" },
+            { targets: [9], orderable: false, searchable: false, className	: "text-center" },
+        ],
+    });
+
     function showForm() {
         showModal('modal-ann', 'postann');
         $('#modal-ann').find('.modal-title').text('{{ __("all.add_ann") }}');
@@ -173,8 +223,6 @@
             type    : "POST",
             url     : "{{ route('loadListAnnouncement') }}",
             data    : {
-                limit   : 10,
-                page    : 0,
                 params  : params
             },
             headers : {
@@ -192,10 +240,39 @@
             },
             success     : function(data){
                 if (data.code == 0) {
-                    if (params == 1) {
-                        $('#show-active').html(data.data);
-                    } else {
-                        $('#show-history').html(data.data);
+                    list = data.data;       
+
+                    if(list.length > 0){    
+                        $.each(list, function(idx, ref){
+                            if (params == 1) {  
+                                table.row.add( [
+                                    idx + 1,
+                                    moment.utc(ref.cdate).format('DD MMM YYYY hh:mm:ss'),
+                                    ref.tujuan,
+                                    ref.kategori,
+                                    moment.utc(ref.tanggalMulai).format('DD MMM YYYY'),
+                                    moment.utc(ref.tanggalSelesai).format('DD MMM YYYY'),
+                                    ref.judul,
+                                    ref.isi,
+                                    ref.cby,
+                                    "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='"+ref.id+"'><i class='fa fa-edit'></i></button></div>", 
+                                ] ).draw( false );
+                            } else { 
+                                tables.row.add( [
+                                    idx + 1,
+                                    moment.utc(ref.cdate).format('DD MMM YYYY hh:mm:ss'),
+                                    ref.tujuan,
+                                    ref.kategori,
+                                    moment.utc(ref.tanggalMulai).format('DD MMM YYYY'),
+                                    moment.utc(ref.tanggalSelesai).format('DD MMM YYYY'),
+                                    ref.judul,
+                                    ref.isi,
+                                    ref.cby,
+                                    "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='"+ref.id+"'><i class='fa fa-edit'></i></button></div>", 
+                                ] ).draw( false );
+                            }
+                        });
+
                     }
                 } 
             },
@@ -215,7 +292,7 @@
     function showCategory() {
         $.ajax({
             type    : "GET",
-            url     : "{{ route('listAll') }}",
+            url     : "{{ route('loadListCategory') }}",
             dataType: "JSON",
             success     : function(data){
                 if (data.code == 0) {
@@ -311,7 +388,7 @@
     }
 
     function multiple(params, values) {
-        var splitValues = values.split(', ');
+        var splitValues = values.split(',');
 
         join    = [];
         for (var i = 0; i < splitValues.length; i++) {
@@ -475,58 +552,41 @@
         });
     });
 
-    $('#postann').bootstrapValidator({
-        container: 'tooltip',
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
+    $("#postann").validate({
+        rules       : {
+            "tujuan[]"          : "required",
+            "kategori[]"        : "required",
+            "start_date"        : "required",
+            "end_date"          : "required",
+            "judul"             : "required",
+            "isi"               : "required",
         },
-        fields: {
-            "tujuan[]": {
-                validators: {
-                    notEmpty: {
-                        message: '<b class="text-danger">*{{ __("all.validation.purpose") }}</b>'
-                    },
-                }
-            },
-            "kategori[]": {
-                validators: {
-                    notEmpty: {
-                        message: '<b class="text-danger">*{{ __("all.validation.cat") }}</b>'
-                    },
-                }
-            },
-            start_date: {
-                validators: {
-                    notEmpty: {
-                        message: '<b class="text-danger">*{{ __("all.validation.sdate") }}</b>'
-                    },
-                }
-            },
-            end_date: {
-                validators: {
-                    notEmpty: {
-                        message: '<b class="text-danger">*{{ __("all.validation.edate") }}</b>'
-                    },
-                }
-            },
-            judul: {
-                validators: {
-                    notEmpty: {
-                        message: '<b class="text-danger">*{{ __("all.validation.title") }}</b>'
-                    },
-                }
-            },
-            isi: {
-                validators: {
-                    notEmpty: {
-                        message: '<b class="text-danger">*{{ __("all.validation.contents") }}</b>'
-                    },
-                }
-            },
+        messages: {
+            "tujuan[]"          : "{{ __('all.validation.purpose') }}",
+            "kategori[]"        : "{{ __('all.validation.cat') }}",
+            "start_date"        : "{{ __('all.validation.sdate') }}",
+            "end_date"          : "{{ __('all.validation.edate') }}",
+            "judul"             : "{{ __('all.validation.title') }}",
+            "isi"               : "{{ __('all.validation.contents') }}",
         },
-        submitHandler : function (form) {
+        errorClass      : "invalid-feedback",
+        errorElement    : "div",
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid').removeClass('is-valid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid').addClass('is-valid');
+        },
+        errorPlacement  : function(error,element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+            if (element.attr("name") == "start_date" || element.attr("name") == "end_date") {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        submitHandler           : function(form) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

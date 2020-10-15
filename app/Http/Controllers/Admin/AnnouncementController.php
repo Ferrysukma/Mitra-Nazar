@@ -41,8 +41,8 @@ class AnnouncementController extends Controller
             ],
             'json'      => [
                 "payload"   => [
-                    "limit"         => $request->limit,
-                    "pageNumber"    => $request->page,
+                    "limit"         => 100000000,
+                    "pageNumber"    => 0,
                 ]
             ]
         ]);
@@ -55,44 +55,7 @@ class AnnouncementController extends Controller
             
             $row    = [];
             foreach ($result as $key => $value) {
-                // array tujuan
-                $dataT  = [];
-                if (isset($value->tujuan) && !empty($value->tujuan)) {
-                    foreach ($value->tujuan as $val) {
-                        $dataT[]  .= $val;
-                    }
-                }
-
-                // array kategori
-                $dataK  = [];
-                if (isset($value->kategori) && !empty($value->kategori)) {
-                    foreach ($value->kategori as $cell) {
-                        $dataK[]  .= $cell;
-                    }
-                }
-
-                $no = $key + 1;
-                $rows   =   "<tr>
-                                <td align='center'>".$no."</td>
-                                <td style='display:none'>".$value->id."</td>
-                                <td>".date('d F Y H:i:s', strtotime($value->cdate))."</td>
-                                <td>".implode(', ', $dataT)."</td>
-                                <td>".implode(', ', $dataK)."</td>
-                                <td>".date('d F Y H:i:s', strtotime($value->tanggalMulai))."</td>
-                                <td>".date('d F Y H:i:s', strtotime($value->tanggalSelesai))."</td>
-                                <td>".$value->judul."</td>
-                                <td>".$value->isi."</td>
-                                <td>".$value->cby."</td>
-                                <td align='center'>
-                                    <div class='btn-group'>
-                                        <button type='button' class='btn btn-sm btn-warning action-edit'  
-                                            title='".__('all.button.edit')."' data-toggle='tooltip' data-placement='top'>
-                                            <i class='fa fa-edit'></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>";
-                $row[]  = $rows;
+                $row[]  = $value;
             }
 
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
