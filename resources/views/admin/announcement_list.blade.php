@@ -388,81 +388,8 @@
     }
 
     function multiple(params, values) {
-        var splitValues = values.split(',');
-
-        join    = [];
-        for (var i = 0; i < splitValues.length; i++) {
-            join[i] = splitValues[i];
-        }
-
         $('#'+params).val(join).change();
     }
-
-    function disable(id, name, params) {
-        bootbox.confirm({
-            message: "{{ __('all.confirm_disable') }} <b>"+name+"</b>?",
-            buttons: {
-                confirm: {
-                    label: '{{ __("all.yes") }}',
-                    className: 'btn-primary'
-                },
-                cancel: {
-                    label: '{{ __("all.cancel") }}',
-                    className: 'btn-secondary'
-                }
-            },
-            callback: function (res) {
-                if(res){
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-
-                    $.ajax({
-                        type    : "POST",
-                        url     : "{{ route('deleteAnnoucement') }}",
-                        data	: {
-                            id  : id,
-                        },
-                        dataType: "JSON",
-                        beforeSend: function(){
-                            $(this).buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
-                            $("#"+params).parent().ploading({action : 'show'});
-                        },
-                        success     : function(data){
-                            if (data.code == 0) {
-                                notif('success', '{{ __("all.success") }}', '{{ __("all.alert.delete") }}');
-                                if (params == 1) {
-                                    showData(1);
-                                } else {
-                                    showData(2);
-                                }
-                            } else {
-                                notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_delete") }}');
-                            }
-                        },
-                        complete    : function(){
-                            $(this).buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
-                            $("#"+params).parent().ploading({action : 'hide'});
-                        },
-                        error 		: function(){
-                            notif('error', '{{ __("all.error") }}');
-                        }
-                    });
-                }
-            }
-        });
-    }
-    
-    $(document).on('keyup','#cat_name', function () {
-        var name = $('#cat_name').val();
-        if (name != '') {
-            $('#save-cat').removeAttr('disabled');
-        } else {
-            $('#save-cat').attr('disabled', true);
-        }
-    });
 
     $('#start_date').datepicker({
         language: 'en',
@@ -487,69 +414,30 @@
 
     $('#form-cat').hide();
 
-    $(document).ready(function(){
-        $("#table-chart").on('click','.action-edit',function(){
-            showModal('modal-ann','postann');
-            var row  = $(this).closest("tr"); 
-            
-            var col1 = row.find("td:eq(0)").text();
-            var col2 = row.find("td:eq(1)").text();
-            var col3 = row.find("td:eq(2)").text();
-            var col4 = row.find("td:eq(3)").text();
-            var col5 = row.find("td:eq(4)").text();
-            var col6 = row.find("td:eq(5)").text();
-            var col7 = row.find("td:eq(6)").text();
-            var col8 = row.find("td:eq(7)").text();
-            var col9 = row.find("td:eq(8)").text();
+    $('#table-chart tbody').on('click', '.action-edit', function () {
+        var data = table.row( $(this).parents('tr') ).data();
+        showModal('modal-ann', 'postann');
+        $('#modal-ann').find('.modal-title').text("{{ __('all.edit_ann') }} #"+data[0]);
+        $('#id').val($(this).attr('id'));
+        $('#kategori').val(data[3]).change();
+        $('#tujuan').val(data[2]).change();
+        $('#start_date').data('datepicker').selectDate(new Date(data[4]));
+        $('#end_date').data('datepicker').selectDate(new Date(data[5]));
+        $('#title').val(data[6]);
+        $('#contents').val(data[7]);
+    });
 
-            $('#id').val(col2);
-            multiple('kategori', col5);
-            multiple('tujuan', col4);
-            $('#start_date').data('datepicker').selectDate(new Date(col6));
-            $('#end_date').data('datepicker').selectDate(new Date(col7));
-            $('#title').val(col8);
-            $('#contents').val(col9);
-            
-            $('#modal-ann').find('.modal-title').text("{{ __('all.edit_ann') }} #"+col1+"");
-        });
-
-        $("#table-maps").on('click','.action-edit',function(){
-            showModal('modal-ann','postann');
-            var row  = $(this).closest("tr"); 
-
-            var col1 = row.find("td:eq(0)").text();
-            var col2 = row.find("td:eq(1)").text();
-            var col3 = row.find("td:eq(2)").text();
-            var col4 = row.find("td:eq(3)").text();
-            var col5 = row.find("td:eq(4)").text();
-            var col6 = row.find("td:eq(4)").text();
-            var col7 = row.find("td:eq(4)").text();
-
-            $('#id').val(col2);
-            $('#tujuan').val(col4);
-            $('#kategori').val(col5);
-            $('#phone').val(col5);
-            
-            $('#modal-ann').find('.modal-title').text("{{ __('all.edit_ann') }} #"+col1+"");
-        });
-
-        $("#table-chart").on('click','.action-delete',function(){
-            var row  = $(this).closest("tr"); 
-            
-            var col1 = row.find("td:eq(1)").text();
-            var col2 = row.find("td:eq(8)").text();
-
-            disable(col1, col2, 'table-chart');
-        });
-
-        $("#table-maps").on('click','.action-delete',function(){
-            var row  = $(this).closest("tr"); 
-            
-            var col1 = row.find("td:eq(1)").text();
-            var col2 = row.find("td:eq(8)").text();
-
-            disable(col1, col2, 'table-maps');
-        });
+    $('#table-maps tbody').on('click', '.action-edit', function () {
+        var data = tables.row( $(this).parents('tr') ).data();
+        showModal('modal-ann', 'postann');
+        $('#modal-ann').find('.modal-title').text("{{ __('all.edit_ann') }} #"+data[0]);
+        $('#id').val($(this).attr('id'));
+        $('#kategori').val(data[3]).change();
+        $('#tujuan').val(data[2]).change();
+        $('#start_date').data('datepicker').selectDate(new Date(data[4]));
+        $('#end_date').data('datepicker').selectDate(new Date(data[5]));
+        $('#title').val(data[6]);
+        $('#contents').val(data[7]);
     });
 
     $("#postann").validate({

@@ -190,7 +190,7 @@
         var data = table.row( $(this).parents('tr') ).data();
         resetData();
         showModal('modal-cat', 'postcat');
-        $('#modal-cat').find('.modal-title').text("{{ __('all.edit_cat') }}");
+        $('#modal-cat').find('.modal-title').text("{{ __('all.edit_cat') }} #"+data[0]);
         $('#id').val($(this).attr('id'));
         $('#cat_name').val(data[2]);
     });

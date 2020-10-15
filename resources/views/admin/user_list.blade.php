@@ -21,36 +21,24 @@
     <div class="col-lg-12 mb-4">
         <!-- Approach -->
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <div class="row">
-                    <div class="col-sm-7">
-                        <span style="float:right">{{ __('all.datatable.search') }}</span>
-                    </div>
-                    <div class="col-sm-3">
-                        <input type="text" name="cari" id="cari" class="form-control" placeholder="{{ __('all.placeholder.key') }}">
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-primary btn-sm" id="add-user" onclick="showModal('modal-mitra','postuser')"><i class="fa fa-plus"></i> {{ __('all.button.new') }}</button>
-                            <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="filterMaps" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showDropdown('dropMaps')">
-                                <i class="fa fa-filter"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right keep-open" aria-labelledby="filterMaps" id="dropMaps" style="width:300px;">
-                                <form id="formFilter" class="px-4 py-3" action="#">
-                                    <div class="form-group">
-                                        <select name="status" id="status" class="form-control" style="width: 100% !important;">
-                                            <option value="{{ __('all.active') }}">{{ __('all.active') }}</option>
-                                            <option value="{{ __('all.noactive') }}">{{ __('all.noactive') }}</option>
-                                        </select>
-                                    </div>
-                                </form>
-                            </div>
+            <div class="card-body table-user">
+                <div class="table-responsive">
+                    <div class="btn-group" id="gpUser" role="group">
+                        <button type="button" class="btn btn-primary btn-sm" id="add-user" onclick="showModal('modal-mitra','postuser')"><i class="fa fa-plus"></i> {{ __('all.button.new') }}</button>
+                        <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="filterMaps" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showDropdown('dropMaps')">
+                            <i class="fa fa-filter"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right keep-open" aria-labelledby="filterMaps" id="dropMaps" style="width:300px;">
+                            <form id="formFilter" class="px-4 py-3" action="#">
+                                <div class="form-group">
+                                    <select name="status" id="status" class="form-control" style="width: 100% !important;">
+                                        <option value="{{ __('all.active') }}">{{ __('all.active') }}</option>
+                                        <option value="{{ __('all.noactive') }}">{{ __('all.noactive') }}</option>
+                                    </select>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="card-body table-user">
-                <div class="table-responsive-sm">
                     <table class="table table-hover table-striped table-condensed table-bordered" id="table-user" width="100%">
                         <thead>
                             <tr>
