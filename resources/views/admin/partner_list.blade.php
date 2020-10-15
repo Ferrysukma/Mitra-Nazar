@@ -257,18 +257,19 @@
         },
     });
 
-    $(document).on('click','.dropdown-item.select', function () {
-        var prov        = $(this).attr('provinsi');
-        var city        = $(this).attr('city');
-        var district    = $(this).attr('district');
+    function selectCity(e) {
+        var prov        = $(e).attr('provinsi');
+        var city        = $(e).attr('city');
+        var district    = $(e).attr('district');
 
         $('#province').val(prov);
-        $('#city').val(dropCity);
+        $('#dropCity').val(city);
         $('#district').val(district);
 
         $('.data-city').hide(); 
         getLatLong(district, 'map_canvas', 'maps-mitra');
-    });
+        
+    }
 
     $('#form-cat').hide();
 

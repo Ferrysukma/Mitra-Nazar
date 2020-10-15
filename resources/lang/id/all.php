@@ -27,6 +27,7 @@ return [
         'choose_coorcategory'   => 'Pilih Kategori Koordinator',
         'purpose'               => 'Pilih Tujuan',
         'key'                   => 'Masukkan kata kunci ....',
+        'findCity'              => 'Cari Kota/Kabupaten ....',
         'token'                 => 'Masukkan token ....',
         'pin'                   => 'Masukkan PIN Anda',
         'otp'                   => 'Masukkan Kode Verifikasi Anda',

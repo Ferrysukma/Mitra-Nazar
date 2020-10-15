@@ -27,6 +27,7 @@ return [
         'choose_coorcategory'   => 'Choose Coordinator Category',
         'purpose'               => 'Choose Purpose',
         'key'                   => 'Enter key words ....',
+        'findCity'              => 'Find city ....',
         'token'                 => 'Enter token here ....',
         'pin'                   => 'Enter Your Pin',
         'otp'                   => 'Enter Your Verification Code',

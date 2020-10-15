@@ -26,7 +26,7 @@ class PartnerController extends Controller
         return view('admin.partner_list');
     }
 
-    public function loadlist(Request $request)
+    public function loadList(Request $request)
     {
         $client     = new Client();
 

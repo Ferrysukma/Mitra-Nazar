@@ -33,9 +33,9 @@ class HomeController extends Controller
             ],
             'json'      => [
                 "payload"   => [
-                    "start"         => $result->start,
-                    "limit"         => $request->limit,
-                    "pageNumber"    => $request->page,
+                    "start"         => date('Y-m-d', strtotime($request->start)),
+                    "limit"         => 100000000,
+                    "pageNumber"    => 0,
                     "provinsi"      => $request->provinsi,
                     "kota"          => $request->kota,
                     "kategori"      => $request->kategori,
@@ -52,29 +52,9 @@ class HomeController extends Controller
             
             $row    = [];
             foreach ($result as $key => $value) {
-                $status = $value->active == '1' ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
-                $no = $key + 1;
-                $rows   =   "<tr>
-                                <td align='center'>".$no."</td>
-                                <td style='display:none'>".$value->id."</td>
-                                <td>".$value->nama."</td>
-                                <td>".$value->email."</td>
-                                <td>".$value->phone."</td>
-                                <td>".$status."</td>
-                                <td align='center'>
-                                    <div class='btn-group'>
-                                        <button type='button' class='btn btn-sm btn-warning action-edit'  
-                                            title='".__('all.button.edit')."' data-toggle='tooltip' data-placement='top'>
-                                            <i class='fa fa-edit'></i>
-                                        </button>
-                                        <button type='button' class='btn btn-sm btn-danger action-delete'  
-                                            title='".__('all.button.delete')."' data-toggle='tooltip' data-placement='top'>
-                                            <i class='fa fa-trash'></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>";
-                $row[]  = $rows;
+                $value->active      = $value->active == true ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
+                $value->koordinat   = "<a target='_blank' href='http://maps.google.com/?ll=".$value->koordinat."'>".__('all.open_maps')." <i class='fa fa-map-marker-alt'></i></a>";
+                $row[]              = $value;
             }
 
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
@@ -98,7 +78,7 @@ class HomeController extends Controller
             
             $row    = [];
             foreach ($result as $key => $value) {
-                $rows  = "<a class='dropdown-item select' provinsi='".$value->province."' city='".$value->city."' type='".$value->type."' district='".$value->subdistrictName."' id=".$value->id."'>".$value->subdistrictName.", ".$value->type.", ".$value->city.", ".$value->province."</a>";
+                $rows  = "<a class='dropdown-item' provinsi='".$value->province."' city='".$value->city."' type='".$value->type."' district='".$value->subdistrictName."' id=".$value->id."' onclick='selectCity(this)'>".$value->subdistrictName.", ".$value->type.", ".$value->city.", ".$value->province."</a>";
                 $row[]  = $rows;
             }
 
