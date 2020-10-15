@@ -69,21 +69,42 @@ class PartnerController extends Controller
     public function listAll(Request $request)
     {
         $client     = new Client();
-
-        $url        = $this->base_url . 'mitra/admin/list-mitra';
-        
-        $request    = $client->post($url, [
-            'headers'   => [
-                'Authorization' => Session::get('admin_key')
-            ],
-            'json'      => [
-                "payload"   => [
-                    "limit"         => 1000,
-                    "pageNumber"    => 0,
-                    "search"        => ""
+        if ($request->params == 1) {
+            $url        = $this->base_url . 'mitra/admin/list-mitra';
+            $request    = $client->post($url, [
+                'headers'   => [
+                    'Authorization' => Session::get('admin_key')
+                ],
+                'json'      => [
+                    "payload"   => [
+                        "limit"         => 100000000,
+                        "pageNumber"    => 0,
+                        "search"        => ""
+                    ]
                 ]
-            ]
-        ]);
+            ]);
+        } else {
+            $url        = $this->base_url . 'mitra/admin/list-mitra-chart-detail';
+            $city       = isset($request->kota) ? $request->kota : 'bandung';
+            $prov       = isset($request->provinsi) ? $request->provinsi : 'Jawa barat';
+            $request    = $client->post($url, [
+                'headers'   => [
+                    'Authorization' => Session::get('admin_key')
+                ],
+                'json'      => [
+                    "payload"   => [
+                        "start"         => date('Y-m-d', strtotime($request->start)),
+                        "end"           => date('Y-m-d', strtotime($request->end)),
+                        "limit"         => 100000000,
+                        "pageNumber"    => 0,
+                        "provinsi"      => $prov,
+                        "kota"          => $city,
+                        "kategori"      => $request->kategori,
+                        "tipe"          => $request->tipe
+                    ]
+                ]
+            ]);
+        }
         
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];

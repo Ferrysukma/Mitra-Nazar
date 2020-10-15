@@ -27,6 +27,8 @@ class HomeController extends Controller
     {
         $client     = new Client();
         $url        = $this->base_url . 'mitra/admin/list-mitra-chart-detail';
+        $city       = isset($request->kota) ? $request->kota : 'bandung';
+        $prov       = isset($request->provinsi) ? $request->provinsi : 'Jawa barat';
         $request    = $client->post($url, [
             'headers'   => [
                 'Authorization' => Session::get('admin_key')
@@ -36,8 +38,8 @@ class HomeController extends Controller
                     "start"         => date('Y-m-d', strtotime($request->start)),
                     "limit"         => 100000000,
                     "pageNumber"    => 0,
-                    "provinsi"      => $request->provinsi,
-                    "kota"          => $request->kota,
+                    "provinsi"      => $prov,
+                    "kota"          => $city,
                     "kategori"      => $request->kategori,
                     "tipe"          => $request->tipe
                 ]

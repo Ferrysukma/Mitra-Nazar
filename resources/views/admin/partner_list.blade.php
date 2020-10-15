@@ -429,8 +429,11 @@
 
     function maps() {
         $.ajax({
-            type    : "GET",
+            type    : "POST",
             url     : "{{ route('listAllPartner') }}",
+            data    : {
+                params  : 1
+            },
             dataType: "JSON",
             beforeSend: function(){
                 $("#maps-homeMitra").ploading({action : 'show'});
