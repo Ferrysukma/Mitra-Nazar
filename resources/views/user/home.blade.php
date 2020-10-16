@@ -29,7 +29,7 @@
                 </div>
                 <div align="center">
                     <p><b>{{ __('all.checkbox.central') }}</b></p>
-                    <b id="copy">Hello</b> <br>
+                    <b>#</b> <b id="copy">Hello</b> <br>
                     <button class="btn btn-sm btn-secondary" onclick="copyToClipboard('#copy')">{{ __('all.button.copy') }}</button>
                     <br><br>
                     <b id="rupiah">Rupiah</b> <br>

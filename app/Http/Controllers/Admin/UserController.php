@@ -16,9 +16,6 @@ class UserController extends Controller
     public function __construct()
     {
         $this->base_url = Controller::api();
-        if (empty(Session::get('admin_key'))) {
-            return redirect('/login_admin');
-        }
     }
 
     public function index()

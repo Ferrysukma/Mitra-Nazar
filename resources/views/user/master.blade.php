@@ -79,7 +79,7 @@
                             <a class="nav-link" href="{{ route('home') }}">{{ __('all.home') }}</a>
                         </li>
                         <li class="nav-item no-arrow mx-1">
-                            <a class="nav-link" href="{{ route('partner') }}">Downline</a>
+                            <a class="nav-link" href="{{ route('downline') }}">Downline</a>
                         </li>
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
@@ -104,7 +104,7 @@
                                         <span class="font-weight-bold">A new monthly report is ready to download!</span>
                                     </div>
                                 </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">{{ __('all.showAll') }}</a>
                             </div>
                         </li>
 

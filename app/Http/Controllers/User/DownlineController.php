@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Stream\Stream;
 
-class PartnerController extends Controller
+class DownlineController extends Controller
 {
     public function __construct()
     {
@@ -20,7 +20,7 @@ class PartnerController extends Controller
 
     public function index()
     {
-        return view('admin.partner_list');
+        return view('user.downline');
     }
 
     public function loadList(Request $request)
