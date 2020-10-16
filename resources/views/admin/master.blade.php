@@ -273,6 +273,9 @@
         $.ajax({
             type    : "POST",
             url     : "{{ route('listAllPartner') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data    : {
                 params  : 2,
                 start   : $('#start_dtm_chart').val(),

@@ -44,6 +44,7 @@ Route::group(['middleware' => 'CheckToken'], function () {
     Route::post('/loadListPartner', [App\Http\Controllers\Admin\PartnerController::class, 'loadList'])->name('loadListPartner');
     Route::post('/listAllPartner', [App\Http\Controllers\Admin\PartnerController::class, 'listAll'])->name('listAllPartner');
     Route::post('/findUser', [App\Http\Controllers\Admin\PartnerController::class, 'find'])->name('findUser');
+    Route::post('/coordinate', [App\Http\Controllers\Admin\PartnerController::class, 'coordinate'])->name('coordinate');
     Route::post('/deletePartner', [App\Http\Controllers\Admin\PartnerController::class, 'delete'])->name('deletePartner');
     Route::post('/createPartner', [App\Http\Controllers\Admin\PartnerController::class, 'create'])->name('createPartner');
 

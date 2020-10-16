@@ -234,4 +234,29 @@ class PartnerController extends Controller
             return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
         }
     }
+
+    public function coordinate(Request $request)
+    {
+        $client     = new Client();
+        $url        = $this->base_url . 'find/district';
+        $request    = $client->get($url, ['query' => ['page' => 0, 'query' => $request->filter]]);
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+            
+            $row    = [];
+            foreach ($result as $key => $value) {
+                $rows  = "<a class='dropdown-item' provinsi='".$value->province."' city='".$value->city."' type='".$value->type."' district='".$value->subdistrictName."' id=".$value->id."' onclick='select(this)'>".$value->subdistrictName.", ".$value->type.", ".$value->city.", ".$value->province."</a>";
+                $row[]  = $rows;
+            }
+
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
+        } else {
+            $result = '<a class="text-center text-gray">'.__('all.datatable.no_data').'</a>';
+            
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+        }
+    }
 }

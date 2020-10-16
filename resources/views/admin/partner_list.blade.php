@@ -30,28 +30,34 @@
                     <div class="dropdown-menu dropdown-menu-right keep-open" aria-labelledby="filterMaps" id="dropMaps" style="width:300px;">
                         <form id="formFilter" class="px-4 py-3" action="#">
                             <div class="form-group">
-                                <select name="provinsi" id="provinsi_maps" class="form-control" style="width: 100% !important;">
-                                    <option value="" selected disabled>{{ __('all.placeholder.choose_prov') }}</option>
+                                <div class="dropdown">
+                                    <input type="text" name="city" class="form-control dropdown-toggle" id="dropKota" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="getCoordinate('dropKota', 'data-kota', 'showKota')" placeholder="{{ __('all.placeholder.findCity') }}">
+                                    <div class="dropdown-menu data-kota" id="showKota">
+                                        <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="province" id="provinsi" class="form-control readonly" readonly placeholder="{{ __('all.table.prov') }}">
+                            </div>
+                            <div class="form-group">
+                                <select name="tipe" id="tipe" class="form-control select2" onchange="change('tipe', 3)">
+                                    <option value="">{{ __('all.placeholder.choose_coortype') }}</option>
+                                    <option value="pusat">{{ __('all.checkbox.central') }}</option>
+                                    <option value="provinsi">{{ __('all.checkbox.regional') }}</option>
+                                    <option value="kota">{{ __('all.checkbox.city') }}</option>
+                                    <option value="kecamatan">{{ __('all.checkbox.district') }}</option>
+                                    <option value="desa">{{ __('all.checkbox.village') }}</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <select name="kabupaten" id="kabupaten_maps" class="form-control" style="width: 100% !important;">
-                                    <option value="" selected disabled>{{ __('all.placeholder.choose_kab') }}</option>
-                                </select>
+                                <select name="kategori" id="cat" class="form-control select2 create-cat" onchange="change('cat', 4)"></select>
                             </div>
                             <div class="form-group">
-                                <select name="coordinator_type" id="coordinator_type" class="form-control" style="width: 100% !important;">
-                                    <option value="" selected disabled>{{ __('all.placeholder.choose_coortype') }}</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select name="coordinator_category" id="coordinator_category" class="form-control" style="width: 100% !important;" onclick="showData()">
-                                    <option value="" selected disabled>{{ __('all.placeholder.choose_coorcategory') }}</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select name="status" id="status" class="form-control" style="width: 100% !important;">
+                                <select name="status" id="status" class="form-control" style="width: 100% !important;" onchange="change('status', 10)">
                                     <option value="" selected disabled>{{ __('all.placeholder.choose_status') }}</option>
+                                    <option value="{{ __('all.active') }}">{{ __('all.active') }}</option>
+                                    <option value="{{ __('all.noactive') }}">{{ __('all.noactive') }}</option>
                                 </select>
                             </div>
                         </form>
@@ -257,6 +263,61 @@
         },
     });
 
+    function getCoordinate(filter, code, show) {
+        var input, filter;
+        input  = document.getElementById(filter);
+        filter = input.value.toUpperCase();
+
+        $('#'+show).toggle('show');
+
+        $.ajax({
+            type        : "POST",
+            url         : "{{ route('coordinate') }}",
+            headers     : {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data        : {
+                filter  : filter
+            },
+            dataType    : 'JSON',
+            beforeSend  : function () {
+                $('.'+code).ploading({action:'show'});
+            },
+            success     : function (res) {
+                $('.'+code).html(res.data);
+            },
+            complete    : function () {
+                $('.'+code).ploading({action:'hide'});
+            }
+        });
+    }
+
+    function select(e) {
+        var prov        = $(e).attr('provinsi');
+        var city        = $(e).attr('city');
+
+        $('#provinsi').val(prov);
+        $('#kota').val(city);
+        
+        $('.data-kota').hide();
+        filter(city, 6);
+        filter(prov, 5);
+    }
+
+    function filter(data, row) {
+        if (table.column(row).search() !== data ) {
+            table
+                .column(row)
+                .search( data )
+                .draw();
+        }
+    }
+
+    function change(params, row) {
+        var val = $('#'+params).val();
+        filter(val, row);
+    }
+
     function selectCity(e) {
         var prov        = $(e).attr('provinsi');
         var city        = $(e).attr('city');
@@ -268,7 +329,6 @@
 
         $('.data-city').hide(); 
         getLatLong(district, 'map_canvas', 'maps-mitra');
-        
     }
 
     $('#form-cat').hide();
@@ -361,6 +421,7 @@
             success     : function(data){
                 if (data.code == 0) {
                     $('#kategori').empty();
+                    $('#cat').empty();
                     txt  = '';
                     list = data.data;
                     
@@ -371,7 +432,7 @@
                         });
                     }
 
-                    $('#kategori').append(txt);
+                    $('#cat').append(txt);
                 } 
             },
         });
@@ -431,6 +492,9 @@
         $.ajax({
             type    : "POST",
             url     : "{{ route('listAllPartner') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data    : {
                 params  : 1
             },
