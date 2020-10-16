@@ -43,6 +43,7 @@ class LoginController extends Controller
 
         if ($response->getStatusCode() == '200') {
             Session::put('admin_key', json_decode((string) $responseBodyAsString, true)['token']);
+            Session::put('username', json_decode((string) $responseBodyAsString, true)['name']);
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('admin_key')));
         } else {
             echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));

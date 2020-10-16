@@ -187,7 +187,6 @@
             <div class="modal-content create-pass">
                 <div class="modal-header">
                     <h5 class="modal-title text-white">{{ __('all.change') }}</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="#" method="post" id="postpass">
@@ -212,11 +211,10 @@
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                        <div align="right">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                            <button type="submit" class="btn btn-primary" id="btn-pass">{{ __('all.save') }}</button>
-                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
+                    <button type="submit" class="btn btn-primary" id="btn-pass">{{ __('all.save') }}</button>
                     </form>
                 </div>
             </div>
@@ -319,14 +317,33 @@
             }
         }
 
-        $('#postpass').bootstrapValidator({
-            container: 'tooltip',
-            feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
+        $("#postpass").validate({
+            rules       : {
+                oldPassword     : "required",
+                newPassword     : "required",
             },
-            submitHandler : function (validator, form, submitButton) {
+            messages: {
+                oldPassword     : "{{ __('all.validation.old') }}",
+                newPassword     : "{{ __('all.validation.new') }}",
+            },
+            errorClass      : "invalid-feedback",
+            errorElement    : "div",
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid').removeClass('is-valid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid').addClass('is-valid');
+            },
+            errorPlacement  : function(error,element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+                if (element.attr("name") == "oldPassword" || element.attr('name') == "newPassword") {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler : function (form) {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -336,7 +353,7 @@
                 $.ajax({
                     type	: "POST",
                     url		: "{{ route('changePassword') }}",
-                    data	: $(form).serialize(),
+                    data	: $('#postpass').serialize(),
                     dataType: "JSON",
                     beforeSend: function(){
                         $("#btn-pass").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
@@ -358,22 +375,6 @@
                         notif('error', '{{ __("all.error") }}');
                     }
                 });
-            },
-            fields: {
-                oldPassword: {
-                    validators: {
-                        notEmpty: {
-                            message: '<b class="text-danger">*{{ __("all.validation.old") }}</b>'
-                        },
-                    }
-                },
-                newPassword: {
-                    validators: {
-                        notEmpty: {
-                            message: '<b class="text-danger">*{{ __("all.validation.new") }}</b>'
-                        },
-                    }
-                },
             },
         });
 
