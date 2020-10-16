@@ -336,62 +336,6 @@
             },
         });
 
-        function filterCoordinate(filter, code, show) {
-            var input, filter;
-            input  = document.getElementById(filter);
-            filter = input.value.toUpperCase();
-
-            $('#'+show).toggle('show');
-
-            $.ajax({
-                type        : "POST",
-                url         : "{{ route('getCoordinate') }}",
-                data        : {
-                    _token  : "{{ csrf_token() }}",
-                    filter  : filter
-                },
-                dataType    : 'JSON',
-                beforeSend  : function () {
-                    $('.'+code).ploading({action:'show'});
-                },
-                success     : function (res) {
-                    $('.'+code).html(res.data);
-                },
-                complete    : function () {
-                    $('.'+code).ploading({action:'hide'});
-                }
-            });
-        }
-
-        function coordinateCity(id, filter) {
-            console.log(filter);
-            $.ajax({
-                type        : "POST",
-                url         : "{{ route('coordinateCity') }}",
-                data        : {
-                    _token  : "{{ csrf_token() }}",
-                    filter  : filter
-                },
-                dataType    : 'JSON',
-                success     : function(data){
-                    if (data.code == 0) {
-                        $('#'+id).empty();
-                        txt  = '';
-                        list = data.data;
-                        
-                        txt += '<option value="" selected>{{ __("all.placeholder.choose_kab") }}</option>';
-                        if(list.length > 0){
-                            $.each(list, function(idx, ref){
-                                txt += '<option value="'+ref.id+'">'+ref.city+'</option>';
-                            });
-                        }
-
-                        $('#'+id).append(txt);
-                    } 
-                },
-            });
-        }
-
         function getLatLong(district, id, map) {
             $.ajax({
                 type        : "POST",

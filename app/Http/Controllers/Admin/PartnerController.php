@@ -129,6 +129,7 @@ class PartnerController extends Controller
     public function create(Request $request)
     {
         $client     = new Client();
+        echo '<pre>'; print_r($_POST); echo '</pre>'; die('');
         
         if (isset($request->id) && !empty($request->id)) {
             $url        = $this->base_url . 'mitra/admin/edit-mitra';

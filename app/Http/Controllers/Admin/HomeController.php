@@ -131,7 +131,7 @@ class HomeController extends Controller
             
             $row    = [];
             foreach ($result as $key => $value) {
-                $rows  = "<a class='dropdown-item' name='".$value->province."' id=".$value->provinceId." onclick='selectCity(this)'>".$value->province."</a>";
+                $rows  = "<a class='dropdown-item' name='".$value->province."' id=".$value->provinceId." onclick='selectProv(this)'>".$value->province."</a>";
                 $row[]  = $rows;
             }
 
@@ -164,12 +164,15 @@ class HomeController extends Controller
             
             $row    = [];
             foreach ($result as $key => $value) {
-                $row[]  = $value;
+                $rows  = "<a class='dropdown-item' name='".$value->city."' id=".$value->id." onclick='selectCity(this)'>".$value->city."</a>";
+                $row[]  = $rows;
             }
 
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
         } else {
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            $result = '<a class="text-center text-gray">'.__('all.datatable.no_data').'</a>';
+            
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
 
@@ -194,12 +197,15 @@ class HomeController extends Controller
             
             $row    = [];
             foreach ($result as $key => $value) {
-                $row[]  = $value;
+                $rows  = "<a class='dropdown-item' name='".$value->subdistrictName."' id=".$value->id." onclick='getLoc(this)'>".$value->subdistrictName."</a>";
+                $row[]  = $rows;
             }
 
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
         } else {
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            $result = '<a class="text-center text-gray">'.__('all.datatable.no_data').'</a>';
+            
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
 

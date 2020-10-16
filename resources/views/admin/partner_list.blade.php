@@ -156,13 +156,23 @@
                         <div class="form-group row">
                             <label for="old" class="col-sm-3">{{ __('all.table.city') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
-                                <select name="city" id="city" class="form-control select2" onchange="coordinateDistrict()"></select>
+                                <div class="dropdown">
+                                    <input type="text" name="city" class="form-control readonly" id="city" readonly>
+                                    <div class="dropdown-menu data-city" id="showCity">
+                                        <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="old" class="col-sm-3">{{ __('all.form.district') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
-                                <select name="district" id="district" class="form-control select2" onchange="getLoc()"></select>
+                                <div class="dropdown">
+                                    <input type="text" name="district" class="form-control readonly" id="district" readonly>
+                                    <div class="dropdown-menu data-district" id="showDistrict">
+                                        <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -318,18 +328,76 @@
         filter(val, row);
     }
 
-    function selectCity(e) {
-        var prov    = $(e).attr('name');
+    function selectProv(e) {
+        var name    = $(e).attr('name');
         var id      = $(e).attr('id');
 
-        $('#dropProv').val(prov);
+        $('#dropProv').val(name);
 
         $('.data-prov').hide(); 
-        coordinateCity('city', id);
+        coordinateCity(id, 'data-city', 'showCity');
     }
 
-    function coordinateDistrict() {
-        var filter      = $('#city').val();
+    function selectCity(e) {
+        var name    = $(e).attr('name');
+        var id      = $(e).attr('id');
+
+        $('#city').val(name);
+
+        $('.data-city').hide(); 
+        coordinateDistrict(id, 'data-district', 'showDistrict');
+    }
+
+    function filterCoordinate(filter, code, show) {
+        var input, filter;
+        input  = document.getElementById(filter);
+        filter = input.value.toUpperCase();
+
+        $('#'+show).toggle('show');
+
+        $.ajax({
+            type        : "POST",
+            url         : "{{ route('getCoordinate') }}",
+            data        : {
+                _token  : "{{ csrf_token() }}",
+                filter  : filter
+            },
+            dataType    : 'JSON',
+            beforeSend  : function () {
+                $('.'+code).ploading({action:'show'});
+            },
+            success     : function (res) {
+                $('.'+code).html(res.data);
+            },
+            complete    : function () {
+                $('.'+code).ploading({action:'hide'});
+            }
+        });
+    }
+
+    function coordinateCity(filter, code, show) {
+        $.ajax({
+            type        : "POST",
+            url         : "{{ route('coordinateCity') }}",
+            data        : {
+                _token  : "{{ csrf_token() }}",
+                filter  : filter
+            },
+            dataType    : 'JSON',
+            beforeSend  : function () {
+                $('.'+code).ploading({action:'show'});
+            },
+            success     : function (res) {
+                $('#'+show).toggle('show');
+                $('.'+code).html(res.data);
+            },
+            complete    : function () {
+                $('.'+code).ploading({action:'hide'});
+            }
+        });
+    }
+
+    function coordinateDistrict(filter, code, show) {
         $.ajax({
             type        : "POST",
             url         : "{{ route('coordinateDistrict') }}",
@@ -338,27 +406,23 @@
                 filter  : filter
             },
             dataType    : 'JSON',
-            success     : function(data){
-                if (data.code == 0) {
-                    $('#district').empty();
-                    txt  = '';
-                    list = data.data;
-                    
-                    txt += '<option value="" selected>{{ __("all.placeholder.choose_kab") }}</option>';
-                    if(list.length > 0){
-                        $.each(list, function(idx, ref){
-                            txt += '<option value="'+ref.id+'">'+ref.subdistrictName+'</option>';
-                        });
-                    }
-
-                    $('#district').append(txt);
-                } 
+            beforeSend  : function () {
+                $('.'+code).ploading({action:'show'});
             },
+            success     : function (res) {
+                $('#'+show).toggle('show');
+                $('.'+code).html(res.data);
+            },
+            complete    : function () {
+                $('.'+code).ploading({action:'hide'});
+            }
         });
     }
 
-    function getLoc() {
-        getLatLong($('#district').val(), 'map_canvas', 'maps-mitra');
+    function getLoc(e) {
+        $('.data-district').hide();
+        $('#district').val($(e).attr('name'));
+        getLatLong($(e).attr('name'), 'map_canvas', 'maps-mitra');
     }
 
     $('#form-cat').hide();
@@ -625,12 +689,11 @@
         $('#userCode').val(data[1]).attr('readonly', true);
         $('#nama').val(data[2]);
         $('#tipe').val(data[3]);
-        console.log(data[3]);
         $('#kategori').val(data[4]).change();
-        $('#dropCity').val(data[6]);
-        $('#province').val(data[5]);
-        $('#district').val(data[6]);
-        $('#address').val(data[7]);
+        $('#dropProv').val(data[5]);
+        $('#city').val(data[6]);
+        $('#district').val(data[7]);
+        $('#address').val(data[8]);
 
         getLatLong(data[6], 'map_canvas', 'maps-mitra');
         
