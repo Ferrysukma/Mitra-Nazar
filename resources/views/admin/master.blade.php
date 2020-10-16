@@ -30,6 +30,50 @@
         </ul>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
+                <div class="btn-group" role="group" style="float:right">
+                    <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="filterChart" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showDropdown('dropChart')">
+                        <span>{{ __('all.filter') }}</span> <i class="fa fa-filter"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right keep-open" aria-labelledby="filterChart" id="dropChart" style="width:300px;">
+                        <form id="formChart" class="px-4 py-3" action="#">
+                            <div class="form-group">
+                                <input type="text" name="start_date" id="start_dtm_chart" class="form-control readonly" placeholder="{{ __('all.start_date') }}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="end_date" id="end_dtm_chart" class="form-control readonly" placeholder="{{ __('all.end_date') }}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <div class="dropdown">
+                                    <input type="text" name="city" class="form-control dropdown-toggle" id="filterProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="findProv('filterProv', 'filter-prov', 'showFilProv')" placeholder="{{ __('all.table.prov') }}">
+                                    <div class="dropdown-menu filter-prov" id="showFilProv">
+                                        <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="dropdown">
+                                    <input type="text" name="city" class="form-control readonly" id="filterCity" readonly placeholder="{{ __('all.table.city') }}">
+                                    <div class="dropdown-menu filter-city" id="showFilCity">
+                                        <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <select name="tipe" id="tipe" class="form-control select2" onchange="showData()">
+                                    <option value="">{{ __('all.placeholder.choose_coortype') }}</option>
+                                    <option value="pusat">{{ __('all.checkbox.central') }}</option>
+                                    <option value="provinsi">{{ __('all.checkbox.regional') }}</option>
+                                    <option value="kota">{{ __('all.checkbox.city') }}</option>
+                                    <option value="kecamatan">{{ __('all.checkbox.district') }}</option>
+                                    <option value="desa">{{ __('all.checkbox.village') }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="kategori" id="kategori" class="form-control select2 create-cat" onchange="showData()"></select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="chart" role="tabpanel" aria-labelledby="chart-tab">
                         <div class="card-title">
@@ -54,51 +98,8 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-6 card-title">
-                        <h4>{{ __('all.table_chart') }}</h4>
-                    </div>
-                    <div class="col-sm-6" style="float:right">
-                        <div class="btn-group" role="group" style="float:right">
-                            <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="filterChart" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showDropdown('dropChart')">
-                                <span>{{ __('all.filter') }}</span> <i class="fa fa-filter"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right keep-open" aria-labelledby="filterChart" id="dropChart" style="width:300px;">
-                                <form id="formChart" class="px-4 py-3" action="#">
-                                    <div class="form-group">
-                                        <input type="text" name="start_date" id="start_dtm_chart" class="form-control readonly" placeholder="{{ __('all.start_date') }}" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" name="end_date" id="end_dtm_chart" class="form-control readonly" placeholder="{{ __('all.end_date') }}" readonly>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="dropdown">
-                                            <input type="text" name="city" class="form-control dropdown-toggle" id="dropCity" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('dropCity', 'data-city', 'showCity')" placeholder="{{ __('all.placeholder.findCity') }}">
-                                            <div class="dropdown-menu data-city" id="showCity">
-                                                <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" name="province" id="province" class="form-control readonly" readonly placeholder="{{ __('all.table.prov') }}">
-                                    </div>
-                                    <div class="form-group">
-                                        <select name="tipe" id="tipe" class="form-control select2" onchange="showData()">
-                                            <option value="">{{ __('all.placeholder.choose_coortype') }}</option>
-                                            <option value="pusat">{{ __('all.checkbox.central') }}</option>
-                                            <option value="provinsi">{{ __('all.checkbox.regional') }}</option>
-                                            <option value="kota">{{ __('all.checkbox.city') }}</option>
-                                            <option value="kecamatan">{{ __('all.checkbox.district') }}</option>
-                                            <option value="desa">{{ __('all.checkbox.village') }}</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <select name="kategori" id="kategori" class="form-control select2 create-cat" onchange="showData()"></select>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-sm-6 card-title">
+                    <h4>{{ __('all.table_chart') }}</h4>
                 </div>
             </div>
             <div class="card-footer">
@@ -201,8 +202,8 @@
             url     : "{{ route('detailChart') }}",
             data    : {
                 start   : $('#start_dtm_chart').val(),
-                provinsi: $('#province').val(),
-                kota    : $('#dropCity').val(),
+                provinsi: $('#filterProv').val(),
+                kota    : $('#filterCity').val(),
                 tipe    : $('#tipe').val(),
                 kategori: $('#kategori').val(),
             },
@@ -298,18 +299,84 @@
         });
     }
 
+    function findProv(filter, code, show) {
+        var input, filter;
+        input  = document.getElementById(filter);
+        filter = input.value.toUpperCase();
+
+        $('#'+show).toggle('show');
+
+        $.ajax({
+            type        : "POST",
+            url         : "{{ route('findProv') }}",
+            headers     : {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data        : {
+                filter  : filter
+            },
+            dataType    : 'JSON',
+            beforeSend  : function () {
+                $('.'+code).ploading({action:'show'});
+            },
+            success     : function (res) {
+                $('.'+code).html(res.data);
+            },
+            complete    : function () {
+                $('.'+code).ploading({action:'hide'});
+            }
+        });
+    }
+
+    function findCity(filter, code, show) {
+        $.ajax({
+            type        : "POST",
+            url         : "{{ route('findCity') }}",
+            data        : {
+                _token  : "{{ csrf_token() }}",
+                filter  : filter
+            },
+            dataType    : 'JSON',
+            beforeSend  : function () {
+                $('.'+code).ploading({action:'show'});
+            },
+            success     : function (res) {
+                $('#'+show).toggle('show');
+                $('.'+code).html(res.data);
+            },
+            complete    : function () {
+                $('.'+code).ploading({action:'hide'});
+            }
+        });
+    }
+
+    function filterProv(e) {
+        var name    = $(e).attr('name');
+        var id      = $(e).attr('id');
+
+        $('#filterProv').val(name);
+
+        $('.filter-prov').hide(); 
+        findCity(id, 'filter-city', 'showFilCity');
+        showData();
+        loadDataChart();
+        maps();
+    }
+
+    function filterCity(e) {
+        var name    = $(e).attr('name');
+        var id      = $(e).attr('id');
+
+        $('#filterCity').val(name);
+
+        $('.filter-city').hide();
+        showData();
+        loadDataChart();
+        maps();
+    }
+
     maps();
     loadDataChart();
-
-    function selectCity(e) {
-        var prov        = $(e).attr('provinsi');
-        var city        = $(e).attr('city');
-
-        $('#province').val(prov);
-        $('#dropCity').val(city);
-        $('.data-city').hide();
-        showData();
-    }
 
     //load data cash
     function loadDataChart() {
