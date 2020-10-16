@@ -196,6 +196,7 @@ return [
     'header_pass'       => 'Pilih Metode Verifikasi',
     'subheader_pass'    => 'Pilih metode di bawah ini untuk melanjutkan proses login.',
     'login_with'        => 'Atau masuk dengan akun sosial Anda',
+    'notif'             => 'Notifikasi',
 ]
 
 ?>

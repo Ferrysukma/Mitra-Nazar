@@ -79,23 +79,32 @@
                             <a class="nav-link" href="{{ route('home') }}">{{ __('all.home') }}</a>
                         </li>
                         <li class="nav-item no-arrow mx-1">
-                            <a class="nav-link" href="{{ route('partner') }}">{{ __('all.partners') }}</a>
+                            <a class="nav-link" href="{{ route('partner') }}">Downline</a>
                         </li>
+                        <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span>{{ __('all.setting') }}</span>
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
+                                <span class="badge badge-danger badge-counter">3+</span>
                             </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-                                <a class="dropdown-item" href="{{ route('user') }}">
-                                    {{ __('all.users') }}
+                        <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    {{ __('all.notif') }}
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-file-alt text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">December 12, 2019</div>
+                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                                    </div>
                                 </a>
-                                <a class="dropdown-item" href="{{ route('announcement') }}">
-                                    {{ __('all.announcement') }}
-                                </a>
-                                <a class="dropdown-item" href="{{ route('category') }}">
-                                    {{ __('all.category') }}
-                                </a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
                         </li>
 
@@ -110,12 +119,12 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#" onclick="showModal('changePassword','postpass')">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('all.change') }}
                                 </a>
                                 <a class="dropdown-item" href="#" onclick="showModal('editProfile','postprofile')">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    {{ __('all.profile') }}
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    {{ __('all.setting') }}
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" onclick="showModal('logoutModal')">

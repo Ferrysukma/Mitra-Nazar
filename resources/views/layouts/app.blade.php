@@ -110,7 +110,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#" onclick="showModal('changePassword','postpass')">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('all.change') }}
                                 </a>
                                 <a class="dropdown-item" href="#" onclick="showModal('editProfile','postprofile')">
