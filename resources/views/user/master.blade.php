@@ -305,7 +305,7 @@
     <script src="{{ asset('assets/admin/js/air-datepicker/datepicker.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/air-datepicker/datepicker.en.js') }}"></script>
     <!-- Chart js -->
-    <script src="{{ asset('assets/admin/js/chart.js/chart.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/chart/chart.js') }}"></script>
     <!-- datatables -->
     <script src="{{ asset('assets/admin/js/datatable/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
