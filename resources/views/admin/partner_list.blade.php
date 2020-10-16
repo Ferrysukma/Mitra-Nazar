@@ -41,7 +41,7 @@
                                 <input type="text" name="province" id="provinsi" class="form-control readonly" readonly placeholder="{{ __('all.table.prov') }}">
                             </div>
                             <div class="form-group">
-                                <select name="tipe" id="tipe" class="form-control select2" onchange="change('tipe', 3)">
+                                <select name="tipe" id="type" class="form-control select2" onchange="change('type', 3)">
                                     <option value="">{{ __('all.placeholder.choose_coortype') }}</option>
                                     <option value="pusat">{{ __('all.checkbox.central') }}</option>
                                     <option value="provinsi">{{ __('all.checkbox.regional') }}</option>
@@ -433,6 +433,7 @@
                     }
 
                     $('#cat').append(txt);
+                    $('#kategori').append(txt);
                 } 
             },
         });
@@ -545,15 +546,12 @@
     }
 
     function disabledP() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type    : "POST",
             url     : "{{ route('deletePartner') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data	: {
                 id  : $('#partner_id').val(),
             },
@@ -596,7 +594,8 @@
         $('#id').val($(this).attr('id'));
         $('#userCode').val(data[1]).attr('readonly', true);
         $('#nama').val(data[2]);
-        $('#tipe').val(data[3])
+        $('#tipe').val(data[3]);
+        console.log(data[3]);
         $('#kategori').val(data[4]).change();
         $('#dropCity').val(data[6]);
         $('#province').val(data[5]);
@@ -612,7 +611,7 @@
         var data = table.row( $(this).parents('tr') ).data();
 
         showModal('disabled-mitra'); 
-        $('#partner_id').val(data[1]);
+        $('#partner_id').val($(this).attr('id'));
         $('#disabled-mitra').find('.modal-title').text("{{ __('all.disabled_partner') }} "+data[2]+"");
     })
     
