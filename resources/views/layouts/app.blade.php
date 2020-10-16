@@ -286,8 +286,6 @@
     <script src="{{ asset('assets/admin/js/bootstrapvalidator.min.js') }}"></script>
     <!-- ploading js -->
     <script src="{{ asset('assets/admin/js/p-loading/p-loading.js') }}"></script>
-    <!-- generic js -->
-    <script src="{{ asset('assets/admin/js/generic.js') }}"></script>
     <!-- bootbox js -->
     <script src="{{ asset('assets/admin/js/bootbox/bootbox.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/bootbox/bootbox.js') }}"></script>
@@ -297,6 +295,8 @@
 
     <!-- api google maps -->
     <script src="{{ asset('assets/admin/js/maps.js') }}"></script>
+    <!-- generic js -->
+    <script src="{{ asset('assets/admin/js/generic.js') }}"></script>
     
     @yield('script')
 
@@ -376,12 +376,6 @@
                     }
                 });
             },
-        });
-
-        $('.only-number').keypress(function(event){
-            if(event.which != 8 && isNaN(String.fromCharCode(event.which))){
-                event.preventDefault();
-            }
         });
 
         function filterCoordinate(filter, code, show) {

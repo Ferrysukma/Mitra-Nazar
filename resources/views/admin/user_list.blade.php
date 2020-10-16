@@ -88,11 +88,10 @@
                             <input type="text" name="phone" id="phone" class="form-control only-number" placeholder="{{ __('all.placeholder.telp') }}">
                         </div>
                     </div>
-                    <hr>
-                    <div align="right">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                        <button type="submit" class="btn btn-primary" id="btnSave">{{ __('all.save') }}</button>
-                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
+                <button type="submit" class="btn btn-primary" id="btnSave">{{ __('all.save') }}</button>
                 </form>
             </div>
         </div>

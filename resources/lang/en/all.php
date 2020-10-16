@@ -31,6 +31,9 @@ return [
         'token'                 => 'Enter token here ....',
         'pin'                   => 'Enter Your Pin',
         'otp'                   => 'Enter Your Verification Code',
+        'qtyTake'               => 'Enter withdrawal amount here ....',
+        'account'               => 'Enter account number ....',
+        'account_name'          => 'Enter account name',
     ),
     'remember'  => 'Remember me',
     'forget'    => 'Forget password?',
@@ -39,6 +42,7 @@ return [
     'admin'     => 'Admin',
     'change'    => 'Change Password',
     'profile'   => 'Edit Profile',
+    'profil'    => 'Profile',
     'logout'    => 'Logout',
     'close'     => 'Close',
     'save'      => 'Save',
@@ -49,7 +53,11 @@ return [
         'email'         => 'Email',
         'telp'          => 'Phone Number',
         'district'      => 'District',
-        'code_user'     => 'User Code'
+        'code_user'     => 'User Code',
+        'qtyTake'       => 'Withdrawal Amount',
+        'balance'       => 'Your Balance',
+        'account'       => 'Account Number',
+        'account_name'  => 'Account Name',
     ),
     'chart'         => 'Chart',
     'maps'          => 'Maps',
@@ -91,6 +99,8 @@ return [
         'delete'            => 'Delete',
         'reset'             => 'Reset',
         'newP'              => 'New Password',
+        'copy'              => 'Copy Link',
+        'take'              => 'Take Balance'
     ),
     'filter'                => 'Filter',
     'add_partner'           => 'Create Partner',
@@ -112,7 +122,7 @@ return [
     'announcement_history'  => 'History Announcements',
     'checkbox'              => array(
         'central'           => 'Central Coordinator',
-        'regional'          => 'Regional Coordinator',
+        'regional'          => 'Province Coordinator',
         'city'              => 'City Coordinator',
         'district'          => 'District Coordinator',
         'village'           => 'Village Coordinator'
@@ -160,7 +170,12 @@ return [
         'sdate'         => '*Start date cannot be empty',
         'edate'         => '*End date cannot be empty',
         'title'         => '*The Title of the announcement cannot be empty',
-        'contents'      => '*The Contents of the announcement cannot be empty'
+        'contents'      => '*The Contents of the announcement cannot be empty',
+        'saldo'         => '*Balance cannot be empty',
+        'amount'        => '*amount cannot be empty',
+        'bank'          => '*Bank cannot be empty',
+        'no_rek'        => '*Account number cannot be empty',
+        'account_name'  => '*Account name cannot be empty',
     ),
     'buttonloader'      => array(
         'wait'          => 'Wait',
@@ -172,6 +187,7 @@ return [
     'danger'            => 'Danger',
     'leave'             => 'Ready to Leave?',
     'comment_logout'    => 'Select "Logout" below if you are ready to end your current session.',
+    'comment_info'      => 'The balance is equal to the balance of the user in Nazarid and can be used for transactions and there are notifications of sales results from partners',
     'alert'             => array(
         'login'         => 'Login is successful. Welcome to Admin Mitra Nazar.id',
         'login_us'      => 'Login is successful. Welcome to Mitra Nazar.id',
@@ -197,6 +213,8 @@ return [
     'subheader_pass'    => 'Select a method below to continue with the login process.',
     'login_with'        => 'Or login with your social accounts',
     'notif'             => 'Notification',
+    'comition'          => 'Your Comition',
+    'info'              => 'Information',
 ]
 
 ?>

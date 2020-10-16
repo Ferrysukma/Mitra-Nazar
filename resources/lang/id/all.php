@@ -31,6 +31,9 @@ return [
         'token'                 => 'Masukkan token ....',
         'pin'                   => 'Masukkan PIN Anda',
         'otp'                   => 'Masukkan Kode Verifikasi Anda',
+        'qtyTake'               => 'Masukkan jumlah penarikan ....',
+        'account'               => 'Masukkan no.rek ....',
+        'account_name'          => 'Masukkan nama rekening atas nama',
     ),
     'remember'  => 'Ingat saya',
     'forget'    => 'Lupa sandi?',
@@ -39,6 +42,7 @@ return [
     'admin'     => 'Admin',
     'change'    => 'Ganti Sandi',
     'profile'   => 'Ubah Data Diri',
+    'profil'    => 'Data Diri',
     'logout'    => 'Keluar',
     'close'     => 'Tutup',
     'save'      => 'Simpan',
@@ -49,7 +53,11 @@ return [
         'email'         => 'Email',
         'telp'          => 'No Handphone',
         'district'      => 'Kecamatan',
-        'code_user'     => 'Kode Mitra'
+        'code_user'     => 'Kode Mitra',
+        'qtyTake'       => 'Jumlah Penarikan',
+        'balance'       => 'Saldo Anda',
+        'account'       => 'No. Rek',
+        'account_name'  => 'Nama Rekening Atas Nama',
     ),
     'chart'         => 'Grafik',
     'maps'          => 'Peta',
@@ -91,6 +99,8 @@ return [
         'delete'            => 'Hapus',
         'reset'             => 'Ulang',
         'newP'              => 'Sandi Baru',
+        'copy'              => 'Salin Tautan',
+        'take'              => 'Tarik Saldo'
     ),
     'filter'                => 'Saring',
     'add_partner'           => 'Tambah Mitra',
@@ -112,7 +122,7 @@ return [
     'announcement_history'  => 'Riwayat Pengumuman',
     'checkbox'              => array(
         'central'           => 'Koordinator Pusat',
-        'regional'          => 'Koordinator Wilayah',
+        'regional'          => 'Koordinator Provinsi',
         'city'              => 'Koordinator Kota/Kabupaten',
         'district'          => 'Koordinator Kecamatan',
         'village'           => 'Koordinator Desa'
@@ -160,7 +170,12 @@ return [
         'sdate'         => '*Tanggal awal tidak boleh kosong',
         'edate'         => '*Tanggal akhir tidak boleh kosong',
         'title'         => '*Judul pengumuman tidak boleh kosong',
-        'contents'      => '*Isi Pengumuman tidak boleh kosong'
+        'contents'      => '*Isi Pengumuman tidak boleh kosong',
+        'saldo'         => '*Saldo tidak boleh kosong',
+        'amount'        => '*Jumlah penarikan tidak boleh kosong',
+        'bank'          => '*Bank tidak boleh kosong',
+        'no_rek'        => '*No. Rek tidak boleh kosong',
+        'account_name'  => '*Nama rekening tidak boleh kosong',
     ),
     'buttonloader'      => array(
         'wait'          => 'Tunggu',
@@ -172,6 +187,7 @@ return [
     'danger'            => 'Kesalahan',
     'leave'             => 'Siap Keluar?',
     'comment_logout'    => 'Pilih "Keluar" di bawah ini jika Anda siap untuk mengakhiri sesi Anda saat ini.',
+    'comment_info'      => 'Saldo disamakan dengan saldo user pada nazarid dan dapat digunakan untuk transaksi dan terdapat notifikasi dari hasil penjualan mitra',
     'alert'             => array(
         'login'         => 'Login berhasil! Selamat Datang di Admin Mitra Nazar.id',
         'login_us'      => 'Login berhasil! Selamat Datang di Mitra Nazar.id',
@@ -197,6 +213,8 @@ return [
     'subheader_pass'    => 'Pilih metode di bawah ini untuk melanjutkan proses login.',
     'login_with'        => 'Atau masuk dengan akun sosial Anda',
     'notif'             => 'Notifikasi',
+    'comition'          => 'Komisi Anda',
+    'info'              => 'Informasi'
 ]
 
 ?>
