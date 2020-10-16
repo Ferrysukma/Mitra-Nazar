@@ -104,7 +104,7 @@
                                         <span class="font-weight-bold">A new monthly report is ready to download!</span>
                                     </div>
                                 </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">{{ __('all.showAll') }}</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#" onclick="showModal('modal-notif')">{{ __('all.showAll') }}</a>
                             </div>
                         </li>
 
@@ -265,6 +265,23 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
                     <button type="button" class="btn btn-primary">{{ __('all.save') }}</button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modal-notif" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white">{{ __('all.notif') }}</h5>
+                </div>
+                <div class="modal-body">
+                    Body
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
