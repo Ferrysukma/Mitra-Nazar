@@ -143,26 +143,26 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="old" class="col-sm-3">{{ __('all.table.city') }} <sup class="text-danger">*</sup></label>
+                            <label for="old" class="col-sm-3">{{ __('all.table.prov') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
                                 <div class="dropdown">
-                                    <input type="text" name="city" class="form-control dropdown-toggle" id="dropCity" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('dropCity', 'data-city', 'showCity')" placeholder="{{ __('all.placeholder.key') }}">
-                                    <div class="dropdown-menu data-city" id="showCity">
+                                    <input type="text" name="city" class="form-control dropdown-toggle" id="dropProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('dropProv', 'data-prov', 'showProv')" placeholder="{{ __('all.placeholder.key') }}">
+                                    <div class="dropdown-menu data-prov" id="showProv">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="old" class="col-sm-3">{{ __('all.table.prov') }} <sup class="text-danger">*</sup></label>
+                            <label for="old" class="col-sm-3">{{ __('all.table.city') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
-                                <input type="text" name="province" id="province" class="form-control readonly" readonly>
+                                <select name="city" id="city" class="form-control select2" onchange="coordinateDistrict()"></select>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="old" class="col-sm-3">{{ __('all.form.district') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
-                                <input type="text" name="district" id="district" class="form-control readonly" readonly>
+                                <select name="district" id="district" class="form-control select2" onchange="getLoc()"></select>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -319,16 +319,46 @@
     }
 
     function selectCity(e) {
-        var prov        = $(e).attr('provinsi');
-        var city        = $(e).attr('city');
-        var district    = $(e).attr('district');
+        var prov    = $(e).attr('name');
+        var id      = $(e).attr('id');
 
-        $('#province').val(prov);
-        $('#dropCity').val(city);
-        $('#district').val(district);
+        $('#dropProv').val(prov);
 
-        $('.data-city').hide(); 
-        getLatLong(district, 'map_canvas', 'maps-mitra');
+        $('.data-prov').hide(); 
+        coordinateCity('city', id);
+    }
+
+    function coordinateDistrict() {
+        var filter      = $('#city').val();
+        $.ajax({
+            type        : "POST",
+            url         : "{{ route('coordinateDistrict') }}",
+            data        : {
+                _token  : "{{ csrf_token() }}",
+                filter  : filter
+            },
+            dataType    : 'JSON',
+            success     : function(data){
+                if (data.code == 0) {
+                    $('#district').empty();
+                    txt  = '';
+                    list = data.data;
+                    
+                    txt += '<option value="" selected>{{ __("all.placeholder.choose_kab") }}</option>';
+                    if(list.length > 0){
+                        $.each(list, function(idx, ref){
+                            txt += '<option value="'+ref.id+'">'+ref.subdistrictName+'</option>';
+                        });
+                    }
+
+                    $('#district').append(txt);
+                } 
+            },
+        });
+    }
+
+    function getLoc() {
+        getLatLong($('#district').val(), 'map_canvas', 'maps-mitra');
     }
 
     $('#form-cat').hide();

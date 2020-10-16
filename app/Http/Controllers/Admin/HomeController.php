@@ -114,8 +114,15 @@ class HomeController extends Controller
     public function getCoordinate(Request $request)
     {
         $client     = new Client();
-        $url        = $this->base_url . 'find/district';
-        $request    = $client->get($url, ['query' => ['page' => 0, 'query' => $request->filter]]);
+        $url        = $this->base_url . 'find/province';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('admin_key')
+            ],
+            'json'      => [
+                "query" => $request->filter
+            ]
+        ]);
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];
 
@@ -124,7 +131,7 @@ class HomeController extends Controller
             
             $row    = [];
             foreach ($result as $key => $value) {
-                $rows  = "<a class='dropdown-item' provinsi='".$value->province."' city='".$value->city."' type='".$value->type."' district='".$value->subdistrictName."' id=".$value->id."' onclick='selectCity(this)'>".$value->subdistrictName.", ".$value->type.", ".$value->city.", ".$value->province."</a>";
+                $rows  = "<a class='dropdown-item' name='".$value->province."' id=".$value->provinceId." onclick='selectCity(this)'>".$value->province."</a>";
                 $row[]  = $rows;
             }
 
@@ -133,6 +140,66 @@ class HomeController extends Controller
             $result = '<a class="text-center text-gray">'.__('all.datatable.no_data').'</a>';
             
             echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+        }
+    }
+
+    public function coordinateCity(Request $request)
+    {
+        $client     = new Client();
+        $url        = $this->base_url . 'find/city';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('admin_key')
+            ],
+            'json'      => [
+                "provinceId"    => $request->filter,
+                "query"         => ""
+            ]
+        ]);
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+            
+            $row    = [];
+            foreach ($result as $key => $value) {
+                $row[]  = $value;
+            }
+
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
+        } else {
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+        }
+    }
+
+    public function coordinateDistrict(Request $request)
+    {
+        $client     = new Client();
+        $url        = $this->base_url . 'find/subdistrict';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('admin_key')
+            ],
+            'json'      => [
+                "cityId"    => $request->filter,
+                "query"     => ""
+            ]
+        ]);
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+            
+            $row    = [];
+            foreach ($result as $key => $value) {
+                $row[]  = $value;
+            }
+
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
+        } else {
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
         }
     }
 

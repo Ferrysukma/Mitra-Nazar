@@ -18,6 +18,7 @@ return [
         'telp'                  => 'Masukkan no handphone ....',
         'choose_prov'           => 'Pilih Provinsi',
         'choose_kab'            => 'Pilih Kabupaten',
+        'choose_dis'            => 'Pilih Kecamatan',
         'choose_status'         => 'Pilih Status',
         'filter'                => 'Cari ....',
         'code_user'             => 'temukan kode mitra disini',

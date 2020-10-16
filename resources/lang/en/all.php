@@ -18,6 +18,7 @@ return [
         'telp'                  => 'Enter no phone ....',
         'choose_prov'           => 'Choose Province',
         'choose_kab'            => 'Choose City',
+        'choose_dis'            => 'Choose District',
         'choose_status'         => 'Choose Status',
         'filter'                => 'Search ....',
         'code_user'             => 'find user code here',

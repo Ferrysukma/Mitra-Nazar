@@ -346,10 +346,8 @@
             $.ajax({
                 type        : "POST",
                 url         : "{{ route('getCoordinate') }}",
-                headers     : {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
                 data        : {
+                    _token  : "{{ csrf_token() }}",
                     filter  : filter
                 },
                 dataType    : 'JSON',
@@ -362,6 +360,35 @@
                 complete    : function () {
                     $('.'+code).ploading({action:'hide'});
                 }
+            });
+        }
+
+        function coordinateCity(id, filter) {
+            console.log(filter);
+            $.ajax({
+                type        : "POST",
+                url         : "{{ route('coordinateCity') }}",
+                data        : {
+                    _token  : "{{ csrf_token() }}",
+                    filter  : filter
+                },
+                dataType    : 'JSON',
+                success     : function(data){
+                    if (data.code == 0) {
+                        $('#'+id).empty();
+                        txt  = '';
+                        list = data.data;
+                        
+                        txt += '<option value="" selected>{{ __("all.placeholder.choose_kab") }}</option>';
+                        if(list.length > 0){
+                            $.each(list, function(idx, ref){
+                                txt += '<option value="'+ref.id+'">'+ref.city+'</option>';
+                            });
+                        }
+
+                        $('#'+id).append(txt);
+                    } 
+                },
             });
         }
 
