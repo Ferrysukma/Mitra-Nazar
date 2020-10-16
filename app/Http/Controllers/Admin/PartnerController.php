@@ -129,7 +129,6 @@ class PartnerController extends Controller
     public function create(Request $request)
     {
         $client     = new Client();
-        echo '<pre>'; print_r($_POST); echo '</pre>'; die('');
         
         if (isset($request->id) && !empty($request->id)) {
             $url        = $this->base_url . 'mitra/admin/edit-mitra';
@@ -233,11 +232,18 @@ class PartnerController extends Controller
         }
     }
 
-    public function coordinate(Request $request)
+    public function findProv(Request $request)
     {
         $client     = new Client();
-        $url        = $this->base_url . 'find/district';
-        $request    = $client->get($url, ['query' => ['page' => 0, 'query' => $request->filter]]);
+        $url        = $this->base_url . 'find/province';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('admin_key')
+            ],
+            'json'      => [
+                "query" => $request->filter
+            ]
+        ]);
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];
 
@@ -246,7 +252,40 @@ class PartnerController extends Controller
             
             $row    = [];
             foreach ($result as $key => $value) {
-                $rows  = "<a class='dropdown-item' provinsi='".$value->province."' city='".$value->city."' type='".$value->type."' district='".$value->subdistrictName."' id=".$value->id."' onclick='select(this)'>".$value->subdistrictName.", ".$value->type.", ".$value->city.", ".$value->province."</a>";
+                $rows  = "<a class='dropdown-item' name='".$value->province."' id=".$value->provinceId." onclick='filterProv(this)'>".$value->province."</a>";
+                $row[]  = $rows;
+            }
+
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
+        } else {
+            $result = '<a class="text-center text-gray">'.__('all.datatable.no_data').'</a>';
+            
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+        }
+    }
+
+    public function findCity(Request $request)
+    {
+        $client     = new Client();
+        $url        = $this->base_url . 'find/city';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('admin_key')
+            ],
+            'json'      => [
+                "provinceId"    => $request->filter,
+                "query"         => ""
+            ]
+        ]);
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+            
+            $row    = [];
+            foreach ($result as $key => $value) {
+                $rows  = "<a class='dropdown-item' name='".$value->city."' id=".$value->id." onclick='filterCity(this)'>".$value->city."</a>";
                 $row[]  = $rows;
             }
 

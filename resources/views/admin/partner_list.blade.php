@@ -31,14 +31,19 @@
                         <form id="formFilter" class="px-4 py-3" action="#">
                             <div class="form-group">
                                 <div class="dropdown">
-                                    <input type="text" name="city" class="form-control dropdown-toggle" id="dropKota" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="getCoordinate('dropKota', 'data-kota', 'showKota')" placeholder="{{ __('all.placeholder.findCity') }}">
-                                    <div class="dropdown-menu data-kota" id="showKota">
+                                    <input type="text" name="city" class="form-control dropdown-toggle" id="filterProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="findProv('filterProv', 'filter-prov', 'showFilProv')" placeholder="{{ __('all.table.prov') }}">
+                                    <div class="dropdown-menu filter-prov" id="showFilProv">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="province" id="provinsi" class="form-control readonly" readonly placeholder="{{ __('all.table.prov') }}">
+                                <div class="dropdown">
+                                    <input type="text" name="city" class="form-control readonly" id="filterCity" readonly placeholder="{{ __('all.table.city') }}">
+                                    <div class="dropdown-menu filter-city" id="showFilCity">
+                                        <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <select name="tipe" id="type" class="form-control select2" onchange="change('type', 3)">
@@ -273,7 +278,7 @@
         },
     });
 
-    function getCoordinate(filter, code, show) {
+    function findProv(filter, code, show) {
         var input, filter;
         input  = document.getElementById(filter);
         filter = input.value.toUpperCase();
@@ -282,7 +287,7 @@
 
         $.ajax({
             type        : "POST",
-            url         : "{{ route('coordinate') }}",
+            url         : "{{ route('findProv') }}",
             headers     : {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -302,16 +307,47 @@
         });
     }
 
-    function select(e) {
-        var prov        = $(e).attr('provinsi');
-        var city        = $(e).attr('city');
+    function findCity(filter, code, show) {
+        $.ajax({
+            type        : "POST",
+            url         : "{{ route('findCity') }}",
+            data        : {
+                _token  : "{{ csrf_token() }}",
+                filter  : filter
+            },
+            dataType    : 'JSON',
+            beforeSend  : function () {
+                $('.'+code).ploading({action:'show'});
+            },
+            success     : function (res) {
+                $('#'+show).toggle('show');
+                $('.'+code).html(res.data);
+            },
+            complete    : function () {
+                $('.'+code).ploading({action:'hide'});
+            }
+        });
+    }
 
-        $('#provinsi').val(prov);
-        $('#kota').val(city);
-        
-        $('.data-kota').hide();
-        filter(city, 6);
-        filter(prov, 5);
+    function filterProv(e) {
+        var name    = $(e).attr('name');
+        var id      = $(e).attr('id');
+
+        $('#filterProv').val(name);
+
+        $('.filter-prov').hide(); 
+        findCity(id, 'filter-city', 'showFilCity');
+        change('filterProv', 5);
+    }
+
+    function filterCity(e) {
+        var name    = $(e).attr('name');
+        var id      = $(e).attr('id');
+
+        $('#filterCity').val(name);
+
+        $('.filter-city').hide(); 
+        change('filterCity', 6);
     }
 
     function filter(data, row) {
