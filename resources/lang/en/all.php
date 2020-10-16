@@ -33,7 +33,9 @@ return [
         'otp'                   => 'Enter Your Verification Code',
         'qtyTake'               => 'Enter withdrawal amount here ....',
         'account'               => 'Enter account number ....',
-        'account_name'          => 'Enter account name',
+        'account_name'          => 'Enter account name ....',
+        'name'                  => 'Enter name ....',
+        'dateofbirth'           => 'Enter date of birth ....'
     ),
     'remember'  => 'Remember me',
     'forget'    => 'Forget password?',
@@ -58,6 +60,10 @@ return [
         'balance'       => 'Your Balance',
         'account'       => 'Account Number',
         'account_name'  => 'Account Name',
+        'name'          => 'Name',
+        'gender'        => 'Gender',
+        'dateBirth'     => 'Date of Birth',
+        'img'           => 'Image',
     ),
     'chart'         => 'Chart',
     'maps'          => 'Maps',
@@ -116,6 +122,7 @@ return [
     'confirm'               => 'Are you sure to disable this partner',
     'confirm_disable'       => 'Are you sure to disable',
     'text_confirm'          => 'Disable this partner will result in the partner unable to operate all partner features be it web, android and iOS',
+    'config_comment'        => 'All your data is integrated with your Nazar.id account, so this setting will affect your Nazar.id account. If you change this, the settings on your Nazar.id account will also change',
     'setting'               => 'Setting',
     'category'              => 'Master Data',
     'announcement_on'       => 'Active Announcements',
@@ -187,7 +194,7 @@ return [
     'danger'            => 'Danger',
     'leave'             => 'Ready to Leave?',
     'comment_logout'    => 'Select "Logout" below if you are ready to end your current session.',
-    'comment_info'      => 'The balance is equal to the balance of the user in Nazarid and can be used for transactions and there are notifications of sales results from partners',
+    'comment_info'      => 'The balance is equal to the balance of the user in Nazar.id and can be used for transactions and there are notifications of sales results from partners',
     'alert'             => array(
         'login'         => 'Login is successful. Welcome to Admin Mitra Nazar.id',
         'login_us'      => 'Login is successful. Welcome to Mitra Nazar.id',
@@ -215,6 +222,13 @@ return [
     'notif'             => 'Notification',
     'comition'          => 'Your Comition',
     'info'              => 'Information',
+    'male'              => 'Male',
+    'female'            => 'Female',
+    'drop'              => array(
+        'drag'          => 'Click',
+        'replace'       => 'Change',
+        'remove'        => 'Delete',
+    ),
 ]
 
 ?>

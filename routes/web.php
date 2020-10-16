@@ -71,4 +71,6 @@ Route::group(['middleware' => 'CheckToken'], function () {
     Route::post('/user/balance', [App\Http\Controllers\User\HomeController::class, 'balance'])->name('balance');
 
     Route::get('/user/downline', [App\Http\Controllers\User\DownlineController::class, 'index'])->name('downline');
+
+    Route::get('/user/config', [App\Http\Controllers\User\ConfigController::class, 'index'])->name('config');
 });

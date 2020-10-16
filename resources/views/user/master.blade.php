@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/css/dataTables.bootstrap4.min.css') }}">
 	<!-- ploading js -->
     <link rel="stylesheet" href="{{ asset('assets/admin/css/p-loading/p-loading.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
 
     <style>
         .readonly {
@@ -76,7 +77,7 @@
 
                         <!-- Nav Item -->
                         <li class="nav-item no-arrow mx-1">
-                            <a class="nav-link" href="{{ route('home') }}">{{ __('all.home') }}</a>
+                            <a class="nav-link" href="{{ route('index') }}">{{ __('all.home') }}</a>
                         </li>
                         <li class="nav-item no-arrow mx-1">
                             <a class="nav-link" href="{{ route('downline') }}">Downline</a>
@@ -122,7 +123,7 @@
                                     <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('all.change') }}
                                 </a>
-                                <a class="dropdown-item" href="#" onclick="showModal('editProfile','postprofile')">
+                                <a class="dropdown-item" href="{{ route('config') }}">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('all.setting') }}
                                 </a>
@@ -321,6 +322,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/accounting.js/0.4.1/accounting.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
 
     <!-- api google maps -->
     <script src="{{ asset('assets/admin/js/maps.js') }}"></script>

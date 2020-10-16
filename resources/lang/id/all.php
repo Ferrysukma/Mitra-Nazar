@@ -33,7 +33,9 @@ return [
         'otp'                   => 'Masukkan Kode Verifikasi Anda',
         'qtyTake'               => 'Masukkan jumlah penarikan ....',
         'account'               => 'Masukkan no.rek ....',
-        'account_name'          => 'Masukkan nama rekening atas nama',
+        'account_name'          => 'Masukkan nama rekening atas nama ....',
+        'name'                  => 'Masukkan nama ....',
+        'dateofbirth'           => 'Masukkan tanggal lahir ....'
     ),
     'remember'  => 'Ingat saya',
     'forget'    => 'Lupa sandi?',
@@ -51,6 +53,7 @@ return [
         'new_password'  => 'Sandi Baru',
         'old_password'  => 'Sandi Lama',
         'email'         => 'Email',
+        'name'          => 'Nama',
         'telp'          => 'No Handphone',
         'district'      => 'Kecamatan',
         'code_user'     => 'Kode Mitra',
@@ -58,6 +61,9 @@ return [
         'balance'       => 'Saldo Anda',
         'account'       => 'No. Rek',
         'account_name'  => 'Nama Rekening Atas Nama',
+        'gender'        => 'Jenis Kelamin',
+        'dateBirth'     => 'Tanggal Lahir',
+        'img'           => 'Foto',
     ),
     'chart'         => 'Grafik',
     'maps'          => 'Peta',
@@ -116,6 +122,7 @@ return [
     'confirm'               => 'Anda yakin untuk menonaktifkan mitra ini',
     'confirm_disable'       => 'Anda yakin untuk menonaktifkan',
     'text_confirm'          => 'Nonaktifkan partner ini akan mengakibatkan partner tidak dapat mengoperasikan semua fitur partner baik itu web, android dan iOS',
+    'config_comment'        => 'Semua data Anda terintegrasi dengan akun Nazar.id, maka pengaturan ini berpengaruh pada akun Nazar.id Anda. Jika Anda merubah ini, maka pengaturan di akun Nazar.id juga akan berubah',
     'setting'               => 'Pengaturan',
     'category'              => 'Master Data',
     'announcement_on'       => 'Pengumuman Aktif',
@@ -187,7 +194,7 @@ return [
     'danger'            => 'Kesalahan',
     'leave'             => 'Siap Keluar?',
     'comment_logout'    => 'Pilih "Keluar" di bawah ini jika Anda siap untuk mengakhiri sesi Anda saat ini.',
-    'comment_info'      => 'Saldo disamakan dengan saldo user pada nazarid dan dapat digunakan untuk transaksi dan terdapat notifikasi dari hasil penjualan mitra',
+    'comment_info'      => 'Saldo disamakan dengan saldo user pada nazar.id dan dapat digunakan untuk transaksi dan terdapat notifikasi dari hasil penjualan mitra',
     'alert'             => array(
         'login'         => 'Login berhasil! Selamat Datang di Admin Mitra Nazar.id',
         'login_us'      => 'Login berhasil! Selamat Datang di Mitra Nazar.id',
@@ -214,7 +221,14 @@ return [
     'login_with'        => 'Atau masuk dengan akun sosial Anda',
     'notif'             => 'Notifikasi',
     'comition'          => 'Komisi Anda',
-    'info'              => 'Informasi'
+    'info'              => 'Informasi',
+    'male'              => 'Laki-laki',
+    'female'            => 'Perempuan',
+    'drop'              => array(
+        'drag'          => 'Klik',
+        'replace'       => 'Ganti',
+        'remove'        => 'Hapus',
+    ),
 ]
 
 ?>
