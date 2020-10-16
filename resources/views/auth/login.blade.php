@@ -87,6 +87,11 @@
 					</div>
 
 				</form>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
+                    </div>
+                </div>
 			</div>
 			
 			<div class="wrap-login100 p-t-50 p-b-90" id="show-email" hidden>
@@ -118,6 +123,11 @@
 						</button>
 					</div>
 				</form>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
+                    </div>
+                </div>
 			</div>
 
 			<div class="wrap-login100 p-t-50 p-b-90" id="show-token" hidden>
@@ -146,6 +156,11 @@
 						</button>
 					</div>
 				</form>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
+                    </div>
+                </div>
 
 			</div>
 
@@ -174,6 +189,11 @@
 						</button>
 					</div>
 				</form>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
+                    </div>
+                </div>
 			</div>
 		</div>
 	</div>

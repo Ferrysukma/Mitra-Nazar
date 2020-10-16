@@ -61,15 +61,15 @@
                 
                 <div class="row mt-3">
                     <div class="col-12">
-                        <p class="text-center mt-4">hai</p>
+                        <p class="text-center mt-4">{{ __('all.login_with') }}</p>
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-6">
-                        <a href="" class="btn btn-facebook btn-block mb-2"> <i class="fa fa-facebook-f"></i> Facebook</a>
+                        <a href="" class="btn btn-block mb-2" style="background-color: #405D9D; color: #fff"> <i class="fa fa-facebook-f"></i> Facebook</a>
                     </div>
                     <div class="col-6">
-                        <a href="#" id="googleLogin" class="btn btn-google btn-block mb-4"> <i class="fa fa-google"></i> Google</a>
+                        <a href="#" id="googleLogin" class="btn btn-google btn-block mb-4" style="background-color: #af0000; color: #fff"> <i class="fa fa-google"></i> Google</a>
                     </div>
                 </div>
                 <div class="row mt-4">
@@ -99,7 +99,25 @@
                             {{ __('all.login') }}
                         </button>
                     </div>
-				</form>
+                </form>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <p class="text-center mt-4">{{ __('all.login_with') }}</p>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <a href="" class="btn btn-block mb-2" style="background-color: #405D9D; color: #fff"> <i class="fa fa-facebook-f"></i> Facebook</a>
+                    </div>
+                    <div class="col-6">
+                        <a href="#" id="googleLogin" class="btn btn-google btn-block mb-4" style="background-color: #af0000; color: #fff"> <i class="fa fa-google"></i> Google</a>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
+                    </div>
+                </div>
 			</div>
 
             <div class="wrap-login100 p-t-50 p-b-90" id="show-method">
@@ -120,6 +138,24 @@
                         <a href="#" class="list-group-item shadow-sm" onclick="showForm('show-pin', 'show-method')"><i class="fa fa-map-pin mr-2"></i></i> {{ __('all.pin') }} <span class="float-right"><i class="fa fa-arrow-right"></i></span></a>
                         <a href="#" class="list-group-item shadow-sm" onclick="sendCode('show-method')"><i class="fa fa-mobile mr-2"></i></i> {{ __('all.phone') }} <span class="float-right"><i class="fa fa-arrow-right"></i></span></a>
                     </nav>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <p class="text-center mt-4">{{ __('all.login_with') }}</p>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <a href="" class="btn btn-block mb-2" style="background-color: #405D9D; color: #fff"> <i class="fa fa-facebook-f"></i> Facebook</a>
+                    </div>
+                    <div class="col-6">
+                        <a href="#" id="googleLogin" class="btn btn-google btn-block mb-4" style="background-color: #af0000; color: #fff"> <i class="fa fa-google"></i> Google</a>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
+                    </div>
                 </div>
 			</div> 
 
@@ -157,6 +193,24 @@
                         </button>
                     </div>
                 </form>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <p class="text-center mt-4">{{ __('all.login_with') }}</p>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <a href="" class="btn btn-block mb-2" style="background-color: #405D9D; color: #fff"> <i class="fa fa-facebook-f"></i> Facebook</a>
+                    </div>
+                    <div class="col-6">
+                        <a href="#" id="googleLogin" class="btn btn-google btn-block mb-4" style="background-color: #af0000; color: #fff"> <i class="fa fa-google"></i> Google</a>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
+                    </div>
+                </div>
             </div>  
             
             <div class="wrap-login100 p-t-50 p-b-90" id="show-otp">
@@ -191,6 +245,24 @@
                         </button>
                     </div>
                 </form>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <p class="text-center mt-4">{{ __('all.login_with') }}</p>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <a href="" class="btn btn-block mb-2" style="background-color: #405D9D; color: #fff"> <i class="fa fa-facebook-f"></i> Facebook</a>
+                    </div>
+                    <div class="col-6">
+                        <a href="#" id="googleLogin" class="btn btn-google btn-block mb-4" style="background-color: #af0000; color: #fff"> <i class="fa fa-google"></i> Google</a>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
+                    </div>
+                </div>
 			</div> 
 	</div>
 
@@ -283,7 +355,8 @@
 					},
 					success     : function(data){
 						if (data.code == 0) {
-                            window.location = "{{ route('home') }}";
+							notif('success', '{{ __("all.success") }}', '{{ __("all.alert.login") }}');
+                            window.location = "{{ route('index') }}";
 						} else {
 							notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_login") }}');
 						}
@@ -323,7 +396,8 @@
 					},
 					success     : function(data){
 						if (data.code == 0) {
-                            window.location = "{{ route('home') }}";
+							notif('success', '{{ __("all.success") }}', '{{ __("all.alert.login") }}');
+                            window.location = "{{ route('index') }}";
 						} else {
 							notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_login") }}');
 						}
@@ -391,7 +465,8 @@
 					},
 					success     : function(data){
 						if (data.code == 0) {
-                            window.location = "{{ route('home') }}";
+							notif('success', '{{ __("all.success") }}', '{{ __("all.alert.login") }}');
+                            window.location = "{{ route('index') }}";
 						} else {
 							notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_login") }}');
 						}
