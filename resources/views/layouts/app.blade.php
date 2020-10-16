@@ -113,10 +113,6 @@
                                     <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
                                     {{ __('all.change') }}
                                 </a>
-                                <a class="dropdown-item" href="#" onclick="showModal('editProfile','postprofile')">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    {{ __('all.profile') }}
-                                </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" onclick="showModal('logoutModal')">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -215,44 +211,6 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
                     <button type="submit" class="btn btn-primary" id="btn-pass">{{ __('all.save') }}</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Change Profile Modal-->
-    <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-white">{{ __('all.profile') }}</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="#" method="post" id="postprofile">
-                        <div class="form-group row">
-                            <label for="old" class="col-sm-3">{{ __('all.form.username') }} <sup class="text-danger">*</sup></label>
-                            <div class="col-sm-9">
-                                <input type="text" name="username" id="username" class="form-control readonly" placeholder="{{ __('all.placeholder.username') }}" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="old" class="col-sm-3">{{ __('all.form.email') }} <sup class="text-danger">*</sup></label>
-                            <div class="col-sm-9">
-                                <input type="email" name="email" id="email" class="form-control" placeholder="{{ __('all.placeholder.email') }}">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="old" class="col-sm-3">{{ __('all.form.telp') }} <sup class="text-danger">*</sup></label>
-                            <div class="col-sm-9">
-                                <input type="text" name="telp" id="telp" class="form-control" placeholder="{{ __('all.placeholder.telp') }}">
-                            </div>
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                    <button type="button" class="btn btn-primary">{{ __('all.save') }}</button>
                     </form>
                 </div>
             </div>

@@ -63,7 +63,7 @@ class LoginController extends Controller
             $response             = $e->getResponse();
             $responseBodyAsString = $response->getBody()->getContents();
         }
-
+        
         if ($response->getStatusCode() == '200') {
             Session::put('admin_key', json_decode((string) $responseBodyAsString, true)['token']);
             Session::put('type', json_decode((string) $responseBodyAsString, true))['type'];
