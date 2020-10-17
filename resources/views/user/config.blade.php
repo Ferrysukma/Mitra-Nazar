@@ -54,13 +54,13 @@
                         <label for="old" class="col-sm-3">{{ __('all.form.gender') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="man" value="laki-laki">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="man" value="L">
                                 <label class="form-check-label" for="man">
                                     {{ __('all.male') }}
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="woman" value="perempuan">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="woman" value="P">
                                 <label class="form-check-label" for="woman">
                                     {{ __('all.female') }}
                                 </label>
@@ -77,6 +77,42 @@
                         <label for="old" class="col-sm-3">{{ __('all.form.img') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
                             <input type="file" class="dropify" name="img_upload" id="img_upload" data-height="300" accept="image/x-png,image/gif,image/jpeg">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="old" class="col-sm-3">{{ __('all.table.coordinator_type') }} <sup class="text-danger">*</sup></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="tipe" id="tipe" class="form-control readonly" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="old" class="col-sm-3">{{ __('all.category_coordinator') }} <sup class="text-danger">*</sup></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="kategori" id="kategori" class="form-control readonly" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="old" class="col-sm-3">{{ __('all.table.prov') }} <sup class="text-danger">*</sup></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="provinsi" id="provinsi" class="form-control readonly" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="old" class="col-sm-3">{{ __('all.table.city') }} <sup class="text-danger">*</sup></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="kota" id="kota" class="form-control readonly" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="old" class="col-sm-3">{{ __('all.form.district') }} <sup class="text-danger">*</sup></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="kecamatan" id="kecamatan" class="form-control readonly" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="old" class="col-sm-3">{{ __('all.table.village') }} </label>
+                        <div class="col-sm-9">
+                            <input type="text" name="desa" id="desa" class="form-control readonly" readonly>
                         </div>
                     </div>
             </div>
@@ -142,15 +178,6 @@
 
 @section('scriptUser')
 <script>
-    $('.dropify').dropify({
-        messages: {
-            default: "{{ __('all.drop.drag') }}",
-            replace: "{{ __('all.drop.replace') }}",
-            remove:  "{{ __('all.drop.remove') }}",
-            error:   'error'
-        }
-    });
-
     $('#birthday').datepicker({
         language: 'en',
         dateFormat: 'dd M yyyy',
@@ -175,11 +202,35 @@
         })
     }
 
+    function profileUser() {
+        $.ajax({
+            type    : "GET",
+            url     : "{{ route('profile') }}",
+            dataType: "JSON",
+            success : function (res) {
+                if (res.data.gender == 'L') {
+                    $('#man').attr('checked', true);
+                } else {
+                    $('#woman').attr('checked', true);
+                }
+            } 
+        })
+    }
+
+    profileUser();
+
     function setting(res, data) {
         $('#userCode').val(data.userCode);
         $('#name').val(res.name);
+        $('#tipe').val(data.tipe);
+        $('#kategori').val(data.kategori);
+        $('#provinsi').val(data.provinsi);
+        $('#kota').val(data.kota);
+        $('#kecamatan').val(data.kecamatan);
+        $('#desa').val(data.desa);
         $('#img_upload').attr("data-default-file", res.image);
-        $('#birthday').val(moment.utc(data.birthday).format('DD MMM YYYY'))
+        $('.dropify').dropify();
+        $('#birthday').val(moment.utc(data.birthday).format('DD MMM YYYY'));
     }
 
     profile();

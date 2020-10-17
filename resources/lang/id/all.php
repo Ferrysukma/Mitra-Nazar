@@ -96,6 +96,7 @@ return [
         'name_category'     => 'Nama Kategori Koodinator',
         'date'              => 'Tanggal',
         'message'           => 'Pesan',
+        'village'           => 'Desa'
     ),
     'desc_partners'         => 'Anda bisa mengelola data mitra disini',
     'desc_downline'         => 'Anda bisa mengelola downline anda disini',

@@ -96,6 +96,7 @@ return [
         'name_category'     => 'Category Coordinator Name',
         'date'              => 'Date',
         'message'           => 'Message',
+        'village'           => 'Village'
     ),
     'desc_partners'         => 'You can manage partners data here',
     'desc_downline'         => 'You can manage downline data here',
