@@ -47,7 +47,7 @@
                     </div>
                     <div class="col-sm-3"></div>
                     <div class="col-sm-3" style="float:right">
-                        <select name="perio" id="period" class="form-control select2" onchange="grafikBar()">
+                        <select name="period" id="period" class="form-control select2" onchange="grafikBar()">
                             @for ($i = 2020; $i <= 2030; $i++)
                                 <option value="{{ $i }}">{{ $i }}</option>
                             @endfor
@@ -81,7 +81,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">{{ __('all.announcement') }}</h6>
             </div>
             <div class="card-body">
-                The styling for this basic card example is created by using default Bootstrap utility classes. By using utility classes, the style of the card component can be easily modified with no need for any custom CSS!
+                <div id="showAnn"></div>
             </div>
         </div>
     </div>
@@ -251,6 +251,9 @@
                 // profile
                 profile = res.data.profile;
                 setting(profile.image, profile.koordinatorProfile);
+
+                // pengumuman
+                setAnn(res.data.pengumuman);
             } 
         })
     }
@@ -272,6 +275,27 @@
         $('#imageUser').attr('src', res);
         $('#coor').text(data.tipe)
         $('#copy').text(data.userCode);
+    }
+
+    function setAnn(res) {
+        $('#showAnn').empty();
+        if (res.length > 0) {
+            txt = '';
+            $(res).each(function (idx, data) {
+                txt += '<div class="card border shadow h-100 py-2">';
+                txt +=      '<div class="card-body">';
+                txt +=          '<div class="row no-gutters align-items-center">';
+                txt +=              '<div class="col mr-2">';
+                txt +=                  '<div class="text-xs font-weight-bold text-danger text-uppercase mb-1">'+data.judul+'</div>';
+                txt +=                  '<div class="h5 mb-0 font-weight-bold text-gray-800">'+data.isi+'</div>';
+                txt +=              '</div>';
+                txt +=          '</div>';
+                txt +=      '</div>';
+                txt += '</div>';
+            });
+
+            $('#showAnn').append(txt);
+        }
     }
 
     home();
