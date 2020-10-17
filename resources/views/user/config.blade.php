@@ -41,7 +41,7 @@
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">ID Downline <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="id" id="id" class="form-control readonly" readonly>
+                            <input type="text" name="id" id="userCode" class="form-control readonly" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -70,7 +70,7 @@
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.dateBirth') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="dateofbirth" id="dateofbirth" class="form-control readonly" readonly placeholder="{{ __('all.placeholder.dateofbirth') }}">
+                            <input type="text" name="birthday" id="birthday" class="form-control readonly" readonly placeholder="{{ __('all.placeholder.dateofbirth') }}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -140,7 +140,7 @@
 </div>
 @endsection
 
-@section('script')
+@section('scriptUser')
 <script>
     $('.dropify').dropify({
         messages: {
@@ -151,11 +151,38 @@
         }
     });
 
-    $('#dateofbirth').datepicker({
+    $('#birthday').datepicker({
         language: 'en',
         dateFormat: 'dd M yyyy',
         autoClose: true,
     });
+
+    startDate   = new Date();
+    endDate     = startDate.setDate((startDate.getDate() - 1));
+    $('#birthday').data('datepicker')
+        .update('maxDate', new Date(endDate));
+
+    function profile() {
+        $.ajax({
+            type    : "GET",
+            url     : "{{ route('showHome') }}",
+            dataType: "JSON",
+            success : function (res) {
+                // profile
+                profile = res.data.profile;
+                setting(profile, profile.koordinatorProfile);
+            } 
+        })
+    }
+
+    function setting(res, data) {
+        $('#userCode').val(data.userCode);
+        $('#name').val(res.name);
+        $('#img_upload').attr("data-default-file", res.image);
+        $('#birthday').val(moment.utc(data.birthday).format('DD MMM YYYY'))
+    }
+
+    profile();
 
     $("#postprofile").validate({
         rules       : {

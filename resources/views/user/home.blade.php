@@ -92,7 +92,7 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ __('all.checkbox.regional') }}</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" align="center">{{ __('all.checkbox.regional') }}</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800" id="countR" align="center"></div>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ __('all.checkbox.city') }}</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" align="center">{{ __('all.checkbox.city') }}</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800" id="countC" align="center"></div>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ __('all.checkbox.district') }}</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" align="center">{{ __('all.checkbox.district') }}</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800" id="countD" align="center"></div>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ __('all.checkbox.village') }}</div>
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" align="center">{{ __('all.checkbox.village') }}</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800" id="countV" align="center"></div>
                             </div>
                         </div>
