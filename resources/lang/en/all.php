@@ -93,7 +93,9 @@ return [
         'contents'          => 'Contents',
         'title'             => 'Title Announcement',
         'created'           => 'Created by',
-        'name_category'     => 'Category Coordinator Name'
+        'name_category'     => 'Category Coordinator Name',
+        'date'              => 'Date',
+        'message'           => 'Message',
     ),
     'desc_partners'         => 'You can manage partners data here',
     'desc_downline'         => 'You can manage downline data here',

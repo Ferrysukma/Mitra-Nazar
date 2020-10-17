@@ -87,25 +87,15 @@
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
+                                <span class="badge badge-danger badge-counter" id="countNotif"></span>
                             </a>
                         <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
                                     {{ __('all.notif') }}
                                 </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#" onclick="showModal('modal-notif')">{{ __('all.showAll') }}</a>
+                                <div id="showNotif"></div>
+                                <a class="dropdown-item text-center small text-gray-500" href="#" onclick="showNotif()">{{ __('all.showAll') }}</a>
                             </div>
                         </li>
 
@@ -232,44 +222,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Change Profile Modal-->
-    <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-white">{{ __('all.profile') }}</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="#" method="post" id="postprofile">
-                        <div class="form-group row">
-                            <label for="old" class="col-sm-3">{{ __('all.form.username') }} <sup class="text-danger">*</sup></label>
-                            <div class="col-sm-9">
-                                <input type="text" name="username" id="username" class="form-control readonly" placeholder="{{ __('all.placeholder.username') }}" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="old" class="col-sm-3">{{ __('all.form.email') }} <sup class="text-danger">*</sup></label>
-                            <div class="col-sm-9">
-                                <input type="email" name="email" id="email" class="form-control" placeholder="{{ __('all.placeholder.email') }}">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="old" class="col-sm-3">{{ __('all.form.telp') }} <sup class="text-danger">*</sup></label>
-                            <div class="col-sm-9">
-                                <input type="text" name="telp" id="telp" class="form-control" placeholder="{{ __('all.placeholder.telp') }}">
-                            </div>
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                    <button type="button" class="btn btn-primary">{{ __('all.save') }}</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     
     <!-- Modal -->
     <div class="modal fade" id="modal-notif" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -279,7 +231,17 @@
                     <h5 class="modal-title text-white">{{ __('all.notif') }}</h5>
                 </div>
                 <div class="modal-body">
-                    Body
+                    <div class="table-responsive">
+                        <table class=" table table-hover table-striped table-consended table-bordered" id="table-notif" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>{{ __('all.table.date') }}</th>
+                                    <th>{{ __('all.table.message') }}</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -329,9 +291,36 @@
     <!-- generic js -->
     <script src="{{ asset('assets/admin/js/generic.js') }}"></script>
     
-    @yield('script')
+    @yield('scriptUser')
 
     <script>
+        var table = $('#table-notif').DataTable({
+            "language" : {
+                "lengthMenu"    : "{{ __('all.datatable.show_entries') }}",
+                "emptyTable"    : "{{ __('all.datatable.no_data') }}",
+                "info"        	: "{{ __('all.datatable.showing_start') }}",
+                "infoFiltered"  : "{{ __('all.datatable.filter') }}",
+                "infoEmpty"     : "{{ __('all.datatable.showing_null') }}",
+                "loadingRecords": "{{ __('all.datatable.load') }}",
+                "processing"    : "{{ __('all.datatable.process') }}",
+                "search"      	: "{{ __('all.datatable.search') }}",
+                "zeroRecords"   : "{{ __('all.datatable.zero') }}",
+                "paginate"      : 
+                {
+                    "first"     : "{{ __('all.datatable.first') }}",
+                    "last"      : "{{ __('all.datatable.last') }}",
+                    "next"      : "{{ __('all.datatable.next') }}",
+                    "previous"  : "{{ __('all.datatable.prev') }}",
+                }
+            },
+            "columnDefs"        : [ 
+                { targets: [0], orderable: false, className	: "text-center" },
+            ],
+            "initComplete"      : function() {
+                $('[data-toggle="tooltip"]').tooltip();
+            },
+        });
+
         function logout() {
             $("#btn-logout").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
             $('.modal-logout').ploading({action:'show'});
@@ -412,6 +401,46 @@
             }
         });
 
+        function showNotif() {
+            showModal('modal-notif');
+            showDataNotif();
+        }
+
+        function showDataNotif() {
+            $.ajax({
+                type    : "POST",
+                url     : "{{ route('notification') }}",
+                data    : {
+                    _token  : "{{ csrf_token() }}",
+                    page    : 0,
+                    limit   : 100000000
+                },
+                dataType: "JSON",
+                beforeSend: function(){
+                    table.clear().draw();
+                    $("#table-notif").parent().ploading({action : 'show'});
+                },
+                success     : function(data){
+                    if (data.code == 0) {
+                        list = data.data.data;
+                        
+                        if(list.length > 0){
+                            $.each(list, function(idx, ref){
+                                table.row.add( [
+                                    idx + 1,
+                                    ref.dtm,
+                                    ref.message,
+                                ] ).draw( false );
+                            });
+                        }
+                    } 
+                },
+                complete : function () {
+                    $("#table-notif").parent().ploading({action : 'hide'});
+                }
+            });
+        }
+
         function getLatLong(district, id, map) {
             $.ajax({
                 type        : "POST",
@@ -437,6 +466,50 @@
                 }
             });
         }
+
+        function notification() {
+            $.ajax({
+                type    : "POST",
+                url     : "{{ route('notification') }}",
+                data    : {
+                    _token  : "{{ csrf_token() }}",
+                    page    : 0,
+                    limit   : 5
+                },
+                dataType: "JSON",
+                success : function (res) {
+                    list = res.data.data;
+                    txt  = '';
+
+                    if (list.length > 0) {
+                        $('#countNotif').text(res.data.no+'+');
+                        $.each(list, function(idx, ref){
+                            txt += '<a class="dropdown-item d-flex align-items-center" href="#">';
+                            txt +=      '<div class="mr-3">';
+                            txt +=          '<div class="icon-circle bg-primary">';
+                            txt +=              '<i class="fas fa-file-alt text-white"></i>';
+                            txt +=          '</div>';
+                            txt +=      '</div>';
+                            txt +=      '<div>';
+                            txt +=          '<div class="small text-gray-500">'+ref.dtm+'</div>';
+                            txt +=          '<span class="font-weight-bold">'+ref.message+'</span>';
+                            txt +=      '</div>';
+                            txt += '</a>';
+                        });
+                    } else {
+                        txt += '<a class="dropdown-item d-flex align-items-center" href="#">';
+                        txt +=      '<div>';
+                        txt +=          '<span class="font-weight-bold">{{ __("all.datatable.no_data") }}</span>';
+                        txt +=      '</div>';
+                        txt += '</a>';
+                    }
+
+                    $('#showNotif').append(txt);
+                } 
+            })
+        }
+
+        notification();
 
         // Google Maps
         function initMaps(locations, id) {

@@ -23,6 +23,71 @@ class HomeController extends Controller
         return view('user.home');
     }
 
+    public function home(Request $request)
+    {
+        $client     = new Client();
+        $url        = $this->base_url . 'user/home-mitra';
+        $request    = $client->get($url, [
+            'headers'   => [
+                'Authorization' => Session::get('user_key')
+            ],
+        ]);
+
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+            
+            $row    = [];
+            foreach ($result as $rows) {
+                $row[]  = $rows;
+            }
+
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
+        } else {
+            
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+        }
+    }
+
+    public function notification(Request $request)
+    {
+        $client     = new Client();
+        $url        = $this->base_url . 'user/notifikasi-mitra';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('user_key')
+            ],
+            'json'      => [
+                'payload'   => [
+                    'pageNumber'    => $request->page,
+                    'limit'         => $request->limit
+                ]
+            ]
+        ]);
+
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+            
+            $row    = [];
+            $no     = 0;
+            foreach ($result as $key => $value) {
+                $no             += $key + 1;
+                $value->dtm     = date('d F Y', strtotime($value->dtm));
+                $row[]          = $value;
+            }
+            
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => array('data' => $row, 'no' => $no)));
+        } else {
+            
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+        }
+    }
+
     public function getCoordinate(Request $request)
     {
         $client     = new Client();

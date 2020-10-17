@@ -241,16 +241,6 @@
     
     showData();
 
-    $(document).on('change','#status', function () {
-        var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
-        var $rows = $('#table-user tbody > tr');
-        
-        $rows.show().filter(function() {
-            var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
-            return !~text.indexOf(val);
-        }).hide();
-    });
-
     $("#postuser").validate({
         rules       : {
             nama     : "required",

@@ -227,7 +227,7 @@
 <!-- End Modal Change Password -->
 @endsection
 
-@section('script')
+@section('scriptUser')
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7Ah8Zuhy2ECqqjBNF8ri2xJ7mwwtIbwo&callback=initMap" defer></script>
 <script>
     var table = $('#table-maps').DataTable({

@@ -25,7 +25,7 @@
             </div>
             <div class="card-body">
                 <div class="text-center">
-                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 12rem;" src="{{ asset('assets/admin/image/man.png') }}" alt="">
+                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 12rem;" alt="" id="imageUser">
                 </div>
                 <div align="center">
                     <p><b>{{ __('all.checkbox.central') }}</b></p>
@@ -242,6 +242,29 @@
         showModal('modal-balance', 'postbalance');
         $('#saldo').val($('#rupiah').text());        
     }
+
+    function home() {
+        $.ajax({
+            type    : "GET",
+            url     : "{{ route('showHome') }}",
+            dataType: "JSON",
+            success : function (res) {
+                list = res.data;
+                if (list.length > 0) {
+                    $.each(list, function(idx, ref){
+                        // getImg(ref.image);
+                        console.log(ref);
+                    });
+                }
+            } 
+        })
+    }
+
+    function getImg(res) {
+        console.log(res);
+    }
+
+    home();
 
     $('#bar-canvas-bs').remove(); $('#bar-chart-bs').append('<canvas id="bar-canvas-bs"><canvas>');
     var ctx = document.getElementById('bar-canvas-bs').getContext('2d');
