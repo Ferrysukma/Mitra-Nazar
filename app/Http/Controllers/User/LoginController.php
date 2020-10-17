@@ -65,12 +65,12 @@ class LoginController extends Controller
         }
         
         if ($response->getStatusCode() == '200') {
-            Session::put('admin_key', json_decode((string) $responseBodyAsString, true)['token']);
+            Session::put('user_key', json_decode((string) $responseBodyAsString, true)['token']);
             Session::put('type', json_decode((string) $responseBodyAsString, true))['type'];
             Session::put('storeLink', json_decode((string) $responseBodyAsString, true))['storeLink'];
             Session::put('idUser', json_decode((string) $responseBodyAsString, true))['id'];
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('admin_key')));
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('user_key')));
         } else {
             echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
         }
@@ -123,12 +123,12 @@ class LoginController extends Controller
         }
 
         if ($response->getStatusCode() == '200') {
-            Session::put('admin_key', json_decode((string) $responseBodyAsString, true)['token']);
+            Session::put('user_key', json_decode((string) $responseBodyAsString, true)['token']);
             Session::put('type', json_decode((string) $responseBodyAsString, true))['type'];
             Session::put('storeLink', json_decode((string) $responseBodyAsString, true))['storeLink'];
             Session::put('idUser', json_decode((string) $responseBodyAsString, true))['id'];
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('admin_key')));
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('user_key')));
         } else {
             echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
         }
@@ -171,12 +171,12 @@ class LoginController extends Controller
             $data               = json_decode($responseL);
 
             if ($data->status->statusCode == '000') {
-                Session::put('admin_key', json_decode((string) $responseBodyAsString, true)['token']);
+                Session::put('user_key', json_decode((string) $responseBodyAsString, true)['token']);
                 Session::put('type', json_decode((string) $responseBodyAsString, true))['type'];
                 Session::put('storeLink', json_decode((string) $responseBodyAsString, true))['storeLink'];
                 Session::put('idUser', json_decode((string) $responseBodyAsString, true))['id'];
 
-                echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('admin_key')));
+                echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('user_key')));
             } else {
                 echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
             }

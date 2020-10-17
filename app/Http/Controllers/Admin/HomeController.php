@@ -208,19 +208,5 @@ class HomeController extends Controller
             echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
-
-    public function getLatLong(Request $request)
-    {
-        $address    = str_replace(' ', '', $request->address);
-        // Get lattitude & longitude ---
-        $apiKey     = 'AIzaSyC7Ah8Zuhy2ECqqjBNF8ri2xJ7mwwtIbwo'; // Google maps now requires an API key.
-        $results    = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $address . '&key=' . $apiKey);
-        $json       = json_decode($results, true);
-
-        $latitude   = $json['results'][0]['geometry']['location']['lat']; // Latitude
-        $longitude  = $json['results'][0]['geometry']['location']['lng']; // Longitude
-
-        return json_encode(array('code' => 0, 'info' => true, 'data' => array('lat' => $latitude, 'long' => $longitude)));
-    }
     
 }

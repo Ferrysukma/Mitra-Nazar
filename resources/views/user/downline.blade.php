@@ -8,7 +8,7 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <h1 class="h3 mb-0 text-gray-800">{{ __('all.partners') }}</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Downline</h1>
                         <p>{{ __('all.desc_partners') }}</p>
                     </div>
                 </div>
@@ -31,17 +31,22 @@
                         <form id="formFilter" class="px-4 py-3" action="#">
                             <div class="form-group">
                                 <div class="dropdown">
-                                    <input type="text" name="city" class="form-control dropdown-toggle" id="dropKota" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="getCoordinate('dropKota', 'data-kota', 'showKota')" placeholder="{{ __('all.placeholder.findCity') }}">
-                                    <div class="dropdown-menu data-kota" id="showKota">
+                                    <input type="text" name="city" class="form-control dropdown-toggle" id="filterProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="findProv('filterProv', 'filter-prov', 'showFilProv')" placeholder="{{ __('all.table.prov') }}">
+                                    <div class="dropdown-menu filter-prov" id="showFilProv">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="province" id="provinsi" class="form-control readonly" readonly placeholder="{{ __('all.table.prov') }}">
+                                <div class="dropdown">
+                                    <input type="text" name="city" class="form-control readonly" id="filterCity" readonly placeholder="{{ __('all.table.city') }}">
+                                    <div class="dropdown-menu filter-city" id="showFilCity">
+                                        <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <select name="tipe" id="tipe" class="form-control select2" onchange="change('tipe', 3)">
+                                <select name="tipe" id="type" class="form-control select2" onchange="change('type', 3)">
                                     <option value="">{{ __('all.placeholder.choose_coortype') }}</option>
                                     <option value="pusat">{{ __('all.checkbox.central') }}</option>
                                     <option value="provinsi">{{ __('all.checkbox.regional') }}</option>
@@ -49,9 +54,6 @@
                                     <option value="kecamatan">{{ __('all.checkbox.district') }}</option>
                                     <option value="desa">{{ __('all.checkbox.village') }}</option>
                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <select name="kategori" id="cat" class="form-control select2 create-cat" onchange="change('cat', 4)"></select>
                             </div>
                             <div class="form-group">
                                 <select name="status" id="status" class="form-control" style="width: 100% !important;" onchange="change('status', 10)">
@@ -108,7 +110,7 @@
                 <hr>
             </div>
             <div class="modal-body">
-                <div class="container-fluid" id="form-mitra">
+                <div class="container-fluid">
                     <b>{{ __('all.modal_info') }}</b>
                     <br><br>
                     <form action="#" method="post" id="postmitra">
@@ -139,14 +141,25 @@
                         <div class="form-group row">
                             <label for="category" class="col-sm-3">{{ __('all.category_coordinator') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
-                                <select name="kategori" id="kategori" class="form-control select2 create-cat"></select>
+                                <input type="text" name="kategori" id="kategori" class="form-control readonly" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="old" class="col-sm-3">{{ __('all.table.prov') }} <sup class="text-danger">*</sup></label>
+                            <div class="col-sm-9">
+                                <div class="dropdown">
+                                    <input type="text" name="city" class="form-control dropdown-toggle" id="dropProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('dropProv', 'data-prov', 'showProv')" placeholder="{{ __('all.placeholder.key') }}">
+                                    <div class="dropdown-menu data-prov" id="showProv">
+                                        <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="old" class="col-sm-3">{{ __('all.table.city') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
                                 <div class="dropdown">
-                                    <input type="text" name="city" class="form-control dropdown-toggle" id="dropCity" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('dropCity', 'data-city', 'showCity')" placeholder="{{ __('all.placeholder.key') }}">
+                                    <input type="text" name="city" class="form-control readonly" id="city" readonly>
                                     <div class="dropdown-menu data-city" id="showCity">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
@@ -154,15 +167,14 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="old" class="col-sm-3">{{ __('all.table.prov') }} <sup class="text-danger">*</sup></label>
-                            <div class="col-sm-9">
-                                <input type="text" name="province" id="province" class="form-control readonly" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group row">
                             <label for="old" class="col-sm-3">{{ __('all.form.district') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
-                                <input type="text" name="district" id="district" class="form-control readonly" readonly>
+                                <div class="dropdown">
+                                    <input type="text" name="district" class="form-control readonly" id="district" readonly>
+                                    <div class="dropdown-menu data-district" id="showDistrict">
+                                        <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -179,29 +191,12 @@
                                 <textarea name="address" id="address" class="form-control readonly" cols="30" rows="5"></textarea>
                             </div>
                         </div>
-                        <hr>
-                        <div align="right">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                            <button type="submit" class="btn btn-primary" id="save-mitra">{{ __('all.save') }}</button>
-                        </div>
-                    </form>
                 </div>
-
-                <div class="container-fluid" id="form-cat">
-                    <form action="#" method="post" id="postcat">
-                        <div class="form-group row">
-                            <label for="cat" class="col-sm-3">{{ __('all.category_coordinator') }} <sup class="text-danger">*</sup></label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" name="name" id="cat_name" placeholder="{{ __('all.placeholder.name_category') }}">
-                            </div>
-                        </div>
-                        <hr>
-                        <div align="right">
-                            <button type="button" class="btn btn-secondary" onClick="formMitra()">{{ __('all.close') }}</button>
-                            <button type="submit" class="btn btn-primary" id="save-cat" disabled onClick="saveCat()">{{ __('all.save') }}</button>
-                        </div>
-                    </form>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
+                <button type="submit" class="btn btn-primary" id="save-mitra">{{ __('all.save') }}</button> 
+                </form>
             </div>
         </div>
     </div>
@@ -263,7 +258,7 @@
         },
     });
 
-    function getCoordinate(filter, code, show) {
+    function findProv(filter, code, show) {
         var input, filter;
         input  = document.getElementById(filter);
         filter = input.value.toUpperCase();
@@ -272,7 +267,7 @@
 
         $.ajax({
             type        : "POST",
-            url         : "{{ route('coordinate') }}",
+            url         : "{{ route('findProvUser') }}",
             headers     : {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -292,16 +287,47 @@
         });
     }
 
-    function select(e) {
-        var prov        = $(e).attr('provinsi');
-        var city        = $(e).attr('city');
+    function findCity(filter, code, show) {
+        $.ajax({
+            type        : "POST",
+            url         : "{{ route('findCityUser') }}",
+            data        : {
+                _token  : "{{ csrf_token() }}",
+                filter  : filter
+            },
+            dataType    : 'JSON',
+            beforeSend  : function () {
+                $('.'+code).ploading({action:'show'});
+            },
+            success     : function (res) {
+                $('#'+show).toggle('show');
+                $('.'+code).html(res.data);
+            },
+            complete    : function () {
+                $('.'+code).ploading({action:'hide'});
+            }
+        });
+    }
 
-        $('#provinsi').val(prov);
-        $('#kota').val(city);
-        
-        $('.data-kota').hide();
-        filter(city, 6);
-        filter(prov, 5);
+    function filterProv(e) {
+        var name    = $(e).attr('name');
+        var id      = $(e).attr('id');
+
+        $('#filterProv').val(name);
+
+        $('.filter-prov').hide(); 
+        findCity(id, 'filter-city', 'showFilCity');
+        change('filterProv', 5);
+    }
+
+    function filterCity(e) {
+        var name    = $(e).attr('name');
+        var id      = $(e).attr('id');
+
+        $('#filterCity').val(name);
+
+        $('.filter-city').hide(); 
+        change('filterCity', 6);
     }
 
     function filter(data, row) {
@@ -318,17 +344,101 @@
         filter(val, row);
     }
 
-    function selectCity(e) {
-        var prov        = $(e).attr('provinsi');
-        var city        = $(e).attr('city');
-        var district    = $(e).attr('district');
+    function selectProv(e) {
+        var name    = $(e).attr('name');
+        var id      = $(e).attr('id');
 
-        $('#province').val(prov);
-        $('#dropCity').val(city);
-        $('#district').val(district);
+        $('#dropProv').val(name);
+
+        $('.data-prov').hide(); 
+        coordinateCity(id, 'data-city', 'showCity');
+    }
+
+    function selectCity(e) {
+        var name    = $(e).attr('name');
+        var id      = $(e).attr('id');
+
+        $('#city').val(name);
 
         $('.data-city').hide(); 
-        getLatLong(district, 'map_canvas', 'maps-mitra');
+        coordinateDistrict(id, 'data-district', 'showDistrict');
+    }
+
+    function filterCoordinate(filter, code, show) {
+        var input, filter;
+        input  = document.getElementById(filter);
+        filter = input.value.toUpperCase();
+
+        $('#'+show).toggle('show');
+
+        $.ajax({
+            type        : "POST",
+            url         : "{{ route('getCoordinateUser') }}",
+            data        : {
+                _token  : "{{ csrf_token() }}",
+                filter  : filter
+            },
+            dataType    : 'JSON',
+            beforeSend  : function () {
+                $('.'+code).ploading({action:'show'});
+            },
+            success     : function (res) {
+                $('.'+code).html(res.data);
+            },
+            complete    : function () {
+                $('.'+code).ploading({action:'hide'});
+            }
+        });
+    }
+
+    function coordinateCity(filter, code, show) {
+        $.ajax({
+            type        : "POST",
+            url         : "{{ route('coordinateCityUser') }}",
+            data        : {
+                _token  : "{{ csrf_token() }}",
+                filter  : filter
+            },
+            dataType    : 'JSON',
+            beforeSend  : function () {
+                $('.'+code).ploading({action:'show'});
+            },
+            success     : function (res) {
+                $('#'+show).toggle('show');
+                $('.'+code).html(res.data);
+            },
+            complete    : function () {
+                $('.'+code).ploading({action:'hide'});
+            }
+        });
+    }
+
+    function coordinateDistrict(filter, code, show) {
+        $.ajax({
+            type        : "POST",
+            url         : "{{ route('coordinateDistrictUser') }}",
+            data        : {
+                _token  : "{{ csrf_token() }}",
+                filter  : filter
+            },
+            dataType    : 'JSON',
+            beforeSend  : function () {
+                $('.'+code).ploading({action:'show'});
+            },
+            success     : function (res) {
+                $('#'+show).toggle('show');
+                $('.'+code).html(res.data);
+            },
+            complete    : function () {
+                $('.'+code).ploading({action:'hide'});
+            }
+        });
+    }
+
+    function getLoc(e) {
+        $('.data-district').hide();
+        $('#district').val($(e).attr('name'));
+        getLatLong($(e).attr('name'), 'map_canvas', 'maps-mitra');
     }
 
     $('#form-cat').hide();
@@ -339,106 +449,9 @@
         $('#tipe').val('pusat');
         $('#basic-addon1').attr('disabled', true);
         $('#userCode').removeAttr('readonly');
-        $('#kategori').val('').change();
+        $('#kategori').val('umum');
         $('#modal-mitra').find('.modal-title').text("{{ __('all.add_partner') }}");
     });
-
-    $('.create-cat').select2({
-        theme           : 'bootstrap4',
-    }).on('select2:open', function () {
-        var val = $(this).val();
-        var a   = $(this).data('select2');
-        if (!$('.select2-link').length) {
-            a.$results.parents('.select2-results')
-                    .append('<div class="select2-link"><a><i class="fa fa-plus"></i> {{ __("all.button.new") }}</a></div>')
-                    .on('click', function (b) {
-                        a.trigger('close');
-                        if (val == null || val == '') {
-                            formCategory();
-                            $('#modal-mitra').find('.modal-title').text("{{ __('all.add_cat') }}");
-                        }
-                    });
-        }
-    });
-
-    function formMitra() {
-        $('#modal-mitra').find('.modal-title').text("{{ __('all.add_partner') }}");
-        $("#form-cat").animate({
-            width: [ "toggle", "swing" ],
-            height: [ "toggle", "swing" ],
-            opacity: "toggle"
-        }, 1000, "linear", function() {
-            $('#form-mitra').show('slow');
-        });
-    }
-
-    function formCategory() {
-        $("#form-mitra").animate({
-            width: [ "toggle", "swing" ],
-            height: [ "toggle", "swing" ],
-            opacity: "toggle"
-        }, 1000, "linear", function() {
-            $('#form-cat').show('slow');
-        });
-    }
-
-    function saveCat() {
-        $.ajax({
-            type    : "POST",
-            url     : "{{ route('createCategory') }}",
-            data	: $('#postcat').serialize(),
-            dataType: "JSON",
-            beforeSend: function(){
-                $("#save-cat").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
-                $(".create-mitra").ploading({action : 'show'});
-            },
-            success     : function(data){
-                if (data.code == 0) {
-                    notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
-                    formMitra();
-                    showCategory();
-                } else {
-                    notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
-                }
-            },
-            complete    : function(){
-                $("#save-cat").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
-                $('#cat_name').val('');
-                $('#save-cat').attr('disabled', true);
-                $(".create-mitra").ploading({action : 'hide'});
-            },
-            error 		: function(){
-                notif('error', '{{ __("all.error") }}');
-            }
-        });
-    }
-
-    function showCategory() {
-        $.ajax({
-            type    : "GET",
-            url     : "{{ route('loadListCategory') }}",
-            dataType: "JSON",
-            success     : function(data){
-                if (data.code == 0) {
-                    $('#kategori').empty();
-                    $('#cat').empty();
-                    txt  = '';
-                    list = data.data;
-                    
-                    txt += '<option value="" selected>{{ __("all.placeholder.choose_coorcategory") }}</option>';
-                    if(list.length > 0){
-                        $.each(list, function(idx, ref){
-                            txt += '<option value="'+ref.name+'">'+ref.name+'</option>';
-                        });
-                    }
-
-                    $('#cat').append(txt);
-                } 
-            },
-        });
-    }
-
-    showCategory();
 
     function showData() {
         $.ajaxSetup({
@@ -449,7 +462,7 @@
 
         $.ajax({
             type    : "POST",
-            url     : "{{ route('loadListPartner') }}",
+            url     : "{{ route('listUser') }}",
             data    : {
                 search : $('#search').val()
             },
@@ -491,7 +504,7 @@
     function maps() {
         $.ajax({
             type    : "POST",
-            url     : "{{ route('listAllPartner') }}",
+            url     : "{{ route('listAllUser') }}",
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -522,7 +535,7 @@
 
         $.ajax({
             type    : "POST",
-            url     : "{{ route('findUser') }}",
+            url     : "{{ route('Userfind') }}",
             data    : {
                 id  : $('#userCode').val(),
             },
@@ -545,15 +558,12 @@
     }
 
     function disabledP() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type    : "POST",
-            url     : "{{ route('deletePartner') }}",
+            url     : "{{ route('disabledUser') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             data	: {
                 id  : $('#partner_id').val(),
             },
@@ -596,12 +606,12 @@
         $('#id').val($(this).attr('id'));
         $('#userCode').val(data[1]).attr('readonly', true);
         $('#nama').val(data[2]);
-        $('#tipe').val(data[3])
-        $('#kategori').val(data[4]).change();
-        $('#dropCity').val(data[6]);
-        $('#province').val(data[5]);
-        $('#district').val(data[6]);
-        $('#address').val(data[7]);
+        $('#tipe').val(data[3]);
+        $('#kategori').val(data[4]);
+        $('#dropProv').val(data[5]);
+        $('#city').val(data[6]);
+        $('#district').val(data[7]);
+        $('#address').val(data[8]);
 
         getLatLong(data[6], 'map_canvas', 'maps-mitra');
         
@@ -612,7 +622,7 @@
         var data = table.row( $(this).parents('tr') ).data();
 
         showModal('disabled-mitra'); 
-        $('#partner_id').val(data[1]);
+        $('#partner_id').val($(this).attr('id'));
         $('#disabled-mitra').find('.modal-title').text("{{ __('all.disabled_partner') }} "+data[2]+"");
     })
     
@@ -665,7 +675,7 @@
 
             $.ajax({
                 type	: "POST",
-                url		: "{{ route('createPartner') }}",
+                url		: "{{ route('saveUser') }}",
                 data	: $('#postmitra').serialize(),
                 dataType: "JSON",
                 beforeSend: function(){
@@ -674,12 +684,12 @@
                 },
                 success     : function(data){
                     if (data.code == 0) {
-                        notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
+                        notif('success', data.info);
                         showData();
                         resetForm('postmitra','id');
                         $('#modal-mitra').modal('hide');
                     } else {
-                        notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
+                        notif('warning', data.info);
                     }
                 },
                 complete    : function(){

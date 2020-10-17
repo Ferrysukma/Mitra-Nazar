@@ -26,13 +26,10 @@ class DownlineController extends Controller
     public function loadList(Request $request)
     {
         $client     = new Client();
-
-        $search     = $request->search;
-        $url        = $this->base_url . 'mitra/admin/list-mitra';
-        
+        $url        = $this->base_url . 'user/list-mitra';
         $request    = $client->post($url, [
             'headers'   => [
-                'Authorization' => Session::get('admin_key')
+                'Authorization' => Session::get('user_key')
             ],
             'json'      => [
                 "payload"   => [
@@ -42,7 +39,7 @@ class DownlineController extends Controller
                 ]
             ]
         ]);
-        
+
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];
 
@@ -66,42 +63,19 @@ class DownlineController extends Controller
     public function listAll(Request $request)
     {
         $client     = new Client();
-        if ($request->params == 1) {
-            $url        = $this->base_url . 'mitra/admin/list-mitra';
-            $request    = $client->post($url, [
-                'headers'   => [
-                    'Authorization' => Session::get('admin_key')
-                ],
-                'json'      => [
-                    "payload"   => [
-                        "limit"         => 100000000,
-                        "pageNumber"    => 0,
-                        "search"        => ""
-                    ]
+        $url        = $this->base_url . 'user/list-mitra';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('user_key')
+            ],
+            'json'      => [
+                "payload"   => [
+                    "limit"         => 100000000,
+                    "pageNumber"    => 0,
+                    "search"        => ""
                 ]
-            ]);
-        } else {
-            $url        = $this->base_url . 'mitra/admin/list-mitra-chart-detail';
-            $city       = isset($request->kota) ? $request->kota : 'bandung';
-            $prov       = isset($request->provinsi) ? $request->provinsi : 'Jawa barat';
-            $request    = $client->post($url, [
-                'headers'   => [
-                    'Authorization' => Session::get('admin_key')
-                ],
-                'json'      => [
-                    "payload"   => [
-                        "start"         => date('Y-m-d', strtotime($request->start)),
-                        "end"           => date('Y-m-d', strtotime($request->end)),
-                        "limit"         => 100000000,
-                        "pageNumber"    => 0,
-                        "provinsi"      => $prov,
-                        "kota"          => $city,
-                        "kategori"      => $request->kategori,
-                        "tipe"          => $request->tipe
-                    ]
-                ]
-            ]);
-        }
+            ]
+        ]);
         
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];
@@ -131,10 +105,10 @@ class DownlineController extends Controller
         $client     = new Client();
         
         if (isset($request->id) && !empty($request->id)) {
-            $url        = $this->base_url . 'mitra/admin/edit-mitra';
+            $url        = $this->base_url . 'user/edit-mitra';
             $request    = $client->post($url, [
                 'headers'   => [
-                    'Authorization' => Session::get('admin_key')
+                    'Authorization' => Session::get('user_key')
                 ],
                 'json'      => [
                     "payload"   => [
@@ -151,10 +125,10 @@ class DownlineController extends Controller
                 ]
             ]);
         } else {
-            $url        = $this->base_url . 'mitra/admin/register-mitra';
+            $url        = $this->base_url . 'user/register-mitra';
             $request    = $client->post($url, [
                 'headers'   => [
-                    'Authorization' => Session::get('admin_key')
+                    'Authorization' => Session::get('user_key')
                 ],
                 'json'      => [
                     "payload"   => [
@@ -173,11 +147,12 @@ class DownlineController extends Controller
         
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];
-
+        $desc       = json_decode((string) $response, true)['status']['statusDesc'];
+        
         if ($status == '000') {
-            return json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
+            return json_encode(array('code' => 0, 'info' => $desc, 'data' => null));
         } else {
-            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            return json_encode(array('code' => 1, 'info' => $desc, 'data' => null));
         }
     }
 
@@ -185,10 +160,10 @@ class DownlineController extends Controller
     {
         $client     = new Client();
         
-        $url        = $this->base_url . 'mitra/admin/disable-mitra';
+        $url        = $this->base_url . 'user/disable-mitra';
         $request    = $client->post($url, [
             'headers'   => [
-                'Authorization' => Session::get('admin_key')
+                'Authorization' => Session::get('user_key')
             ],
             'json'      => [
                 "payload"   => [
@@ -199,11 +174,12 @@ class DownlineController extends Controller
 
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];
+        $desc       = json_decode((string) $response, true)['status']['statusDesc'];
 
         if ($status == '000') {
-            return json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
+            return json_encode(array('code' => 0, 'info' => $desc, 'data' => null));
         } else {
-            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            return json_encode(array('code' => 1, 'info' => $desc, 'data' => null));
         }
     }
 
@@ -211,10 +187,10 @@ class DownlineController extends Controller
     {
         $client     = new Client();
         
-        $url        = $this->base_url . 'mitra/admin/findUser';
+        $url        = $this->base_url . 'user/find';
         $request    = $client->post($url, [
             'headers'   => [
-                'Authorization' => Session::get('admin_key')
+                'Authorization' => Session::get('user_key')
             ],
             'json'      => [
                 "payload"   => $request->id
@@ -229,31 +205,6 @@ class DownlineController extends Controller
             return json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
         } else {
             return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
-        }
-    }
-
-    public function coordinate(Request $request)
-    {
-        $client     = new Client();
-        $url        = $this->base_url . 'find/district';
-        $request    = $client->get($url, ['query' => ['page' => 0, 'query' => $request->filter]]);
-        $response   = $request->getBody()->getContents();
-        $status     = json_decode((string) $response, true)['status']['statusCode'];
-
-        if ($status == '000') {
-            $result = json_decode((string) $response)->payload;
-            
-            $row    = [];
-            foreach ($result as $key => $value) {
-                $rows  = "<a class='dropdown-item' provinsi='".$value->province."' city='".$value->city."' type='".$value->type."' district='".$value->subdistrictName."' id=".$value->id."' onclick='select(this)'>".$value->subdistrictName.", ".$value->type.", ".$value->city.", ".$value->province."</a>";
-                $row[]  = $rows;
-            }
-
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
-        } else {
-            $result = '<a class="text-center text-gray">'.__('all.datatable.no_data').'</a>';
-            
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
 }

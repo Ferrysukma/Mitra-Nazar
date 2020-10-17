@@ -412,35 +412,6 @@
             }
         });
 
-        function filterCoordinate(filter, code, show) {
-            var input, filter;
-            input  = document.getElementById(filter);
-            filter = input.value.toUpperCase();
-
-            $('#'+show).toggle('show');
-
-            $.ajax({
-                type        : "POST",
-                url         : "{{ route('getCoordinate') }}",
-                headers     : {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data        : {
-                    filter  : filter
-                },
-                dataType    : 'JSON',
-                beforeSend  : function () {
-                    $('.'+code).ploading({action:'show'});
-                },
-                success     : function (res) {
-                    $('.'+code).html(res.data);
-                },
-                complete    : function () {
-                    $('.'+code).ploading({action:'hide'});
-                }
-            });
-        }
-
         function getLatLong(district, id, map) {
             $.ajax({
                 type        : "POST",

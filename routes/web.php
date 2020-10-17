@@ -20,6 +20,7 @@ Route::get('/logout', [App\Http\Controllers\Admin\LoginController::class, 'logou
 Route::post('/generateToken', [App\Http\Controllers\Admin\LoginController::class, 'generateToken'])->name('generateToken');
 Route::post('/verifyToken', [App\Http\Controllers\Admin\LoginController::class, 'verifyToken'])->name('verifyToken');
 Route::post('/createPassword', [App\Http\Controllers\Admin\LoginController::class, 'createPassword'])->name('createPassword');
+Route::post('/getLatLong', [App\Http\Controllers\Admin\LoginController::class, 'getLatLong'])->name('getLatLong');
 
 // User
 Route::get('/user/login', [App\Http\Controllers\User\LoginController::class, 'index'])->name('login');
@@ -40,7 +41,6 @@ Route::group(['middleware' => 'CheckToken'], function () {
     Route::post('/getCoordinate', [App\Http\Controllers\Admin\HomeController::class, 'getCoordinate'])->name('getCoordinate');
     Route::post('/coordinateCity', [App\Http\Controllers\Admin\HomeController::class, 'coordinateCity'])->name('coordinateCity');
     Route::post('/coordinateDistrict', [App\Http\Controllers\Admin\HomeController::class, 'coordinateDistrict'])->name('coordinateDistrict');
-    Route::post('/getLatLong', [App\Http\Controllers\Admin\HomeController::class, 'getLatLong'])->name('getLatLong');
 
     Route::get('/partner', [App\Http\Controllers\Admin\PartnerController::class, 'index'])->name('partner');
     Route::post('/loadListPartner', [App\Http\Controllers\Admin\PartnerController::class, 'loadList'])->name('loadListPartner');
@@ -72,8 +72,39 @@ Route::group(['middleware' => 'CheckToken'], function () {
     // User
     Route::get('/user/home', [App\Http\Controllers\User\HomeController::class, 'index'])->name('index');
     Route::post('/user/balance', [App\Http\Controllers\User\HomeController::class, 'balance'])->name('balance');
+    Route::post('/user/getCoordinate', [App\Http\Controllers\User\HomeController::class, 'getCoordinate'])->name('getCoordinateUser');
+    Route::post('user//coordinateCity', [App\Http\Controllers\User\HomeController::class, 'coordinateCity'])->name('coordinateCityUser');
+    Route::post('user/coordinateDistrict', [App\Http\Controllers\User\HomeController::class, 'coordinateDistrict'])->name('coordinateDistrictUser');
+    Route::get('/loadCategory', [App\Http\Controllers\User\HomeController::class, 'loadCategory'])->name('loadCategory');
 
     Route::get('/user/downline', [App\Http\Controllers\User\DownlineController::class, 'index'])->name('downline');
+    Route::post('/user/list', [App\Http\Controllers\User\DownlineController::class, 'loadList'])->name('listUser');
+    Route::post('/user/listall', [App\Http\Controllers\User\DownlineController::class, 'listAll'])->name('listAllUser');
+    Route::post('/user/find', [App\Http\Controllers\User\DownlineController::class, 'find'])->name('Userfind');
+    Route::post('/user/findProv', [App\Http\Controllers\User\DownlineController::class, 'findProv'])->name('findProvUser');
+    Route::post('/user/findCity', [App\Http\Controllers\User\DownlineController::class, 'findCity'])->name('findCityUser');
+    Route::post('/user/delete', [App\Http\Controllers\User\DownlineController::class, 'delete'])->name('disabledUser');
+    Route::post('/user/create', [App\Http\Controllers\User\DownlineController::class, 'create'])->name('saveUser');
+
+    Route::get('/user/config', [App\Http\Controllers\User\ConfigController::class, 'index'])->name('config');
+});
+
+Route::group(['middleware' => 'CheckTokenUser'], function () {
+    // User
+    Route::get('/user/home', [App\Http\Controllers\User\HomeController::class, 'index'])->name('index');
+    Route::post('/user/balance', [App\Http\Controllers\User\HomeController::class, 'balance'])->name('balance');
+    Route::post('/user/getCoordinate', [App\Http\Controllers\User\HomeController::class, 'getCoordinate'])->name('getCoordinateUser');
+    Route::post('user//coordinateCity', [App\Http\Controllers\User\HomeController::class, 'coordinateCity'])->name('coordinateCityUser');
+    Route::post('user/coordinateDistrict', [App\Http\Controllers\User\HomeController::class, 'coordinateDistrict'])->name('coordinateDistrictUser');
+
+    Route::get('/user/downline', [App\Http\Controllers\User\DownlineController::class, 'index'])->name('downline');
+    Route::post('/user/list', [App\Http\Controllers\User\DownlineController::class, 'loadList'])->name('listUser');
+    Route::post('/user/listall', [App\Http\Controllers\User\DownlineController::class, 'listAll'])->name('listAllUser');
+    Route::post('/user/find', [App\Http\Controllers\User\DownlineController::class, 'find'])->name('Userfind');
+    Route::post('/user/findProv', [App\Http\Controllers\User\DownlineController::class, 'findProv'])->name('findProvUser');
+    Route::post('/user/findCity', [App\Http\Controllers\User\DownlineController::class, 'findCity'])->name('findCityUser');
+    Route::post('/user/delete', [App\Http\Controllers\User\DownlineController::class, 'delete'])->name('disabledUser');
+    Route::post('/user/create', [App\Http\Controllers\User\DownlineController::class, 'create'])->name('saveUser');
 
     Route::get('/user/config', [App\Http\Controllers\User\ConfigController::class, 'index'])->name('config');
 });

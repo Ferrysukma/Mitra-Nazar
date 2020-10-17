@@ -32,7 +32,7 @@ class ConfigController extends Controller
         
         $request    = $client->post($url, [
             'headers'   => [
-                'Authorization' => Session::get('admin_key')
+                'Authorization' => Session::get('user_key')
             ],
             'json'      => [
                 "payload"   => [
@@ -70,7 +70,7 @@ class ConfigController extends Controller
             $url        = $this->base_url . 'mitra/admin/list-mitra';
             $request    = $client->post($url, [
                 'headers'   => [
-                    'Authorization' => Session::get('admin_key')
+                    'Authorization' => Session::get('user_key')
                 ],
                 'json'      => [
                     "payload"   => [
@@ -86,7 +86,7 @@ class ConfigController extends Controller
             $prov       = isset($request->provinsi) ? $request->provinsi : 'Jawa barat';
             $request    = $client->post($url, [
                 'headers'   => [
-                    'Authorization' => Session::get('admin_key')
+                    'Authorization' => Session::get('user_key')
                 ],
                 'json'      => [
                     "payload"   => [
@@ -134,7 +134,7 @@ class ConfigController extends Controller
             $url        = $this->base_url . 'mitra/admin/edit-mitra';
             $request    = $client->post($url, [
                 'headers'   => [
-                    'Authorization' => Session::get('admin_key')
+                    'Authorization' => Session::get('user_key')
                 ],
                 'json'      => [
                     "payload"   => [
@@ -154,7 +154,7 @@ class ConfigController extends Controller
             $url        = $this->base_url . 'mitra/admin/register-mitra';
             $request    = $client->post($url, [
                 'headers'   => [
-                    'Authorization' => Session::get('admin_key')
+                    'Authorization' => Session::get('user_key')
                 ],
                 'json'      => [
                     "payload"   => [
@@ -188,7 +188,7 @@ class ConfigController extends Controller
         $url        = $this->base_url . 'mitra/admin/disable-mitra';
         $request    = $client->post($url, [
             'headers'   => [
-                'Authorization' => Session::get('admin_key')
+                'Authorization' => Session::get('user_key')
             ],
             'json'      => [
                 "payload"   => [
@@ -214,7 +214,7 @@ class ConfigController extends Controller
         $url        = $this->base_url . 'mitra/admin/findUser';
         $request    = $client->post($url, [
             'headers'   => [
-                'Authorization' => Session::get('admin_key')
+                'Authorization' => Session::get('user_key')
             ],
             'json'      => [
                 "payload"   => $request->id
