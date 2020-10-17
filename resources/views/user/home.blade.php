@@ -255,6 +255,19 @@
         })
     }
 
+    function balance() {
+        $.ajax({
+            type    : "GET",
+            url     : "{{ route('balance') }}",
+            dataType: "JSON",
+            success : function (res) {
+                $('#rupiah').text(number_format(res.data.balActive));
+            } 
+        })
+    }
+
+    balance();
+
     function setting(res, data) {
         $('#imageUser').attr('src', res);
         $('#coor').text(data.tipe)
