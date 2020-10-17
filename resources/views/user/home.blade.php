@@ -28,7 +28,7 @@
                     <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 12rem;" alt="" id="imageUser">
                 </div>
                 <div align="center">
-                    <p><b>{{ __('all.checkbox.central') }}</b></p>
+                    <p><b id="coor"></b></p>
                     <b>#</b> <b id="copy">Hello</b> <br>
                     <button class="btn btn-sm btn-secondary" onclick="copyToClipboard('#copy')">{{ __('all.button.copy') }}</button>
                     <br><br>
@@ -248,14 +248,17 @@
             url     : "{{ route('showHome') }}",
             dataType: "JSON",
             success : function (res) {
+                // profile
                 profile = res.data.profile;
-                getImg(profile.image);
+                setting(profile.image, profile.koordinatorProfile);
             } 
         })
     }
 
-    function getImg(res) {
+    function setting(res, data) {
         $('#imageUser').attr('src', res);
+        $('#coor').text(data.tipe)
+        $('#copy').text(data.userCode);
     }
 
     home();
