@@ -134,42 +134,5 @@ class HomeController extends Controller
 
         return json_encode(array('code' => 0, 'info' => true, 'data' => array('lat' => $latitude, 'long' => $longitude)));
     }
-
-    public function loadCategory(Request $request)
-    {
-        $client     = new Client();
-
-        $url        = $this->base_url . 'user/kategori/list';
-        
-        $request    = $client->post($url, [
-            'headers'   => [
-                'Authorization' => Session::get('user_key')
-            ],
-            'json'      => [
-                "payload"   => [
-                    "limit"         => 1000000000,
-                    "pageNumber"    => 0,
-                ]
-            ]
-        ]);
-        
-        $response   = $request->getBody()->getContents();
-        $status     = json_decode((string) $response, true)['status']['statusCode'];
-
-        if ($status == '000') {
-            $result = json_decode((string) $response)->payload;
-            
-            $row    = [];
-            foreach ($result as $key => $value) {
-                $row[]  = $value;
-            }
-
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
-        } else {
-            $result = 'empty';
-            
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
-        }
-    }
     
 }

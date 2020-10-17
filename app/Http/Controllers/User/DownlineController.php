@@ -207,4 +207,69 @@ class DownlineController extends Controller
             return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
         }
     }
+
+    public function findProv(Request $request)
+    {
+        $client     = new Client();
+        $url        = $this->base_url . 'find/province';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('user_key')
+            ],
+            'json'      => [
+                "query" => $request->filter
+            ]
+        ]);
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+            
+            $row    = [];
+            foreach ($result as $key => $value) {
+                $rows  = "<a class='dropdown-item' name='".$value->province."' id=".$value->provinceId." onclick='filterProv(this)'>".$value->province."</a>";
+                $row[]  = $rows;
+            }
+
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
+        } else {
+            $result = '<a class="text-center text-gray">'.__('all.datatable.no_data').'</a>';
+            
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+        }
+    }
+
+    public function findCity(Request $request)
+    {
+        $client     = new Client();
+        $url        = $this->base_url . 'find/city';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('user_key')
+            ],
+            'json'      => [
+                "provinceId"    => $request->filter,
+                "query"         => ""
+            ]
+        ]);
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+            
+            $row    = [];
+            foreach ($result as $key => $value) {
+                $rows  = "<a class='dropdown-item' name='".$value->city."' id=".$value->id." onclick='filterCity(this)'>".$value->city."</a>";
+                $row[]  = $rows;
+            }
+
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
+        } else {
+            $result = '<a class="text-center text-gray">'.__('all.datatable.no_data').'</a>';
+            
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+        }
+    }
 }

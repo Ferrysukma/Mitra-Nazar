@@ -96,6 +96,7 @@ return [
         'name_category'     => 'Nama Kategori Koodinator',
     ),
     'desc_partners'         => 'Anda bisa mengelola data mitra disini',
+    'desc_downline'         => 'Anda bisa mengelola downline anda disini',
     'desc_users'            => 'Anda bisa mengelola data pengguna disini',
     'desc_announcement'     => 'Anda bisa mengelola data pengumuman disini',
     'desc_category'         => 'Anda dapat mengelola data kategori koordinator di sini',

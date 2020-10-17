@@ -9,7 +9,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <h1 class="h3 mb-0 text-gray-800">Downline</h1>
-                        <p>{{ __('all.desc_partners') }}</p>
+                        <p>{{ __('all.desc_downline') }}</p>
                     </div>
                 </div>
             </div>

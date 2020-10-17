@@ -96,6 +96,7 @@ return [
         'name_category'     => 'Category Coordinator Name'
     ),
     'desc_partners'         => 'You can manage partners data here',
+    'desc_downline'         => 'You can manage downline data here',
     'desc_users'            => 'You can manage user data here',
     'desc_announcement'     => 'You can manage announcement data here',
     'desc_category'         => 'You can manage category coordinator data here',
