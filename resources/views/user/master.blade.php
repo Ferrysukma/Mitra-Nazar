@@ -225,7 +225,7 @@
     
     <!-- Modal -->
     <div class="modal fade" id="modal-notif" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title text-white">{{ __('all.notif') }}</h5>
@@ -313,6 +313,7 @@
                     "previous"  : "{{ __('all.datatable.prev') }}",
                 }
             },
+            "pagingType"        : "simple",
             "columnDefs"        : [ 
                 { targets: [0], orderable: false, className	: "text-center" },
             ],
@@ -423,7 +424,7 @@
                 success     : function(data){
                     if (data.code == 0) {
                         list = data.data.data;
-                        
+
                         if(list.length > 0){
                             $.each(list, function(idx, ref){
                                 table.row.add( [

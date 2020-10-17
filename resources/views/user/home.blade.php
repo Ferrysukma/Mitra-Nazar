@@ -214,8 +214,7 @@
 </div>
 @endsection
 
-@section('script')
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7Ah8Zuhy2ECqqjBNF8ri2xJ7mwwtIbwo&callback=initMap" defer></script>
+@section('scriptUser')
 <script>
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = '#858796';
@@ -249,19 +248,14 @@
             url     : "{{ route('showHome') }}",
             dataType: "JSON",
             success : function (res) {
-                list = res.data;
-                if (list.length > 0) {
-                    $.each(list, function(idx, ref){
-                        // getImg(ref.image);
-                        console.log(ref);
-                    });
-                }
+                profile = res.data.profile;
+                getImg(profile.image);
             } 
         })
     }
 
     function getImg(res) {
-        console.log(res);
+        $('#imageUser').attr('src', res);
     }
 
     home();

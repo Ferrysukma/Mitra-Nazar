@@ -38,13 +38,8 @@ class HomeController extends Controller
 
         if ($status == '000') {
             $result = json_decode((string) $response)->payload;
-            
-            $row    = [];
-            foreach ($result as $rows) {
-                $row[]  = $rows;
-            }
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
         } else {
             
             echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
