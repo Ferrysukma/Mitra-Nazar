@@ -47,8 +47,8 @@
                     </div>
                     <div class="col-sm-3"></div>
                     <div class="col-sm-3" style="float:right">
-                        <select name="perio" id="period" class="form-control select2">
-                            @for ($i = 2019; $i <= 2030; $i++)
+                        <select name="perio" id="period" class="form-control select2" onchange="grafikBar()">
+                            @for ($i = 2020; $i <= 2030; $i++)
                                 <option value="{{ $i }}">{{ $i }}</option>
                             @endfor
                         </select>
@@ -276,43 +276,75 @@
 
     home();
 
-    $('#bar-canvas-bs').remove(); $('#bar-chart-bs').append('<canvas id="bar-canvas-bs"><canvas>');
-    var ctx = document.getElementById('bar-canvas-bs').getContext('2d');
-    var MyChart = new Chart(
-        ctx,
-        {
-            type: 'bar',
-            data: {
-                labels: ['hai','haijua'],
-                datasets: [{
-                    data            : [10000, 110000],
-                    backgroundColor : ['#2980D0', '#2A516E','#F07124','#CBE0E3','#979193','#eb4034','#28423f','#54234f','#7583bd','#7ca368','#1d4f24','#707027','#afdeed','#0cb7ed','#303c40'],
-                    backgroundColor : ['#2980D0', '#2A516E','#F07124','#CBE0E3','#979193','#eb4034','#28423f','#54234f','#7583bd','#7ca368','#1d4f24','#707027','#afdeed','#0cb7ed','#303c40'],
-                }],
+    function grafikBar() {
+        $.ajax({
+            type    : "POST",
+            url     : "{{ route('comition') }}",
+            data    : {
+                _token  : "{{ csrf_token() }}",
+                year    : $('#period').val()
             },
-            options: {
-                legend: { display: false },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true,
-                            callback: function(value, index, values) {
-                                return number_format(value);
+            dataType: "JSON",
+            beforeSend: function(){
+                $('#bar-chart-bs').ploading({action: 'show'});
+            },
+            success : function(res){
+                var x  = [];
+                var y  = [];
+                
+                list = res.data;
+                if (list.length > 0) {
+                    $(list).each(function(i){  
+                        x.push(list[i].periode); 
+                        y.push(list[i].amount);
+                    });
+                }
+
+                $('#bar-canvas-bs').remove(); $('#bar-chart-bs').append('<canvas id="bar-canvas-bs"><canvas>');
+                var ctx = document.getElementById('bar-canvas-bs').getContext('2d');
+                var MyChart = new Chart(
+                    ctx,
+                    {
+                        type: 'bar',
+                        data: {
+                            labels: x,
+                            datasets: [{
+                                data            : y,
+                                backgroundColor : ['#2980D0', '#2A516E','#F07124','#CBE0E3','#979193','#eb4034','#28423f','#54234f','#7583bd','#7ca368','#1d4f24','#707027','#afdeed','#0cb7ed','#303c40'],
+                                backgroundColor : ['#2980D0', '#2A516E','#F07124','#CBE0E3','#979193','#eb4034','#28423f','#54234f','#7583bd','#7ca368','#1d4f24','#707027','#afdeed','#0cb7ed','#303c40'],
+                            }],
+                        },
+                        options: {
+                            legend: { display: false },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero:true,
+                                        callback: function(value, index, values) {
+                                            return number_format(value);
+                                        }
+                                    }
+                                }]
+                            },
+                            tooltips: {
+                                callbacks: {
+                                    label: function(tooltipItem, chart){
+                                        var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                                        return datasetLabel + '' + number_format(tooltipItem.yLabel, 2);
+                                    }
+                                }
                             }
                         }
-                    }]
-                },
-                tooltips: {
-                    callbacks: {
-                        label: function(tooltipItem, chart){
-                            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                            return datasetLabel + '' + number_format(tooltipItem.yLabel, 2);
-                        }
                     }
-                }
+                );
+            },
+            complete : function () {
+                $('#bar-chart-bs').ploading({action: 'hide'});
             }
-        }
-    );
+        })
+    }
+
+    grafikBar();
 
     $("#postbalance").validate({
         rules       : {

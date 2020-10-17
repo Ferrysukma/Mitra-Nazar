@@ -69,6 +69,41 @@ class HomeController extends Controller
         }
     }
 
+    public function comition(Request $request)
+    {
+        $client     = new Client();
+        $year       = isset($request->year) && !empty($request->year) ? $request->year : '2020';
+        $url        = $this->base_url . 'user/komisi-mitra';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('user_key')
+            ],
+            'json'      => [
+                'payload'   => [
+                    'tahun' => $year
+                ]
+            ]
+        ]);
+
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+
+            $rows   = [];
+            foreach ($result as $key) {
+                $key->periode   = date('F Y', strtotime($key->periode));
+                $rows[]         = $key;
+            } 
+
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $rows));
+        } else {
+            
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+        }
+    }
+
     public function notification(Request $request)
     {
         $client     = new Client();
