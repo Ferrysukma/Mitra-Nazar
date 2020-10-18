@@ -48,7 +48,7 @@ class DownlineController extends Controller
             
             $row    = [];
             foreach ($result as $key => $value) {
-                // $value->koordinatorProfile.active      = $value->active == '1' ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
+                $value->koordinatorProfile->active      = $value->koordinatorProfile->active == 'true' ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
                 $value->koordinatorProfile->koordinat   = "<a target='_blank' href='http://maps.google.com/?ll=".$value->koordinatorProfile->koordinat."'>".__('all.open_maps')." <i class='fa fa-map-marker-alt'></i></a>";
                 $row[]              = $value;
             }
@@ -181,6 +181,31 @@ class DownlineController extends Controller
             return json_encode(array('code' => 0, 'info' => $desc, 'data' => null));
         } else {
             return json_encode(array('code' => 1, 'info' => $desc, 'data' => null));
+        }
+    }
+
+    public function findCode(Request $request)
+    {
+        $client     = new Client();
+        
+        $url        = $this->base_url . 'user/downline-mitra';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('user_key')
+            ],
+            'json'      => [
+                "payload"   => $request->id
+            ]
+        ]);
+
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
+        } else {
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
         }
     }
 

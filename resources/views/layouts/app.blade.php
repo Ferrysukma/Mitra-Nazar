@@ -50,6 +50,9 @@
             text-align      : center;
             padding         : 10px 10px 10px 10px;
         }
+        label {
+            font-weight: 800;
+        }
     </style>
 
 </head>

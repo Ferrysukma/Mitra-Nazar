@@ -74,15 +74,15 @@
             <div class="card-footer">
                 <div class="table-responsive">
                     <div class="card-title">
-                        <h4>{{ __('all.table_chart') }}</h4>
+                        <h4>{{ __('all.table_down') }}</h4>
                     </div>
                     <hr>
                     <table class="table table-hover table-striped table-condensed table-bordered" id="table-maps" width="100%">
                         <thead>
                             <tr>
                                 <th style="text-align:center">No</th>
-                                <th>{{ __('all.table.partner_id') }}</th>
-                                <th>{{ __('all.table.partner_nm') }}</th>
+                                <th>ID Downline</th>
+                                <th>{{ __('all.table.nmDown') }}</th>
                                 <th>{{ __('all.table.coordinator_type') }}</th>
                                 <th>{{ __('all.category_coordinator') }}</th>
                                 <th>{{ __('all.table.prov') }}</th>
@@ -90,7 +90,7 @@
                                 <th>{{ __('all.form.district') }}</th>
                                 <th>{{ __('all.table.address') }}</th>
                                 <th>{{ __('all.table.coordinate') }}</th>
-                                <!-- <th>{{ __('all.table.status') }}</th> -->
+                                <th>{{ __('all.table.status') }}</th>
                                 <th style="text-align:center">{{ __('all.table.action') }}</th>
                             </tr>
                         </thead>
@@ -116,10 +116,10 @@
                     <form action="#" method="post" id="postmitra">
                         <input type="hidden" name="id" id="id">
                         <div class="form-group row">
-                            <label for="old" class="col-sm-3">{{ __('all.form.code_user') }} <sup class="text-danger">*</sup></label>
+                            <label for="old" class="col-sm-3">ID Downline <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
                                 <div class="input-group mb-3">
-                                    <input type="text" name="userCode" id="userCode" class="form-control readonly" placeholder="{{ __('all.placeholder.code_user') }}" aria-describedby="basic-addon1">
+                                    <input type="text" name="userCode" id="userCode" class="form-control readonly" placeholder="{{ __('all.placeholder.code_userDown') }}" aria-describedby="basic-addon1">
                                     <div class="input-group-prepend">
                                         <button type="button" class="btn btn-primary input-group-text" id="basic-addon1" onclick="findUser()" disabled><i class="fa fa-search"></i></button>
                                     </div>
@@ -127,7 +127,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="old" class="col-sm-3">{{ __('all.table.partner_nm') }} <sup class="text-danger">*</sup></label>
+                            <label for="old" class="col-sm-3">{{ __('all.table.nm_down') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
                                 <input type="text" name="nama" id="nama" class="form-control readonly" readonly>
                             </div>
@@ -213,7 +213,7 @@
             <div class="modal-body">
                 <center>
                     <span>{{ __('all.confirm') }} ?</span>
-                    <span>{{ __('all.text_confirm') }}</span>
+                    <span>{{ __('all.text_confirmDown') }}</span>
                 </center>
                 <input type="hidden" name="partner_id" id="partner_id">
             </div>
@@ -225,6 +225,145 @@
     </div>
 </div>
 <!-- End Modal Change Password -->
+
+<!-- Modal -->
+<div class="modal fade" id="modal-detail" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content create-detail">
+            <div class="modal-header">
+                <h5 class="modal-title text-white">{{ __('all.button.detail') }}</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-body">
+                                <div class="text-center">
+                                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" alt="" id="imageUser">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-md-6 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">{{ __('all.button.detail') }} Downline</h6>
+                            </div>
+                            <div class="card-body">
+                                <form action="#" method="post" id="postdetail">
+                                    <div class="form-group row">
+                                        <label for="old" class="col-sm-5">ID Downline</label>
+                                        <div class="col-sm-7">
+                                            <span id="idDown"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="old" class="col-sm-5">{{ __('all.table.nmDown') }}</label>
+                                        <div class="col-sm-7">
+                                            <span id="nmDown"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="old" class="col-sm-5">{{ __('all.table.coordinator_type') }}</label>
+                                        <div class="col-sm-7">
+                                            <span id="tipeDown"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="category" class="col-sm-5">{{ __('all.category_coordinator') }}</label>
+                                        <div class="col-sm-7">
+                                            <span id="kategoriDown"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="old" class="col-sm-5">{{ __('all.table.prov') }}</label>
+                                        <div class="col-sm-7">
+                                            <span id="provDown"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="old" class="col-sm-5">{{ __('all.table.city') }}</label>
+                                        <div class="col-sm-7">
+                                            <span id="cityDown"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="old" class="col-sm-5">{{ __('all.form.district') }}</label>
+                                        <div class="col-sm-7">
+                                            <span id="distDown"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="old" class="col-sm-5">{{ __('all.table.address') }}</label>
+                                        <div class="col-sm-7">
+                                            <span id="addDown"></span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xl-6 col-md-6 mb-4">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" align="center">{{ __('all.checkbox.regional') }}</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="countR" align="center"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-md-6 mb-4">
+                                <div class="card border-left-info shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" align="center">{{ __('all.checkbox.city') }}</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="countC" align="center"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card border-left-success shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" align="center">{{ __('all.checkbox.district') }}</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="countD" align="center"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="card border-left-warning shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" align="center">{{ __('all.checkbox.village') }}</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="countV" align="center"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('scriptUser')
@@ -251,7 +390,7 @@
         },
         "columnDefs"        : [ 
             { targets: [0], orderable: false, className	: "text-center" },
-            { targets: [10], orderable: false, searchable: false, className	: "text-center" },
+            { targets: [11], orderable: false, searchable: false, className	: "text-center" },
         ],
         "initComplete"      : function() {
             $('[data-toggle="tooltip"]').tooltip();
@@ -486,8 +625,8 @@
                                 ref.koordinatorProfile['kecamatan'],
                                 ref.koordinatorProfile['alamat'],
                                 ref.koordinatorProfile['koordinat'],
-                                // ref.active,
-                                "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='"+ref.koordinatorProfile['id']+"'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='"+ref.koordinatorProfile['id']+"' title='{{ __('all.button.delete') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-trash'></i></button></div>", 
+                                ref.active,
+                                "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='"+ref.koordinatorProfile['id']+"'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-info action-detail' title='{{ __('all.button.detail') }}' data-toggle='tooltip' data-placement='top' id='"+ref.koordinatorProfile['userCode']+"'><i class='fa fa-eye'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='"+ref.koordinatorProfile['id']+"' title='{{ __('all.button.delete') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-trash'></i></button></div>", 
                             ] ).draw( false );
                         });
                     }
@@ -622,7 +761,40 @@
         showModal('disabled-mitra'); 
         $('#partner_id').val($(this).attr('id'));
         $('#disabled-mitra').find('.modal-title').text("{{ __('all.disabled_partner') }} "+data[2]+"");
-    })
+    });
+
+    $('#table-maps tbody').on('click', '.action-detail', function () {
+        var data = table.row( $(this).parents('tr') ).data();
+        showModal('modal-detail','postdetail');
+        $('#idDown').text(data[1]);
+        $('#nmDown').text(data[2]);
+        $('#tipeDown').text(data[3]);
+        $('#kategoriDown').text(data[4]);
+        $('#provDown').text(data[5]);
+        $('#cityDown').text(data[6]);
+        $('#distDown').text(data[7]);
+        $('#addDown').text(data[8]);
+
+        findCode(data[1]);
+    });
+
+    function findCode(id) {
+        $.ajax({
+            type        : "POST",
+            url         : "{{ route('findCode') }}",
+            data        : {
+                _token  : "{{ csrf_token() }}",
+                id      : id
+            }, 
+            dataType    : "JSON",
+            success     : function (res) {
+                $('#countP').text(res.data.provinsi);
+                $('#countC').text(res.data.kota);
+                $('#countD').text(res.data.kecamatan);
+                $('#countV').text(res.data.desa);
+            }
+        })
+    }
     
     showData();
 

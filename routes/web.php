@@ -68,25 +68,6 @@ Route::group(['middleware' => 'CheckToken'], function () {
     Route::post('/deleteCategory', [App\Http\Controllers\Admin\CategoryController::class, 'delete'])->name('deleteCategory');
 
     Route::get('lang/{language}', [App\Http\Controllers\LocalizationController::class, 'switch'])->name('localization.switch');
-
-    // User
-    Route::get('/user/home', [App\Http\Controllers\User\HomeController::class, 'index'])->name('index');
-    Route::post('/user/balance', [App\Http\Controllers\User\HomeController::class, 'balance'])->name('balance');
-    Route::post('/user/getCoordinate', [App\Http\Controllers\User\HomeController::class, 'getCoordinate'])->name('getCoordinateUser');
-    Route::post('user//coordinateCity', [App\Http\Controllers\User\HomeController::class, 'coordinateCity'])->name('coordinateCityUser');
-    Route::post('user/coordinateDistrict', [App\Http\Controllers\User\HomeController::class, 'coordinateDistrict'])->name('coordinateDistrictUser');
-    Route::get('/loadCategory', [App\Http\Controllers\User\HomeController::class, 'loadCategory'])->name('loadCategory');
-
-    Route::get('/user/downline', [App\Http\Controllers\User\DownlineController::class, 'index'])->name('downline');
-    Route::post('/user/list', [App\Http\Controllers\User\DownlineController::class, 'loadList'])->name('listUser');
-    Route::post('/user/listall', [App\Http\Controllers\User\DownlineController::class, 'listAll'])->name('listAllUser');
-    Route::post('/user/find', [App\Http\Controllers\User\DownlineController::class, 'find'])->name('Userfind');
-    Route::post('/user/findProv', [App\Http\Controllers\User\DownlineController::class, 'findProv'])->name('findProvUser');
-    Route::post('/user/findCity', [App\Http\Controllers\User\DownlineController::class, 'findCity'])->name('findCityUser');
-    Route::post('/user/delete', [App\Http\Controllers\User\DownlineController::class, 'delete'])->name('disabledUser');
-    Route::post('/user/create', [App\Http\Controllers\User\DownlineController::class, 'create'])->name('saveUser');
-
-    Route::get('/user/config', [App\Http\Controllers\User\ConfigController::class, 'index'])->name('config');
 });
 
 Route::group(['middleware' => 'CheckTokenUser'], function () {
@@ -109,6 +90,7 @@ Route::group(['middleware' => 'CheckTokenUser'], function () {
     Route::post('/user/list', [App\Http\Controllers\User\DownlineController::class, 'loadList'])->name('listUser');
     Route::post('/user/listall', [App\Http\Controllers\User\DownlineController::class, 'listAll'])->name('listAllUser');
     Route::post('/user/find', [App\Http\Controllers\User\DownlineController::class, 'find'])->name('Userfind');
+    Route::post('/user/findCode', [App\Http\Controllers\User\DownlineController::class, 'findCode'])->name('findCode');
     Route::post('/user/findProv', [App\Http\Controllers\User\DownlineController::class, 'findProv'])->name('findProvUser');
     Route::post('/user/findCity', [App\Http\Controllers\User\DownlineController::class, 'findCity'])->name('findCityUser');
     Route::post('/user/delete', [App\Http\Controllers\User\DownlineController::class, 'delete'])->name('disabledUser');
@@ -118,5 +100,5 @@ Route::group(['middleware' => 'CheckTokenUser'], function () {
 
     Route::get('/user/account', [App\Http\Controllers\User\AccountController::class, 'loadList'])->name('account');
     Route::post('/user/createBank', [App\Http\Controllers\User\AccountController::class, 'create'])->name('createBank');
-    Route::post('/user/delete', [App\Http\Controllers\User\AccountController::class, 'delete'])->name('disabledBank');
+    Route::post('/user/deleteBank', [App\Http\Controllers\User\AccountController::class, 'delete'])->name('disabledBank');
 });
