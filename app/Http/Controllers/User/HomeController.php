@@ -128,7 +128,7 @@ class HomeController extends Controller
     }
 
     public function editProfile(Request $request)
-    {
+    {        
         $client     = new Client();
 
         // name
@@ -183,20 +183,48 @@ class HomeController extends Controller
         $sDay       = json_decode((string) $resDay, true)['status']['statusCode'];
         $dDay       = json_decode((string) $resDay, true)['status']['statusDesc'];
         
-        // name
-        $urlImg    = $this->base_url . 'user/profile/edit-picture';
-        $reqImg    = $client->post($urlImg, [
-            'headers'   => [
+        // upload image
+        $file       = $request->file('img_upload');
+        $fileName   = $file->getClientOriginalName();
+        $realPath   = $file->getRealPath();
+
+        $urlUimg    = $this->base_url . 'image/upload-profile-user';
+        $reqUimg    = $client->post($urlUimg, [
+            'headers' => [
+                'Accept' => 'application/json',
                 'Authorization' => Session::get('user_key')
             ],
-            'json'      => [
-                'payload'   => $request->img_upload
+            'multipart' => [
+                [
+                    'name' => 'file',
+                    'contents' => file_get_contents($realPath),
+                    'filename' => $fileName
+                ]
             ]
         ]);
 
-        $resImg     = $reqImg->getBody()->getContents();
-        $sImg       = json_decode((string) $resImg, true)['status']['statusCode'];
-        $dImg       = json_decode((string) $resImg, true)['status']['statusDesc'];
+        $resUimg    = $reqUimg->getBody()->getContents();
+        $data       = json_decode($resUimg);
+
+        if ($data->status->statusCode == '000') {
+            // edit image
+            $urlImg    = $this->base_url . 'user/profile/edit-picture';
+            $reqImg    = $client->post($urlImg, [
+                'headers'   => [
+                    'Authorization' => Session::get('user_key')
+                ],
+                'json'      => [
+                    'payload'   => $data->payload
+                ]
+            ]);
+
+            $resImg     = $reqImg->getBody()->getContents();
+            $sImg       = json_decode((string) $resImg, true)['status']['statusCode'];
+            $dImg       = json_decode((string) $resImg, true)['status']['statusDesc'];
+        } else {
+            $sImg       = '001';
+            $dImg       = 'Upload Fail';
+        }
 
         if ($sName == '000' AND $sGender == '000' AND $sDay == '000' AND $sImg == '000') {
             echo json_encode(array('code' => 0, 'info' => $dName, 'data' => null));

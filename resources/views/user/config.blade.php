@@ -77,7 +77,7 @@
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.img') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="file" name="img_upload" id="img_upload" data-height="300" accept="image/x-png,image/gif,image/jpeg">
+                            <input type="file" name="img_upload" id="img_upload" data-height="30vh" data-allowed-file-extensions="jpg png jpeg" data-max-file-size="1M" data-show-remove="false" class="dropify">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -354,6 +354,8 @@
         .update('maxDate', new Date(endDate));
 
     function profile() {
+        $('#formProfile').ploading({action:'show'});
+
         $.ajax({
             type    : "GET",
             url     : "{{ route('showHome') }}",
@@ -362,6 +364,8 @@
                 // profile
                 profile = res.data.profile;
                 setting(profile, profile.koordinatorProfile);
+
+                $('#formProfile').ploading({action:'hide'});
             } 
         })
     }
@@ -393,16 +397,8 @@
         $('#kota').val(data.kota);
         $('#kecamatan').val(data.kecamatan);
         $('#desa').val(data.desa);
-        var drEvent = $('#img_upload').dropify(
-        {
-            defaultFile: res.image
-        });
-        drEvent = drEvent.data('dropify');
-        drEvent.resetPreview();
-        drEvent.clearElement();
-        drEvent.settings.defaultFile = res.image;
-        drEvent.destroy();
-        drEvent.init();
+        $("#img_upload").attr("data-default-file", res.image);
+        $('.dropify').dropify();
         $('#birthday').val(moment.utc(data.birthday).format('DD MMM YYYY'));
     }
 
@@ -478,8 +474,8 @@
         },
         submitHandler           : function(form) {
             var data = new FormData();
-                // data.append('img_upload', $('#img_upload')[0].files[0]);
-                data.append('img_upload', $('.dropify-render').find('img').attr('src'));
+                data.append('img_upload', $('#img_upload')[0].files[0]);
+                // data.append('img_upload', $('.dropify-render').find('img').attr('src'));
                 data.append('id', $("#idPro").val()); 
                 data.append('name', $("#name").val()); 
                 data.append('gender', $('input[name=gender]:checked', '#postprofile').val()); 
