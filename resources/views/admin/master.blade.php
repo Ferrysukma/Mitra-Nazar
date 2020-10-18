@@ -80,7 +80,7 @@
                             <h4>{{ __('all.title_chart') }}</h4>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div style="height:40vh; width:100%">
+                            <div style="height:40vh; width:100%" id="divChart">
                                 <canvas id="myChart"></canvas>
                             </div>
                         </div>
@@ -127,6 +127,30 @@
         </div>
     </div>
 </div>
+
+<!-- Start Modal Change Password -->
+<div class="modal fade" id="disabled-mitra" role="dialog">
+    <div class="modal-dialog modals-default">
+        <div class="modal-content delete-mitra">
+            <div class="modal-header">
+                <h3 class="modal-title text-white"></h3>
+                <hr>
+            </div>
+            <div class="modal-body">
+                <center>
+                    <span>{{ __('all.confirm') }} ?</span>
+                    <span>{{ __('all.text_confirm') }}</span>
+                </center>
+                <input type="hidden" name="partner_id" id="partner_id">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.cancel') }}</button>
+                <button type="button" class="btn btn-success" onclick="disabledP()" id="btnClose">{{ __('all.yes') }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Modal Change Password -->
 @endsection
 
 @section('script')
@@ -406,7 +430,8 @@
                         y.push(list[i].cdate);
                     });
                 }
-                
+
+                $('#myChart').remove(); $('#divChart').append('<canvas id="myChart"><canvas>');
                 var ctx = document.getElementById("myChart");
                 var myChart = new Chart(ctx, {
                     type: 'line',
@@ -501,6 +526,48 @@
         });
     }
 
+    $('#table-chart tbody').on('click', '.action-delete', function () {
+        var data = table.row( $(this).parents('tr') ).data();
+
+        showModal('disabled-mitra'); 
+        $('#partner_id').val($(this).attr('id'));
+        $('#disabled-mitra').find('.modal-title').text("{{ __('all.disabled_partner') }} "+data[3]+"");
+    })
+
+    function disabledP() {
+        $.ajax({
+            type    : "POST",
+            url     : "{{ route('deletePartner') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data	: {
+                id  : $('#partner_id').val(),
+            },
+            dataType: "JSON",
+            beforeSend: function(){
+                $('#btnClose').buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+                $(".delete-mitra").ploading({action : 'show'});
+            },
+            success     : function(data){
+                if (data.code == 0) {
+                    notif('success', '{{ __("all.success") }}', '{{ __("all.alert.delete") }}');
+                    $('#disabled-mitra').modal('hide');
+                    showData();
+                } else {
+                    notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_delete") }}');
+                }
+            },
+            complete    : function(){
+                $('#btnClose').buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                $(".delete-mitra").ploading({action : 'hide'});
+            },
+            error 		: function(){
+                notif('error', '{{ __("all.error") }}');
+            }
+        });
+    }
+
     $('#start_dtm_chart').datepicker({
         language: 'en',
         dateFormat: 'dd M yyyy',
@@ -510,6 +577,8 @@
                 .update('minDate', date);
             $('#end_dtm_chart').focus();
             showData();
+            maps();
+            loadDataChart();
         }
     });
 
@@ -520,6 +589,7 @@
         onSelect: function(fd, date) {
             $('#start_dtm_chart').data('datepicker')
                 .update('maxDate', date);
+                showData();
                 maps();
                 loadDataChart();
         }
