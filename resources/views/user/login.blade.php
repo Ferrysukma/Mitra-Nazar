@@ -355,7 +355,7 @@
 					},
 					success     : function(data){
 						if (data.code == 0) {
-							notif('success', '{{ __("all.success") }}', '{{ __("all.alert.login") }}');
+							notif('success', '{{ __("all.success") }}', '{{ __("all.alert.login_us") }}');
                             window.location = "{{ route('index') }}";
 						} else {
 							notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_login") }}');
@@ -396,7 +396,7 @@
 					},
 					success     : function(data){
 						if (data.code == 0) {
-							notif('success', '{{ __("all.success") }}', '{{ __("all.alert.login") }}');
+							notif('success', '{{ __("all.success") }}', '{{ __("all.alert.login_us") }}');
                             window.location = "{{ route('index') }}";
 						} else {
 							notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_login") }}');
@@ -465,7 +465,7 @@
 					},
 					success     : function(data){
 						if (data.code == 0) {
-							notif('success', '{{ __("all.success") }}', '{{ __("all.alert.login") }}');
+							notif('success', '{{ __("all.success") }}', '{{ __("all.alert.login_us") }}');
                             window.location = "{{ route('index') }}";
 						} else {
 							notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_login") }}');

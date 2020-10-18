@@ -66,6 +66,7 @@ return [
         'gender'        => 'Jenis Kelamin',
         'dateBirth'     => 'Tanggal Lahir',
         'img'           => 'Foto',
+        'password'      => 'Kata Sandi',
     ),
     'chart'         => 'Grafik',
     'maps'          => 'Peta',

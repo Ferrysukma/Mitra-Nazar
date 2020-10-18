@@ -66,6 +66,7 @@ return [
         'gender'        => 'Gender',
         'dateBirth'     => 'Date of Birth',
         'img'           => 'Image',
+        'password'      => 'Kata Sandi',
     ),
     'chart'         => 'Chart',
     'maps'          => 'Maps',

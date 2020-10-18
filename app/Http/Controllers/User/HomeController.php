@@ -127,6 +127,37 @@ class HomeController extends Controller
         }
     }
 
+    public function takeBalance(Request $request)
+    {
+        $client     = new Client();
+        $bank       = explode('~', $request->kodeBank);
+        $nominal    = str_replace('.', '', str_replace(',00', '', $request->nominal));
+        $url        = $this->base_url . 'withdraw/balance';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('user_key')
+            ],
+            'json'      => [
+                "kodeBank"          => $bank[0],
+                "namaBank"          => $bank[1],
+                "nomorRekening"     => $request->nomorRekening,
+                "pemilikRekening"   => $request->pemilikRekening,
+                "nominal"           => $nominal,
+                "password"          => $request->password
+            ]
+        ]);
+        
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+        $desc       = json_decode((string) $response, true)['status']['statusDesc'];
+
+        if ($status == '000') {
+            return json_encode(array('code' => 0, 'info' => $desc, 'data' => null));
+        } else {
+            return json_encode(array('code' => 1, 'info' => $desc, 'data' => null));
+        }
+    }
+
     public function editProfile(Request $request)
     {        
         $client     = new Client();

@@ -9,7 +9,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <h1 class="h3 mb-0 text-gray-800">{{ __('all.home') }}</h1>
-                        <p>{{ __('all.welcome') }}</p>
+                        <p>{{ __('all.welcome_us') }}</p>
                     </div>
                 </div>
             </div>
@@ -159,29 +159,29 @@
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.qtyTake') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="email" name="amount" id="amount" class="form-control amount" placeholder="{{ __('all.placeholder.qtyTake') }}">
+                            <input type="text" name="nominal" id="amount" class="form-control amount" placeholder="{{ __('all.placeholder.qtyTake') }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">Bank <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <select name="bank" id="bank" class="form-control select2"></select>
+                            <select name="kodeBank" id="bank" class="form-control select2"></select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.account') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="no_rek" id="no_rek" class="form-control only-number" placeholder="{{ __('all.placeholder.telp') }}">
+                            <input type="text" name="nomorRekening" id="no_rek" class="form-control only-number" placeholder="{{ __('all.placeholder.telp') }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.account_name') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="account_name" id="account_name" class="form-control" placeholder="{{ __('all.placeholder.account_name') }}">
+                            <input type="text" name="pemilikRekening" id="account_name" class="form-control" placeholder="{{ __('all.placeholder.account_name') }}">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.form.telp') }} <sup class="text-danger">*</sup></label>
+                        <label for="old" class="col-sm-3">{{ __('all.form.password') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
                             <div class="input-group mb-3">
                                 <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('all.placeholder.password') }}" aria-describedby="basic-addon1">
@@ -368,21 +368,47 @@
 
     grafikBar();
 
+    function listBank() {
+        $.ajax({
+            type    : "GET",
+            url     : "{{ route('listBank') }}",
+            dataType: "JSON",
+            success     : function(data){
+                if (data.code == 0) {
+                    $('#bank').empty();
+                    txt  = '';
+                    list = data.data;
+                    
+                    txt += '<option value="" selected>{{ __("all.placeholder.choose_bank") }}</option>';
+                    if(list.length > 0){
+                        $.each(list, function(idx, ref){
+                            txt += '<option value="'+ref.kodeBank+'~'+ref.namaBank+'">'+ref.namaBank+'</option>';
+                        });
+                    }
+
+                    $('#bank').append(txt);
+                } 
+            },
+        });
+    }
+
+    listBank();
+
     $("#postbalance").validate({
         rules       : {
             saldo           : "required",
-            amount          : "required",
-            bank            : "required",
-            account_name    : "required",
-            no_rek          : "required",
+            nominal         : "required",
+            kodeBank        : "required",
+            pemilikRekening : "required",
+            nomorRekening   : "required",
             password        : "required",
         },
         messages: {
             saldo           : "{{ __('all.validation.saldo') }}",
-            amount          : "{{ __('all.validation.amount') }}",
-            bank            : "{{ __('all.validation.bank') }}",
-            account_name    : "{{ __('all.validation.account_name') }}",
-            no_rek          : "{{ __('all.validation.no_rek') }}",
+            nominal         : "{{ __('all.validation.amount') }}",
+            kodeBank        : "{{ __('all.validation.bank') }}",
+            pemilikRekening : "{{ __('all.validation.account_name') }}",
+            nomorRekening   : "{{ __('all.validation.no_rek') }}",
             password        : "{{ __('all.validation.password') }}",
         },
         errorClass      : "invalid-feedback",
@@ -411,7 +437,7 @@
 
             $.ajax({
                 type	: "POST",
-                url		: "{{ route('balance') }}",
+                url		: "{{ route('takeBalance') }}",
                 data	: $('#postbalance').serialize(),
                 dataType: "JSON",
                 beforeSend: function(){
@@ -420,11 +446,11 @@
                 },
                 success     : function(data){
                     if (data.code == 0) {
-                        notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
+                        notif('success', '{{ __("all.success") }}', data.info);
                         resetForm('postbalance');
                         $('#modal-balance').modal('hide');
                     } else {
-                        notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
+                        notif('warning', '{{ __("all.warning") }}', data.info);
                     }
                 },
                 complete    : function(){

@@ -94,6 +94,7 @@ Route::group(['middleware' => 'CheckTokenUser'], function () {
     Route::get('/user/home', [App\Http\Controllers\User\HomeController::class, 'index'])->name('index');
     Route::get('/user/showHome', [App\Http\Controllers\User\HomeController::class, 'home'])->name('showHome');
     Route::get('/user/balance', [App\Http\Controllers\User\HomeController::class, 'balance'])->name('balance');
+    Route::post('/user/takeBalance', [App\Http\Controllers\User\HomeController::class, 'takeBalance'])->name('takeBalance');
     Route::get('/user/profile', [App\Http\Controllers\User\HomeController::class, 'profile'])->name('profile');
     Route::post('/user/editProfile', [App\Http\Controllers\User\HomeController::class, 'editProfile'])->name('editProfile');
     Route::post('/user/comition', [App\Http\Controllers\User\HomeController::class, 'comition'])->name('comition');
