@@ -158,6 +158,33 @@ class HomeController extends Controller
         }
     }
 
+    public function changePassword(Request $request)
+    {
+        $client = new Client();
+        $url = $this->base_url . 'user/changepassword';
+        $request = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('user_key')
+            ],
+            'json'      => [
+                "payload"   => [
+                    "oldPassword"     => $request->oldPassword,
+                    "newPassword"     => $request->newPassword,
+                ]
+            ]
+        ]);
+
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+        $description= json_decode((string) $response, true)['status']['statusDesc'];
+        
+        if ($status == '000') {
+            return json_encode(array('code' => 0, 'info' => $description, 'data' => null));
+        } else {
+            return json_encode(array('code' => 1, 'info' => $description, 'data' => null));
+        }
+    }
+
     public function editProfile(Request $request)
     {        
         $client     = new Client();

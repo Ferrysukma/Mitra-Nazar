@@ -338,12 +338,31 @@
             }
         }
 
-        $('#postpass').bootstrapValidator({
-            container: 'tooltip',
-            feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
+        $("#postpass").validate({
+            rules       : {
+                oldPassword     : "required",
+                newPassword     : "required",
+            },
+            messages: {
+                oldPassword     : "{{ __('all.validation.old') }}",
+                newPassword     : "{{ __('all.validation.new') }}",
+            },
+            errorClass      : "invalid-feedback",
+            errorElement    : "div",
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid').removeClass('is-valid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid').addClass('is-valid');
+            },
+            errorPlacement  : function(error,element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+                if (element.attr("name") == "oldPassword" || element.attr('name') == "newPassword") {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
             },
             submitHandler : function (validator, form, submitButton) {
                 $.ajaxSetup({
@@ -354,8 +373,8 @@
 
                 $.ajax({
                     type	: "POST",
-                    url		: "{{ route('changePassword') }}",
-                    data	: $(form).serialize(),
+                    url		: "{{ route('changePassUser') }}",
+                    data	: $('#postpass').serialize(),
                     dataType: "JSON",
                     beforeSend: function(){
                         $("#btn-pass").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
@@ -363,10 +382,10 @@
                     },
                     success     : function(data){
                         if (data.code == 0) {
-                            notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
-                            window.location = "{{ route('logout') }}";
+                            notif('success', '{{ __("all.success") }}', data.info);
+                            window.location = "{{ route('logoutUser') }}";
                         } else {
-                            notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_pass") }}');
+                            notif('warning', '{{ __("all.warning") }}', data.info);
                         }
                     },
                     complete    : function(){
