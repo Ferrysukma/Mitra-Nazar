@@ -91,7 +91,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                <button type="submit" class="btn btn-primary" id="btnSave">{{ __('all.save') }}</button>
+                <button type="submit" class="btn btn-success" id="btnSave">{{ __('all.save') }}</button>
                 </form>
             </div>
         </div>
@@ -169,7 +169,7 @@
             buttons: {
                 confirm: {
                     label: '{{ __("all.yes") }}',
-                    className: 'btn-primary'
+                    className: 'btn-success'
                 },
                 cancel: {
                     label: '{{ __("all.cancel") }}',

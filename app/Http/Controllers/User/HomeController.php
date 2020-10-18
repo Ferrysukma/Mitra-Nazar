@@ -127,6 +127,52 @@ class HomeController extends Controller
         }
     }
 
+    public function editProfile(Request $request)
+    {
+        $client     = new Client();
+        $url        = $this->base_url . 'user/profile';
+        $request    = $client->get($url, [
+            'headers'   => [
+                'Authorization' => Session::get('user_key')
+            ]
+        ]);
+
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
+        } else {
+            
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+        }
+    }
+
+    public function listBank(Request $request)
+    {
+        $client     = new Client();
+        $url        = $this->base_url . 'user/list-bank';
+        $request    = $client->get($url, [
+            'headers'   => [
+                'Authorization' => Session::get('user_key')
+            ]
+        ]);
+
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
+        } else {
+            
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+        }
+    }
+
     public function notification(Request $request)
     {
         $client     = new Client();

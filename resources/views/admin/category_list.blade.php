@@ -71,7 +71,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                <button type="submit" class="btn btn-primary" id="save-cat">{{ __('all.save') }}</button>
+                <button type="submit" class="btn btn-success" id="save-cat">{{ __('all.save') }}</button>
                 </form>
             </div>
         </div>
@@ -200,7 +200,7 @@
         var data = table.row( $(this).parents('tr') ).data();
 
         disable($(this).attr('id'), data[2]);
-    })
+    });
 
     function disable(id, name) {
         bootbox.confirm({
@@ -208,7 +208,7 @@
             buttons: {
                 confirm: {
                     label: '{{ __("all.yes") }}',
-                    className: 'btn-primary'
+                    className: 'btn-success'
                 },
                 cancel: {
                     label: '{{ __("all.cancel") }}',

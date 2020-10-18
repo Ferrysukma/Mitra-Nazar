@@ -194,7 +194,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                <button type="submit" class="btn btn-primary" id="save-balance">{{ __('all.save') }}</button>
+                <button type="submit" class="btn btn-success" id="save-balance">{{ __('all.save') }}</button>
                 </form>
             </div>
         </div>

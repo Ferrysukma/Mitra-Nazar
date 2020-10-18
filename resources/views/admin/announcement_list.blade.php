@@ -97,7 +97,7 @@
                         <hr>
                         <div align="right">
                             <button type="button" class="btn btn-secondary" onClick="formAnn()">{{ __('all.close') }}</button>
-                            <button type="submit" class="btn btn-primary" id="save-cat" disabled onClick="saveCat()">{{ __('all.save') }}</button>
+                            <button type="submit" class="btn btn-success" id="save-cat" disabled onClick="saveCat()">{{ __('all.save') }}</button>
                         </div>
                     </form>
                 </div>
@@ -149,7 +149,7 @@
                         </div>
                         <div align="right">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.button.back') }}</button>
-                            <button type="submit" class="btn btn-primary" id="save-ann">{{ __('all.save') }}</button>
+                            <button type="submit" class="btn btn-success" id="save-ann">{{ __('all.save') }}</button>
                         </div>
                     </form>
                 </div>

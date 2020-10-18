@@ -171,7 +171,7 @@
                 <div class="modal-body">{{ __('all.comment_logout') }}</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">{{ __('all.cancel') }}</button>
-                    <a class="btn btn-primary" id="btn-logout" onclick="logout()"><span class="text-white">{{ __('all.logout') }}</span></a>
+                    <a class="btn btn-success" id="btn-logout" onclick="logout()"><span class="text-white">{{ __('all.logout') }}</span></a>
                 </div>
             </div>
         </div>
@@ -210,7 +210,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                    <button type="submit" class="btn btn-primary" id="btn-pass">{{ __('all.save') }}</button>
+                    <button type="submit" class="btn btn-success" id="btn-pass">{{ __('all.save') }}</button>
                     </form>
                 </div>
             </div>

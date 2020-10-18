@@ -197,7 +197,7 @@
                         <hr>
                         <div align="right">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                            <button type="submit" class="btn btn-primary" id="save-mitra">{{ __('all.save') }}</button>
+                            <button type="submit" class="btn btn-success" id="save-mitra">{{ __('all.save') }}</button>
                         </div>
                     </form>
                 </div>
@@ -213,7 +213,7 @@
                         <hr>
                         <div align="right">
                             <button type="button" class="btn btn-secondary" onClick="formMitra()">{{ __('all.close') }}</button>
-                            <button type="submit" class="btn btn-primary" id="save-cat" disabled onClick="saveCat()">{{ __('all.save') }}</button>
+                            <button type="submit" class="btn btn-success" id="save-cat" disabled onClick="saveCat()">{{ __('all.save') }}</button>
                         </div>
                     </form>
                 </div>
@@ -239,7 +239,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.cancel') }}</button>
-                <button type="button" class="btn btn-primary" onclick="disabledP()" id="btnClose">{{ __('all.yes') }}</button>
+                <button type="button" class="btn btn-success" onclick="disabledP()" id="btnClose">{{ __('all.yes') }}</button>
             </div>
         </div>
     </div>

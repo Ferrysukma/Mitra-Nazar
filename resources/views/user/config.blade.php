@@ -54,13 +54,13 @@
                         <label for="old" class="col-sm-3">{{ __('all.form.gender') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="man" value="L">
+                                <input class="form-check-input" type="radio" name="gender" id="man" value="L">
                                 <label class="form-check-label" for="man">
                                     {{ __('all.male') }}
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="exampleRadios" id="woman" value="P">
+                                <input class="form-check-input" type="radio" name="gender" id="woman" value="P">
                                 <label class="form-check-label" for="woman">
                                     {{ __('all.female') }}
                                 </label>
@@ -76,7 +76,7 @@
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.img') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="file" class="dropify" name="img_upload" id="img_upload" data-height="300" accept="image/x-png,image/gif,image/jpeg">
+                            <input type="file" name="img_upload" id="img_upload" data-height="300" accept="image/x-png,image/gif,image/jpeg">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -118,7 +118,7 @@
             </div>
             <div class="card-footer">
                 <div style="float:right">
-                    <button type="submit" class="btn btn-primary" id="save-profile">{{ __('all.save') }}</button>
+                    <button type="submit" class="btn btn-success" id="save-profile">{{ __('all.save') }}</button>
                 </div>
                 </form>
             </div>
@@ -126,37 +126,18 @@
     </div>
 
     <div class="col-lg-6">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Banking</h6>
+        <div class="card shadow">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h6 class="m-0 font-weight-bold text-primary">Banking</h6>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-primary btn-sm float-right" id="add-account"><i class="fa fa-plus"></i> {{ __('all.button.new') }}</button>
+                    </div>
+                </div>
             </div>
-            <div class="card-body" id="formBank">
-                <form action="#" method="post" id="postbank">
-                    <div class="form-group row">
-                        <label for="old" class="col-sm-3">Bank<sup class="text-danger">*</sup></label>
-                        <div class="col-sm-9">
-                            <select name="bank" id="bank" class="form-control select2"></select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.form.account') }} <sup class="text-danger">*</sup></label>
-                        <div class="col-sm-9">
-                            <input type="text" name="no_rek" id="no_rek" class="form-control only-number" placeholder="{{ __('all.placeholder.telp') }}">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.form.account_name') }} <sup class="text-danger">*</sup></label>
-                        <div class="col-sm-9">
-                            <input type="text" name="account_name" id="account_name" class="form-control" placeholder="{{ __('all.placeholder.account_name') }}">
-                        </div>
-                    </div>
-                    <hr>
-                    <div align="right">
-                        <button type="submit" class="btn btn-primary" id="save-bank">{{ __('all.save') }}</button>
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer" id="tableBank">
+            <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover table-striped table-condensed table-bordered" id="table-bank">
                         <thead>
@@ -174,10 +155,192 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-account" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content create-account">
+            <div class="modal-header">
+                <h5 class="modal-title text-white">{{ __('all.') }}</h5>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post" id="postbank">
+                    <input type="hidden" name="id" id="idBank">
+                    <div class="form-group row">
+                        <label for="old" class="col-sm-3">Bank<sup class="text-danger">*</sup></label>
+                        <div class="col-sm-9">
+                            <select name="kodeBank" id="kodeBank" class="form-control select2"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="old" class="col-sm-3">{{ __('all.form.account') }} <sup class="text-danger">*</sup></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="nomorRekening" id="nomorRekening" class="form-control only-number" placeholder="{{ __('all.placeholder.account') }}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="old" class="col-sm-3">{{ __('all.form.account_name') }} <sup class="text-danger">*</sup></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="namaPemilikRekening" id="namaPemilikRekening" class="form-control" placeholder="{{ __('all.placeholder.account_name') }}">
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
+                <button type="submit" class="btn btn-success" id="save-bank">{{ __('all.save') }}</button>  
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('scriptUser')
 <script>
+    var table = $('#table-bank').DataTable({
+        "language" : {
+            "lengthMenu"    : "{{ __('all.datatable.show_entries') }}",
+            "emptyTable"    : "{{ __('all.datatable.no_data') }}",
+            "info"        	: "{{ __('all.datatable.showing_start') }}",
+            "infoFiltered"  : "{{ __('all.datatable.filter') }}",
+            "infoEmpty"     : "{{ __('all.datatable.showing_null') }}",
+            "loadingRecords": "{{ __('all.datatable.load') }}",
+            "processing"    : "{{ __('all.datatable.process') }}",
+            "search"      	: "{{ __('all.datatable.search') }}",
+            "zeroRecords"   : "{{ __('all.datatable.zero') }}",
+            "paginate"      : 
+            {
+                "first"     : "{{ __('all.datatable.first') }}",
+                "last"      : "{{ __('all.datatable.last') }}",
+                "next"      : "{{ __('all.datatable.next') }}",
+                "previous"  : "{{ __('all.datatable.prev') }}",
+            }
+        },
+        "columnDefs"        : [ 
+            { targets: [0], orderable: false, className	: "text-center" },
+            { targets: [4], orderable: false, searchable: false, className	: "text-center" },
+        ],
+        "initComplete"      : function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        },
+    });
+
+    $(document).on('click','#add-account', function () {
+        showModal('modal-account', 'postbank');
+        $('#kodeBank').val('').change();
+        $('#modal-account').find('.modal-title').text("{{ __('all.add_bank') }}");
+    });
+
+    function loadListBank() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type    : "GET",
+            url     : "{{ route('account') }}",
+            dataType: "JSON",
+            beforeSend: function(){
+                table.clear().draw();
+                $("#table-bank").parent().ploading({action : 'show'});
+            },
+            success     : function(data){
+                if (data.code == 0) {
+                    list = data.data;
+                    
+                    if(list.length > 0){
+                        $.each(list, function(idx, ref){
+                            table.row.add( [
+                                idx + 1,
+                                ref.namaBank,
+                                ref.namaPemilikRekening,
+                                ref.nomorRekening,
+                                "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='"+ref.id+"' code='"+ref.bankId+"'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='"+ref.id+"' title='{{ __('all.button.delete') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-trash'></i></button></div>", 
+                            ] ).draw( false );
+                        });
+                    }
+                } 
+            },
+            complete : function () {
+                $("#table-bank").parent().ploading({action : 'hide'});
+            }
+        });
+    }
+
+    loadListBank();
+
+    $('#table-bank tbody').on('click', '.action-edit', function () {
+        var data = table.row( $(this).parents('tr') ).data();
+        showModal('modal-account', 'postbank');
+        $('#modal-account').find('.modal-title').text("{{ __('all.edit_bank') }} #"+data[0]);
+        $('#idBank').val($(this).attr('id'));
+        $('#kodeBank').val($(this).attr('code')).change();
+        $('#namaPemilikRekening').val(data[2]);
+        $('#nomorRekening').val(data[3]);
+    });
+
+    $('#table-bank tbody').on('click', '.action-delete', function () {
+        var data = table.row( $(this).parents('tr') ).data();
+
+        disable($(this).attr('id'), data[2]);
+    });
+
+    function disable(id, name) {
+        bootbox.confirm({
+            message: "{{ __('all.confirm_disable') }} <b>"+name+"</b>?",
+            buttons: {
+                confirm: {
+                    label: '{{ __("all.yes") }}',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: '{{ __("all.cancel") }}',
+                    className: 'btn-secondary'
+                }
+            },
+            callback: function (res) {
+                if(res){
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                        type    : "POST",
+                        url     : "{{ route('disabledBank') }}",
+                        data	: {
+                            id  : id,
+                        },
+                        dataType: "JSON",
+                        beforeSend: function(){
+                            $(this).buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+                            $("#table-bank").parent().ploading({action : 'show'});
+                        },
+                        success     : function(data){
+                            if (data.code == 0) {
+                                notif('success', '{{ __("all.success") }}', data.info);
+                                loadListBank;
+                                resetData();
+                            } else {
+                                notif('warning', '{{ __("all.warning") }}', data.info);
+                            }
+                        },
+                        complete    : function(){
+                            $(this).buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                            $("#table-bank").parent().ploading({action : 'hide'});
+                        },
+                        error 		: function(){
+                            notif('error', '{{ __("all.error") }}');
+                        }
+                    });
+                }
+            }
+        });
+    }
+
     $('#birthday').datepicker({
         language: 'en',
         dateFormat: 'dd M yyyy',
@@ -228,29 +391,71 @@
         $('#kota').val(data.kota);
         $('#kecamatan').val(data.kecamatan);
         $('#desa').val(data.desa);
-        $('#img_upload').attr("data-default-file", res.image);
-        $('.dropify').dropify();
+        var drEvent = $('#img_upload').dropify(
+        {
+            defaultFile: res.image
+        });
+        drEvent = drEvent.data('dropify');
+        drEvent.resetPreview();
+        drEvent.clearElement();
+        drEvent.settings.defaultFile = res.image;
+        drEvent.destroy();
+        drEvent.init();
         $('#birthday').val(moment.utc(data.birthday).format('DD MMM YYYY'));
     }
 
     profile();
 
+    function listBank() {
+        $.ajax({
+            type    : "GET",
+            url     : "{{ route('listBank') }}",
+            dataType: "JSON",
+            success     : function(data){
+                if (data.code == 0) {
+                    $('#kodeBank').empty();
+                    txt  = '';
+                    list = data.data;
+                    
+                    txt += '<option value="" selected>{{ __("all.placeholder.choose_bank") }}</option>';
+                    if(list.length > 0){
+                        $.each(list, function(idx, ref){
+                            txt += '<option value="'+ref.kodeBank+'">'+ref.namaBank+'</option>';
+                        });
+                    }
+
+                    $('#kodeBank').append(txt);
+                } 
+            },
+        });
+    }
+
+    listBank();
+
     $("#postprofile").validate({
         rules       : {
-            saldo           : "required",
-            amount          : "required",
-            bank            : "required",
-            account_name    : "required",
-            no_rek          : "required",
-            password        : "required",
+            userCode        : "required",
+            name            : "required",
+            tipe            : "required",
+            kategori        : "required",
+            provinsi        : "required",
+            kecamatan       : "required",
+            kota            : "required",
+            birthday        : "required",
+            // img_upload      : "required",
+            gender          : "required",
         },
         messages: {
-            saldo           : "{{ __('all.validation.saldo') }}",
-            amount          : "{{ __('all.validation.amount') }}",
-            bank            : "{{ __('all.validation.bank') }}",
-            account_name    : "{{ __('all.validation.account_name') }}",
-            no_rek          : "{{ __('all.validation.no_rek') }}",
-            password        : "{{ __('all.validation.password') }}",
+            userCode        : "{{ __('all.validation.userCode') }}",
+            name            : "{{ __('all.validation.name') }}",
+            tipe            : "{{ __('all.validation.tipe') }}",
+            kategori        : "{{ __('all.validation.cat') }}",
+            provinsi        : "{{ __('all.validation.province') }}",
+            kecamatan       : "{{ __('all.validation.district') }}",
+            kota            : "{{ __('all.validation.city') }}",
+            birthday        : "{{ __('all.validation.birthday') }}",
+            // img_upload      : "{{ __('all.validation.img_upload') }}",
+            gender          : "{{ __('all.validation.gender') }}",
         },
         errorClass      : "invalid-feedback",
         errorElement    : "div",
@@ -272,13 +477,10 @@
         submitHandler           : function(form) {
             var data = new FormData();
                 data.append('img_upload', $('#img_upload')[0].files[0]);
-                data.append('tanggal', $("#tanggal").val()); 
-                data.append('parent_name', $("#parent").val()); 
-                data.append('description', $("#description").val()); 
-                data.append('kavling_id', $("#kavling_id").val()); 
-                data.append('progress', $("#progress").val()); 
-                data.append('before', $("#before").val()); 
-                data.append('component_id', $("#component_id").val()); 
+                data.append('name', $("#name").val()); 
+                data.append('gender', $('input[name=gender]:checked', '#postprofile').val()); 
+                data.append('birthday', $("#birthday").val()); 
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -287,8 +489,7 @@
 
             $.ajax({
                 type	    : "POST",
-                url		    : "{{ route('balance') }}",
-                data	    : $('#postbalance').serialize(),
+                url		    : "{{ route('editProfile') }}",
                 dataType    : "JSON",
                 data        : data,
                 enctype     : 'multipart/form-data',
@@ -297,7 +498,7 @@
                 cache       : false,
                 beforeSend: function(){
                     $("#save-balance").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
-                    $('.create-balance').ploading({action:'show'});
+                    $('#formProfile').ploading({action:'show'});
                 },
                 success     : function(data){
                     if (data.code == 0) {
@@ -310,7 +511,73 @@
                 },
                 complete    : function(){
                     $("#save-balance").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
-                    $('.create-balance').ploading({action:'hide'});
+                    $('#formProfile').ploading({action:'hide'});
+                },
+                error 		: function(){
+                    notif('error', '{{ __("all.error") }}');
+                }
+            });
+        }
+    });
+
+    $("#postbank").validate({
+        rules       : {
+            kodeBank            : "required",
+            nomorRekening       : "required",
+            namaPemilikRekening : "required",
+        },
+        messages: {
+            kodeBank            : "{{ __('all.validation.bank') }}",
+            nomorRekening       : "{{ __('all.validation.no_rek') }}",
+            namaPemilikRekening : "{{ __('all.validation.account_name') }}",
+        },
+        errorClass      : "invalid-feedback",
+        errorElement    : "div",
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid').removeClass('is-valid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid').addClass('is-valid');
+        },
+        errorPlacement  : function(error,element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+            if (element.attr("name") == "password" ) {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        submitHandler           : function(form) {
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type	    : "POST",
+                url		    : "{{ route('createBank') }}",
+                data	    : $('#postbank').serialize(),
+                dataType    : "JSON",
+                beforeSend: function(){
+                    $("#save-bank").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+                    $('.create-account').ploading({action:'show'});
+                },
+                success     : function(data){
+                    if (data.code == 0) {
+                        notif('success', '{{ __("all.success") }}', data.info);
+                        resetForm('postbank');
+                        loadListBank();
+                        $('#modal-account').modal('hide');
+                    } else {
+                        notif('warning', '{{ __("all.warning") }}', data.info);
+                    }
+                },
+                complete    : function(){
+                    $("#save-bank").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                    $('.create-account').ploading({action:'hide'});
                 },
                 error 		: function(){
                     notif('error', '{{ __("all.error") }}');

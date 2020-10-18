@@ -215,7 +215,7 @@
                         <hr>
                         <div align="right">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                            <button type="submit" class="btn btn-primary" id="btn-pass">{{ __('all.save') }}</button>
+                            <button type="submit" class="btn btn-success" id="btn-pass">{{ __('all.save') }}</button>
                         </div>
                     </form>
                 </div>
@@ -294,7 +294,7 @@
     @yield('scriptUser')
 
     <script>
-        var table = $('#table-notif').DataTable({
+        var tableNotif = $('#table-notif').DataTable({
             "language" : {
                 "lengthMenu"    : "{{ __('all.datatable.show_entries') }}",
                 "emptyTable"    : "{{ __('all.datatable.no_data') }}",
@@ -418,7 +418,7 @@
                 },
                 dataType: "JSON",
                 beforeSend: function(){
-                    table.clear().draw();
+                    tableNotif.clear().draw();
                     $("#table-notif").parent().ploading({action : 'show'});
                 },
                 success     : function(data){
@@ -427,7 +427,7 @@
 
                         if(list.length > 0){
                             $.each(list, function(idx, ref){
-                                table.row.add( [
+                                tableNotif.row.add( [
                                     idx + 1,
                                     ref.dtm,
                                     ref.message,

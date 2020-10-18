@@ -95,7 +95,9 @@ Route::group(['middleware' => 'CheckTokenUser'], function () {
     Route::get('/user/showHome', [App\Http\Controllers\User\HomeController::class, 'home'])->name('showHome');
     Route::get('/user/balance', [App\Http\Controllers\User\HomeController::class, 'balance'])->name('balance');
     Route::get('/user/profile', [App\Http\Controllers\User\HomeController::class, 'profile'])->name('profile');
+    Route::post('/user/editProfile', [App\Http\Controllers\User\HomeController::class, 'editProfile'])->name('editProfile');
     Route::post('/user/comition', [App\Http\Controllers\User\HomeController::class, 'comition'])->name('comition');
+    Route::get('/user/listBank', [App\Http\Controllers\User\HomeController::class, 'listBank'])->name('listBank');
     Route::post('/user/notification', [App\Http\Controllers\User\HomeController::class, 'notification'])->name('notification');
     Route::post('/user/getCoordinate', [App\Http\Controllers\User\HomeController::class, 'getCoordinate'])->name('getCoordinateUser');
     Route::post('user//coordinateCity', [App\Http\Controllers\User\HomeController::class, 'coordinateCity'])->name('coordinateCityUser');
@@ -111,4 +113,8 @@ Route::group(['middleware' => 'CheckTokenUser'], function () {
     Route::post('/user/create', [App\Http\Controllers\User\DownlineController::class, 'create'])->name('saveUser');
 
     Route::get('/user/config', [App\Http\Controllers\User\ConfigController::class, 'index'])->name('config');
+
+    Route::get('/user/account', [App\Http\Controllers\User\AccountController::class, 'loadList'])->name('account');
+    Route::post('/user/createBank', [App\Http\Controllers\User\AccountController::class, 'create'])->name('createBank');
+    Route::post('/user/delete', [App\Http\Controllers\User\AccountController::class, 'delete'])->name('disabledBank');
 });

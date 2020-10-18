@@ -45,10 +45,11 @@ class DownlineController extends Controller
 
         if ($status == '000') {
             $result = json_decode((string) $response)->payload;
+            
             $row    = [];
             foreach ($result as $key => $value) {
-                $value->active      = $value->active == '1' ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
-                $value->koordinat   = "<a target='_blank' href='http://maps.google.com/?ll=".$value->koordinat."'>".__('all.open_maps')." <i class='fa fa-map-marker-alt'></i></a>";
+                // $value->koordinatorProfile.active      = $value->active == '1' ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
+                $value->koordinatorProfile->koordinat   = "<a target='_blank' href='http://maps.google.com/?ll=".$value->koordinatorProfile->koordinat."'>".__('all.open_maps')." <i class='fa fa-map-marker-alt'></i></a>";
                 $row[]              = $value;
             }
 
@@ -85,8 +86,8 @@ class DownlineController extends Controller
             
             $row    = [];
             foreach ($result as $key => $value) {
-                $explode = explode(', ', $value->koordinat);
-                $name    = $value->provinsi;
+                $explode = explode(', ', $value->koordinatorProfile->koordinat);
+                $name    = $value->koordinatorProfile->provinsi;
                 $lat     = $explode[0];
                 $long    = $explode[1];
                 $row[]   = [$name, $lat, $long];

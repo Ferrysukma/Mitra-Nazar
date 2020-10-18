@@ -90,7 +90,7 @@
                                 <th>{{ __('all.form.district') }}</th>
                                 <th>{{ __('all.table.address') }}</th>
                                 <th>{{ __('all.table.coordinate') }}</th>
-                                <th>{{ __('all.table.status') }}</th>
+                                <!-- <th>{{ __('all.table.status') }}</th> -->
                                 <th style="text-align:center">{{ __('all.table.action') }}</th>
                             </tr>
                         </thead>
@@ -195,7 +195,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                <button type="submit" class="btn btn-primary" id="save-mitra">{{ __('all.save') }}</button> 
+                <button type="submit" class="btn btn-success" id="save-mitra">{{ __('all.save') }}</button> 
                 </form>
             </div>
         </div>
@@ -219,7 +219,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.cancel') }}</button>
-                <button type="button" class="btn btn-primary" onclick="disabledP()" id="btnClose">{{ __('all.yes') }}</button>
+                <button type="button" class="btn btn-success" onclick="disabledP()" id="btnClose">{{ __('all.yes') }}</button>
             </div>
         </div>
     </div>
@@ -251,7 +251,7 @@
         },
         "columnDefs"        : [ 
             { targets: [0], orderable: false, className	: "text-center" },
-            { targets: [11], orderable: false, searchable: false, className	: "text-center" },
+            { targets: [10], orderable: false, searchable: false, className	: "text-center" },
         ],
         "initComplete"      : function() {
             $('[data-toggle="tooltip"]').tooltip();
@@ -441,8 +441,6 @@
         getLatLong($(e).attr('name'), 'map_canvas', 'maps-mitra');
     }
 
-    $('#form-cat').hide();
-
     $(document).on('click','#add-mitra', function () {
         showModal('modal-mitra', 'postmitra');
         $('#id').val('');
@@ -479,17 +477,17 @@
                         $.each(list, function(idx, ref){
                             table.row.add( [
                                 idx + 1,
-                                ref.userCode,
-                                ref.nama,
-                                ref.tipe,
-                                ref.kategori,
-                                ref.provinsi,
-                                ref.kota,
-                                ref.kecamatan,
-                                ref.alamat,
-                                ref.koordinat,
-                                ref.active,
-                                "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='"+ref.id+"'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='"+ref.id+"' title='{{ __('all.button.delete') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-trash'></i></button></div>", 
+                                ref.koordinatorProfile['userCode'],
+                                ref.name,
+                                ref.koordinatorProfile['tipe'],
+                                ref.koordinatorProfile['kategori'],
+                                ref.koordinatorProfile['provinsi'],
+                                ref.koordinatorProfile['kota'],
+                                ref.koordinatorProfile['kecamatan'],
+                                ref.koordinatorProfile['alamat'],
+                                ref.koordinatorProfile['koordinat'],
+                                // ref.active,
+                                "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='"+ref.koordinatorProfile['id']+"'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='"+ref.koordinatorProfile['id']+"' title='{{ __('all.button.delete') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-trash'></i></button></div>", 
                             ] ).draw( false );
                         });
                     }
@@ -684,12 +682,12 @@
                 },
                 success     : function(data){
                     if (data.code == 0) {
-                        notif('success', data.info);
+                        notif('success', '{{ __("all.success") }}', data.info);
                         showData();
                         resetForm('postmitra','id');
                         $('#modal-mitra').modal('hide');
                     } else {
-                        notif('warning', data.info);
+                        notif('warning', '{{ __("all.warning") }}', data.info);
                     }
                 },
                 complete    : function(){
