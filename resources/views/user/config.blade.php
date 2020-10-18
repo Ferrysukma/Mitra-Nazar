@@ -38,6 +38,7 @@
             </div>
             <div class="card-body" id="formProfile">
                 <form action="#" method="post" id="postprofile">
+                    <input type="hidden" name="id" id="idPro">
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">ID Downline <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
@@ -383,6 +384,7 @@
     profileUser();
 
     function setting(res, data) {
+        $('#idPro').val(data.id);
         $('#userCode').val(data.userCode);
         $('#name').val(res.name);
         $('#tipe').val(data.tipe);
@@ -476,7 +478,9 @@
         },
         submitHandler           : function(form) {
             var data = new FormData();
-                data.append('img_upload', $('#img_upload')[0].files[0]);
+                // data.append('img_upload', $('#img_upload')[0].files[0]);
+                data.append('img_upload', $('.dropify-render').find('img').attr('src'));
+                data.append('id', $("#idPro").val()); 
                 data.append('name', $("#name").val()); 
                 data.append('gender', $('input[name=gender]:checked', '#postprofile').val()); 
                 data.append('birthday', $("#birthday").val()); 
@@ -497,20 +501,18 @@
                 contentType : false,
                 cache       : false,
                 beforeSend: function(){
-                    $("#save-balance").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+                    $("#save-profile").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
                     $('#formProfile').ploading({action:'show'});
                 },
                 success     : function(data){
                     if (data.code == 0) {
-                        notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
-                        resetForm('postbalance');
-                        $('#modal-balance').modal('hide');
+                        notif('success', '{{ __("all.success") }}', data.info);
                     } else {
-                        notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
+                        notif('warning', '{{ __("all.warning") }}', data.info);
                     }
                 },
                 complete    : function(){
-                    $("#save-balance").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                    $("#save-profile").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
                     $('#formProfile').ploading({action:'hide'});
                 },
                 error 		: function(){

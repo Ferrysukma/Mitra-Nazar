@@ -130,23 +130,83 @@ class HomeController extends Controller
     public function editProfile(Request $request)
     {
         $client     = new Client();
-        $url        = $this->base_url . 'user/profile';
-        $request    = $client->get($url, [
+
+        // name
+        $urlName    = $this->base_url . 'user/profile/edit-name';
+        $reqName    = $client->post($urlName, [
             'headers'   => [
                 'Authorization' => Session::get('user_key')
+            ],
+            'json'      => [
+                'payload'   => [
+                    'id'    => $request->id,
+                    'name'  => $request->name
+                ]
             ]
         ]);
 
-        $response   = $request->getBody()->getContents();
-        $status     = json_decode((string) $response, true)['status']['statusCode'];
+        $resName    = $reqName->getBody()->getContents();
+        $sName      = json_decode((string) $resName, true)['status']['statusCode'];
+        $dName      = json_decode((string) $resName, true)['status']['statusDesc'];
+        
+        // gender
+        $urlGender  = $this->base_url . 'user/profile/edit-gender';
+        $reqGender  = $client->post($urlGender, [
+            'headers'   => [
+                'Authorization' => Session::get('user_key')
+            ],
+            'json'      => [
+                'payload'   => [
+                    'id'        => $request->id,
+                    'gender'    => $request->gender
+                ]
+            ]
+        ]);
 
-        if ($status == '000') {
-            $result = json_decode((string) $response)->payload;
+        $resGender  = $reqGender->getBody()->getContents();
+        $sGender    = json_decode((string) $resGender, true)['status']['statusCode'];
+        $dGender    = json_decode((string) $resGender, true)['status']['statusDesc'];
+                    
+        // birthday
+        $urlDay     = $this->base_url . 'user/profile/edit-birthday';
+        $reqDay    = $client->post($urlDay, [
+            'headers'   => [
+                'Authorization' => Session::get('user_key')
+            ],
+            'json'      => [
+                'id'        => $request->id,
+                'birthday'  => date('Y-m-d', strtotime($request->birthday))
+            ]
+        ]);
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
+        $resDay     = $reqDay->getBody()->getContents();
+        $sDay       = json_decode((string) $resDay, true)['status']['statusCode'];
+        $dDay       = json_decode((string) $resDay, true)['status']['statusDesc'];
+        
+        // name
+        $urlImg    = $this->base_url . 'user/profile/edit-picture';
+        $reqImg    = $client->post($urlImg, [
+            'headers'   => [
+                'Authorization' => Session::get('user_key')
+            ],
+            'json'      => [
+                'payload'   => $request->img_upload
+            ]
+        ]);
+
+        $resImg     = $reqImg->getBody()->getContents();
+        $sImg       = json_decode((string) $resImg, true)['status']['statusCode'];
+        $dImg       = json_decode((string) $resImg, true)['status']['statusDesc'];
+
+        if ($sName == '000' AND $sGender == '000' AND $sDay == '000' AND $sImg == '000') {
+            echo json_encode(array('code' => 0, 'info' => $dName, 'data' => null));
         } else {
-            
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+            if ($sName != '000') {  $decs   = $dName;}
+            if ($sGender != '000') {  $decs   = $dGender;}
+            if ($sDay != '000') {  $decs   = $dDay;}
+            if ($sImg != '000') {  $decs   = $dImg;}
+
+            echo json_encode(array('code' => 1, 'info' => $decs, 'data' => null));
         }
     }
 
