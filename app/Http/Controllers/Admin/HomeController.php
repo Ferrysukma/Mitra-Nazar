@@ -26,9 +26,8 @@ class HomeController extends Controller
     public function loadList(Request $request)
     {
         $client     = new Client();
+        $kota       = substr(strstr($request->kota," "), 1);
         $url        = $this->base_url . 'mitra/admin/list-mitra-chart-detail';
-        $city       = isset($request->kota) ? $request->kota : 'bandung';
-        $prov       = isset($request->provinsi) ? $request->provinsi : 'Jawa barat';
         $request    = $client->post($url, [
             'headers'   => [
                 'Authorization' => Session::get('admin_key')
@@ -38,8 +37,8 @@ class HomeController extends Controller
                     "start"         => date('Y-m-d', strtotime($request->start)),
                     "limit"         => 100000000,
                     "pageNumber"    => 0,
-                    "provinsi"      => $prov,
-                    "kota"          => $city,
+                    "provinsi"      => $request->provinsi,
+                    "kota"          => $kota,
                     "kategori"      => $request->kategori,
                     "tipe"          => $request->tipe
                 ]
