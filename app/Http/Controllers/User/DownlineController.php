@@ -48,8 +48,8 @@ class DownlineController extends Controller
             
             $row    = [];
             foreach ($result as $key => $value) {
-                $value->koordinatorProfile->active      = $value->koordinatorProfile->active == 'true' ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
-                $value->koordinatorProfile->koordinat   = "<a target='_blank' href='http://maps.google.com/?ll=".$value->koordinatorProfile->koordinat."'>".__('all.open_maps')." <i class='fa fa-map-marker-alt'></i></a>";
+                $value->active      = $value->koordinatorProfile->active == 'true' ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
+                $value->koordinat   = "<a target='_blank' href='http://maps.google.com/?ll=".$value->koordinatorProfile->koordinat."'>".__('all.open_maps')." <i class='fa fa-map-marker-alt'></i></a>";
                 $row[]              = $value;
             }
 
