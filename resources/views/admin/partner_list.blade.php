@@ -473,6 +473,15 @@
         $('#modal-mitra').find('.modal-title').text("{{ __('all.add_partner') }}");
     });
 
+    $(document).on('keyup','#cat_name', function () {
+        var val = $(this).val();
+        if (val.length > 0) {
+            $('#save-cat').removeAttr('disabled');
+        } else {
+            $('#save-cat').attr('disabled', true);
+        }
+    });
+
     $('.create-cat').select2({
         theme           : 'bootstrap4',
     }).on('select2:open', function () {

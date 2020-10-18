@@ -436,6 +436,15 @@
         $('#contents').val(data[7]);
     });
 
+    $(document).on('keyup','#cat_name', function () {
+        var val = $(this).val();
+        if (val.length > 0) {
+            $('#save-cat').removeAttr('disabled');
+        } else {
+            $('#save-cat').attr('disabled', true);
+        }
+    });
+
     $("#postann").validate({
         rules       : {
             "tujuan[]"          : "required",
