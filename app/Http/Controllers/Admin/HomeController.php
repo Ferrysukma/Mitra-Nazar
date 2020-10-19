@@ -69,29 +69,27 @@ class HomeController extends Controller
     public function chart(Request $request)
     {
         $client     = new Client();
+        $kota       = substr(strstr($_POST['kota']," "), 1);
         $url        = $this->base_url . 'mitra/admin/list-mitra-chart';
-        $city       = isset($request->kota) ? $request->kota : 'bandung';
-        $prov       = isset($request->provinsi) ? $request->provinsi : 'Jawa barat';
         $request    = $client->post($url, [
             'headers'   => [
                 'Authorization' => Session::get('admin_key')
             ],
             'json'      => [
                 "payload"   => [
-                    "start"         => date('Y-m-d', strtotime($request->start)),
-                    "end"           => date('Y-m-d', strtotime($request->end)),
+                    "start"         => date('Y-m-d', strtotime($_POST['start'])),
+                    "end"           => date('Y-m-d', strtotime($_POST['end'])),
                     "limit"         => 100000000,
                     "pageNumber"    => 0,
-                    "provinsi"      => $prov,
-                    "kota"          => $city,
-                    "kategori"      => $request->kategori,
-                    "tipe"          => $request->tipe
+                    "provinsi"      => $_POST['provinsi'],
+                    "kota"          => $kota,
                 ]
             ]
         ]);
         
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];
+        $desc       = json_decode((string) $response, true)['status']['statusDesc'];
 
         if ($status == '000') {
             $result = json_decode((string) $response)->payload;
@@ -102,11 +100,11 @@ class HomeController extends Controller
                 $row[]          = $value;
             }
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
+            echo json_encode(array('code' => 0, 'info' => $desc, 'data' => $row));
         } else {
             $result = 'empty';
             
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+            echo json_encode(array('code' => 1, 'info' => $desc, 'data' => $result));
         }
     }
     

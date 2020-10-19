@@ -250,6 +250,7 @@ return [
         'replace'       => 'Change',
         'remove'        => 'Delete',
     ),
+    'base'              => 'Based On',
 ]
 
 ?>

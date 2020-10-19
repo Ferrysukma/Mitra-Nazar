@@ -250,6 +250,7 @@ return [
         'replace'       => 'Ganti',
         'remove'        => 'Hapus',
     ),
+    'base'              => 'Berdasarkan',
 ]
 
 ?>

@@ -36,12 +36,14 @@
                     </button>
                     <div class="dropdown-menu dropdown-menu-right keep-open" aria-labelledby="filterChart" id="dropChart" style="width:300px;">
                         <form id="formChart" class="px-4 py-3" action="#">
+                            <label for="base">{{ __('all.base') }}</label>
                             <div class="form-group">
                                 <input type="text" name="start_date" id="start_dtm_chart" class="form-control readonly" placeholder="{{ __('all.start_date') }}" readonly>
                             </div>
                             <div class="form-group">
                                 <input type="text" name="end_date" id="end_dtm_chart" class="form-control readonly" placeholder="{{ __('all.end_date') }}" readonly>
                             </div>
+                            <label for="filter">{{ __('all.filter') }}</label>
                             <div class="form-group">
                                 <div class="dropdown">
                                     <input type="text" name="city" class="form-control dropdown-toggle" id="filterProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="findProv('filterProv', 'filter-prov', 'showFilProv')" placeholder="{{ __('all.table.prov') }}">
@@ -58,7 +60,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <select name="tipe" id="tipe" class="form-control select2" onchange="showData()">
                                     <option value="">{{ __('all.placeholder.choose_coortype') }}</option>
                                     <option value="pusat">{{ __('all.checkbox.central') }}</option>
@@ -70,7 +72,7 @@
                             </div>
                             <div class="form-group">
                                 <select name="kategori" id="kategori" class="form-control select2 create-cat" onchange="showData()"></select>
-                            </div>
+                            </div> -->
                         </form>
                     </div>
                 </div>
@@ -108,7 +110,12 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>{{ __('all.table.join_date') }}</th>
+                                <th>{{ __('all.table.date') }}</th>
+                                <th>{{ __('all.table.prov') }}</th>
+                                <th>{{ __('all.table.city') }}</th>
+                                <th>{{ __('all.table.qty') }}</th>
+                                <th>{{ __('all.table.action') }}</th>
+                                <!-- <th>{{ __('all.table.join_date') }}</th>
                                 <th>{{ __('all.table.partner_id') }}</th>
                                 <th>{{ __('all.table.partner_nm') }}</th>
                                 <th>{{ __('all.table.coordinator_type') }}</th>
@@ -116,9 +123,9 @@
                                 <th>{{ __('all.table.city') }}</th>
                                 <th>{{ __('all.table.address') }}</th>
                                 <th>{{ __('all.table.coordinate') }}</th>
-                                <!-- <th>{{ __('all.table.downline') }}</th> -->
+                                <th>{{ __('all.table.downline') }}</th>
                                 <th>{{ __('all.table.status') }}</th>
-                                <th>{{ __('all.table.action') }}</th>
+                                <th>{{ __('all.table.action') }}</th> -->
                             </tr>
                         </thead>
                     </table>
@@ -207,7 +214,7 @@
         },
         "columnDefs"        : [ 
             { targets: [0], orderable: false, className	: "text-center" },
-            { targets: [10], orderable: false, searchable: false, className	: "text-center" },
+            { targets: [5], orderable: false, searchable: false, className	: "text-center" },
         ],
         "initComplete"      : function() {
             $('[data-toggle="tooltip"]').tooltip();
@@ -223,13 +230,12 @@
 
         $.ajax({
             type    : "POST",
-            url     : "{{ route('detailChart') }}",
+            url     : "{{ route('loadChart') }}",
             data    : {
                 start   : $('#start_dtm_chart').val(),
+                end     : $('#end_dtm_chart').val(),
                 provinsi: $('#filterProv').val(),
                 kota    : $('#filterCity').val(),
-                tipe    : $('#tipe').val(),
-                kategori: $('#kategori').val(),
             },
             dataType: "JSON",
             beforeSend: function(){
@@ -244,16 +250,11 @@
                         $.each(list, function(idx, ref){
                             table.row.add( [
                                 idx + 1,
-                                moment.utc(ref.cdate).format('DD MMM YYYY hh:mm:ss'),
-                                ref.userCode,
-                                ref.nama,
-                                ref.tipe,
+                                moment.utc(ref.cdate).format('DD MMM YYYY'),
                                 ref.provinsi,
                                 ref.kota,
-                                ref.alamat,
-                                ref.koordinat,
-                                ref.active,
-                                "<button type='button' class='btn btn-sm btn-danger action-delete' id='"+ref.id+"' title='{{ __('all.button.delete') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-trash'></i></button></div>", 
+                                ref.total,
+                                "<button type='button' class='btn btn-sm btn-danger action-info' title='{{ __('all.button.detail') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-eye'></i></button></div>", 
                             ] ).draw( false );
                         });
                     }
@@ -265,8 +266,7 @@
         });
     }
 
-    showData(1);
-    showData(2);
+    showData();
 
     function showCategory() {
         $.ajax({
@@ -307,8 +307,6 @@
                 end     : $('#end_dtm_chart').val(),
                 provinsi: $('#province').val(),
                 kota    : $('#dropCity').val(),
-                tipe    : $('#tipe').val(),
-                kategori: $('#kategori').val(),
             },
             dataType: "JSON",
             beforeSend: function(){
@@ -406,14 +404,12 @@
     function loadDataChart() {
         $.ajax({
             type    : "POST",
-            url     : "{{ route('loadChart') }}",	
+            url     : "{{ route('loadChart') }}",
             data    : {
                 start   : $('#start_dtm_chart').val(),
                 end     : $('#end_dtm_chart').val(),
-                provinsi: $('#province').val(),
-                kota    : $('#dropCity').val(),
-                tipe    : $('#tipe').val(),
-                kategori: $('#kategori').val(),
+                provinsi: $('#filterProv').val(),
+                kota    : $('#filterCity').val(),
             },
             dataType    : "JSON",
             beforeSend: function(){
@@ -522,48 +518,6 @@
             },
             complete : function () {
                 $('#chart').ploading({action: 'hide'});
-            }
-        });
-    }
-
-    $('#table-chart tbody').on('click', '.action-delete', function () {
-        var data = table.row( $(this).parents('tr') ).data();
-
-        showModal('disabled-mitra'); 
-        $('#partner_id').val($(this).attr('id'));
-        $('#disabled-mitra').find('.modal-title').text("{{ __('all.disabled_partner') }} "+data[3]+"");
-    })
-
-    function disabledP() {
-        $.ajax({
-            type    : "POST",
-            url     : "{{ route('deletePartner') }}",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data	: {
-                id  : $('#partner_id').val(),
-            },
-            dataType: "JSON",
-            beforeSend: function(){
-                $('#btnClose').buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
-                $(".delete-mitra").ploading({action : 'show'});
-            },
-            success     : function(data){
-                if (data.code == 0) {
-                    notif('success', '{{ __("all.success") }}', '{{ __("all.alert.delete") }}');
-                    $('#disabled-mitra').modal('hide');
-                    showData();
-                } else {
-                    notif('warning', '{{ __("all.warning") }}', data.info);
-                }
-            },
-            complete    : function(){
-                $('#btnClose').buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
-                $(".delete-mitra").ploading({action : 'hide'});
-            },
-            error 		: function(){
-                notif('error', '{{ __("all.error") }}');
             }
         });
     }
