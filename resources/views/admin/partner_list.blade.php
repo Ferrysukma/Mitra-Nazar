@@ -32,7 +32,7 @@
                             <div class="form-group">
                                 <div class="dropdown">
                                     <input type="text" name="city" class="form-control dropdown-toggle" id="filterProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="findProv('filterProv', 'filter-prov', 'showFilProv')" placeholder="{{ __('all.table.prov') }}">
-                                    <div class="dropdown-menu filter-prov" id="showFilProv">
+                                    <div class="dropdown-menu filter-prov scrollable-menu" id="showFilProv">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
                                 </div>
@@ -40,7 +40,7 @@
                             <div class="form-group">
                                 <div class="dropdown">
                                     <input type="text" name="city" class="form-control readonly" id="filterCity" readonly placeholder="{{ __('all.table.city') }}">
-                                    <div class="dropdown-menu filter-city" id="showFilCity">
+                                    <div class="dropdown-menu filter-city scrollable-menu" id="showFilCity">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
                                 </div>
@@ -92,6 +92,8 @@
                                 <th>{{ __('all.table.city') }}</th>
                                 <th>{{ __('all.form.district') }}</th>
                                 <th>{{ __('all.table.address') }}</th>
+                                <th style="display:none">lat</th>
+                                <th style="display:none">long</th>
                                 <th>{{ __('all.table.coordinate') }}</th>
                                 <th>{{ __('all.table.status') }}</th>
                                 <th style="text-align:center">{{ __('all.table.action') }}</th>
@@ -152,7 +154,7 @@
                             <div class="col-sm-9">
                                 <div class="dropdown">
                                     <input type="text" name="provinsi" class="form-control dropdown-toggle" id="dropProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('dropProv', 'data-prov', 'showProv')" placeholder="{{ __('all.placeholder.key') }}">
-                                    <div class="dropdown-menu data-prov" id="showProv">
+                                    <div class="dropdown-menu data-prov scrollable-menu" id="showProv">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
                                 </div>
@@ -163,7 +165,7 @@
                             <div class="col-sm-9">
                                 <div class="dropdown">
                                     <input type="text" name="city" class="form-control readonly" id="city" readonly>
-                                    <div class="dropdown-menu data-city" id="showCity">
+                                    <div class="dropdown-menu data-city scrollable-menu" id="showCity">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
                                 </div>
@@ -174,7 +176,7 @@
                             <div class="col-sm-9">
                                 <div class="dropdown">
                                     <input type="text" name="district" class="form-control readonly" id="district" readonly>
-                                    <div class="dropdown-menu data-district" id="showDistrict">
+                                    <div class="dropdown-menu data-district scrollable-menu" id="showDistrict">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
                                 </div>
@@ -271,7 +273,8 @@
         },
         "columnDefs"        : [ 
             { targets: [0], orderable: false, className	: "text-center" },
-            { targets: [11], orderable: false, searchable: false, className	: "text-center" },
+            { targets: [9,10], visible : false },
+            { targets: [13], orderable: false, searchable: false, className	: "text-center" },
         ],
         "initComplete"      : function() {
             $('[data-toggle="tooltip"]').tooltip();
@@ -537,7 +540,7 @@
                     formMitra();
                     showCategory();
                 } else {
-                    notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
+                    notif('warning', '{{ __("all.warning") }}', data.info);
                 }
             },
             complete    : function(){
@@ -614,6 +617,8 @@
                                 ref.kota,
                                 ref.kecamatan,
                                 ref.alamat,
+                                ref.lat,
+                                ref.long,
                                 ref.koordinat,
                                 ref.active,
                                 "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='"+ref.id+"'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='"+ref.id+"' title='{{ __('all.button.delete') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-trash'></i></button></div>", 
@@ -705,7 +710,7 @@
                     $('#disabled-mitra').modal('hide');
                     showData();
                 } else {
-                    notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_delete") }}');
+                    notif('warning', '{{ __("all.warning") }}', data.info);
                 }
             },
             complete    : function(){
@@ -740,7 +745,8 @@
         $('#district').val(data[7]);
         $('#address').val(data[8]);
 
-        getLatLong(data[6], 'map_canvas', 'maps-mitra');
+        // getLatLong(data[6], 'map_canvas', 'maps-mitra');
+        initialize(data[9], data[10], 'map_canvas');
         
         $('#modal-mitra').find('.modal-title').text("{{ __('all.edit_user') }} #"+data[0]+"");
     });
@@ -816,7 +822,7 @@
                         resetForm('postmitra','id');
                         $('#modal-mitra').modal('hide');
                     } else {
-                        notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
+                        notif('warning', '{{ __("all.warning") }}', data.info);
                     }
                 },
                 complete    : function(){

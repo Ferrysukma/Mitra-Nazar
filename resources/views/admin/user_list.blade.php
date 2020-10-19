@@ -200,7 +200,7 @@
                                 notif('success', '{{ __("all.success") }}', '{{ __("all.alert.delete") }}');
                                 showData();
                             } else {
-                                notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_delete") }}');
+                                notif('warning', '{{ __("all.warning") }}', data.info);
                             }
                         },
                         complete    : function(){
@@ -299,7 +299,7 @@
                         $('#modal-mitra').modal('hide');
                         $('#mail').removeAttr('readonly');
                     } else {
-                        notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
+                        notif('warning', '{{ __("all.warning") }}', data.info);
                     }
                 },
                 complete    : function(){

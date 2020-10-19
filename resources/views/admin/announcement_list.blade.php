@@ -372,7 +372,7 @@
                     formAnn();
                     showCategory();
                 } else {
-                    notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
+                    notif('warning', '{{ __("all.warning") }}', data.info);
                 }
             },
             complete    : function(){
@@ -503,7 +503,7 @@
                         resetForm('postann','id');
                         $('#modal-ann').modal('hide');
                     } else {
-                        notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
+                        notif('warning', '{{ __("all.warning") }}', data.info);
                     }
                 },
                 complete    : function(){

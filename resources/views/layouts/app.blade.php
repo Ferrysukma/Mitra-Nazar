@@ -53,6 +53,12 @@
         label {
             font-weight: 800;
         }
+
+        .scrollable-menu {
+            height: auto;
+            max-height: 200px;
+            overflow-x: hidden;
+        }
     </style>
 
 </head>
@@ -325,7 +331,7 @@
                             notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
                             window.location = "{{ route('logout') }}";
                         } else {
-                            notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_pass") }}');
+                            notif('warning', '{{ __("all.warning") }}', data.info);
                         }
                     },
                     complete    : function(){

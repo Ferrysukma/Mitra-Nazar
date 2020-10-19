@@ -50,8 +50,11 @@ class PartnerController extends Controller
             $result = json_decode((string) $response)->payload;
             $row    = [];
             foreach ($result as $key => $value) {
+                $explode            = explode(', ', $value->koordinat);
                 $value->active      = $value->active == '1' ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
                 $value->koordinat   = "<a target='_blank' href='http://maps.google.com/?ll=".$value->koordinat."'>".__('all.open_maps')." <i class='fa fa-map-marker-alt'></i></a>";
+                $value->lat         = $explode[0];
+                $value->long        = $explode[1];
                 $row[]              = $value;
             }
 
@@ -161,7 +164,7 @@ class PartnerController extends Controller
                         "userCode"      => $request->userCode,
                         "nama"          => $request->nama,
                         "kategori"      => $request->kategori,
-                        "provinsi"      => $request->province,
+                        "provinsi"      => $request->provinsi,
                         "kota"          => $request->city,
                         "kecamatan"     => $request->district,
                         "koordinat"     => $request->lat.", ".$request->long,
@@ -173,11 +176,12 @@ class PartnerController extends Controller
         
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];
+        $desc       = json_decode((string) $response, true)['status']['statusDesc'];
 
         if ($status == '000') {
-            return json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
+            return json_encode(array('code' => 0, 'info' => $desc, 'data' => null));
         } else {
-            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            return json_encode(array('code' => 1, 'info' => $desc, 'data' => null));
         }
     }
 
@@ -199,11 +203,12 @@ class PartnerController extends Controller
 
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];
+        $desc       = json_decode((string) $response, true)['status']['statusDesc'];
 
         if ($status == '000') {
-            return json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
+            return json_encode(array('code' => 0, 'info' => $desc, 'data' => null));
         } else {
-            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            return json_encode(array('code' => 1, 'info' => $desc, 'data' => null));
         }
     }
 

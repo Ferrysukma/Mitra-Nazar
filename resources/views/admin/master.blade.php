@@ -45,7 +45,7 @@
                             <div class="form-group">
                                 <div class="dropdown">
                                     <input type="text" name="city" class="form-control dropdown-toggle" id="filterProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="findProv('filterProv', 'filter-prov', 'showFilProv')" placeholder="{{ __('all.table.prov') }}">
-                                    <div class="dropdown-menu filter-prov" id="showFilProv">
+                                    <div class="dropdown-menu filter-prov scrollable-menu" id="showFilProv">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
                                 </div>
@@ -53,7 +53,7 @@
                             <div class="form-group">
                                 <div class="dropdown">
                                     <input type="text" name="city" class="form-control readonly" id="filterCity" readonly placeholder="{{ __('all.table.city') }}">
-                                    <div class="dropdown-menu filter-city" id="showFilCity">
+                                    <div class="dropdown-menu filter-city scrollable-menu" id="showFilCity">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
                                 </div>
@@ -555,7 +555,7 @@
                     $('#disabled-mitra').modal('hide');
                     showData();
                 } else {
-                    notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_delete") }}');
+                    notif('warning', '{{ __("all.warning") }}', data.info);
                 }
             },
             complete    : function(){

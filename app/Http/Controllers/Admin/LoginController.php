@@ -71,9 +71,9 @@ class LoginController extends Controller
         $description= json_decode((string) $response, true)['status']['statusDesc'];
         
         if ($status == '000') {
-            return json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
+            return json_encode(array('code' => 0, 'info' => $description, 'data' => null));
         } else {
-            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            return json_encode(array('code' => 1, 'info' => $description, 'data' => null));
         }   
     }
 
@@ -93,9 +93,9 @@ class LoginController extends Controller
         $description= json_decode((string) $response, true)['status']['statusDesc'];
         
         if ($status == '000') {
-            return json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
+            return json_encode(array('code' => 0, 'info' => $description, 'data' => null));
         } else {
-            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            return json_encode(array('code' => 1, 'info' => $description, 'data' => null));
         }   
     }
 
@@ -116,9 +116,9 @@ class LoginController extends Controller
         $description= json_decode((string) $response, true)['status']['statusDesc'];
         
         if ($status == '000') {
-            return json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
+            return json_encode(array('code' => 0, 'info' => $description, 'data' => null));
         } else {
-            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            return json_encode(array('code' => 1, 'info' => $description, 'data' => null));
         }   
     }
 

@@ -93,11 +93,12 @@ class CategoryController extends Controller
         
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];
+        $desc       = json_decode((string) $response, true)['status']['statusDesc'];
 
         if ($status == '000') {
-            return json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
+            return json_encode(array('code' => 0, 'info' => $desc, 'data' => null));
         } else {
-            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            return json_encode(array('code' => 1, 'info' => $desc, 'data' => null));
         }
             
     }
@@ -120,11 +121,12 @@ class CategoryController extends Controller
 
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];
+        $desc       = json_decode((string) $response, true)['status']['statusDesc'];
 
         if ($status == '000') {
-            return json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
+            return json_encode(array('code' => 0, 'info' => $desc, 'data' => null));
         } else {
-            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            return json_encode(array('code' => 1, 'info' => $desc, 'data' => null));
         }
     }
 

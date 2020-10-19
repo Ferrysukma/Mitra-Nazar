@@ -174,7 +174,7 @@
                     resetForm('postcat');
                     $('#modal-cat').modal('hide');
                 } else {
-                    notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
+                    notif('warning', '{{ __("all.warning") }}', data.info);
                 }
             },
             complete    : function(){
@@ -240,7 +240,7 @@
                                 showData();
                                 resetData();
                             } else {
-                                notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_delete") }}');
+                                notif('warning', '{{ __("all.warning") }}', data.info);
                             }
                         },
                         complete    : function(){
