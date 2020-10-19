@@ -142,7 +142,7 @@ class PartnerController extends Controller
                         "userCode"      => $request->userCode,
                         "nama"          => $request->nama,
                         "kategori"      => $request->kategori,
-                        "provinsi"      => $request->province,
+                        "provinsi"      => $request->provinsi,
                         "kota"          => $request->city,
                         "kecamatan"     => $request->district,
                         "alamat"        => $request->address,
