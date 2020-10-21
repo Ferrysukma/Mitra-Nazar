@@ -98,8 +98,8 @@ class AnnouncementController extends Controller
                     "payload"   => [
                         "judul"         => $request->judul,
                         "isi"           => $request->isi,
-                        "tanggalMulai"  => date('Y-m-d', strtotime($request->tanggalMulai)),
-                        "tanggalSelesai"=> date('Y-m-d', strtotime($request->tanggalSelesai)),
+                        "tanggalMulai"  => date('Y-m-d', strtotime($request->start_date)),
+                        "tanggalSelesai"=> date('Y-m-d', strtotime($request->end_date)),
                         "tujuan"        => $request->tujuan,
                         "kategori"      => $request->kategori
                     ]
