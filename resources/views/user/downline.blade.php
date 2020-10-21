@@ -626,7 +626,7 @@
                                 ref.koordinatorProfile['alamat'],
                                 ref.koordinat,
                                 ref.active,
-                                "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='"+ref.koordinatorProfile['id']+"'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-info action-detail' title='{{ __('all.button.detail') }}' data-toggle='tooltip' data-placement='top' id='"+ref.koordinatorProfile['userCode']+"'><i class='fa fa-eye'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='"+ref.koordinatorProfile['id']+"' title='{{ __('all.button.delete') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-trash'></i></button></div>", 
+                                "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='"+ref.koordinatorProfile['id']+"'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-info action-detail' title='{{ __('all.button.detail') }}' data-toggle='tooltip' data-placement='top' id='"+ref.koordinatorProfile['userCode']+"'><i class='fa fa-eye'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='"+ref.koordinatorProfile['id']+"' title='{{ __('all.button.delete') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-times'></i></button></div>", 
                             ] ).draw( false );
                         });
                     }
