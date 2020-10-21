@@ -35,8 +35,9 @@ Auth::routes();
 
 Route::group(['middleware' => 'CheckToken'], function () {
     // Admin
-    Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
+    Route::get('/index', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
     Route::post('/home', [App\Http\Controllers\Admin\HomeController::class, 'loadList'])->name('detailChart');
+    Route::post('/detailListChart', [App\Http\Controllers\Admin\HomeController::class, 'detailListChart'])->name('detailListChart');
     Route::post('/chart', [App\Http\Controllers\Admin\HomeController::class, 'chart'])->name('loadChart');
     Route::post('/getCoordinate', [App\Http\Controllers\Admin\HomeController::class, 'getCoordinate'])->name('getCoordinate');
     Route::post('/coordinateCity', [App\Http\Controllers\Admin\HomeController::class, 'coordinateCity'])->name('coordinateCity');
@@ -72,7 +73,7 @@ Route::group(['middleware' => 'CheckToken'], function () {
 
 Route::group(['middleware' => 'CheckTokenUser'], function () {
     // User
-    Route::get('/user/home', [App\Http\Controllers\User\HomeController::class, 'index'])->name('index');
+    Route::get('/', [App\Http\Controllers\User\HomeController::class, 'index'])->name('index');
     Route::get('/user/showHome', [App\Http\Controllers\User\HomeController::class, 'home'])->name('showHome');
     Route::get('/user/balance', [App\Http\Controllers\User\HomeController::class, 'balance'])->name('balance');
     Route::post('/user/takeBalance', [App\Http\Controllers\User\HomeController::class, 'takeBalance'])->name('takeBalance');

@@ -254,7 +254,7 @@
                                 ref.provinsi,
                                 ref.kota,
                                 ref.total,
-                                "<button type='button' class='btn btn-sm btn-danger action-info' title='{{ __('all.button.detail') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-eye'></i></button></div>", 
+                                "<button type='button' class='btn btn-sm btn-info action-detail' title='{{ __('all.button.detail') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-eye'></i></button></div>", 
                             ] ).draw( false );
                         });
                     }
@@ -305,8 +305,8 @@
                 params  : 2,
                 start   : $('#start_dtm_chart').val(),
                 end     : $('#end_dtm_chart').val(),
-                provinsi: $('#province').val(),
-                kota    : $('#dropCity').val(),
+                provinsi: $('#filterProv').val(),
+                kota    : $('#filterCity').val(),
             },
             dataType: "JSON",
             beforeSend: function(){
@@ -547,6 +547,25 @@
                 maps();
                 loadDataChart();
         }
+    });
+
+    $('#table-chart tbody').on('click','.action-detail', function () {
+        var data = table.row( $(this).parents('tr') ).data();
+        $.ajax({
+            type    : "POST",
+            url     : "{{ route('detailListChart') }}",
+            data    : {
+                _token  : "{{ csrf_token() }}",
+                start   : data[1],
+                end     : $('#end_dtm_chart').val(),
+                provinsi: data[2],
+                kota    : data[3]
+            },
+            dataType: "JSON",
+            success : function (res) {
+                
+            }
+        });
     });
 </script>
 @endsection

@@ -258,6 +258,12 @@
 			}
 		}
 
+		$(document).on('keyup','.input100', function () {
+			if (event.keyCode === 13) {
+				$("button[type='button']").click();
+			}
+		});
+
 		function navigasi(id, kd, cd) {
 			$('#show-'+id).removeAttr('hidden');
 			$('#show-'+id).find('.disabled.'+id).removeClass('disabled').addClass('active');
