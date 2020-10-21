@@ -112,7 +112,7 @@ return [
         'new'               => 'Create New',
         'back'              => 'Back',
         'edit'              => 'Edit',
-        'delete'            => 'Delete',
+        'delete'            => 'Disable',
         'reset'             => 'Reset',
         'newP'              => 'New Password',
         'copy'              => 'Copy Link',

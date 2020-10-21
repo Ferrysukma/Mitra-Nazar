@@ -112,7 +112,7 @@ return [
         'new'               => 'Buat Baru',
         'back'              => 'Kembali',
         'edit'              => 'Ubah',
-        'delete'            => 'Hapus',
+        'delete'            => 'Nonaktifkan',
         'reset'             => 'Ulang',
         'newP'              => 'Sandi Baru',
         'copy'              => 'Salin Tautan',
