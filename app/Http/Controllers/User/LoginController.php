@@ -66,9 +66,9 @@ class LoginController extends Controller
         
         if ($response->getStatusCode() == '200') {
             Session::put('user_key', json_decode((string) $responseBodyAsString, true)['token']);
-            Session::put('type', json_decode((string) $responseBodyAsString, true))['type'];
-            Session::put('storeLink', json_decode((string) $responseBodyAsString, true))['storeLink'];
-            Session::put('idUser', json_decode((string) $responseBodyAsString, true))['id'];
+            Session::put('type', json_decode((string) $responseBodyAsString, true)['type']);
+            Session::put('storeLink', json_decode((string) $responseBodyAsString, true)['storeLink']);
+            Session::put('idUser', json_decode((string) $responseBodyAsString, true)['id']);
 
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('user_key')));
         } else {
@@ -124,9 +124,9 @@ class LoginController extends Controller
 
         if ($response->getStatusCode() == '200') {
             Session::put('user_key', json_decode((string) $responseBodyAsString, true)['token']);
-            Session::put('type', json_decode((string) $responseBodyAsString, true))['type'];
-            Session::put('storeLink', json_decode((string) $responseBodyAsString, true))['storeLink'];
-            Session::put('idUser', json_decode((string) $responseBodyAsString, true))['id'];
+            Session::put('type', json_decode((string) $responseBodyAsString, true)['type']);
+            Session::put('storeLink', json_decode((string) $responseBodyAsString, true)['storeLink']);
+            Session::put('idUser', json_decode((string) $responseBodyAsString, true)['id']);
 
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('user_key')));
         } else {
@@ -172,9 +172,9 @@ class LoginController extends Controller
 
             if ($data->status->statusCode == '000') {
                 Session::put('user_key', json_decode((string) $responseBodyAsString, true)['token']);
-                Session::put('type', json_decode((string) $responseBodyAsString, true))['type'];
-                Session::put('storeLink', json_decode((string) $responseBodyAsString, true))['storeLink'];
-                Session::put('idUser', json_decode((string) $responseBodyAsString, true))['id'];
+                Session::put('type', json_decode((string) $responseBodyAsString, true)['type']);
+                Session::put('storeLink', json_decode((string) $responseBodyAsString, true)['storeLink']);
+                Session::put('idUser', json_decode((string) $responseBodyAsString, true)['id']);
 
                 echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('user_key')));
             } else {
