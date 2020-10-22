@@ -24,6 +24,7 @@ Route::post('/getLatLong', [App\Http\Controllers\Admin\LoginController::class, '
 
 // User
 Route::get('/user/login', [App\Http\Controllers\User\LoginController::class, 'index'])->name('login');
+Route::get('/user/widget', [App\Http\Controllers\User\LoginController::class, 'widget'])->name('widget');
 Route::post('/user/validateLogin', [App\Http\Controllers\User\LoginController::class, 'validateLogin'])->name('validateLogin');
 Route::post('/user/loginbyPassword', [App\Http\Controllers\User\LoginController::class, 'loginbyPassword'])->name('loginbyPassword');
 Route::post('/user/loginbyPin', [App\Http\Controllers\User\LoginController::class, 'loginbyPin'])->name('loginbyPin');

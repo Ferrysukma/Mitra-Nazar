@@ -23,6 +23,11 @@ class LoginController extends Controller
         return view('user.login');
     }
 
+    public function widget(Request $request)
+    {
+        return view('user.widget');
+    }
+
     public function validateLogin(Request $request)
     {
         $client     = new Client();
