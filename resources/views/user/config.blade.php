@@ -250,6 +250,12 @@
             success     : function(data){
                 if (data.code == 0) {
                     list = data.data.data;
+
+                    if (data.data.count >= 3) {
+                        $('#add-account').hide();
+                    } else {
+                        $('#add-account').show();
+                    }
                     
                     if(list.length > 0){
                         $.each(list, function(idx, ref){
@@ -323,8 +329,7 @@
                         success     : function(data){
                             if (data.code == 0) {
                                 notif('success', '{{ __("all.success") }}', data.info);
-                                loadListBank;
-                                resetData();
+                                loadListBank();
                             } else {
                                 notif('warning', '{{ __("all.warning") }}', data.info);
                             }

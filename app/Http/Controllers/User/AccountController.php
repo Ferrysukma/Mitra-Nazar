@@ -42,7 +42,7 @@ class AccountController extends Controller
                 $value->namaBank= isset($value->bankInfo) ? $value->bankInfo->namaBank : '';
                 $value->bankId  = isset($value->bankInfo) ? $value->bankInfo->kodeBank : '';
                 $rows[]         = $value;
-                $count          += $key;
+                $count++;
             }
 
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => array('data' => $rows, 'count' => $count)));
