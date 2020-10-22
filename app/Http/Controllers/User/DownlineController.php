@@ -42,6 +42,10 @@ class DownlineController extends Controller
                     "limit"         => 10000000,
                     "pageNumber"    => 0,
                     "search"        => '',
+                    "provinsi"      => $_POST['provinsi'],
+                    "kota"          => $_POST['kota'],
+                    "tipe"          => $_POST['tipe'],
+                    "active"        => $_POST['status'],
                 ]
             ]
         ]);
@@ -77,9 +81,13 @@ class DownlineController extends Controller
             ],
             'json'      => [
                 "payload"   => [
-                    "limit"         => 100000000,
+                    "limit"         => 10000000,
                     "pageNumber"    => 0,
-                    "search"        => ""
+                    "search"        => '',
+                    "provinsi"      => $request->provinsi,
+                    "kota"          => $request->kota,
+                    "tipe"          => $request->tipe,
+                    "active"        => $request->status,
                 ]
             ]
         ]);
@@ -307,7 +315,7 @@ class DownlineController extends Controller
             ],
             'json'      => [
                 "provinceId"    => $request->filter,
-                "query"         => ""
+                "query"         => $_POST['query']
             ]
         ]);
         $response   = $request->getBody()->getContents();

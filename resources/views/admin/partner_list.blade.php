@@ -31,7 +31,8 @@
                         <form id="formFilter" class="px-4 py-3" action="#">
                             <div class="form-group">
                                 <div class="dropdown">
-                                    <input type="text" name="city" class="form-control dropdown-toggle" id="filterProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="findProv('filterProv', 'filter-prov', 'showFilProv')" placeholder="{{ __('all.table.prov') }}">
+                                    <input type="hidden" id="idfProv">
+                                    <input type="text" name="city" class="form-control dropdown-toggle" id="filterProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterPosition('filterProv', 'filter-prov', 'showFilProv')" placeholder="{{ __('all.table.prov') }}">
                                     <div class="dropdown-menu filter-prov scrollable-menu" id="showFilProv">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
@@ -39,7 +40,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="dropdown">
-                                    <input type="text" name="city" class="form-control readonly" id="filterCity" readonly placeholder="{{ __('all.table.city') }}">
+                                    <input type="text" name="city" class="form-control dropdown-toggle" id="filterCity" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterPosition('filterCity', 'filter-city', 'showFilCity')" placeholder="{{ __('all.table.city') }}">
                                     <div class="dropdown-menu filter-city scrollable-menu" id="showFilCity">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
@@ -304,49 +305,39 @@
         },
     });
 
-    function findProv(filter, code, show) {
+    function filterPosition(filter, code, show) {
         var input, filter;
-        input  = document.getElementById(filter);
-        filter = input.value.toUpperCase();
+        var data = new FormData();
+
+        input   = document.getElementById(filter);
+        value   = input.value.toUpperCase();
+
+        if (filter == 'filterProv') {
+            data.append('filter', value);
+            var url = "{{ route('findProv') }}";
+        } else {
+            data.append('query', value);
+            data.append('filter', $('#idfProv').val());
+            var url = "{{ route('findCity') }}";
+        }
 
         $('#'+show).toggle('show');
 
         $.ajax({
             type        : "POST",
-            url         : "{{ route('findProv') }}",
-            headers     : {
+            url         : url,
+            headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            data        : {
-                filter  : filter
-            },
+            data        : data,
             dataType    : 'JSON',
+            processData : false,  // Important!
+            contentType : false,
+            cache       : false,
             beforeSend  : function () {
                 $('.'+code).ploading({action:'show'});
             },
             success     : function (res) {
-                $('.'+code).html(res.data);
-            },
-            complete    : function () {
-                $('.'+code).ploading({action:'hide'});
-            }
-        });
-    }
-
-    function findCity(filter, code, show) {
-        $.ajax({
-            type        : "POST",
-            url         : "{{ route('findCity') }}",
-            data        : {
-                _token  : "{{ csrf_token() }}",
-                filter  : filter
-            },
-            dataType    : 'JSON',
-            beforeSend  : function () {
-                $('.'+code).ploading({action:'show'});
-            },
-            success     : function (res) {
-                $('#'+show).toggle('show');
                 $('.'+code).html(res.data);
             },
             complete    : function () {
@@ -360,9 +351,10 @@
         var id      = $(e).attr('id');
 
         $('#filterProv').val(name);
+        $('#idfProv').val(id);
 
         $('.filter-prov').hide(); 
-        findCity(id, 'filter-city', 'showFilCity');
+        filterPosition('filterCity', 'filter-city', 'showFilCity');
         change('filterProv', 5);
     }
 
@@ -617,7 +609,12 @@
             type    : "POST",
             url     : "{{ route('loadListPartner') }}",
             data    : {
-                search : $('#search').val()
+                search  : $('#search').val(),
+                provinsi: $('#filterProv').val(),
+                kota    : $('#filterCity').val(),
+                tipe    : $('#type').val(),
+                kategori: $('#cat').val(),
+                status  : $('#status').val(),
             },
             dataType: "JSON",
             beforeSend: function(){

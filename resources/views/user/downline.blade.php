@@ -34,22 +34,23 @@
                         <form id="formFilter" class="px-4 py-3" action="#">
                             <div class="form-group">
                                 <div class="dropdown">
-                                    <input type="text" name="city" class="form-control dropdown-toggle" id="filterProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="findProv('filterProv', 'filter-prov', 'showFilProv')" placeholder="{{ __('all.table.prov') }}">
-                                    <div class="dropdown-menu filter-prov" id="showFilProv">
+                                    <input type="hidden" id="idfProv">
+                                    <input type="text" name="city" class="form-control dropdown-toggle" id="filterProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterPosition('filterProv', 'filter-prov', 'showFilProv')" placeholder="{{ __('all.table.prov') }}">
+                                    <div class="dropdown-menu filter-prov scrollable-menu" id="showFilProv">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="dropdown">
-                                    <input type="text" name="city" class="form-control readonly" id="filterCity" readonly placeholder="{{ __('all.table.city') }}">
-                                    <div class="dropdown-menu filter-city" id="showFilCity">
+                                    <input type="text" name="city" class="form-control dropdown-toggle" id="filterCity" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterPosition('filterCity', 'filter-city', 'showFilCity')" placeholder="{{ __('all.table.city') }}">
+                                    <div class="dropdown-menu filter-city scrollable-menu" id="showFilCity">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <select name="tipe" id="type" class="form-control select2" onchange="change('type', 3)">
+                                <select name="tipe" id="type" class="form-control select2" onchange="showData()">
                                     <option value="">{{ __('all.placeholder.choose_coortype') }}</option>
                                     <option value="pusat" {{ Request::segment(3) == 'pusat' ? 'selected' : '' }}>{{ __('all.checkbox.central') }}</option>
                                     <option value="provinsi" {{ Request::segment(3) == 'provinsi' ? 'selected' : '' }}>{{ __('all.checkbox.regional') }}</option>
@@ -59,10 +60,10 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <select name="status" id="status" class="form-control" style="width: 100% !important;" onchange="change('status', 10)">
+                                <select name="status" id="status" class="form-control" style="width: 100% !important;" onchange="showData()">
                                     <option value="" selected disabled>{{ __('all.placeholder.choose_status') }}</option>
-                                    <option value="{{ __('all.active') }}">{{ __('all.active') }}</option>
-                                    <option value="{{ __('all.noactive') }}">{{ __('all.noactive') }}</option>
+                                    <option value="true">{{ __('all.active') }}</option>
+                                    <option value="false">{{ __('all.noactive') }}</option>
                                 </select>
                             </div>
                         </form>
@@ -153,7 +154,7 @@
                                 <div class="dropdown">
                                     <input type="hidden" id="idProv">
                                     <input type="text" name="provinsi" class="form-control dropdown-toggle readonly-edit readonly" id="dropProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('dropProv', 'data-prov', 'showProv')" placeholder="{{ __('all.placeholder.key') }}">
-                                    <div class="dropdown-menu data-prov" id="showProv">
+                                    <div class="dropdown-menu data-prov scrollable-menu" id="showProv">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
                                 </div>
@@ -165,7 +166,7 @@
                                 <div class="dropdown">
                                     <input type="hidden" id="idCity">
                                     <input type="text" name="city" class="form-control dropdown-toggle form-control readonly readonly-edit" id="city" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('city', 'data-city', 'showCity')" placeholder="{{ __('all.placeholder.key') }}">
-                                    <div class="dropdown-menu data-city" id="showCity">
+                                    <div class="dropdown-menu data-city scrollable-menu" id="showCity">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
                                 </div>
@@ -176,7 +177,7 @@
                             <div class="col-sm-9">
                                 <div class="dropdown">
                                     <input type="text" name="district" class="form-control dropdown-toggle readonly readonly-edit" id="district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('district', 'data-district', 'showDistrict')" placeholder="{{ __('all.placeholder.key') }}">
-                                    <div class="dropdown-menu data-district" id="showDistrict">
+                                    <div class="dropdown-menu data-district scrollable-menu" id="showDistrict">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
                                 </div>
@@ -395,66 +396,16 @@
         },
     });
 
-    function findProv(filter, code, show) {
-        var input, filter;
-        input  = document.getElementById(filter);
-        filter = input.value.toUpperCase();
-
-        $('#'+show).toggle('show');
-
-        $.ajax({
-            type        : "POST",
-            url         : "{{ route('findProvUser') }}",
-            headers     : {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data        : {
-                filter  : filter
-            },
-            dataType    : 'JSON',
-            beforeSend  : function () {
-                $('.'+code).ploading({action:'show'});
-            },
-            success     : function (res) {
-                $('.'+code).html(res.data);
-            },
-            complete    : function () {
-                $('.'+code).ploading({action:'hide'});
-            }
-        });
-    }
-
-    function findCity(filter, code, show) {
-        $.ajax({
-            type        : "POST",
-            url         : "{{ route('findCityUser') }}",
-            data        : {
-                _token  : "{{ csrf_token() }}",
-                filter  : filter
-            },
-            dataType    : 'JSON',
-            beforeSend  : function () {
-                $('.'+code).ploading({action:'show'});
-            },
-            success     : function (res) {
-                $('#'+show).toggle('show');
-                $('.'+code).html(res.data);
-            },
-            complete    : function () {
-                $('.'+code).ploading({action:'hide'});
-            }
-        });
-    }
-
     function filterProv(e) {
         var name    = $(e).attr('name');
         var id      = $(e).attr('id');
 
         $('#filterProv').val(name);
+        $('#idfProv').val(id);
 
         $('.filter-prov').hide(); 
-        findCity(id, 'filter-city', 'showFilCity');
-        change('filterProv', 5);
+        filterPosition('filterCity', 'filter-city', 'showFilCity');
+        showData();
     }
 
     function filterCity(e) {
@@ -464,21 +415,7 @@
         $('#filterCity').val(name);
 
         $('.filter-city').hide(); 
-        change('filterCity', 6);
-    }
-
-    function filter(data, row) {
-        if (table.column(row).search() !== data ) {
-            table
-                .column(row)
-                .search( data )
-                .draw();
-        }
-    }
-
-    function change(params, row) {
-        var val = $('#'+params).val();
-        filter(val, row);
+        showData();
     }
 
     function selectProv(e) {
@@ -548,6 +485,47 @@
         });
     }
 
+    function filterPosition(filter, code, show) {
+        var input, filter;
+        var data = new FormData();
+
+        input   = document.getElementById(filter);
+        value   = input.value.toUpperCase();
+
+        if (filter == 'filterProv') {
+            data.append('filter', value);
+            var url = "{{ route('findProvUser') }}";
+        } else {
+            data.append('query', value);
+            data.append('filter', $('#idfProv').val());
+            var url = "{{ route('findCityUser') }}";
+        }
+
+        $('#'+show).toggle('show');
+
+        $.ajax({
+            type        : "POST",
+            url         : url,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data        : data,
+            dataType    : 'JSON',
+            processData : false,  // Important!
+            contentType : false,
+            cache       : false,
+            beforeSend  : function () {
+                $('.'+code).ploading({action:'show'});
+            },
+            success     : function (res) {
+                $('.'+code).html(res.data);
+            },
+            complete    : function () {
+                $('.'+code).ploading({action:'hide'});
+            }
+        });
+    }
+
     function getLoc(e) {
         $('.data-district').hide();
         $('#district').val($(e).attr('name'));
@@ -576,7 +554,11 @@
             type    : "POST",
             url     : "{{ route('listUser') }}",
             data    : {
-                search : $('#search').val()
+                search  : $('#search').val(),
+                provinsi: $('#filterProv').val(),
+                kota    : $('#filterCity').val(),
+                tipe    : $('#type').val(),
+                status  : $('#status').val(),
             },
             dataType: "JSON",
             beforeSend: function(){

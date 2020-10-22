@@ -54,6 +54,12 @@
         label {
             font-weight: 800;
         }
+
+        .scrollable-menu {
+            height: auto;
+            max-height: 200px;
+            overflow-x: hidden;
+        }
     </style>
 
 </head>
@@ -178,7 +184,7 @@
                 <div class="modal-body">{{ __('all.comment_logout') }}</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">{{ __('all.cancel') }}</button>
-                    <a class="btn btn-primary" id="btn-logout" onclick="logout()"><span class="text-white">{{ __('all.logout') }}</span></a>
+                    <a class="btn btn-success" id="btn-logout" onclick="logout()"><span class="text-white">{{ __('all.logout') }}</span></a>
                 </div>
             </div>
         </div>

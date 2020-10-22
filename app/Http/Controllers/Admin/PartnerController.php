@@ -39,6 +39,11 @@ class PartnerController extends Controller
                     "limit"         => 10000000,
                     "pageNumber"    => 0,
                     "search"        => '',
+                    "provinsi"      => $_POST['provinsi'],
+                    "kota"          => $_POST['kota'],
+                    "tipe"          => $_POST['tipe'],
+                    "kategori"      => $_POST['kategori'],
+                    "active"        => $_POST['status'],
                 ]
             ]
         ]);
@@ -85,7 +90,12 @@ class PartnerController extends Controller
                     "payload"   => [
                         "limit"         => 100000000,
                         "pageNumber"    => 0,
-                        "search"        => ""
+                        "search"        => "",
+                        "provinsi"      => $request->provinsi,
+                        "kota"          => $request->kota,
+                        "tipe"          => $request->tipe,
+                        "kategori"      => $request->kategori,
+                        "active"        => $request->status,
                     ]
                 ]
             ]);
@@ -286,7 +296,7 @@ class PartnerController extends Controller
             ],
             'json'      => [
                 "provinceId"    => $request->filter,
-                "query"         => ""
+                "query"         => $_POST['query']
             ]
         ]);
         $response   = $request->getBody()->getContents();
