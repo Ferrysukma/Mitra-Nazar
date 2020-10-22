@@ -72,23 +72,13 @@
             </div>
             <div class="card-body">
                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner" id="showAnn">
-                        <!-- <div class="carousel-item active">
-                        <img class="d-block w-100" src="..." alt="First slide">
-                        </div>
-                        <div class="carousel-item">
-                        <img class="d-block w-100" src="..." alt="Second slide">
-                        </div>
-                        <div class="carousel-item">
-                        <img class="d-block w-100" src="..." alt="Third slide">
-                        </div> -->
-                    </div>
+                    <div class="carousel-inner" id="showAnn"></div>
                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="carousel-control-prev-icon"></span>
                         <span class="sr-only">Previous</span>
                     </a>
                     <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="carousel-control-next-icon"></span>
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
@@ -217,6 +207,10 @@
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = '#858796';
 
+    $('.carousel').carousel({
+        interval: 2000
+    })
+
     function changeIcon(id, kd) {
         if ($('#'+id).find('i').hasClass('fa fa-eye')) {
             $('#'+id).find('i').attr('class','fa fa-eye-slash');
@@ -290,12 +284,20 @@
         if (res.length > 0) {
             txt = '';
             $(res).each(function (idx, data) {
-                txt += '<div class="card border shadow h-100 py-2">';
-                txt +=      '<div class="card-body">';
-                txt +=          '<div class="row no-gutters align-items-center">';
-                txt +=              '<div class="col mr-2">';
-                txt +=                  '<div class="text-lg font-weight-bold text-danger text-uppercase mb-1">'+data.judul+'</div>';
-                txt +=                  '<div class="h5 mb-0 font-weight-bold text-gray-800">'+data.isi+'</div>';
+                if (idx == 0) {
+                    var active = 'active';
+                } else {
+                    var active = '';
+                }
+
+                txt += '<div class="carousel-item '+active+'">';
+                txt +=      '<div class="card border shadow h-100 py-2 d-block w-100">';
+                txt +=          '<div class="card-body">';
+                txt +=              '<div class="row no-gutters align-items-center">';
+                txt +=                  '<div class="col mr-2">';
+                txt +=                      '<div class="text-lg font-weight-bold text-danger text-uppercase mb-1">'+data.judul+'</div>';
+                txt +=                      '<div class="h5 mb-0 font-weight-bold text-gray-800">'+data.isi+'</div>';
+                txt +=                  '</div>';
                 txt +=              '</div>';
                 txt +=          '</div>';
                 txt +=      '</div>';
