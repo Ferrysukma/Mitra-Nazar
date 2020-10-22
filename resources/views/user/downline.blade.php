@@ -148,7 +148,7 @@
                             <label for="old" class="col-sm-3">{{ __('all.table.prov') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
                                 <div class="dropdown">
-                                    <input type="text" name="city" class="form-control dropdown-toggle" id="dropProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('dropProv', 'data-prov', 'showProv')" placeholder="{{ __('all.placeholder.key') }}">
+                                    <input type="text" name="city" class="form-control dropdown-toggle readonly-edit readonly" id="dropProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('dropProv', 'data-prov', 'showProv')" placeholder="{{ __('all.placeholder.key') }}">
                                     <div class="dropdown-menu data-prov" id="showProv">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
@@ -188,7 +188,7 @@
                         <div class="form-group row">
                             <label for="old" class="col-sm-3">{{ __('all.table.address') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
-                                <textarea name="address" id="address" class="form-control readonly" cols="30" rows="5"></textarea>
+                                <textarea name="address" id="address" class="form-control readonly-edit readonly" cols="30" rows="5"></textarea>
                             </div>
                         </div>
                 </div>
@@ -201,8 +201,7 @@
         </div>
     </div>
 </div>
-<!-- End Modal Change Password -->
-<!-- Start Modal Change Password -->
+
 <div class="modal fade" id="disabled-mitra" role="dialog">
     <div class="modal-dialog modals-default">
         <div class="modal-content delete-mitra">
@@ -224,7 +223,6 @@
         </div>
     </div>
 </div>
-<!-- End Modal Change Password -->
 
 <!-- Modal -->
 <div class="modal fade" id="modal-detail" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -582,6 +580,7 @@
         $('#basic-addon1').attr('disabled', true);
         $('#userCode').removeAttr('readonly');
         $('#kategori').val('umum');
+        $('#modal-mitra').find('.readonly-edit').removeAttr('readonly');
         $('#modal-mitra').find('.modal-title').text("{{ __('all.add_partner') }}");
     });
 
@@ -669,7 +668,8 @@
             type    : "POST",
             url     : "{{ route('Userfind') }}",
             data    : {
-                id  : $('#userCode').val(),
+                id          : $('#id').val(),
+                userCode    : $('#userCode').val(),
             },
             dataType: "JSON",
             beforeSend: function(){
@@ -679,7 +679,22 @@
             },
             success     : function(data){
                 if (data.code == 0) {
-                    $('#nama').val(data.data.name);
+                    if ($('#id').val().length > 0) {
+                        $('#nama').val(data.data.user.name);
+                        $('#tipe').val(data.data.payload.tipe);
+                        $('#kategori').val(data.data.payload.kategori);
+                        $('#dropProv').val(data.data.payload.provinsi);
+                        $('#city').val(data.data.payload.kota);
+                        $('#district').val(data.data.payload.kecamatan);
+                        $('#address').val(data.data.payload.alamat);
+
+                        latlng  = data.data.payload.koordinat;
+                        split   = latlng.split(',');
+
+                        initialize(split[0], split[1], 'map_canvas');
+                    } else {
+                        $('#nama').val(data.data.name);
+                    }
                 } 
             },
             complete : function () {
@@ -736,18 +751,10 @@
         var data = table.row( $(this).parents('tr') ).data();
         showModal('modal-mitra','postmitra');
         $('#id').val($(this).attr('id'));
-        $('#userCode').val(data[1]).attr('readonly', true);
-        $('#nama').val(data[2]);
-        $('#tipe').val(data[3]);
-        $('#kategori').val(data[4]);
-        $('#dropProv').val(data[5]);
-        $('#city').val(data[6]);
-        $('#district').val(data[7]);
-        $('#address').val(data[8]);
-
-        getLatLong(data[6], 'map_canvas', 'maps-mitra');
+        $('#userCode').val('');
         
-        $('#modal-mitra').find('.modal-title').text("{{ __('all.edit_user') }} #"+data[0]+"");
+        $('#modal-mitra').find('.readonly-edit').attr('readonly', true);
+        $('#modal-mitra').find('.modal-title').text("{{ __('all.edit_down') }} #"+data[0]+"");
     });
 
     $('#table-maps tbody').on('click', '.action-delete', function () {

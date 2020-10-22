@@ -212,25 +212,50 @@ class DownlineController extends Controller
     public function find(Request $request)
     {
         $client     = new Client();
+
+        if (isset($request->id) && !empty($request->id)) {
+            $url    = $this->base_url . 'user/find-upline';
         
-        $url        = $this->base_url . 'user/find';
-        $request    = $client->post($url, [
-            'headers'   => [
-                'Authorization' => Session::get('user_key')
-            ],
-            'json'      => [
-                "payload"   => $request->id
-            ]
-        ]);
-
-        $response   = $request->getBody()->getContents();
-        $status     = json_decode((string) $response, true)['status']['statusCode'];
-
-        if ($status == '000') {
-            $result = json_decode((string) $response)->payload;
-            return json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
+            $request    = $client->post($url, [
+                'headers'   => [
+                    'Authorization' => Session::get('user_key')
+                ],
+                'json'      => [
+                    "payload"   => $request->userCode
+                ]
+            ]);
+    
+            $response   = $request->getBody()->getContents();
+            $status     = json_decode((string) $response, true)['status']['statusCode'];
+    
+            if ($status == '000') {
+                $pay    = json_decode((string) $response)->payload;
+                $user   = json_decode((string) $response)->dataUser;
+                return json_encode(array('code' => 0, 'info' => 'true', 'data' => array('payload' => $pay, 'user' => $user)));
+            } else {
+                return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            }
         } else {
-            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            $url    = $this->base_url . 'user/find';
+        
+            $request    = $client->post($url, [
+                'headers'   => [
+                    'Authorization' => Session::get('user_key')
+                ],
+                'json'      => [
+                    "payload"   => $request->userCode
+                ]
+            ]);
+    
+            $response   = $request->getBody()->getContents();
+            $status     = json_decode((string) $response, true)['status']['statusCode'];
+    
+            if ($status == '000') {
+                $result = json_decode((string) $response)->payload;
+                return json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
+            } else {
+                return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            }
         }
     }
 
