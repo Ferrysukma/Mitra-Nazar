@@ -791,7 +791,7 @@
                 if (res.data.image) {
                     $('#imageUser').attr('src', res.data.image);
                 } else {
-                    $('#imageUser').attr('src', '{{ asset("assets/admin/image/man.png") }}');
+                    $('#imageUser').attr('src', '{{ asset("assets/admin/image/user.png") }}');
                 }
             }
         })

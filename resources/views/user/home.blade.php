@@ -71,7 +71,27 @@
                 <h6 class="m-0 font-weight-bold text-primary">{{ __('all.announcement') }}</h6>
             </div>
             <div class="card-body">
-                <div id="showAnn"></div>
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" id="showAnn">
+                        <!-- <div class="carousel-item active">
+                        <img class="d-block w-100" src="..." alt="First slide">
+                        </div>
+                        <div class="carousel-item">
+                        <img class="d-block w-100" src="..." alt="Second slide">
+                        </div>
+                        <div class="carousel-item">
+                        <img class="d-block w-100" src="..." alt="Third slide">
+                        </div> -->
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -274,7 +294,7 @@
                 txt +=      '<div class="card-body">';
                 txt +=          '<div class="row no-gutters align-items-center">';
                 txt +=              '<div class="col mr-2">';
-                txt +=                  '<div class="text-xs font-weight-bold text-danger text-uppercase mb-1">'+data.judul+'</div>';
+                txt +=                  '<div class="text-lg font-weight-bold text-danger text-uppercase mb-1">'+data.judul+'</div>';
                 txt +=                  '<div class="h5 mb-0 font-weight-bold text-gray-800">'+data.isi+'</div>';
                 txt +=              '</div>';
                 txt +=          '</div>';
