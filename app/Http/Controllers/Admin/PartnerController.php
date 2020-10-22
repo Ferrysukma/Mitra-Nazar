@@ -51,7 +51,13 @@ class PartnerController extends Controller
             $row    = [];
             foreach ($result as $key => $value) {
                 $explode            = explode(', ', $value->koordinat);
-                $value->active      = $value->active == '1' ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
+                if ($value->active == true) {
+                    $value->action      = "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='".__('all.button.edit')."' data-toggle='tooltip' data-placement='top' id='".$value->id."'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='".$value->id."' status='".$value->active."' title='".__('all.button.delete')."' data-toggle='tooltip' data-placement='top'><i class='fa fa-times'></i></button></div>";
+                } else {
+                    $value->action      = "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='".__('all.button.edit')."' data-toggle='tooltip' data-placement='top' id='".$value->id."'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-success action-active' id='".$value->id."' status='".$value->active."' title='".__('all.button.active')."' data-toggle='tooltip' data-placement='top'><i class='fa fa-check'></i></button></div>";
+                }
+
+                $value->active      = $value->active == true ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
                 $value->koordinat   = "<a target='_blank' href='http://maps.google.com/?ll=".$value->koordinat."'>".__('all.open_maps')." <i class='fa fa-map-marker-alt'></i></a>";
                 $value->lat         = $explode[0];
                 $value->long        = $explode[1];
@@ -188,7 +194,7 @@ class PartnerController extends Controller
     public function delete(Request $request)
     {
         $client     = new Client();
-        
+        $status     = $request->active == '1' ? false : true;
         $url        = $this->base_url . 'mitra/admin/disable-mitra';
         $request    = $client->post($url, [
             'headers'   => [
@@ -196,7 +202,8 @@ class PartnerController extends Controller
             ],
             'json'      => [
                 "payload"   => [
-                    "id"         => $request->id
+                    "id"        => $request->id,
+                    "active"    => $status
                 ]
             ]
         ]);
