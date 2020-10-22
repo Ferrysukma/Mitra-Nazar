@@ -787,6 +787,12 @@
                 $('#countC').text(res.data.kota);
                 $('#countD').text(res.data.kecamatan);
                 $('#countV').text(res.data.desa);
+
+                if (res.data.image) {
+                    $('#imageUser').attr('src', res.data.image);
+                } else {
+                    $('#imageUser').attr('src', '{{ asset("assets/admin/image/man.png") }}');
+                }
             }
         })
     }
