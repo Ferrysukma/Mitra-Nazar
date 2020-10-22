@@ -88,54 +88,62 @@
     <div class="col-xl-8 col-md-6 mb-5">
         <div class="row">
             <div class="col-xl-6 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" align="center">{{ __('all.checkbox.regional') }}</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="countR" align="center"></div>
+                <a href="{{ route('partnerUser', 'provinsi') }}">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" align="center">{{ __('all.checkbox.regional') }}</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="countR" align="center"></div>
+                                    </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-xl-6 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" align="center">{{ __('all.checkbox.city') }}</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="countC" align="center"></div>
+                <a href="{{ route('partnerUser', 'kota') }}">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" align="center">{{ __('all.checkbox.city') }}</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="countC" align="center"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" align="center">{{ __('all.checkbox.district') }}</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="countD" align="center"></div>
+                <a href="{{ route('partnerUser', 'kecamatan') }}">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" align="center">{{ __('all.checkbox.district') }}</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="countD" align="center"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-sm-6">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" align="center">{{ __('all.checkbox.village') }}</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="countV" align="center"></div>
+                <a href="{{ route('partnerUser', 'desa') }}">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" align="center">{{ __('all.checkbox.village') }}</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="countV" align="center"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
@@ -206,10 +214,6 @@
 <script>
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = '#858796';
-
-    $('.carousel').carousel({
-        interval: 2000
-    })
 
     function changeIcon(id, kd) {
         if ($('#'+id).find('i').hasClass('fa fa-eye')) {
@@ -474,6 +478,12 @@
                 }
             });
         }
+    });
+
+    $(document).ready(function () {
+        $('.carousel').carousel({
+            interval: 2000
+        })
     });
 
     $('[data-toggle="tooltip"]').tooltip();

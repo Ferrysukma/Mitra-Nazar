@@ -23,6 +23,12 @@ class DownlineController extends Controller
         return view('user.downline');
     }
 
+    public function downline($tipe)
+    {
+        $data['tipe']   = $tipe;
+        return view('user.downline', $data);
+    }
+
     public function loadList(Request $request)
     {
         $client     = new Client();

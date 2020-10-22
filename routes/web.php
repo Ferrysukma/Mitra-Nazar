@@ -89,6 +89,7 @@ Route::group(['middleware' => 'CheckTokenUser'], function () {
     Route::post('user/coordinateDistrict', [App\Http\Controllers\User\HomeController::class, 'coordinateDistrict'])->name('coordinateDistrictUser');
 
     Route::get('/user/downline', [App\Http\Controllers\User\DownlineController::class, 'index'])->name('downline');
+    Route::get('/user/partner/{tipe}', [App\Http\Controllers\User\DownlineController::class, 'downline'])->name('partnerUser');
     Route::post('/user/list', [App\Http\Controllers\User\DownlineController::class, 'loadList'])->name('listUser');
     Route::post('/user/listall', [App\Http\Controllers\User\DownlineController::class, 'listAll'])->name('listAllUser');
     Route::post('/user/find', [App\Http\Controllers\User\DownlineController::class, 'find'])->name('Userfind');

@@ -1,6 +1,9 @@
 @extends('user.master')
 
 @section('contentUser')
+<?php $type   = isset($tipe) && !empty($tipe) ? $tipe : null;?>
+
+
 <!-- Page Heading -->
 <div class="row">
     <div class="col-lg-12 mb-4">
@@ -48,11 +51,11 @@
                             <div class="form-group">
                                 <select name="tipe" id="type" class="form-control select2" onchange="change('type', 3)">
                                     <option value="">{{ __('all.placeholder.choose_coortype') }}</option>
-                                    <option value="pusat">{{ __('all.checkbox.central') }}</option>
-                                    <option value="provinsi">{{ __('all.checkbox.regional') }}</option>
-                                    <option value="kota">{{ __('all.checkbox.city') }}</option>
-                                    <option value="kecamatan">{{ __('all.checkbox.district') }}</option>
-                                    <option value="desa">{{ __('all.checkbox.village') }}</option>
+                                    <option value="pusat" {{ Request::segment(3) == 'pusat' ? 'selected' : '' }}>{{ __('all.checkbox.central') }}</option>
+                                    <option value="provinsi" {{ Request::segment(3) == 'provinsi' ? 'selected' : '' }}>{{ __('all.checkbox.regional') }}</option>
+                                    <option value="kota" {{ Request::segment(3) == 'kota' ? 'selected' : '' }}>{{ __('all.checkbox.city') }}</option>
+                                    <option value="kecamatan" {{ Request::segment(3) == 'kecamatan' ? 'selected' : '' }}>{{ __('all.checkbox.district') }}</option>
+                                    <option value="desa" {{ Request::segment(3) == 'desa' ? 'selected' : '' }}>{{ __('all.checkbox.village') }}</option>
                                 </select>
                             </div>
                             <div class="form-group">
