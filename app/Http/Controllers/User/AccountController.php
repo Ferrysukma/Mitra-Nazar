@@ -37,13 +37,15 @@ class AccountController extends Controller
             $result = json_decode((string) $response)->payload;
 
             $rows   = [];
+            $count  = 0;
             foreach ($result as $key => $value) {
                 $value->namaBank= isset($value->bankInfo) ? $value->bankInfo->namaBank : '';
                 $value->bankId  = isset($value->bankInfo) ? $value->bankInfo->kodeBank : '';
                 $rows[]         = $value;
+                $count          += $key;
             }
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $rows));
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => array('data' => $rows, 'count' => $count)));
         } else {
             $result = 'empty';
             

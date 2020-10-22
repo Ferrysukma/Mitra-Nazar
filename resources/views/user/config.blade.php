@@ -249,7 +249,7 @@
             },
             success     : function(data){
                 if (data.code == 0) {
-                    list = data.data;
+                    list = data.data.data;
                     
                     if(list.length > 0){
                         $.each(list, function(idx, ref){
