@@ -148,7 +148,8 @@
                             <label for="old" class="col-sm-3">{{ __('all.table.prov') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
                                 <div class="dropdown">
-                                    <input type="text" name="city" class="form-control dropdown-toggle readonly-edit readonly" id="dropProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('dropProv', 'data-prov', 'showProv')" placeholder="{{ __('all.placeholder.key') }}">
+                                    <input type="hidden" id="idProv">
+                                    <input type="text" name="provinsi" class="form-control dropdown-toggle readonly-edit readonly" id="dropProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('dropProv', 'data-prov', 'showProv')" placeholder="{{ __('all.placeholder.key') }}">
                                     <div class="dropdown-menu data-prov" id="showProv">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
@@ -159,7 +160,8 @@
                             <label for="old" class="col-sm-3">{{ __('all.table.city') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
                                 <div class="dropdown">
-                                    <input type="text" name="city" class="form-control readonly" id="city" readonly>
+                                    <input type="hidden" id="idCity">
+                                    <input type="text" name="city" class="form-control dropdown-toggle form-control readonly readonly-edit" id="city" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('city', 'data-city', 'showCity')" placeholder="{{ __('all.placeholder.key') }}">
                                     <div class="dropdown-menu data-city" id="showCity">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
@@ -170,7 +172,7 @@
                             <label for="old" class="col-sm-3">{{ __('all.form.district') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
                                 <div class="dropdown">
-                                    <input type="text" name="district" class="form-control readonly" id="district" readonly>
+                                    <input type="text" name="district" class="form-control dropdown-toggle readonly readonly-edit" id="district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('district', 'data-district', 'showDistrict')" placeholder="{{ __('all.placeholder.key') }}">
                                     <div class="dropdown-menu data-district" id="showDistrict">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
@@ -481,9 +483,10 @@
         var id      = $(e).attr('id');
 
         $('#dropProv').val(name);
+        $('#idProv').val(id);
 
         $('.data-prov').hide(); 
-        coordinateCity(id, 'data-city', 'showCity');
+        filterCoordinate('city', 'data-city', 'showCity');
     }
 
     function selectCity(e) {
@@ -491,74 +494,49 @@
         var id      = $(e).attr('id');
 
         $('#city').val(name);
+        $('#idCity').val(id);
 
         $('.data-city').hide(); 
-        coordinateDistrict(id, 'data-district', 'showDistrict');
+        filterCoordinate('district', 'data-district', 'showDistrict');
     }
 
     function filterCoordinate(filter, code, show) {
         var input, filter;
-        input  = document.getElementById(filter);
-        filter = input.value.toUpperCase();
+        var data = new FormData();
+
+        input   = document.getElementById(filter);
+        value   = input.value.toUpperCase();
+
+        if (filter == 'dropProv') {
+            data.append('filter', value);
+            var url = "{{ route('getCoordinateUser') }}";
+        } else if (filter == 'city') {
+            data.append('query', value);
+            data.append('filter', $('#idProv').val());
+            var url = "{{ route('coordinateCityUser') }}";
+        } else {
+            data.append('query', value);
+            data.append('filter', $('#idCity').val());
+            var url = "{{ route('coordinateDistrictUser') }}";
+        }
 
         $('#'+show).toggle('show');
 
         $.ajax({
             type        : "POST",
-            url         : "{{ route('getCoordinateUser') }}",
-            data        : {
-                _token  : "{{ csrf_token() }}",
-                filter  : filter
+            url         : url,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
+            data        : data,
             dataType    : 'JSON',
+            processData : false,  // Important!
+            contentType : false,
+            cache       : false,
             beforeSend  : function () {
                 $('.'+code).ploading({action:'show'});
             },
             success     : function (res) {
-                $('.'+code).html(res.data);
-            },
-            complete    : function () {
-                $('.'+code).ploading({action:'hide'});
-            }
-        });
-    }
-
-    function coordinateCity(filter, code, show) {
-        $.ajax({
-            type        : "POST",
-            url         : "{{ route('coordinateCityUser') }}",
-            data        : {
-                _token  : "{{ csrf_token() }}",
-                filter  : filter
-            },
-            dataType    : 'JSON',
-            beforeSend  : function () {
-                $('.'+code).ploading({action:'show'});
-            },
-            success     : function (res) {
-                $('#'+show).toggle('show');
-                $('.'+code).html(res.data);
-            },
-            complete    : function () {
-                $('.'+code).ploading({action:'hide'});
-            }
-        });
-    }
-
-    function coordinateDistrict(filter, code, show) {
-        $.ajax({
-            type        : "POST",
-            url         : "{{ route('coordinateDistrictUser') }}",
-            data        : {
-                _token  : "{{ csrf_token() }}",
-                filter  : filter
-            },
-            dataType    : 'JSON',
-            beforeSend  : function () {
-                $('.'+code).ploading({action:'show'});
-            },
-            success     : function (res) {
-                $('#'+show).toggle('show');
                 $('.'+code).html(res.data);
             },
             complete    : function () {
@@ -581,7 +559,7 @@
         $('#userCode').removeAttr('readonly');
         $('#kategori').val('umum');
         $('#modal-mitra').find('.readonly-edit').removeAttr('readonly');
-        $('#modal-mitra').find('.modal-title').text("{{ __('all.add_partner') }}");
+        $('#modal-mitra').find('.modal-title').text("{{ __('all.add_down') }}");
     });
 
     function showData() {

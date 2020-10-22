@@ -398,7 +398,7 @@ class HomeController extends Controller
             ],
             'json'      => [
                 "provinceId"    => $request->filter,
-                "query"         => ""
+                "query"         => $_POST['query'],
             ]
         ]);
         $response   = $request->getBody()->getContents();
@@ -431,7 +431,7 @@ class HomeController extends Controller
             ],
             'json'      => [
                 "cityId"    => $request->filter,
-                "query"     => ""
+                "query"     => $_POST['query']
             ]
         ]);
         $response   = $request->getBody()->getContents();
