@@ -67,7 +67,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-6">
-                        <a href="" class="btn btn-block mb-2" style="background-color: #405D9D; color: #fff"> <i class="fa fa-facebook-f"></i> Facebook</a>
+                        <a href="{{ route('loginbyFacebook') }}" class="btn btn-block mb-2" style="background-color: #405D9D; color: #fff"> <i class="fa fa-facebook-f"></i> Facebook</a>
                     </div>
                     <div class="col-6">
                         <a href="#" id="googleLogin" class="btn btn-google btn-block mb-4" style="background-color: #af0000; color: #fff"> <i class="fa fa-google"></i> Google</a>

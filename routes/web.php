@@ -30,6 +30,9 @@ Route::post('/user/loginbyPassword', [App\Http\Controllers\User\LoginController:
 Route::post('/user/loginbyPin', [App\Http\Controllers\User\LoginController::class, 'loginbyPin'])->name('loginbyPin');
 Route::post('/user/loginbyOtp', [App\Http\Controllers\User\LoginController::class, 'loginbyOtp'])->name('loginbyOtp');
 Route::post('/user/sendCode', [App\Http\Controllers\User\LoginController::class, 'sendCode'])->name('sendCode');
+Route::get('/login_by_facebook', [App\Http\Controllers\User\LoginController::class, 'loginbyFacebook'])->name('loginbyFacebook');
+Route::get('/login_by_facebook/callback', [App\Http\Controllers\User\LoginController::class, 'loginbyFacebookCallback'])->name('loginbyFacebookCallback');
+
 Route::get('/user/logoutUser', [App\Http\Controllers\User\LoginController::class, 'logout'])->name('logoutUser');
 
 Auth::routes();

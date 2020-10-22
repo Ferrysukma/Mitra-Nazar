@@ -190,6 +190,70 @@ class LoginController extends Controller
         }
     }
 
+    public function loginbyFacebook()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function loginbyFacebookCallback()
+    {
+        $user = Socialite::driver('facebook')->stateless()->user();
+
+        // API Validate User
+        $url        = $this->base_url . 'user/validate';
+        $request    = $this->client->post($url, [
+            'headers'   => [
+                'Content-Type'  => 'application/json'
+            ],
+            'json'      => [
+                'payload'       => $user->email
+            ]
+        ]);
+        $response       = $request->getBody()->getContents();
+        $data           = json_decode($response);
+
+        if ($data->status->statusCode == '000') {
+            if ($this->loginbyFacebookProcess($user->email, $user->id) == true) {
+                return redirect('/');
+            } else {
+                return redirect('/user/login');
+            }
+        }
+    }
+
+    public function loginbyFacebookProcess($email, $id)
+    {
+        // API Login By Facebook
+        try {
+            $url_login      =  $this->base_url . 'user/login-mitra';
+            $request_login  = $this->client->post($url_login, [
+                'headers' => ['Content-type' => 'application/json'],
+                'json'    => [
+                    'email'      => $email,
+                    'idFacebook' => $id,
+                    'type'       => "facebook",
+                ],
+            ]);
+            $response_login       = $request_login->getBody()->getContents();
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $request_login        = $e->getResponse();
+            $response_login       = $request_login->getBody()->getContents();
+        }
+
+        $data_login         = json_decode($response_login);
+
+        if (empty($data_login->status->statusCode)) {
+            Session::put('token', $data_login->token);
+            Session::put('isStore', $data_login->type);
+            Session::put('storeLink', $data_login->storeLink);
+            Session::put('idUser', $data_login->id);
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function logout()
     {
         Session::flush();
