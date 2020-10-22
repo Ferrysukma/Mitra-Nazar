@@ -245,16 +245,18 @@
             success     : function(data){
                 if (data.code == 0) {
                     list = data.data;
+                    end  = moment.utc($('#end_dtm_chart').val()).format('YYYY-M-D');
                     
                     if(list.length > 0){
                         $.each(list, function(idx, ref){
+                            start = moment.utc(ref.cdate).format('YYYY-M-D');
                             table.row.add( [
                                 idx + 1,
-                                moment.utc(ref.cdate).format('DD MMM YYYY'),
+                                ref.cdate,
                                 ref.provinsi,
                                 ref.kota,
                                 ref.total,
-                                "<button type='button' class='btn btn-sm btn-info action-detail' title='{{ __('all.button.detail') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-eye'></i></button></div>", 
+                                "<button type='button'class='btn btn-sm btn-info action-detail' onclick='tableDetail(this)' title='{{ __('all.button.detail') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-eye'></i></button>", 
                             ] ).draw( false );
                         });
                     }
@@ -265,8 +267,6 @@
             }
         });
     }
-
-    showData();
 
     function showCategory() {
         $.ajax({
@@ -380,9 +380,6 @@
 
         $('.filter-prov').hide(); 
         findCity(id, 'filter-city', 'showFilCity');
-        showData();
-        loadDataChart();
-        maps();
     }
 
     function filterCity(e) {
@@ -396,9 +393,6 @@
         loadDataChart();
         maps();
     }
-
-    maps();
-    loadDataChart();
 
     //load data cash
     function loadDataChart() {
@@ -547,25 +541,6 @@
                 maps();
                 loadDataChart();
         }
-    });
-
-    $('#table-chart tbody').on('click','.action-detail', function () {
-        var data = table.row( $(this).parents('tr') ).data();
-        $.ajax({
-            type    : "POST",
-            url     : "{{ route('detailListChart') }}",
-            data    : {
-                _token  : "{{ csrf_token() }}",
-                start   : data[1],
-                end     : $('#end_dtm_chart').val(),
-                provinsi: data[2],
-                kota    : data[3]
-            },
-            dataType: "JSON",
-            success : function (res) {
-                
-            }
-        });
     });
 </script>
 @endsection

@@ -23,11 +23,6 @@ class HomeController extends Controller
         return view('admin.master');
     }
 
-    public function detailListChart(Request $request)
-    {
-        return view('admin.detailhome');   
-    }
-
     public function loadList(Request $request)
     {
         $client     = new Client();
