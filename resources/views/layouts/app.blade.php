@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon ============================================ -->
-    <link rel="shortcut icon" type="assets/image/png" href="{{ asset('assets/admin/image/logo/icon.png') }}" />
+    <link rel="shortcut icon" type="assets/image/png" href="{{ asset('assets/admin/image/logo4x.png') }}"/>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('assets/admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -78,7 +78,7 @@
                 <nav class="navbar navbar-expand navbar-light bg-primary topbar mb-4 static-top shadow">
 
                     <!-- Topbar Search -->
-                    <img src="{{ asset('assets/admin/image/logo/logo-header.png') }}" width="150px" alt="logo" srcset>
+                    <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" width="160px" height="70px" alt="logo" srcset>
                     
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">

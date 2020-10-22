@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Favicon ============================================ -->
-	<link rel="shortcut icon" type="assets/image/png" href="{{ asset('assets/admin/image/logo/icon.png') }}" />
+	<link rel="shortcut icon" type="assets/image/png" href="{{ asset('assets/admin/image/logo4x.png') }}" />
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/login/vendor/bootstrap/css/bootstrap.min.css') }}">
 <!--===============================================================================================-->
@@ -37,6 +37,7 @@
 	
 	<div class="limiter">
 		<div class="container-login100">
+			<img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" alt="background-logo" style="width:50vw;height:50vh">
 			<div class="wrap-login100 p-t-50 p-b-90" id="show-email">
 				<form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postemail">
 					<span class="login100-form-title p-b-51">

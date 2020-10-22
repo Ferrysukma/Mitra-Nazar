@@ -44,7 +44,7 @@
 	
 	<div class="limiter">
 		<div class="container-login100">
-			<img src="{{ asset('assets/admin/image/mitra-nazar web-05.png') }}" alt="background-logo" style="width:50vw;height:50vh">
+			<img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" alt="background-logo" style="width:50vw;height:50vh">
 			<div class="wrap-login100 p-t-50 p-b-90" id="show-login">
 				<form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postlogin">
 					@csrf
