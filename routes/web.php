@@ -30,6 +30,7 @@ Route::post('/user/loginbyPassword', [App\Http\Controllers\User\LoginController:
 Route::post('/user/loginbyPin', [App\Http\Controllers\User\LoginController::class, 'loginbyPin'])->name('loginbyPin');
 Route::post('/user/loginbyOtp', [App\Http\Controllers\User\LoginController::class, 'loginbyOtp'])->name('loginbyOtp');
 Route::post('/user/sendCode', [App\Http\Controllers\User\LoginController::class, 'sendCode'])->name('sendCode');
+Route::get('/login_by_google', [App\Http\Controllers\User\LoginController::class, 'loginbyGoogle'])->name('loginbyGoogle');
 Route::get('/login_by_facebook', [App\Http\Controllers\User\LoginController::class, 'loginbyFacebook'])->name('loginbyFacebook');
 Route::get('/login_by_facebook/callback', [App\Http\Controllers\User\LoginController::class, 'loginbyFacebookCallback'])->name('loginbyFacebookCallback');
 
@@ -40,8 +41,10 @@ Auth::routes();
 Route::group(['middleware' => 'CheckToken'], function () {
     // Admin
     Route::get('/index', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
-    Route::post('/home', [App\Http\Controllers\Admin\HomeController::class, 'loadList'])->name('detailChart');
+    Route::post('/detailChart', [App\Http\Controllers\Admin\HomeController::class, 'loadList'])->name('detailChart');
     Route::post('/chart', [App\Http\Controllers\Admin\HomeController::class, 'chart'])->name('loadChart');
+    Route::post('/chartDetail', [App\Http\Controllers\Admin\HomeController::class, 'chartDetail'])->name('chartDetail');
+    Route::post('/mapsDetail', [App\Http\Controllers\Admin\HomeController::class, 'mapsDetail'])->name('mapsDetail');
     Route::post('/getCoordinate', [App\Http\Controllers\Admin\HomeController::class, 'getCoordinate'])->name('getCoordinate');
     Route::post('/coordinateCity', [App\Http\Controllers\Admin\HomeController::class, 'coordinateCity'])->name('coordinateCity');
     Route::post('/coordinateDistrict', [App\Http\Controllers\Admin\HomeController::class, 'coordinateDistrict'])->name('coordinateDistrict');

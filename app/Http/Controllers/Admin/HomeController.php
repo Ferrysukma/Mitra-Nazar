@@ -26,7 +26,6 @@ class HomeController extends Controller
     public function loadList(Request $request)
     {
         $client     = new Client();
-        $kota       = substr(strstr($request->kota," "), 1);
         $url        = $this->base_url . 'mitra/admin/list-mitra-chart-detail';
         $request    = $client->post($url, [
             'headers'   => [
@@ -35,10 +34,10 @@ class HomeController extends Controller
             'json'      => [
                 "payload"   => [
                     "start"         => date('Y-m-d', strtotime($request->start)),
-                    "limit"         => 100000000,
                     "pageNumber"    => 0,
+                    "limit"         => 100000000,
                     "provinsi"      => $request->provinsi,
-                    "kota"          => $kota,
+                    "kota"          => $request->kota,
                     "kategori"      => $request->kategori,
                     "tipe"          => $request->tipe
                 ]
@@ -47,14 +46,23 @@ class HomeController extends Controller
         
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];
-
+        
         if ($status == '000') {
             $result = json_decode((string) $response)->payload;
             
             $row    = [];
             foreach ($result as $key => $value) {
+                $explode            = explode(', ', $value->koordinat);
+                if ($value->active == true) {
+                    $value->action      = "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='".__('all.button.edit')."' data-toggle='tooltip' data-placement='top' id='".$value->id."'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='".$value->id."' status='".$value->active."' title='".__('all.button.delete')."' data-toggle='tooltip' data-placement='top'><i class='fa fa-times'></i></button></div>";
+                } else {
+                    $value->action      = "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='".__('all.button.edit')."' data-toggle='tooltip' data-placement='top' id='".$value->id."'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-success action-active' id='".$value->id."' status='".$value->active."' title='".__('all.button.active')."' data-toggle='tooltip' data-placement='top'><i class='fa fa-check'></i></button></div>";
+                }
+
                 $value->active      = $value->active == true ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
                 $value->koordinat   = "<a target='_blank' href='http://maps.google.com/?ll=".$value->koordinat."'>".__('all.open_maps')." <i class='fa fa-map-marker-alt'></i></a>";
+                $value->lat         = $explode[0];
+                $value->long        = $explode[1];
                 $row[]              = $value;
             }
 
@@ -107,6 +115,92 @@ class HomeController extends Controller
             echo json_encode(array('code' => 1, 'info' => $desc, 'data' => $result));
         }
     }
+
+    public function chartDetail(Request $request)
+    {
+        $client     = new Client();
+        $url        = $this->base_url . 'mitra/admin/list-mitra-chart-detail';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('admin_key')
+            ],
+            'json'      => [
+                "payload"   => [
+                    "start"         => date('Y-m-d', strtotime($request->start)),
+                    "pageNumber"    => 0,
+                    "limit"         => 100000000,
+                    "provinsi"      => $request->provinsi,
+                    "kota"          => $request->kota,
+                    "kategori"      => $request->kategori,
+                    "tipe"          => $request->tipe
+                ]
+            ]
+        ]);
+        
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+        $desc       = json_decode((string) $response, true)['status']['statusDesc'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+            
+            $row    = [];
+            foreach ($result as $key => $value) {
+                $value->cdate   = date('d F Y', strtotime($value->cdate));
+                $row[]          = $value;
+            }
+
+            echo json_encode(array('code' => 0, 'info' => $desc, 'data' => $row));
+        } else {
+            $result = 'empty';
+            
+            echo json_encode(array('code' => 1, 'info' => $desc, 'data' => $result));
+        }
+    }
+
+    public function mapsDetail(Request $request)
+    {
+        $client     = new Client();
+        $url        = $this->base_url . 'mitra/admin/list-mitra-chart-detail';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('admin_key')
+            ],
+            'json'      => [
+                "payload"   => [
+                    "start"         => date('Y-m-d', strtotime($request->start)),
+                    "pageNumber"    => 0,
+                    "limit"         => 100000000,
+                    "provinsi"      => $request->provinsi,
+                    "kota"          => $request->kota,
+                    "kategori"      => $request->kategori,
+                    "tipe"          => $request->tipe
+                ]
+            ]
+        ]);
+        
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+            
+            $row    = [];
+            foreach ($result as $key => $value) {
+                $explode = explode(', ', $value->koordinat);
+                $name    = $value->provinsi;
+                $lat     = $explode[0];
+                $long    = $explode[1];
+                $row[]   = [$name, $lat, $long];
+            }
+            
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
+        } else {
+            $result = 'empty';
+            
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+        }
+    }
     
     public function getCoordinate(Request $request)
     {
@@ -150,7 +244,7 @@ class HomeController extends Controller
             ],
             'json'      => [
                 "provinceId"    => $request->filter,
-                "query"         => ""
+                "query"         => $_POST['query']
             ]
         ]);
         $response   = $request->getBody()->getContents();
@@ -183,7 +277,7 @@ class HomeController extends Controller
             ],
             'json'      => [
                 "cityId"    => $request->filter,
-                "query"     => ""
+                "query"     => $_POST['query']
             ]
         ]);
         $response   = $request->getBody()->getContents();

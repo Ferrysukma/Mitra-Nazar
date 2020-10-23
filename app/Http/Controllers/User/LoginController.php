@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Socialite;
 
 // Guzzle
 use GuzzleHttp\Client;
@@ -188,6 +189,58 @@ class LoginController extends Controller
         } else {
             echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
         }
+    }
+
+    public function loginbyGoogle(Request $request)
+    {
+        $username   = $request->username;
+        $token      = $request->token;
+
+        // API Validate User
+        $url        = $this->base_url . 'user/validate';
+        $request    = $this->client->post($url, [
+            'headers'   => [
+                'Content-Type'  => 'application/json'
+            ],
+            'json'      => [
+                'payload'       => $username
+            ]
+        ]);
+        $response       = $request->getBody()->getContents();
+        $data           = json_decode($response);
+
+            if ($data->status->statusCode == '000') {
+                // API Login By Google
+                try {
+                    $url_login      =  $this->base_url . 'user/login-mitra';
+                    $request_login  = $this->client->post($url_login, [
+                        'headers' => ['Content-type' => 'application/json'],
+                        'json'    => [
+                            'email'   => $username,
+                            'idToken' => $token,
+                            'type'    => "google",
+                        ],
+                    ]);
+                    $response_login       = $request_login->getBody()->getContents();
+                } catch (\GuzzleHttp\Exception\ClientException $e) {
+                    $request_login        = $e->getResponse();
+                    $response_login       = $request_login->getBody()->getContents();
+                }
+                $data_login         = json_decode($response_login);
+
+                if (empty($data_login->status->statusCode)) {
+                    Session::put('token', $data_login->token);
+                    Session::put('isStore', $data_login->type);
+                    Session::put('storeLink', $data_login->storeLink);
+                    Session::put('idUser', $data_login->id);
+
+                    return ('/');
+                } else {
+                    redirect('/user/login');
+                }
+            } else {
+                redirect('/user/login');
+            }
     }
 
     public function loginbyFacebook()

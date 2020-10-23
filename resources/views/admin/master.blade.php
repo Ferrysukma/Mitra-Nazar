@@ -172,7 +172,7 @@
                             <div class="form-group">
                                 <div class="dropdown">
                                     <input type="text" name="city" class="form-control dropdown-toggle" id="filterDetailCity" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterDetailPosition('filterDetailCity', 'filter-detailcity', 'showFildetailCity')" placeholder="{{ __('all.table.city') }}">
-                                    <div class="dropdown-menu filter-city scrollable-menu" id="showFildetailCity">
+                                    <div class="dropdown-menu filter-detailcity scrollable-menu" id="showFildetailCity">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
                                 </div>
@@ -227,16 +227,17 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>{{ __('all.table.date') }}</th>
                                 <th>{{ __('all.table.join_date') }}</th>
                                 <th>{{ __('all.table.partner_id') }}</th>
                                 <th>{{ __('all.table.partner_nm') }}</th>
                                 <th>{{ __('all.table.coordinator_type') }}</th>
+                                <th>{{ __('all.category_coordinator') }}</th>
                                 <th>{{ __('all.table.prov') }}</th>
                                 <th>{{ __('all.table.city') }}</th>
                                 <th>{{ __('all.table.address') }}</th>
+                                <th style="display:none">lat</th>
+                                <th style="display:none">long</th>
                                 <th>{{ __('all.table.coordinate') }}</th>
-                                <th>{{ __('all.table.downline') }}</th>
                                 <th>{{ __('all.table.status') }}</th>
                                 <th>{{ __('all.table.action') }}</th>
                             </tr>
@@ -355,7 +356,8 @@
         },
         "columnDefs"        : [ 
             { targets: [0], orderable: false, className	: "text-center" },
-            { targets: [12], orderable: false, searchable: false, className	: "text-center" },
+            { targets: [9,10], visible : false },
+            { targets: [13], orderable: false, searchable: false, className	: "text-center" },
         ],
         "initComplete"      : function() {
             $('[data-toggle="tooltip"]').tooltip();
@@ -397,7 +399,7 @@
                                 ref.provinsi,
                                 ref.kota,
                                 ref.total,
-                                "<button type='button'class='btn btn-sm btn-info action-detail' onclick='tableDetail(this)' title='{{ __('all.button.detail') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-eye'></i></button>", 
+                                "<button type='button'class='btn btn-sm btn-info action-detail' title='{{ __('all.button.detail') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-eye'></i></button>", 
                             ] ).draw( false );
                         });
                     }
@@ -435,19 +437,27 @@
                 if (data.code == 0) {
                     list = data.data;
                     
-                    // if(list.length > 0){
-                    //     $.each(list, function(idx, ref){
-                    //         start = moment.utc(ref.cdate).format('YYYY-M-D');
-                    //         tables.row.add( [
-                    //             idx + 1,
-                    //             ref.cdate,
-                    //             ref.provinsi,
-                    //             ref.kota,
-                    //             ref.total,
-                    //             "<button type='button'class='btn btn-sm btn-info action-detail' onclick='tableDetail(this)' title='{{ __('all.button.detail') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-eye'></i></button>", 
-                    //         ] ).draw( false );
-                    //     });
-                    // }
+                    if(list.length > 0){
+                        $.each(list, function(idx, ref){
+                            start = moment.utc(ref.cdate).format('YYYY-M-D');
+                            tables.row.add( [
+                                idx + 1,
+                                start,
+                                ref.userCode,
+                                ref.nama,
+                                ref.tipe,
+                                ref.kategori,
+                                ref.provinsi,
+                                ref.kota,
+                                ref.alamat,
+                                ref.lat,
+                                ref.long,
+                                ref.koordinat,
+                                ref.active,
+                                ref.action,
+                            ] ).draw( false );
+                        });
+                    }
                 } 
             },
             complete : function () {
@@ -456,11 +466,20 @@
         });
     }
 
-    function tableDetail(e) {
+    $('#table-chart tbody').on('click', '.action-detail', function () {
+        var data = table.row( $(this).parents('tr') ).data();
+
         $('#showHomeChart').hide();
         $('#showHomeDetail').show();
+
+        $('#start_dtm_detail').val(data[1]);
+        $('#filterDetailProv').val(data[2]);
+        $('#filterDetailCity').val(data[3]);
+
         showDataDetail();
-    }
+        loadDataChartDetail();
+        mapDetail();    
+    });
 
     function showCategory() {
         $.ajax({
@@ -488,6 +507,72 @@
 
     showCategory();
 
+    function selectProv(e) {
+        var name    = $(e).attr('name');
+        var id      = $(e).attr('id');
+
+        $('#filterDetailProv').val(name);
+        $('#idfdProv').val(id);
+
+        $('.filter-detailprov').hide(); 
+        filterDetailPosition('filterDetailCity', 'filter-detailcity','showFildetailCity');
+        showDataDetail();
+        mapDetail();
+        loadDataChartDetail();
+    }
+
+    function selectCity(e) {
+        var name    = $(e).attr('name');
+        var id      = $(e).attr('id');
+
+        $('#filterDetailCity').val(name);
+        $('.filter-detailcity').hide(); 
+        showDataDetail();
+        mapDetail();
+        loadDataChartDetail();
+    }
+
+    function filterDetailPosition(filter, code, show) {
+        var input, filter;
+        var data = new FormData();
+
+        input   = document.getElementById(filter);
+        value   = input.value.toUpperCase();
+
+        if (filter == 'filterDetailProv') {
+            data.append('filter', value);
+            var url = "{{ route('getCoordinate') }}";
+        } else {
+            data.append('query', value);
+            data.append('filter', $('#idfdProv').val());
+            var url = "{{ route('coordinateCity') }}";
+        }
+
+        $('#'+show).toggle('show');
+
+        $.ajax({
+            type        : "POST",
+            url         : url,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data        : data,
+            dataType    : 'JSON',
+            processData : false,  // Important!
+            contentType : false,
+            cache       : false,
+            beforeSend  : function () {
+                $('.'+code).ploading({action:'show'});
+            },
+            success     : function (res) {
+                $('.'+code).html(res.data);
+            },
+            complete    : function () {
+                $('.'+code).ploading({action:'hide'});
+            }
+        });
+    }
+
     function maps() {
         $.ajax({
             type    : "POST",
@@ -511,6 +596,33 @@
             },
             complete : function () {
                 $("#maps-homeMitra").ploading({action : 'hide'});
+            }
+        });
+    }
+
+    function mapDetail() {
+        $.ajax({
+            type    : "POST",
+            url     : "{{ route('mapsDetail') }}",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data    : {
+                start   : $('#start_dtm_detail').val(),
+                provinsi: $('#filterDetailProv').val(),
+                kota    : $('#filterDetailCity').val(),
+                tipe    : $('#tipe').val(),
+                kategori: $('#kategori').val(),
+            },
+            dataType: "JSON",
+            beforeSend: function(){
+                $("#maps-homeMitraD").ploading({action : 'show'});
+            },
+            success     : function(data){
+                initMaps(data.data, 'mapsHomeMitraD');
+            },
+            complete : function () {
+                $("#maps-homeMitraD").ploading({action : 'hide'});
             }
         });
     }
@@ -696,6 +808,128 @@
             },
             complete : function () {
                 $('#chart').ploading({action: 'hide'});
+            }
+        });
+    }
+
+    function loadDataChartDetail() {
+        $.ajax({
+            type    : "POST",
+            url     : "{{ route('chartDetail') }}",
+            data    : {
+                start   : $('#start_dtm_detail').val(),
+                provinsi: $('#filterDetailProv').val(),
+                kota    : $('#filterDetailCity').val(),
+                tipe    : $('#tipe').val(),
+                kategori: $('#kategori').val(),
+            },
+            dataType    : "JSON",
+            beforeSend: function(){
+                $('#chartD').ploading({action: 'show'});
+            },
+            success : function(res){
+                var x  = [];
+                var y  = [];
+                
+                list = res.data;
+                if (list.length > 0) {
+                    $(list).each(function(i){  
+                        x.push(list[i].total); 
+                        y.push(list[i].cdate);
+                    });
+                }
+
+                $('#myChartD').remove(); $('#divChartD').append('<canvas id="myChartD"><canvas>');
+                var ctx = document.getElementById("myChartD");
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: y,
+                        datasets: [{
+                        lineTension: 0.3,
+                        backgroundColor: "rgba(78, 115, 223, 0.05)",
+                        borderColor: "rgba(78, 115, 223, 1)",
+                        pointRadius: 3,
+                        pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                        pointBorderColor: "rgba(78, 115, 223, 1)",
+                        pointHoverRadius: 3,
+                        pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                        pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                        pointHitRadius: 10,
+                        pointBorderWidth: 2,
+                        data: x,
+                        }],
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        layout: {
+                            padding: {
+                                left: 10,
+                                right: 25,
+                                top: 25,
+                                bottom: 0
+                            }
+                        },
+                        scales: {
+                            xAxes: [{
+                                time: {
+                                    unit: 'date'
+                                },
+                                gridLines: {
+                                    display: false,
+                                    drawBorder: false
+                                },
+                                ticks: {
+                                    maxTicksLimit: 7
+                                }
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    maxTicksLimit: 5,
+                                    padding: 10,
+                                    // Include a dollar sign in the ticks
+                                    callback: function(value, index, values) {
+                                        return number_format(value);
+                                    }
+                                },
+                                gridLines: {
+                                    color: "rgb(234, 236, 244)",
+                                    zeroLineColor: "rgb(234, 236, 244)",
+                                    drawBorder: false,
+                                    borderDash: [2],
+                                    zeroLineBorderDash: [2]
+                                }
+                            }],
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltips: {
+                            backgroundColor: "rgb(255,255,255)",
+                            bodyFontColor: "#858796",
+                            titleMarginBottom: 10,
+                            titleFontColor: '#6e707e',
+                            titleFontSize: 14,
+                            borderColor: '#dddfeb',
+                            borderWidth: 1,
+                            xPadding: 15,
+                            yPadding: 15,
+                            displayColors: false,
+                            intersect: false,
+                            mode: 'index',
+                            caretPadding: 10,
+                            callbacks: {
+                                label: function(tooltipItem, chart) {
+                                    var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                                    return datasetLabel + ' ' + number_format(tooltipItem.yLabel);
+                                }
+                            }
+                        }
+                    }
+                });
+            },
+            complete : function () {
+                $('#chartD').ploading({action: 'hide'});
             }
         });
     }
