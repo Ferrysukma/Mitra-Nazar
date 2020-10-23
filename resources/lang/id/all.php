@@ -136,6 +136,7 @@ return [
     'add_down'              => 'Tambah Downline',
     'cancel'                => 'Batal',
     'yes'                   => 'Ya, Nonaktifkan',
+    'yes_act'               => 'Ya aktifkan',
     'confirm'               => 'Anda yakin untuk menonaktifkan mitra ini',
     'confirm_disable'       => 'Anda yakin untuk menonaktifkan',
     'text_confirm'          => 'Nonaktifkan partner ini akan mengakibatkan partner tidak dapat mengoperasikan semua fitur partner baik itu web, android dan iOS',

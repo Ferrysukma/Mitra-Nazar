@@ -21,6 +21,10 @@ Route::post('/generateToken', [App\Http\Controllers\Admin\LoginController::class
 Route::post('/verifyToken', [App\Http\Controllers\Admin\LoginController::class, 'verifyToken'])->name('verifyToken');
 Route::post('/createPassword', [App\Http\Controllers\Admin\LoginController::class, 'createPassword'])->name('createPassword');
 Route::post('/getLatLong', [App\Http\Controllers\Admin\LoginController::class, 'getLatLong'])->name('getLatLong');
+Route::post('/getLatLong', [App\Http\Controllers\Admin\LoginController::class, 'getLatLong'])->name('getLatLong');
+Route::post('/admin/coordinateProvince', [App\Http\Controllers\Admin\LoginController::class, 'coordinateProvince'])->name('adminCoordinateProvince');
+Route::post('/admin/coordinateCity', [App\Http\Controllers\Admin\LoginController::class, 'coordinateCity'])->name('adminCoordinateCity');
+Route::post('/admin/coordinateDistrict', [App\Http\Controllers\Admin\LoginController::class, 'coordinateDistrict'])->name('adminCoordinateDistrict');
 
 // User
 Route::get('/user/login', [App\Http\Controllers\User\LoginController::class, 'index'])->name('login');

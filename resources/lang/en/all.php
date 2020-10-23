@@ -136,6 +136,7 @@ return [
     'edit_ann'              => 'Edit Announcement',
     'cancel'                => 'Cancel',
     'yes'                   => 'Yes diabled it',
+    'yes_act'               => 'Yes activate it',
     'confirm'               => 'Are you sure to disable this partner',
     'confirm_disable'       => 'Are you sure to disable',
     'text_confirm'          => 'Disable this downline will result in the downline unable to operate all downline features be it web, android and iOS',
