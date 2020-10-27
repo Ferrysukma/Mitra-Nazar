@@ -45,13 +45,13 @@
                 <h6 class="m-0 font-weight-bold text-primary">{{ __('all.announcement') }}</h6>
             </div>
             <div class="card-body">
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div id="slideControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner" id="showAnn"></div>
-                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <a class="carousel-control-prev" href="#slideControls" role="button" data-slide="prev" style="background-color:#000">
                         <span class="carousel-control-prev-icon"></span>
                         <span class="sr-only">Previous</span>
                     </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <a class="carousel-control-next" href="#slideControls" role="button" data-slide="next" style="background-color:#000">
                         <span class="carousel-control-next-icon"></span>
                         <span class="sr-only">Next</span>
                     </a>
@@ -300,10 +300,10 @@
                 }
 
                 txt += '<div class="carousel-item '+active+'">';
-                txt +=      '<div class="card border shadow h-100 py-2 d-block w-100">';
+                txt +=      '<div class="card border shadow h-100 py-2">';
                 txt +=          '<div class="card-body">';
                 txt +=              '<div class="row no-gutters align-items-center">';
-                txt +=                  '<div class="col mr-2">';
+                txt +=                  '<div class="col mr-2 text-center">';
                 txt +=                      '<div class="text-lg font-weight-bold text-danger text-uppercase mb-1">'+data.judul+'</div>';
                 txt +=                      '<div class="h5 mb-0 font-weight-bold text-gray-800">'+data.isi+'</div>';
                 txt +=                  '</div>';
@@ -487,7 +487,7 @@
 
     $(document).ready(function () {
         $('.carousel').carousel({
-            interval: 2000
+            interval: 6000
         })
     });
 
