@@ -79,7 +79,7 @@
                 <nav class="navbar navbar-expand navbar-light bg-primary topbar mb-4 static-top shadow">
 
                     <!-- Topbar Search -->
-                    <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" width="160px" height="70px" alt="logo" srcset>
+                    <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" width="15%" height="100%" alt="logo" srcset>
                     
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
