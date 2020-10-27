@@ -273,10 +273,20 @@
     }
 
     function downline(res) {
-        $('#countR').text(res.provinsi);
-        $('#countC').text(res.kota);
-        $('#countD').text(res.kecamatan);
-        $('#countV').text(res.desa);
+        var prov = res.provinsi;
+        var city = res.kota;
+        var dist = res.kecamatan;
+        var vill = res.desa;
+
+        if (prov == '' || prov == null) { prov = 0 }
+        if (city == '' || city == null) { city = 0 }
+        if (dist == '' || dist == null) { dist = 0 }
+        if (vill == '' || vill == null) { vill = 0 }
+
+        $('#countR').text(prov);
+        $('#countC').text(city);
+        $('#countD').text(dist);
+        $('#countV').text(vill);
     }
 
     function balance() {

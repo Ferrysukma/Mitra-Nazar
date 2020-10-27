@@ -753,10 +753,20 @@
             }, 
             dataType    : "JSON",
             success     : function (res) {
-                $('#countP').text(res.data.provinsi);
-                $('#countC').text(res.data.kota);
-                $('#countD').text(res.data.kecamatan);
-                $('#countV').text(res.data.desa);
+                var prov = res.data.provinsi;
+                var city = res.data.kota;
+                var dist = res.data.kecamatan;
+                var vill = res.data.desa;
+
+                if (prov == '' || prov == null) { prov = 0 }
+                if (city == '' || city == null) { city = 0 }
+                if (dist == '' || dist == null) { dist = 0 }
+                if (vill == '' || vill == null) { vill = 0 }
+
+                $('#countR').text(prov);
+                $('#countC').text(city);
+                $('#countD').text(dist);
+                $('#countV').text(vill);
 
                 if (res.data.image) {
                     $('#imageUser').attr('src', res.data.image);
