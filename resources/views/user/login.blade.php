@@ -31,22 +31,60 @@
         form .form-pin input[type="text"]:focus {
             outline: none;
         }
+
+        .effect
+        {
+            position:relative;
+            -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+                    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+        }
+        .effect:before, .effect:after
+        {
+            content:"";
+            position:absolute;
+            z-index:-1;
+            -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+            -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+            box-shadow:0 0 20px rgba(0,0,0,0.8);
+            top:0;
+            bottom:0;
+            left:10px;
+            right:10px;
+            -moz-border-radius:100px / 10px;
+            border-radius:100px / 10px;
+        }
+        .effect:after
+        {
+            right:10px;
+            left:auto;
+            -webkit-transform:skew(8deg) rotate(3deg);
+            -moz-transform:skew(8deg) rotate(3deg);
+                -ms-transform:skew(8deg) rotate(3deg);
+                -o-transform:skew(8deg) rotate(3deg);
+                    transform:skew(8deg) rotate(3deg);
+        }
+
+        body {
+            background-color: -webkit-linear-gradient(bottom, #9aaab5, #2a4659);
+            background-repeat: no-repeat;
+        }
 	</style>
 </head>
 <body>
 	
 	<div class="limiter">
-		<div class="container-login100">
-			<img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" alt="background-logo" style="width:50vw;height:40vh">
-			<div class="wrap-login100 p-t-50 p-b-90" id="show-email">
-				<form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postemail">
-					<span class="login100-form-title p-b-51">
+		<div class="container-login100" id="loading">
+            <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" alt="background-logo" style="width:50%;height:40%">
+            <div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-email">
+                <form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postemail">
+                    <span class="login100-form-title p-b-51">
                         {{ __('all.login') }} <br>
                     </span>
                     
                     <span class="login100-form-subtitle">
                         {{ __('all.welcome_us') }}
-					</span>
+                    </span>
                     
                     <div class="wrap-input100 validate-input m-b-16" data-validate = "{{ __('all.validation.emailorphone') }}">
                         <input class="input100" type="email" name="email" id="email" placeholder="{{ __('all.placeholder.emailorphone') }}">
@@ -78,17 +116,17 @@
                         <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
                     </div>
                 </div>
-			</div>
+            </div>
 
-            <div class="wrap-login100 p-t-50 p-b-90" id="show-password">
-				<form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postpass">
-					<span class="login100-form-title p-b-51">
+            <div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-password">
+                <form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postpass">
+                    <span class="login100-form-title p-b-51">
                         {{ __('all.login') }} <br>
                     </span>
                     
                     <span class="login100-form-subtitle">
                         {{ __('all.welcome_us') }}
-					</span>
+                    </span>
 
                     <div class="wrap-input100 validate-input m-b-16" data-validate = "{{ __('all.validation.password') }}">
                         <input class="input100" type="password" name="password" id="password" placeholder="{{ __('all.placeholder.password') }}">
@@ -119,9 +157,9 @@
                         <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
                     </div>
                 </div>
-			</div>
+            </div>
 
-            <div class="wrap-login100 p-t-50 p-b-90" id="show-method">
+            <div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-method">
                 <span class="login100-form-title p-b-51">
                     {{ __('all.login') }} <br>
                 </span>
@@ -158,10 +196,10 @@
                         <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
                     </div>
                 </div>
-			</div> 
+            </div> 
 
-            <div class="wrap-login100 p-t-50 p-b-90" id="show-pin">
-				<form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postpin">
+            <div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-pin">
+                <form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postpin">
                     <span class="login100-form-title p-b-51">
                         {{ __('all.login') }}
                     </span>
@@ -214,8 +252,8 @@
                 </div>
             </div>  
             
-            <div class="wrap-login100 p-t-50 p-b-90" id="show-otp">
-				<form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postpin">
+            <div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-otp">
+                <form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postpin">
                     <span class="login100-form-title p-b-51">
                         {{ __('all.login') }}
                     </span>
@@ -264,7 +302,8 @@
                         <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
                     </div>
                 </div>
-			</div> 
+            </div>
+        </div>
 	</div>
 
 	<div id="dropDownSelect1"></div>
@@ -313,7 +352,7 @@
 					dataType: "JSON",
 					beforeSend: function(){
 						$(".btnSave").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
-						$("#"+params).ploading({action : 'show'});
+						$("#loading").ploading({action : 'show'});
 					},
 					success     : function(data){
 						if (data.code == 0) {
@@ -329,7 +368,7 @@
 					},
 					complete    : function(){
 						$(".btnSave").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
-						$("#"+params).ploading({action : 'hide'});
+						$("#loading").ploading({action : 'hide'});
 					},
 					error 		: function(){
 						notif('error', '{{ __("all.error") }}');
@@ -353,7 +392,7 @@
 					dataType: "JSON",
 					beforeSend: function(){
 						$(".btnSave").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
-						$("#"+params).ploading({action : 'show'});
+						$("#loading").ploading({action : 'show'});
 					},
 					success     : function(data){
 						if (data.code == 0) {
@@ -365,7 +404,7 @@
 					},
 					complete    : function(){
 						$(".btnSave").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
-						$("#"+params).ploading({action : 'hide'});
+						$("#loading").ploading({action : 'hide'});
 					},
 					error 		: function(){
 						notif('error', '{{ __("all.error") }}');
@@ -394,7 +433,7 @@
 					dataType: "JSON",
 					beforeSend: function(){
 						$(".btnSave").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
-						$("#"+params).ploading({action : 'show'});
+						$("#loading").ploading({action : 'show'});
 					},
 					success     : function(data){
 						if (data.code == 0) {
@@ -406,7 +445,7 @@
 					},
 					complete    : function(){
 						$(".btnSave").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
-						$("#"+params).ploading({action : 'hide'});
+						$("#loading").ploading({action : 'hide'});
 					},
 					error 		: function(){
 						notif('error', '{{ __("all.error") }}');
@@ -428,7 +467,7 @@
                 dataType: "JSON",
                 beforeSend: function(){
                     $(".btnSave").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
-                    $("#"+params).ploading({action : 'show'});
+                    $("#loading").ploading({action : 'show'});
                 },
                 success      : function (data) {
                     if (data.code == 0) {
@@ -437,7 +476,7 @@
                 },
                 complete     : function(){
                     $(".btnSave").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
-                    $("#"+params).ploading({action : 'hide'});
+                    $("#loading").ploading({action : 'hide'});
                 },
                 error 		: function(){
                     notif('error', '{{ __("all.error") }}');
@@ -463,7 +502,7 @@
 					dataType: "JSON",
 					beforeSend: function(){
 						$(".btnSave").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
-						$("#"+params).ploading({action : 'show'});
+						$("#loading").ploading({action : 'show'});
 					},
 					success     : function(data){
 						if (data.code == 0) {
@@ -475,7 +514,7 @@
 					},
 					complete    : function(){
 						$(".btnSave").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
-						$("#"+params).ploading({action : 'hide'});
+						$("#loading").ploading({action : 'hide'});
 					},
 					error 		: function(){
 						notif('error', '{{ __("all.error") }}');

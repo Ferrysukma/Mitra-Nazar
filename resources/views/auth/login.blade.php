@@ -38,14 +38,52 @@
 			background-color 	: lightgrey;
 			font-weight			: 900;
 		}
+
+		.effect
+        {
+            position:relative;
+            -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+                    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+        }
+        .effect:before, .effect:after
+        {
+            content:"";
+            position:absolute;
+            z-index:-1;
+            -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
+            -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
+            box-shadow:0 0 20px rgba(0,0,0,0.8);
+            top:0;
+            bottom:0;
+            left:10px;
+            right:10px;
+            -moz-border-radius:100px / 10px;
+            border-radius:100px / 10px;
+        }
+        .effect:after
+        {
+            right:10px;
+            left:auto;
+            -webkit-transform:skew(8deg) rotate(3deg);
+            -moz-transform:skew(8deg) rotate(3deg);
+                -ms-transform:skew(8deg) rotate(3deg);
+                -o-transform:skew(8deg) rotate(3deg);
+                    transform:skew(8deg) rotate(3deg);
+        }
+
+        body {
+            background: -webkit-linear-gradient(bottom, #9aaab5, #2a4659);
+            background-repeat: no-repeat;
+        }
 	</style>
 </head>
 <body>
 	
 	<div class="limiter">
 		<div class="container-login100">
-			<img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" alt="background-logo" style="width:50vw;height:40vh">
-			<div class="wrap-login100 p-t-50 p-b-90" id="show-login">
+			<img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" alt="background-logo" style="width:50%;height:40%">
+			<div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-login">
 				<form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postlogin">
 					@csrf
 					<span class="login100-form-title p-b-51">
@@ -95,7 +133,7 @@
                 </div>
 			</div>
 			
-			<div class="wrap-login100 p-t-50 p-b-90" id="show-email" hidden>
+			<div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-email" hidden>
 				<div class="back-login">
 					<a href="#" onclick="showLogin()" id="backLogin"><span class="fa fa-arrow-left" style="font-weight:900"> Login</span> </a> 
 					<hr>
@@ -131,7 +169,7 @@
                 </div>
 			</div>
 
-			<div class="wrap-login100 p-t-50 p-b-90" id="show-token" hidden>
+			<div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-token" hidden>
 				<span class="login100-form-title p-b-51">
 					{{ __('all.welcome') }} <br>
 				</span>
@@ -165,7 +203,7 @@
 
 			</div>
 
-			<div class="wrap-login100 p-t-50 p-b-90" id="show-password" hidden>
+			<div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-password" hidden>
 				<span class="login100-form-title p-b-51">
 					{{ __('all.welcome') }} <br>
 				</span>
