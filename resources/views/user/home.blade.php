@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" id="cardHome">
 
     <div class="col-lg-4">
 
@@ -31,10 +31,12 @@
                 </div>
                 <div align="center">
                     <p><b id="coor"></b></p>
-                    <b>#</b> <b id="copy">Hello</b> <br>
+                    <b>#</b> <b id="copy"></b> <br>
                     <button class="btn btn-sm btn-secondary" onclick="copyToClipboard('#copy')">{{ __('all.button.copy') }}</button>
+                    <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Bagikan</a></div>
+
                     <br><br>
-                    <b id="rupiah">Rupiah</b> <br>
+                    <b id="rupiah"></b> <br>
                     <button class="btn btn-sm btn-info" onclick="getSaldo()">{{ __('all.button.take') }}</button>
                 </div>
             </div>
@@ -213,9 +215,11 @@
         </div>
     </div>
 </div>
+<div id="fb-root"></div>
 @endsection
 
 @section('scriptUser')
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v8.0" nonce="mvxPrWKX"></script>
 <script>
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = '#858796';
@@ -248,6 +252,9 @@
             type    : "GET",
             url     : "{{ route('showHome') }}",
             dataType: "JSON",
+            beforeSend : function () {
+                $('#cardHome').ploading({action:"show"});
+            },
             success : function (res) {
                 // profile
                 profile = res.data.profile;
@@ -258,7 +265,10 @@
 
                 //downline
                 downline(res.data.downline)
-            } 
+            },
+            complete : function () {
+                $('#cardHome').ploading({action:"hide"});
+            }
         })
     }
 
@@ -328,9 +338,6 @@
                 year    : $('#period').val()
             },
             dataType: "JSON",
-            beforeSend: function(){
-                $('#bar-chart-bs').ploading({action: 'show'});
-            },
             success : function(res){
                 var x  = [];
                 var y  = [];
@@ -381,9 +388,6 @@
                     }
                 );
             },
-            complete : function () {
-                $('#bar-chart-bs').ploading({action: 'hide'});
-            }
         })
     }
 

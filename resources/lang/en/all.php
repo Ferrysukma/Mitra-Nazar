@@ -120,6 +120,7 @@ return [
         'take'              => 'Take Balance',
         'detail'            => 'Detail',
         'active'            => 'Active',
+        'share'             => 'Share',
     ),
     'filter'                => 'Filter',
     'add_partner'           => 'Create Partner',

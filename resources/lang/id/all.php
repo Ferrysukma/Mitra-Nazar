@@ -120,6 +120,7 @@ return [
         'take'              => 'Tarik Saldo',
         'detail'            => 'Rincian',
         'active'            => 'Aktif',
+        'share'             => 'Bagikan',
     ),
     'filter'                => 'Saring',
     'add_partner'           => 'Tambah Mitra',
