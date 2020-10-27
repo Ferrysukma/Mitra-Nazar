@@ -484,6 +484,10 @@
         },
     });
 
+    
+    maps();
+    loadDataChart();
+
     function showData() {
         $.ajaxSetup({
             headers: {

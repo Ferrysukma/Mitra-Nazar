@@ -78,7 +78,7 @@
                 <nav class="navbar navbar-expand navbar-light bg-primary topbar mb-4 static-top shadow">
 
                     <!-- Topbar Search -->
-                    <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" width="160px" height="70px" alt="logo" srcset>
+                    <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" width="15%" height="100%" alt="logo" srcset>
                     
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -113,7 +113,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-white">{{ Session::get('username') }}</span>
+                                <span class="mr-2 d-none d-lg-inline text-white">{{ strtok(Session::get('username'), ' ') }}</span>
                                 <i class="fa fa-user-circle"></i>
                             </a>
                             <!-- Dropdown - User Information -->

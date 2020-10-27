@@ -81,7 +81,7 @@
 <body>
 	
 	<div class="limiter">
-		<div class="container-login100">
+		<div class="container-login100" id="loading">
 			<img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" alt="background-logo" style="width:50%;height:40%">
 			<div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-login">
 				<form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postlogin">
@@ -275,7 +275,7 @@
 					dataType: "JSON",
 					beforeSend: function(){
 						$("#btnSave").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
-						$("#postlogin").ploading({action : 'show'});
+						$("#loading").ploading({action : 'show'});
 					},
 					success     : function(data){
 						if (data.code == 0) {
@@ -287,7 +287,7 @@
 					},
 					complete    : function(){
 						$("#btnSave").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
-						$("#postlogin").ploading({action : 'hide'});
+						$("#loading").ploading({action : 'hide'});
 					},
 					error 		: function(){
 						notif('error', '{{ __("all.error") }}');

@@ -66,7 +66,7 @@
         }
 
         body {
-            background-color: -webkit-linear-gradient(bottom, #9aaab5, #2a4659);
+            background: -webkit-linear-gradient(bottom, #9aaab5, #2a4659);
             background-repeat: no-repeat;
         }
 	</style>
