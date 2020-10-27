@@ -515,7 +515,7 @@
                 },
                 success     : function(data){
                     if (data.code == 0) {
-                        notif('success', '{{ __("all.success") }}', data.info);
+                        notif('success', '{{ __("all.success") }}', '{{ __("all.alert.delete") }}');
                     } else {
                         notif('warning', '{{ __("all.warning") }}', data.info);
                     }
@@ -584,7 +584,7 @@
                 },
                 success     : function(data){
                     if (data.code == 0) {
-                        notif('success', '{{ __("all.success") }}', data.info);
+                        notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
                         resetForm('postbank');
                         loadListBank();
                         $('#modal-account').modal('hide');
