@@ -100,7 +100,7 @@ return [
         'created'           => 'Pembuat',
         'name_category'     => 'Nama Kategori Koodinator',
         'date'              => 'Tanggal',
-        'message'           => 'Pesan',
+        'message'           => 'Notifikasi',
         'village'           => 'Desa',
         'nm_down'           => 'Nama Downline',
     ),

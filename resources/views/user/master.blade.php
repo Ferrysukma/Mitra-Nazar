@@ -511,9 +511,9 @@
                     txt  = '';
 
                     if (list.length > 0) {
-                        $('#countNotif').text(res.data.no+'+');
+                        $('#countNotif').text(res.data.no);
                         $.each(list, function(idx, ref){
-                            txt += '<a class="dropdown-item d-flex align-items-center" href="#">';
+                            txt += '<a class="dropdown-item d-flex align-items-center" onclick="showNotif()">';
                             txt +=      '<div class="mr-3">';
                             txt +=          '<div class="icon-circle bg-primary">';
                             txt +=              '<i class="fas fa-file-alt text-white"></i>';

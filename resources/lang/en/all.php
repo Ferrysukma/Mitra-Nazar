@@ -100,7 +100,7 @@ return [
         'created'           => 'Created by',
         'name_category'     => 'Category Coordinator Name',
         'date'              => 'Date',
-        'message'           => 'Message',
+        'message'           => 'Notification',
         'village'           => 'Village',
         'nm_down'           => 'Downline Name',
     ),
