@@ -18,7 +18,9 @@
 </div>
 
 <div class="row">
-    <div class="col-xl-4 col-md-6 mb-4">
+
+    <div class="col-lg-4">
+
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">{{ __('all.profil') }}</h6>
@@ -37,8 +39,30 @@
                 </div>
             </div>
         </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">{{ __('all.announcement') }}</h6>
+            </div>
+            <div class="card-body">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" id="showAnn"></div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <div class="col-xl-8 col-md-6 mb-4">
+
+    <div class="col-lg-8">
+
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <div class="row">
@@ -61,41 +85,17 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-xl-4 col-md-6 mb-4">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">{{ __('all.announcement') }}</h6>
-            </div>
-            <div class="card-body">
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner" id="showAnn"></div>
-                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-8 col-md-6 mb-5">
         <div class="row">
             <div class="col-xl-6 col-md-6 mb-4">
                 <a href="{{ route('partnerUser', 'provinsi') }}">
                     <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" align="center">{{ __('all.checkbox.regional') }}</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="countR" align="center"></div>
-                                    </div>
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" align="center">{{ __('all.checkbox.regional') }}</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800" id="countR" align="center"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -116,6 +116,7 @@
                 </a>
             </div>
         </div>
+        
         <div class="row">
             <div class="col-sm-6">
                 <a href="{{ route('partnerUser', 'kecamatan') }}">
@@ -146,8 +147,12 @@
                 </a>
             </div>
         </div>
+
     </div>
+
 </div>
+
+<br><br>
 
 <!-- Modal -->
 <div class="modal fade" id="modal-balance" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
