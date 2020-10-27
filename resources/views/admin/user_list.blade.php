@@ -165,10 +165,10 @@
 
     function disable(id, name) {
         bootbox.confirm({
-            message: "{{ __('all.confirm_delete') }} <b>"+name+"</b>?",
+            message: "{{ __('all.confirm_disable') }} <b>"+name+"</b>?",
             buttons: {
                 confirm: {
-                    label: '{{ __("all.doit") }}',
+                    label: '{{ __("all.yes") }}',
                     className: 'btn-success'
                 },
                 cancel: {
@@ -197,7 +197,7 @@
                         },
                         success     : function(data){
                             if (data.code == 0) {
-                                notif('success', '{{ __("all.success") }}', data.info);
+                                notif('success', '{{ __("all.success") }}', '{{ __("all.alert.disable") }}');
                                 showData();
                             } else {
                                 notif('warning', '{{ __("all.warning") }}', data.info);

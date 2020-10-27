@@ -230,6 +230,7 @@ return [
         'success'       => 'Successfully saved data',
         'fail'          => 'Failed to save data',
         'delete'        => 'Successfully deleted data',
+        'disable'       => 'Successfully disabled data',
         'fail_delete'   => 'Failed to delete data',
         'fail_pass'     => 'Old password is wrong',
         'fail_partner'  => 'Partner is no longer active',

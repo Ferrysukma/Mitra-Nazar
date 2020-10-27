@@ -230,6 +230,7 @@ return [
         'success'       => 'Berhasil menyimpan data',
         'fail'          => 'Gagal menyimpan data',
         'delete'        => 'Berhasil menghapus data',
+        'disable'       => 'Berhasil mengnonaktifkan data',
         'fail_delete'   => 'Gagal menghapus data',
         'fail_pass'     => 'Kata sandi lama salah',
         'fail_partner'  => 'Mitra sudah nonaktif',

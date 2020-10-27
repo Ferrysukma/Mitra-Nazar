@@ -204,10 +204,10 @@
 
     function disable(id, name) {
         bootbox.confirm({
-            message: "{{ __('all.confirm_disable') }} <b>"+name+"</b>?",
+            message: "{{ __('all.confirm_delete') }} <b>"+name+"</b>?",
             buttons: {
                 confirm: {
-                    label: '{{ __("all.yes") }}',
+                    label: '{{ __("all.doit") }}',
                     className: 'btn-success'
                 },
                 cancel: {
