@@ -123,7 +123,7 @@
                             <label for="old" class="col-sm-3">ID Downline <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
                                 <div class="input-group mb-3">
-                                    <input type="text" name="userCode" id="userCode" class="form-control readonly" placeholder="{{ __('all.placeholder.code_userDown') }}" aria-describedby="basic-addon1">
+                                    <input type="text" name="userCode" id="userCode" class="form-control" placeholder="{{ __('all.placeholder.code_userDown') }}" aria-describedby="basic-addon1">
                                     <div class="input-group-prepend">
                                         <button type="button" class="btn btn-primary input-group-text" id="basic-addon1" onclick="findUser()" disabled><i class="fa fa-search"></i></button>
                                     </div>
@@ -133,19 +133,19 @@
                         <div class="form-group row">
                             <label for="old" class="col-sm-3">{{ __('all.table.nm_down') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
-                                <input type="text" name="nama" id="nama" class="form-control readonly" readonly>
+                                <input type="text" name="nama" id="nama" class="form-control" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="old" class="col-sm-3">{{ __('all.table.coordinator_type') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
-                                <input type="text" name="tipe" id="tipe" class="form-control readonly" readonly>
+                                <input type="text" name="tipe" id="tipe" class="form-control" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="category" class="col-sm-3">{{ __('all.category_coordinator') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
-                                <input type="text" name="kategori" id="kategori" class="form-control readonly" readonly>
+                                <input type="text" name="kategori" id="kategori" class="form-control" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -153,7 +153,7 @@
                             <div class="col-sm-9">
                                 <div class="dropdown">
                                     <input type="hidden" id="idProv">
-                                    <input type="text" name="provinsi" class="form-control dropdown-toggle readonly-edit readonly" id="dropProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('dropProv', 'data-prov', 'showProv')" placeholder="{{ __('all.placeholder.key') }}">
+                                    <input type="text" name="provinsi" class="form-control dropdown-toggle readonly-edit" id="dropProv" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('dropProv', 'data-prov', 'showProv')" placeholder="{{ __('all.placeholder.key') }}">
                                     <div class="dropdown-menu data-prov scrollable-menu" id="showProv">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
@@ -165,7 +165,7 @@
                             <div class="col-sm-9">
                                 <div class="dropdown">
                                     <input type="hidden" id="idCity">
-                                    <input type="text" name="city" class="form-control dropdown-toggle form-control readonly readonly-edit" id="city" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('city', 'data-city', 'showCity')" placeholder="{{ __('all.placeholder.key') }}">
+                                    <input type="text" name="city" class="form-control dropdown-toggle form-control readonly-edit" id="city" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('city', 'data-city', 'showCity')" placeholder="{{ __('all.placeholder.key') }}">
                                     <div class="dropdown-menu data-city scrollable-menu" id="showCity">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
@@ -176,7 +176,7 @@
                             <label for="old" class="col-sm-3">{{ __('all.form.district') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
                                 <div class="dropdown">
-                                    <input type="text" name="district" class="form-control dropdown-toggle readonly readonly-edit" id="district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('district', 'data-district', 'showDistrict')" placeholder="{{ __('all.placeholder.key') }}">
+                                    <input type="text" name="district" class="form-control dropdown-toggle readonly-edit" id="district" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onkeyup="filterCoordinate('district', 'data-district', 'showDistrict')" placeholder="{{ __('all.placeholder.key') }}">
                                     <div class="dropdown-menu data-district scrollable-menu" id="showDistrict">
                                         <a class="dropdown-item">{{ __('all.datatable.no_data') }}</a>
                                     </div>
@@ -184,17 +184,17 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="old" class="col-sm-3">{{ __('all.table.address') }} <sup class="text-danger">*</sup></label>
+                            <div class="col-sm-9">
+                                <textarea name="address" id="address" class="form-control readonly-edit" cols="30" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row" id="modalMaps" hidden>
                             <div class="col-sm-3"></div>
                             <div class="col-sm-9" id="maps-mitra">
                                 <div id="map_canvas" style="width:100%;height:50vh"></div>
                                 <input type="hidden" id="lat" name="lat">
                                 <input type="hidden" id="lng" name="long">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="old" class="col-sm-3">{{ __('all.table.address') }} <sup class="text-danger">*</sup></label>
-                            <div class="col-sm-9">
-                                <textarea name="address" id="address" class="form-control readonly-edit readonly" cols="30" rows="5"></textarea>
                             </div>
                         </div>
                 </div>
@@ -528,12 +528,14 @@
 
     function getLoc(e) {
         $('.data-district').hide();
+        $('#modalMaps').removeAttr('hidden');
         $('#district').val($(e).attr('name'));
         getLatLong($(e).attr('name'), 'map_canvas', 'maps-mitra');
     }
 
     $(document).on('click','#add-mitra', function () {
         showModal('modal-mitra', 'postmitra');
+        $('#modalMaps').attr('hidden', true);
         $('#id').val('');
         $('#tipe').val('pusat');
         $('#basic-addon1').attr('disabled', true);
@@ -713,6 +715,7 @@
     $('#table-maps tbody').on('click', '.action-edit', function () {
         var data = table.row( $(this).parents('tr') ).data();
         showModal('modal-mitra','postmitra');
+        $('#modalMaps').attr('hidden', true);
         $('#id').val($(this).attr('id'));
         $('#userCode').val('');
         
@@ -782,9 +785,6 @@
     $("#postmitra").validate({
         rules       : {
             userCode    : "required",
-            nama        : "required",
-            tipe        : "required",
-            kategori    : "required",
             city        : "required",
             province    : "required",
             district    : "required",
@@ -792,9 +792,6 @@
         },
         messages: {
             userCode    : "{{ __('all.validation.usercode') }}",
-            nama        : "{{ __('all.validation.name') }}",
-            tipe        : "{{ __('all.validation.tipe') }}",
-            kategori    : "{{ __('all.validation.cat') }}",
             city        : "{{ __('all.validation.city') }}",
             province    : "{{ __('all.validation.province') }}",
             district    : "{{ __('all.validation.district') }}",

@@ -168,7 +168,7 @@
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.balance') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="saldo" id="saldo" class="form-control readonly" readonly>
+                            <input type="text" name="saldo" id="saldo" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -431,7 +431,6 @@
 
     $("#postbalance").validate({
         rules       : {
-            saldo           : "required",
             nominal         : "required",
             kodeBank        : "required",
             pemilikRekening : "required",
@@ -439,7 +438,6 @@
             password        : "required",
         },
         messages: {
-            saldo           : "{{ __('all.validation.saldo') }}",
             nominal         : "{{ __('all.validation.amount') }}",
             kodeBank        : "{{ __('all.validation.bank') }}",
             pemilikRekening : "{{ __('all.validation.account_name') }}",
