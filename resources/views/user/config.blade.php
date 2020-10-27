@@ -253,7 +253,7 @@
                 if (data.code == 0) {
                     list = data.data.data;
 
-                    if (data.data.count >= 3) {
+                    if (data.data.count >= 5) {
                         $('#add-account').hide();
                     } else {
                         $('#add-account').show();
@@ -266,7 +266,7 @@
                                 ref.namaBank,
                                 ref.namaPemilikRekening,
                                 ref.nomorRekening,
-                                "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='"+ref.id+"' code='"+ref.bankId+"'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='"+ref.id+"' title='{{ __('all.button.delete') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-times'></i></button></div>", 
+                                "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='"+ref.id+"' code='"+ref.bankId+"'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='"+ref.id+"' title='{{ __('all.drop.remove') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-times'></i></button></div>", 
                             ] ).draw( false );
                         });
                     }
@@ -298,10 +298,10 @@
 
     function disable(id, name) {
         bootbox.confirm({
-            message: "{{ __('all.confirm_disable') }} <b>"+name+"</b>?",
+            message: "{{ __('all.confirm_delete') }} <b>"+name+"</b>?",
             buttons: {
                 confirm: {
-                    label: '{{ __("all.yes") }}',
+                    label: '{{ __("all.doit") }}',
                     className: 'btn-success'
                 },
                 cancel: {
