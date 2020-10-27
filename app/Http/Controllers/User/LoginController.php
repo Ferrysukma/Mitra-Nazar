@@ -108,6 +108,22 @@ class LoginController extends Controller
             Session::put('storeLink', json_decode((string) $responseBodyAsString, true)['storeLink']);
             Session::put('idUser', json_decode((string) $responseBodyAsString, true)['id']);
 
+            $url_home   = $this->base_url . 'user/home-mitra';
+            $req_home   = $client->get($url_home, [
+                'headers'   => [
+                    'Authorization' => Session::get('user_key')
+                ],
+            ]);
+
+            $res_home   = $req_home->getBody()->getContents();
+            $status     = json_decode((string) $res_home, true)['status']['statusCode'];
+
+            if ($status == '000') {
+                $result = json_decode((string) $res_home)->payload;
+                Session::put('name', strtok($result->profile->name, ' '));
+                Session::put('image', $result->profile->image);
+            }
+
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('user_key')));
         } else {
             echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
@@ -166,6 +182,22 @@ class LoginController extends Controller
             Session::put('storeLink', json_decode((string) $responseBodyAsString, true)['storeLink']);
             Session::put('idUser', json_decode((string) $responseBodyAsString, true)['id']);
 
+            $url_home   = $this->base_url . 'user/home-mitra';
+            $req_home   = $client->get($url_home, [
+                'headers'   => [
+                    'Authorization' => Session::get('user_key')
+                ],
+            ]);
+
+            $res_home   = $req_home->getBody()->getContents();
+            $status     = json_decode((string) $res_home, true)['status']['statusCode'];
+
+            if ($status == '000') {
+                $result = json_decode((string) $res_home)->payload;
+                Session::put('name', strtok($result->profile->name, ' '));
+                Session::put('image', $result->profile->image);
+            }
+
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('user_key')));
         } else {
             echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
@@ -213,6 +245,22 @@ class LoginController extends Controller
                 Session::put('type', json_decode((string) $responseBodyAsString, true)['type']);
                 Session::put('storeLink', json_decode((string) $responseBodyAsString, true)['storeLink']);
                 Session::put('idUser', json_decode((string) $responseBodyAsString, true)['id']);
+
+                $url_home   = $this->base_url . 'user/home-mitra';
+                $req_home   = $client->get($url_home, [
+                    'headers'   => [
+                        'Authorization' => Session::get('user_key')
+                    ],
+                ]);
+
+                $res_home   = $req_home->getBody()->getContents();
+                $status     = json_decode((string) $res_home, true)['status']['statusCode'];
+
+                if ($status == '000') {
+                    $result = json_decode((string) $res_home)->payload;
+                    Session::put('name', strtok($result->profile->name, ' '));
+                    Session::put('image', $result->profile->image);
+                }
 
                 echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('user_key')));
             } else {
@@ -265,6 +313,22 @@ class LoginController extends Controller
                     Session::put('isStore', $data_login->type);
                     Session::put('storeLink', $data_login->storeLink);
                     Session::put('idUser', $data_login->id);
+
+                    $url_home   = $this->base_url . 'user/home-mitra';
+                    $req_home   = $client->get($url_home, [
+                        'headers'   => [
+                            'Authorization' => Session::get('user_key')
+                        ],
+                    ]);
+
+                    $res_home   = $req_home->getBody()->getContents();
+                    $status     = json_decode((string) $res_home, true)['status']['statusCode'];
+
+                    if ($status == '000') {
+                        $result = json_decode((string) $res_home)->payload;
+                        Session::put('name', strtok($result->profile->name, ' '));
+                        Session::put('image', $result->profile->image);
+                    }
 
                     return ('/');
                 } else {
