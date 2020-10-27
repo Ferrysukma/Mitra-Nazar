@@ -24,9 +24,41 @@ class LoginController extends Controller
         return view('user.login');
     }
 
-    public function widget(Request $request)
+    public function widget($token, $year)
     {
-        return view('user.widget');
+        $client     = new Client();
+        $year       = isset($year) && !empty($year) ? $year : '2020';
+        $url        = $this->base_url . 'user/komisi-mitra';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => $token
+            ],
+            'json'      => [
+                'payload'   => [
+                    'tahun' => $year
+                ]
+            ]
+        ]);
+
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+        $desc       = json_decode((string) $response, true)['status']['statusDesc'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+
+            $rows   = [];
+            foreach ($result as $key) {
+                $key->periode   = date('F Y', strtotime($key->periode));
+                $rows[]         = $key;
+            } 
+            
+            $data['result'] = $rows;
+
+            return view('user.widget', $data);
+        } 
+
+        return view('user.widget', $data);
     }
 
     public function validateLogin(Request $request)

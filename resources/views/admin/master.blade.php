@@ -103,17 +103,6 @@
                                 <th>{{ __('all.table.city') }}</th>
                                 <th>{{ __('all.table.qty') }}</th>
                                 <th>{{ __('all.table.action') }}</th>
-                                <!-- <th>{{ __('all.table.join_date') }}</th>
-                                <th>{{ __('all.table.partner_id') }}</th>
-                                <th>{{ __('all.table.partner_nm') }}</th>
-                                <th>{{ __('all.table.coordinator_type') }}</th>
-                                <th>{{ __('all.table.prov') }}</th>
-                                <th>{{ __('all.table.city') }}</th>
-                                <th>{{ __('all.table.address') }}</th>
-                                <th>{{ __('all.table.coordinate') }}</th>
-                                <th>{{ __('all.table.downline') }}</th>
-                                <th>{{ __('all.table.status') }}</th>
-                                <th>{{ __('all.table.action') }}</th> -->
                             </tr>
                         </thead>
                     </table>
@@ -847,6 +836,8 @@
         $('.filter-prov').hide(); 
         filterPosition('filterCity', 'filter-city', 'showFilCity');
         showData();
+        maps();
+        loadDataChart();
     }
 
     function filterCity(e) {
@@ -857,6 +848,8 @@
 
         $('.filter-city').hide(); 
         showData();
+        maps();
+        loadDataChart();
     }
 
     //load data cash

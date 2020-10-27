@@ -204,9 +204,9 @@
                             <label for="old" class="col-sm-3">{{ __('all.form.old_password') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
                                 <div class="input-group mb-3">
-                                    <input type="password" name="oldPassword" id="oldPassword" class="form-control" placeholder="{{ __('all.placeholder.password') }}" aria-describedby="basic-addon1">
+                                    <input type="password" name="oldPassword" id="oldPassword" class="form-control" placeholder="{{ __('all.placeholder.password') }}" aria-describedby="basicOld">
                                     <div class="input-group-prepend">
-                                        <button type="button" class="btn btn-primary input-group-text" id="basic-addon1" onclick="changeIcon('basic-addon1','oldPassword')"><i class="fa fa-eye"></i></button>
+                                        <button type="button" class="btn btn-primary input-group-text" id="basicOld" onclick="changeIcon('basicOld','oldPassword')"><i class="fa fa-eye"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -253,7 +253,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
                 </div>
             </div>
         </div>

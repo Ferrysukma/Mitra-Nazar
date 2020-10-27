@@ -71,33 +71,8 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-xl-2 col-md-6 mb-4"></div>
-                        <div class="col-xl-8 col-md-6 mb-4">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <h6 class="m-0 font-weight-bold text-primary">{{ __('all.comition') }}</h6>
-                                        </div>
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-3" style="float:right">
-                                            <select name="period" id="period" class="form-control select2" onchange="grafikBar()">
-                                                @for ($i = 2020; $i <= 2030; $i++)
-                                                    <option value="{{ $i }}">{{ $i }}</option>
-                                                @endfor
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div id="bar-chart-bs" style="position: relative; height:auto; width:auto">
-                                        <canvas id="bar-canvas-bs"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-2 col-md-6 mb-4"></div>
+                    <div id="bar-chart-bs" style="position: relative; height:auto; width:auto;margin: auto;">
+                        <canvas id="bar-canvas-bs"></canvas>
                     </div>
                 </div>
                 <!-- /.container-fluid -->
@@ -155,76 +130,55 @@
     <script>
         Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
         Chart.defaults.global.defaultFontColor = '#858796';
+        
+        <?php 
+            $x = [];
+            $y = [];
 
-        function grafikBar() {
-            $.ajax({
-                type    : "POST",
-                url     : "{{ route('comition') }}",
-                data    : {
-                    _token  : "{{ csrf_token() }}",
-                    year    : $('#period').val()
-                },
-                dataType: "JSON",
-                beforeSend: function(){
-                    $('#bar-chart-bs').ploading({action: 'show'});
-                },
-                success : function(res){
-                    var x  = [];
-                    var y  = [];
-                    
-                    list = res.data;
-                    if (list.length > 0) {
-                        $(list).each(function(i){  
-                            x.push(list[i].periode); 
-                            y.push(list[i].amount);
-                        });
-                    }
+            foreach ($result as $key) {
+                array_push($x, $key->periode);
+                array_push($y, $key->amount);
+            }
 
-                    $('#bar-canvas-bs').remove(); $('#bar-chart-bs').append('<canvas id="bar-canvas-bs"><canvas>');
-                    var ctx = document.getElementById('bar-canvas-bs').getContext('2d');
-                    var MyChart = new Chart(
-                        ctx,
-                        {
-                            type: 'bar',
-                            data: {
-                                labels: x,
-                                datasets: [{
-                                    data            : y,
-                                    backgroundColor : ['#2980D0', '#2A516E','#F07124','#CBE0E3','#979193','#eb4034','#28423f','#54234f','#7583bd','#7ca368','#1d4f24','#707027','#afdeed','#0cb7ed','#303c40'],
-                                    backgroundColor : ['#2980D0', '#2A516E','#F07124','#CBE0E3','#979193','#eb4034','#28423f','#54234f','#7583bd','#7ca368','#1d4f24','#707027','#afdeed','#0cb7ed','#303c40'],
-                                }],
-                            },
-                            options: {
-                                legend: { display: false },
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero:true,
-                                            callback: function(value, index, values) {
-                                                return number_format(value);
-                                            }
-                                        }
-                                    }]
-                                },
-                                tooltips: {
-                                    callbacks: {
-                                        label: function(tooltipItem, chart){
-                                            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                                            return datasetLabel + '' + number_format(tooltipItem.yLabel, 2);
-                                        }
-                                    }
+        ?>
+
+        $('#bar-canvas-bs').remove(); $('#bar-chart-bs').append('<canvas id="bar-canvas-bs"><canvas>');
+        var ctx = document.getElementById('bar-canvas-bs').getContext('2d');
+        var MyChart = new Chart(
+            ctx,
+            {
+                type: 'bar',
+                data: {
+                    labels: <?php echo json_encode($x) ?>,
+                    datasets: [{
+                        data            : <?php echo json_encode($y) ?>,
+                        backgroundColor : ['#2980D0', '#2A516E','#F07124','#CBE0E3','#979193','#eb4034','#28423f','#54234f','#7583bd','#7ca368','#1d4f24','#707027','#afdeed','#0cb7ed','#303c40'],
+                        backgroundColor : ['#2980D0', '#2A516E','#F07124','#CBE0E3','#979193','#eb4034','#28423f','#54234f','#7583bd','#7ca368','#1d4f24','#707027','#afdeed','#0cb7ed','#303c40'],
+                    }],
+                },
+                options: {
+                    legend: { display: false },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero:true,
+                                callback: function(value, index, values) {
+                                    return number_format(value);
                                 }
                             }
+                        }]
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, chart){
+                                var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                                return datasetLabel + '' + number_format(tooltipItem.yLabel, 2);
+                            }
                         }
-                    );
-                },
-                complete : function () {
-                    $('#bar-chart-bs').ploading({action: 'hide'});
+                    }
                 }
-            })
-        }
-
-        grafikBar();
+            }
+        );
     </script>
 
 </body>
