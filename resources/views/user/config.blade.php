@@ -42,7 +42,7 @@
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">ID Downline <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="id" id="userCode" class="form-control readonly" readonly>
+                            <input type="text" name="id" id="userCode" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -71,7 +71,7 @@
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.dateBirth') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="birthday" id="birthday" class="form-control readonly" readonly placeholder="{{ __('all.placeholder.dateofbirth') }}">
+                            <input type="text" name="birthday" id="birthday" class="form-control" readonly placeholder="{{ __('all.placeholder.dateofbirth') }}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -83,37 +83,37 @@
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.table.coordinator_type') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="tipe" id="tipe" class="form-control readonly" readonly>
+                            <input type="text" name="tipe" id="tipe" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.category_coordinator') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="kategori" id="kategori" class="form-control readonly" readonly>
+                            <input type="text" name="kategori" id="kategori" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.table.prov') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="provinsi" id="provinsi" class="form-control readonly" readonly>
+                            <input type="text" name="provinsi" id="provinsi" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.table.city') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="kota" id="kota" class="form-control readonly" readonly>
+                            <input type="text" name="kota" id="kota" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.district') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="kecamatan" id="kecamatan" class="form-control readonly" readonly>
+                            <input type="text" name="kecamatan" id="kecamatan" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.table.village') }} </label>
                         <div class="col-sm-9">
-                            <input type="text" name="desa" id="desa" class="form-control readonly" readonly>
+                            <input type="text" name="desa" id="desa" class="form-control" readonly>
                         </div>
                     </div>
             </div>
@@ -217,6 +217,8 @@
                 "previous"  : "{{ __('all.datatable.prev') }}",
             }
         },
+        "paging"            : false,
+        "info"              : false,
         "columnDefs"        : [ 
             { targets: [0], orderable: false, className	: "text-center" },
             { targets: [4], orderable: false, searchable: false, className	: "text-center" },
@@ -463,10 +465,16 @@
         errorClass      : "invalid-feedback",
         errorElement    : "div",
         highlight: function (element, errorClass, validClass) {
-            $(element).addClass('is-invalid').removeClass('is-valid');
+            var check = $(element).attr('readonly');
+            if (typeof check == 'undefined') {
+                $(element).addClass('is-invalid').removeClass('is-valid');
+            }
         },
         unhighlight: function (element, errorClass, validClass) {
-            $(element).removeClass('is-invalid').addClass('is-valid');
+            var check = $(element).attr('readonly');
+            if (typeof check == 'undefined') {
+                $(element).removeClass('is-invalid').addClass('is-valid');                
+            }
         },
         errorPlacement  : function(error,element) {
             error.addClass('invalid-feedback');
@@ -537,10 +545,16 @@
         errorClass      : "invalid-feedback",
         errorElement    : "div",
         highlight: function (element, errorClass, validClass) {
-            $(element).addClass('is-invalid').removeClass('is-valid');
+            var check = $(element).attr('readonly');
+            if (typeof check == 'undefined') {
+                $(element).addClass('is-invalid').removeClass('is-valid');
+            }
         },
         unhighlight: function (element, errorClass, validClass) {
-            $(element).removeClass('is-invalid').addClass('is-valid');
+            var check = $(element).attr('readonly');
+            if (typeof check == 'undefined') {
+                $(element).removeClass('is-invalid').addClass('is-valid');                
+            }
         },
         errorPlacement  : function(error,element) {
             error.addClass('invalid-feedback');

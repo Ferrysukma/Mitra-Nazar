@@ -465,10 +465,16 @@
         errorClass      : "invalid-feedback",
         errorElement    : "div",
         highlight: function (element, errorClass, validClass) {
-            $(element).addClass('is-invalid').removeClass('is-valid');
+            var check = $(element).attr('readonly');
+            if (typeof check == 'undefined') {
+                $(element).addClass('is-invalid').removeClass('is-valid');
+            }
         },
         unhighlight: function (element, errorClass, validClass) {
-            $(element).removeClass('is-invalid').addClass('is-valid');
+            var check = $(element).attr('readonly');
+            if (typeof check == 'undefined') {
+                $(element).removeClass('is-invalid').addClass('is-valid');                
+            }
         },
         errorPlacement  : function(error,element) {
             error.addClass('invalid-feedback');
