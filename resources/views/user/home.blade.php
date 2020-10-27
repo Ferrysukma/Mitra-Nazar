@@ -186,7 +186,7 @@
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.account') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="nomorRekening" id="no_rek" class="form-control only-number" placeholder="{{ __('all.placeholder.telp') }}">
+                            <input type="text" name="nomorRekening" id="no_rek" class="form-control only-number" placeholder="{{ __('all.placeholder.no_rek') }}">
                         </div>
                     </div>
                     <div class="form-group row">
