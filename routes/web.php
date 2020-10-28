@@ -39,6 +39,8 @@ Route::get('/login_by_facebook/callback', [App\Http\Controllers\User\LoginContro
 
 Route::get('/user/logoutUser', [App\Http\Controllers\User\LoginController::class, 'logout'])->name('logoutUser');
 
+Route::get('lang/{language}', [App\Http\Controllers\LocalizationController::class, 'switch'])->name('localization.switch');
+
 Auth::routes();
 
 Route::group(['middleware' => 'CheckToken'], function () {
@@ -76,8 +78,6 @@ Route::group(['middleware' => 'CheckToken'], function () {
     Route::get('/loadListCategory', [App\Http\Controllers\Admin\CategoryController::class, 'loadList'])->name('loadListCategory');
     Route::post('/createCategory', [App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('createCategory');
     Route::post('/deleteCategory', [App\Http\Controllers\Admin\CategoryController::class, 'delete'])->name('deleteCategory');
-
-    Route::get('lang/{language}', [App\Http\Controllers\LocalizationController::class, 'switch'])->name('localization.switch');
 });
 
 Route::group(['middleware' => 'CheckTokenUser'], function () {

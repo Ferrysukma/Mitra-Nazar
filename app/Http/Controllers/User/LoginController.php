@@ -21,6 +21,8 @@ class LoginController extends Controller
 
     public function index()
     {
+        $lang   = Session::get('locale');
+        empty($lang) ? Session::put('locale', 'id') : '';
         return view('user.login');
     }
 

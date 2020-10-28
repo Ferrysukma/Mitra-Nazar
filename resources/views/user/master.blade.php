@@ -109,40 +109,51 @@
                         </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-white">{{ Session::get('name') }}</span>
-                                <!-- <img src="{{ Session::get('image') }}" alt="image" style="width:3%;border-radius: 50%;"> -->
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#" onclick="showModal('changePassword','postpass')">
-                                    <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    {{ __('all.change') }}
-                                </a>
-                                <a class="dropdown-item" href="{{ route('config') }}">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    {{ __('all.setting') }}
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" onclick="showModal('logoutModal')">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    {{ __('all.logout') }}
-                                </a>
-                            </div>
-                        </li>
-
                     </ul>
 
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span><i class="fa fa-flag"></i></span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item {{ app()->getLocale() == 'en' ? 'active' : '' }}" href="{{ route('localization.switch', 'en') }}"><img src="{{ asset('assets/admin/image/en.png') }}" alt="en" srcset width="20%"> Inggris</a>
-                            <a class="dropdown-item {{ app()->getLocale() == 'id' ? 'active' : '' }}" href="{{ route('localization.switch', 'id') }}"><img src="{{ asset('assets/admin/image/idn.png') }}" alt="idn" srcset width="20%"> Indonesia</a>
+                    <div class="dropdown" style="width:10%">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img class="icon-flag-sm rounded-circle" src="{{ Session::get('image') }}" alt="image" srcset width="30%" height="45%">
+                                <span class="mr-2 d-none d-lg-inline text-white">{{ Session::get('name') }}</span>
+                            </button>
+                            
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a class="dropdown-item" href="#" onclick="showModal('changePassword','postpass')">
+                                        <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        {{ __('all.change') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('config') }}">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        {{ __('all.setting') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#" onclick="showModal('logoutModal')">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        {{ __('all.logout') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="dropdown" style="width:10%">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img class="icon-flag-sm rounded-circle" src="{{ asset('assets/admin/image/' . Session::get('locale') . '.png') }}" alt="id" srcset width="30%" height="45%">
+                                <span class="text-white"> {{ Session::get('locale') == 'id' ? 'Indonesia' : 'Inggris' }}</span>
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </button>
+                            
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a class="dropdown-item" href="{{ Route('localization.switch', Session::get('locale') == 'en' ? 'id' : 'en') }}" title="Select"><img class="icon-flag-sm rounded-circle" src="{{ asset('assets/admin/image/' . (Session::get('locale') == 'en' ? 'id' : 'en') . '.png') }}" alt="en" srcset width="30%" height="45%"> <span> {{ Session::get('locale') == 'en' ? 'Indonesia' : 'Inggris' }}</span></a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
 
