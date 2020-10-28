@@ -38,7 +38,7 @@ class PartnerController extends Controller
                 "payload"   => [
                     "limit"         => 10000000,
                     "pageNumber"    => 0,
-                    "search"        => '',
+                    "search"        => $request->search,
                 ]
             ]
         ]);
@@ -85,7 +85,7 @@ class PartnerController extends Controller
                     "payload"   => [
                         "limit"         => 100000000,
                         "pageNumber"    => 0,
-                        "search"        => ""
+                        "search"        => $request->search
                     ]
                 ]
             ]);

@@ -282,7 +282,7 @@
 							notif('success', '{{ __("all.success") }}', '{{ __("all.alert.login") }}');
 							window.location = "{{ route('home') }}";
 						} else {
-							notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_login") }}');
+							notif('warning', '{{ __("all.warning") }}', data.info);
 						}
 					},
 					complete    : function(){
@@ -336,7 +336,7 @@
 							notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
 							showToken();
 						} else {
-							notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
+							notif('warning', '{{ __("all.warning") }}', data.info);
 						}
 					},
 					complete    : function(){
@@ -373,7 +373,7 @@
 							notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
 							showPassword();
 						} else {
-							notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
+							notif('warning', '{{ __("all.warning") }}', data.info);
 						}
 					},
 					complete    : function(){
@@ -412,7 +412,7 @@
 							$('#show-password').hide();
 							$('#show-login').show();
 						} else {
-							notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail") }}');
+							notif('warning', '{{ __("all.warning") }}', data.info);
 						}
 					},
 					complete    : function(){

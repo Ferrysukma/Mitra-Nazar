@@ -21,7 +21,7 @@
     <div class="col-lg-12 mb-4">
         <!-- Approach -->
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
+            <!-- <div class="card-header py-3">
                 <div class="btn-group" role="group" style="float:right">
                     <button type="button" class="btn btn-primary btn-sm" id="add-mitra"><i class="fa fa-plus"></i> {{ __('all.button.new') }}</button>
                     <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="filterMaps" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showDropdown('dropMaps')">
@@ -69,7 +69,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="card-body">
                 <div id="maps-homeMitra">
                     <div id="mapsHomeMitra" style="width:100%;height:50vh"></div>
@@ -588,11 +588,11 @@
             url     : "{{ route('loadListPartner') }}",
             data    : {
                 search  : $('#search').val(),
-                provinsi: $('#filterProv').val(),
-                kota    : $('#filterCity').val(),
-                tipe    : $('#type').val(),
-                kategori: $('#cat').val(),
-                status  : $('#status').val(),
+                // provinsi: $('#filterProv').val(),
+                // kota    : $('#filterCity').val(),
+                // tipe    : $('#type').val(),
+                // kategori: $('#cat').val(),
+                // status  : $('#status').val(),
             },
             dataType: "JSON",
             beforeSend: function(){
