@@ -1260,6 +1260,8 @@
         $('#city').val(data[7]);
         $('#district').val(data[8]);
         $('#address').val(data[9]);
+        $('#lat').val(data[10]);
+        $('#lng').val(data[11]);
         initialize(data[10], data[11], 'map_canvas');
         
         $('#modal-mitra').find('.modal-title').text("{{ __('all.edit_user') }} #"+data[0]+"");
