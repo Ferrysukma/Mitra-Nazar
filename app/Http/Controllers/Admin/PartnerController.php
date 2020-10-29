@@ -49,6 +49,7 @@ class PartnerController extends Controller
         if ($status == '000') {
             $result = json_decode((string) $response)->payload;
             $row    = [];
+            $no     = 1;
             foreach ($result as $key => $value) {
                 $explode            = explode(', ', $value->koordinat);
                 if ($value->active == true) {
@@ -61,6 +62,7 @@ class PartnerController extends Controller
                 $value->koordinat   = "<a target='_blank' href='http://maps.google.com/?ll=".$value->koordinat."'>".__('all.open_maps')." <i class='fa fa-map-marker-alt'></i></a>";
                 $value->lat         = $explode[0];
                 $value->long        = $explode[1];
+                $value->no          = $no++;
                 $row[]              = $value;
             }
 

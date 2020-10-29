@@ -137,6 +137,11 @@ class UserController extends Controller
     public function changePassword(Request $request)
     {
         $client = new Client();
+
+        if (empty($request->oldPassword) || empty($request->newPassword)) {
+            return json_encode(array('code' => 1, 'info' => 'masukkan tidak boleh kosong', 'data' => null));
+        }
+
         $url = $this->base_url . 'mitra/admin/user/change-password';
         $request = $client->post($url, [
             'headers'   => [

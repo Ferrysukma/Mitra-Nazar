@@ -84,7 +84,7 @@
                     <table class="table table-hover table-striped table-condensed table-bordered" id="table-maps" width="100%">
                         <thead>
                             <tr>
-                                <th style="display:none">No</th>
+                                <th>No</th>
                                 <th>{{ __('all.table.partner_id') }}</th>
                                 <th>{{ __('all.table.partner_nm') }}</th>
                                 <th>{{ __('all.table.coordinator_type') }}</th>
@@ -307,8 +307,9 @@
         },
         "columnDefs"            : [ 
             { targets: [0], orderable: false, className	: "text-center" },
-            { targets: [0,10,11], visible : false },
+            { targets: [10,11], visible : false },
             { targets: [14], orderable: false, searchable: false, className	: "text-center" },
+            { targets: [1, 3 , 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], searchable: false},
         ],
         "initComplete"          : function() {
             $('[data-toggle="tooltip"]').tooltip();
@@ -622,7 +623,7 @@
                     if(list.length > 0){
                         $.each(list, function(idx, ref){
                             table.row.add( [
-                                idx + 1,
+                                ref.no,
                                 ref.userCode,
                                 ref.nama,
                                 ref.tipe,

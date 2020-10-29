@@ -229,7 +229,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                    <button type="submit" class="btn btn-success" id="btn-pass">{{ __('all.save') }}</button>
+                    <button type="submit" class="btn btn-success" id="btn-pass" onclick="changePass()">{{ __('all.save') }}</button>
                     </form>
                 </div>
             </div>
@@ -294,66 +294,39 @@
             }
         }
 
-        $("#postpass").validate({
-            rules       : {
-                oldPassword     : "required",
-                newPassword     : "required",
-            },
-            messages: {
-                oldPassword     : "{{ __('all.validation.old') }}",
-                newPassword     : "{{ __('all.validation.new') }}",
-            },
-            errorClass      : "invalid-feedback",
-            errorElement    : "div",
-            highlight: function (element, errorClass, validClass) {
-                $(element).addClass('is-invalid').removeClass('is-valid');
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).removeClass('is-invalid').addClass('is-valid');
-            },
-            errorPlacement  : function(error,element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
-                if (element.attr("name") == "oldPassword" || element.attr('name') == "newPassword") {
-                    error.insertAfter(element.parent());
-                } else {
-                    error.insertAfter(element);
+        function changePass() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            },
-            submitHandler : function (form) {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
+            });
 
-                $.ajax({
-                    type	: "POST",
-                    url		: "{{ route('changePassword') }}",
-                    data	: $('#postpass').serialize(),
-                    dataType: "JSON",
-                    beforeSend: function(){
-                        $("#btn-pass").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
-                        $('.create-pass').ploading({action:'show'});
-                    },
-                    success     : function(data){
-                        if (data.code == 0) {
-                            notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
-                            window.location = "{{ route('logout') }}";
-                        } else {
-                            notif('warning', '{{ __("all.warning") }}', data.info);
-                        }
-                    },
-                    complete    : function(){
-                        $("#btn-pass").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
-                        $('.create-pass').ploading({action:'hide'});
-                    },
-                    error 		: function(){
-                        notif('error', '{{ __("all.error") }}');
+            $.ajax({
+                type	: "POST",
+                url		: "{{ route('changePassword') }}",
+                data	: $('#postpass').serialize(),
+                dataType: "JSON",
+                beforeSend: function(){
+                    $("#btn-pass").buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+                    $('.create-pass').ploading({action:'show'});
+                },
+                success     : function(data){
+                    if (data.code == 0) {
+                        notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
+                        window.location = "{{ route('logout') }}";
+                    } else {
+                        notif('warning', '{{ __("all.warning") }}', data.info);
                     }
-                });
-            },
-        });
+                },
+                complete    : function(){
+                    $("#btn-pass").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                    $('.create-pass').ploading({action:'hide'});
+                },
+                error 		: function(){
+                    notif('error', '{{ __("all.error") }}');
+                }
+            });
+        }
 
         function getLatLong(district, id, map) {
             $.ajax({
