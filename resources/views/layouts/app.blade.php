@@ -78,7 +78,7 @@
                 <nav class="navbar navbar-expand navbar-light bg-primary topbar mb-4 static-top shadow">
 
                     <!-- Topbar Search -->
-                    <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" width="15%" height="100%" alt="logo" srcset>
+                    <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" width="14%" height="100%" alt="logo" srcset>
                     
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -115,7 +115,7 @@
                     <div class="dropdown" style="width:10%">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-user-circle"></i>
+                                <i class="fa fa-user-circle text-white"></i>
                                 <span class="mr-2 d-none d-lg-inline text-white">{{ strtok(Session::get('username'), ' ') }}</span>
                             </button>
                             
@@ -146,7 +146,7 @@
                             
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                    <a class="dropdown-item" href="{{ Route('localization.switch', Session::get('locale') == 'en' ? 'id' : 'en') }}" title="Select"><img src="{{ asset('assets/admin/image/' . (Session::get('locale') == 'en' ? 'id' : 'en') . '.png') }}" alt="en" srcset width="30%" height="45%"> <span> {{ Session::get('locale') == 'en' ? 'Indonesia' : 'Inggris' }}</span></a>
+                                    <a class="dropdown-item" href="{{ Route('localization.switch', Session::get('locale') == 'en' ? 'id' : 'en') }}" title="Select"><img src="{{ asset('assets/admin/image/' . (Session::get('locale') == 'en' ? 'id' : 'en') . '.png') }}" alt="en" srcset width="30%" height="100%"> <span> {{ Session::get('locale') == 'en' ? 'Indonesia' : 'Inggris' }}</span></a>
                                 </li>
                             </ul>
                         </div>

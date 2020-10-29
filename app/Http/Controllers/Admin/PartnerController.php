@@ -132,6 +132,7 @@ class PartnerController extends Controller
                         "kota"          => $request->city,
                         "kecamatan"     => $request->district,
                         "alamat"        => $request->address,
+                        "desa"          => $request->desa,
                         "koordinat"     => $request->lat.", ".$request->long
                     ]
                 ]
@@ -152,6 +153,7 @@ class PartnerController extends Controller
                         "kecamatan"     => $request->district,
                         "koordinat"     => $request->lat.", ".$request->long,
                         "alamat"        => $request->address,
+                        "desa"          => $request->desa,
                     ]
                 ]
             ]);

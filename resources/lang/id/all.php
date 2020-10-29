@@ -38,7 +38,8 @@ return [
         'account'               => 'Masukkan no.rek ....',
         'account_name'          => 'Masukkan nama rekening atas nama ....',
         'name'                  => 'Masukkan nama ....',
-        'dateofbirth'           => 'Masukkan tanggal lahir ....'
+        'dateofbirth'           => 'Masukkan tanggal lahir ....',
+        'village'               => 'Masukkan desa ....',
     ),
     'remember'  => 'Ingat saya',
     'forget'    => 'Lupa sandi?',
@@ -211,6 +212,7 @@ return [
         'birthday'      => '*Tanggal lahir tidak boleh kosong',
         'img_upload'    => '*Foto tidak boleh kosong',
         'gender'        => '*Jenis kelamin tidak boleh kosong',
+        'village'       => '*Desa tidak boleh kosong',
     ),
     'buttonloader'      => array(
         'wait'          => 'Tunggu',

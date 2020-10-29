@@ -21,10 +21,10 @@
     <div class="col-lg-12 mb-4">
         <!-- Approach -->
         <div class="card shadow mb-4">
-            <!-- <div class="card-header py-3">
+            <div class="card-header py-3">
                 <div class="btn-group" role="group" style="float:right">
                     <button type="button" class="btn btn-primary btn-sm" id="add-mitra"><i class="fa fa-plus"></i> {{ __('all.button.new') }}</button>
-                    <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="filterMaps" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showDropdown('dropMaps')">
+                    <!-- <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="filterMaps" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showDropdown('dropMaps')">
                         <i class="fa fa-filter"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right keep-open" aria-labelledby="filterMaps" id="dropMaps" style="width:300px;">
@@ -67,9 +67,9 @@
                                 </select>
                             </div>
                         </form>
-                    </div>
+                    </div> -->
                 </div>
-            </div> -->
+            </div>
             <div class="card-body">
                 <div id="maps-homeMitra">
                     <div id="mapsHomeMitra" style="width:100%;height:50vh"></div>
@@ -92,6 +92,7 @@
                                 <th>{{ __('all.table.prov') }}</th>
                                 <th>{{ __('all.table.city') }}</th>
                                 <th>{{ __('all.form.district') }}</th>
+                                <th>{{ __('all.table.village') }}</th>
                                 <th>{{ __('all.table.address') }}</th>
                                 <th style="display:none">lat</th>
                                 <th style="display:none">long</th>
@@ -135,13 +136,13 @@
                         <div class="form-group row">
                             <label for="old" class="col-sm-3">{{ __('all.table.partner_nm') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
-                                <input type="text" name="nama" id="nama" class="form-control readonly" readonly>
+                                <input type="text" name="nama" id="nama" class="form-control" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="old" class="col-sm-3">{{ __('all.table.coordinator_type') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
-                                <input type="text" name="tipe" id="tipe" class="form-control readonly" readonly>
+                                <input type="text" name="tipe" id="tipe" class="form-control" readonly>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -186,17 +187,23 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-sm-3"></div>
-                            <div class="col-sm-9" id="maps-mitra">
-                                <div id="map_canvas" style="width:100%;height:50vh"></div>
-                                <input type="hidden" id="lat" name="lat">
-                                <input type="hidden" id="lng" name="long">
+                            <label for="old" class="col-sm-3">{{ __('all.table.village') }} <sup class="text-danger">*</sup></label>
+                            <div class="col-sm-9">
+                                <input type="text" name="desa" id="desa" class="form-control" placeholder="{{ __('all.placeholder.village') }}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="old" class="col-sm-3">{{ __('all.table.address') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
                                 <textarea name="address" id="address" class="form-control readonly" cols="30" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row" id="modalMaps" hidden>
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-9" id="maps-mitra">
+                                <div id="map_canvas" style="width:100%;height:50vh"></div>
+                                <input type="hidden" id="lat" name="lat">
+                                <input type="hidden" id="lng" name="long">
                             </div>
                         </div>
                         <hr>
@@ -297,10 +304,11 @@
                 "previous"  : "{{ __('all.datatable.prev') }}",
             }
         },
+        "searching"         : false,
         "columnDefs"        : [ 
             { targets: [0], orderable: false, className	: "text-center" },
-            { targets: [9,10], visible : false },
-            { targets: [13], orderable: false, searchable: false, className	: "text-center" },
+            { targets: [10,11], visible : false },
+            { targets: [14], orderable: false, searchable: false, className	: "text-center" },
         ],
         "initComplete"      : function() {
             $('[data-toggle="tooltip"]').tooltip();
@@ -408,6 +416,7 @@
 
     function getLoc(e) {
         $('.data-district').hide();
+        $('#modalMaps').removeAttr('hidden');
         $('#district').val($(e).attr('name'));
         getLatLong($(e).attr('name'), 'map_canvas', 'maps-mitra');
     }
@@ -461,6 +470,7 @@
 
     $(document).on('click','#add-mitra', function () {
         showModal('modal-mitra', 'postmitra');
+        $('#modalMaps').attr('hidden', true);
         $('#id').val('');
         $('#tipe').val('pusat');
         $('#basic-addon1').attr('disabled', true);
@@ -477,6 +487,12 @@
             $('#save-cat').attr('disabled', true);
         }
     });
+
+    // $('#table-maps').on('search.dt', function() {
+    //     var value = $('.dataTables_filter input').val();
+    //     showData(value);
+    //     maps(value);
+    // }); 
 
     $('.create-cat').select2({
         theme           : 'bootstrap4',
@@ -576,7 +592,7 @@
 
     showCategory();
 
-    function showData() {
+    function showData(value) {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -587,7 +603,7 @@
             type    : "POST",
             url     : "{{ route('loadListPartner') }}",
             data    : {
-                search  : $('#search').val(),
+                search  : value,
                 // provinsi: $('#filterProv').val(),
                 // kota    : $('#filterCity').val(),
                 // tipe    : $('#type').val(),
@@ -614,6 +630,7 @@
                                 ref.provinsi,
                                 ref.kota,
                                 ref.kecamatan,
+                                ref.desa,
                                 ref.alamat,
                                 ref.lat,
                                 ref.long,
@@ -631,7 +648,7 @@
         });
     }
 
-    function maps() {
+    function maps(value) {
         $.ajax({
             type    : "POST",
             url     : "{{ route('listAllPartner') }}",
@@ -639,7 +656,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data    : {
-                search  : $('#search').val(),
+                search  : value,
             },
             dataType: "JSON",
             beforeSend: function(){
@@ -654,7 +671,7 @@
         });
     }
 
-    maps();
+    maps('');
 
     function findUser() {
         $.ajaxSetup({
@@ -712,7 +729,8 @@
                     }
 
                     $('#'+modal).modal('hide');
-                    showData();
+                    showData('');
+                    maps('');
                 } else {
                     notif('warning', '{{ __("all.warning") }}', data.info);
                 }
@@ -739,6 +757,7 @@
     $('#table-maps tbody').on('click', '.action-edit', function () {
         var data = table.row( $(this).parents('tr') ).data();
         showModal('modal-mitra','postmitra');
+        $('#modalMaps').removeAttr('hidden');
         $('#id').val($(this).attr('id'));
         $('#userCode').val(data[1]).attr('readonly', true);
         $('#nama').val(data[2]);
@@ -747,9 +766,10 @@
         $('#dropProv').val(data[5]);
         $('#city').val(data[6]);
         $('#district').val(data[7]);
-        $('#address').val(data[8]);
+        $('#desa').val(data[8]);
+        $('#address').val(data[9]);
 
-        initialize(data[9], data[10], 'map_canvas');
+        initialize(data[10], data[11], 'map_canvas');
         
         $('#modal-mitra').find('.modal-title').text("{{ __('all.edit_user') }} #"+data[0]+"");
     });
@@ -772,27 +792,27 @@
         $('#active-mitra').find('.modal-title').text("{{ __('all.active_partner') }} "+data[2]+"");
     })
     
-    showData();
+    showData('');
 
     $("#postmitra").validate({
         rules       : {
             userCode    : "required",
-            nama        : "required",
             tipe        : "required",
             kategori    : "required",
             city        : "required",
             province    : "required",
             district    : "required",
+            desa        : "required",
             address     : "required",
         },
         messages: {
             userCode    : "{{ __('all.validation.usercode') }}",
-            nama        : "{{ __('all.validation.name') }}",
             tipe        : "{{ __('all.validation.tipe') }}",
             kategori    : "{{ __('all.validation.cat') }}",
             city        : "{{ __('all.validation.city') }}",
             province    : "{{ __('all.validation.province') }}",
             district    : "{{ __('all.validation.district') }}",
+            desa        : "{{ __('all.validation.village') }}",
             address     : "{{ __('all.validation.address') }}",
         },
         errorClass      : "invalid-feedback",
@@ -837,7 +857,8 @@
                 success     : function(data){
                     if (data.code == 0) {
                         notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
-                        showData();
+                        showData('');
+                        maps('');
                         resetForm('postmitra','id');
                         $('#modal-mitra').modal('hide');
                     } else {
