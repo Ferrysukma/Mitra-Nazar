@@ -211,6 +211,7 @@
                                 <th>{{ __('all.table.prov') }}</th>
                                 <th>{{ __('all.table.city') }}</th>
                                 <th>{{ __('all.form.district') }}</th>
+                                <th>{{ __('all.table.village') }}</th>
                                 <th>{{ __('all.table.address') }}</th>
                                 <th style="display:none">lat</th>
                                 <th style="display:none">long</th>
@@ -305,17 +306,23 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-sm-3"></div>
-                            <div class="col-sm-9" id="maps-mitra">
-                                <div id="map_canvas" style="width:100%;height:50vh"></div>
-                                <input type="hidden" id="lat" name="lat">
-                                <input type="hidden" id="lng" name="long">
+                            <label for="old" class="col-sm-3">{{ __('all.table.village') }} <sup class="text-danger">*</sup></label>
+                            <div class="col-sm-9">
+                                <input type="text" name="desa" id="desa" class="form-control" placeholder="{{ __('all.placeholder.village') }}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="old" class="col-sm-3">{{ __('all.table.address') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
                                 <textarea name="address" id="address" class="form-control readonly" cols="30" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-9" id="maps-mitra">
+                                <div id="map_canvas" style="width:100%;height:50vh"></div>
+                                <input type="hidden" id="lat" name="lat">
+                                <input type="hidden" id="lng" name="long">
                             </div>
                         </div>
                         <hr>
@@ -476,8 +483,8 @@
         },
         "columnDefs"        : [ 
             { targets: [0], orderable: false, className	: "text-center" },
-            { targets: [10,11], visible : false },
-            { targets: [14], orderable: false, searchable: false, className	: "text-center" },
+            { targets: [11,12], visible : false },
+            { targets: [15], orderable: false, searchable: false, className	: "text-center" },
         ],
         "initComplete"      : function() {
             $('[data-toggle="tooltip"]').tooltip();
@@ -570,6 +577,7 @@
                                 ref.provinsi,
                                 ref.kota,
                                 ref.kecamatan,
+                                ref.desa,
                                 ref.alamat,
                                 ref.lat,
                                 ref.long,
@@ -1259,10 +1267,11 @@
         $('#dropProv').val(data[6]);
         $('#city').val(data[7]);
         $('#district').val(data[8]);
-        $('#address').val(data[9]);
-        $('#lat').val(data[10]);
-        $('#lng').val(data[11]);
-        initialize(data[10], data[11], 'map_canvas');
+        $('#desa').val(data[9]);
+        $('#address').val(data[10]);
+        $('#lat').val(data[11]);
+        $('#lng').val(data[12]);
+        initialize(data[11], data[12], 'map_canvas');
         
         $('#modal-mitra').find('.modal-title').text("{{ __('all.edit_user') }} #"+data[0]+"");
     });
@@ -1294,6 +1303,7 @@
             city        : "required",
             province    : "required",
             district    : "required",
+            desa        : "required",
             address     : "required",
         },
         messages: {
@@ -1304,6 +1314,7 @@
             city        : "{{ __('all.validation.city') }}",
             province    : "{{ __('all.validation.province') }}",
             district    : "{{ __('all.validation.district') }}",
+            desa        : "{{ __('all.validation.village') }}",
             address     : "{{ __('all.validation.address') }}",
         },
         errorClass      : "invalid-feedback",

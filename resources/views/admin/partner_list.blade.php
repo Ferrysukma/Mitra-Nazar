@@ -84,7 +84,7 @@
                     <table class="table table-hover table-striped table-condensed table-bordered" id="table-maps" width="100%">
                         <thead>
                             <tr>
-                                <th>No</th>
+                                <th style="text-align:center">No</th>
                                 <th>{{ __('all.table.partner_id') }}</th>
                                 <th>{{ __('all.table.partner_nm') }}</th>
                                 <th>{{ __('all.table.coordinator_type') }}</th>
@@ -309,7 +309,6 @@
             { targets: [0], orderable: false, className	: "text-center" },
             { targets: [10,11], visible : false },
             { targets: [14], orderable: false, searchable: false, className	: "text-center" },
-            { targets: [1, 3 , 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], searchable: false},
         ],
         "initComplete"          : function() {
             $('[data-toggle="tooltip"]').tooltip();
@@ -490,7 +489,9 @@
     });
 
     $('.dataTables_filter input')
+       .off()
        .on('keyup', function() {
+        table.clear().draw();
         showData();
         maps();
     }); 
@@ -623,7 +624,7 @@
                     if(list.length > 0){
                         $.each(list, function(idx, ref){
                             table.row.add( [
-                                ref.no,
+                                idx + 1,
                                 ref.userCode,
                                 ref.nama,
                                 ref.tipe,
@@ -672,7 +673,7 @@
         });
     }
 
-    maps('');
+    maps();
 
     function findUser() {
         $.ajaxSetup({
@@ -696,7 +697,9 @@
             success     : function(data){
                 if (data.code == 0) {
                     $('#nama').val(data.data.name);
-                } 
+                } else {
+                    notif('warning', '{{ __("all.warning") }}', data.info);
+                }
             },
             complete : function () {
                 $("#basic-addon1").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
@@ -769,6 +772,8 @@
         $('#district').val(data[7]);
         $('#desa').val(data[8]);
         $('#address').val(data[9]);
+        $('#lat').val(data[10]);
+        $('#lng').val(data[11]);
 
         initialize(data[10], data[11], 'map_canvas');
         

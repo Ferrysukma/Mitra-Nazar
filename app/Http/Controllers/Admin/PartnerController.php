@@ -49,7 +49,6 @@ class PartnerController extends Controller
         if ($status == '000') {
             $result = json_decode((string) $response)->payload;
             $row    = [];
-            $no     = 1;
             foreach ($result as $key => $value) {
                 $explode            = explode(', ', $value->koordinat);
                 if ($value->active == true) {
@@ -62,7 +61,6 @@ class PartnerController extends Controller
                 $value->koordinat   = "<a target='_blank' href='http://maps.google.com/?ll=".$value->koordinat."'>".__('all.open_maps')." <i class='fa fa-map-marker-alt'></i></a>";
                 $value->lat         = $explode[0];
                 $value->long        = $explode[1];
-                $value->no          = $no++;
                 $row[]              = $value;
             }
 
@@ -99,10 +97,10 @@ class PartnerController extends Controller
             
             $row    = [];
             foreach ($result as $value) {
-                $explode = explode(', ', $value->koordinat);
+                $explode = $this->getLatLong($value->provinsi);
                 $name    = $value->provinsi;
-                $lat     = $explode[0];
-                $long    = $explode[1];
+                $lat     = $explode['lat'];
+                $long    = $explode['long'];
                 $row[]   = [$name, $lat, $long, ''];
             }
             
@@ -112,6 +110,20 @@ class PartnerController extends Controller
             
             echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
+    }
+
+    public function getLatLong($params)
+    {
+        $address    = str_replace(' ', '', $params);
+        // Get lattitude & longitude ---
+        $apiKey     = 'AIzaSyC7Ah8Zuhy2ECqqjBNF8ri2xJ7mwwtIbwo'; // Google maps now requires an API key.
+        $results    = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $address . '&key=' . $apiKey);
+        $json       = json_decode($results, true);
+
+        $latitude   = $json['results'][0]['geometry']['location']['lat']; // Latitude
+        $longitude  = $json['results'][0]['geometry']['location']['lng']; // Longitude
+
+        return array('lat' => $latitude, 'long' => $longitude);
     }
 
     public function create(Request $request)
@@ -216,12 +228,13 @@ class PartnerController extends Controller
 
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];
+        $desc       = json_decode((string) $response, true)['status']['statusDesc'];
 
         if ($status == '000') {
             $result = json_decode((string) $response)->payload;
             return json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
         } else {
-            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            return json_encode(array('code' => 1, 'info' => $desc, 'data' => null));
         }
     }
 

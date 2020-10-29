@@ -24,7 +24,7 @@
             <div class="card-header">
                 <div class="btn-group" id="gpUser" style="float:right">
                     <button type="button" class="btn btn-primary btn-sm ml-1" id="add-user" onclick="showModal('modal-mitra','postuser')"><i class="fa fa-plus"></i> {{ __('all.button.new') }}</button>
-                    <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="filterMaps" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showDropdown('dropMaps')">
+                    <!-- <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="filterMaps" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="showDropdown('dropMaps')">
                         <i class="fa fa-filter"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right keep-open" aria-labelledby="filterMaps" id="dropMaps" style="width:300px;">
@@ -36,7 +36,7 @@
                                 </select>
                             </div>
                         </form>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="card-body table-user">
