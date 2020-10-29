@@ -154,7 +154,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <select name="tipe" id="type" class="form-control select2" onchange="showDataDetail()">
+                                <select name="tipe" id="type" class="form-control select2" onchange="findDetail()">
                                     <option value="">{{ __('all.placeholder.choose_coortype') }}</option>
                                     <option value="pusat">{{ __('all.checkbox.central') }}</option>
                                     <option value="provinsi">{{ __('all.checkbox.regional') }}</option>
@@ -164,21 +164,21 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <select name="kategori" id="cat" class="form-control select2" onchange="showDataDetail()"></select>
+                                <select name="kategori" id="cat" class="form-control select2" onchange="findDetail()"></select>
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="tab-content" id="myTabContentD">
                     <div class="tab-pane fade show active" id="chartD" role="tabpanel" aria-labelledby="detailchart-tab">
-                        <div class="card-title">
+                        <!-- <div class="card-title">
                             <h4>{{ __('all.title_chart') }}</h4>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div style="height:40vh; width:100%" id="divChartD">
                                 <canvas id="myChartD"></canvas>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="tab-pane fade" id="mapsD" role="tabpanel" aria-labelledby="detailmaps-tab">
                         <div class="card-title">
@@ -483,6 +483,12 @@
             $('[data-toggle="tooltip"]').tooltip();
         },
     });
+
+    function findDetail() {
+        showDataDetail();
+        mapDetail();
+        loadDataChartDetail();
+    }
 
     showData();
     maps();
@@ -967,6 +973,7 @@
             type    : "POST",
             url     : "{{ route('detailChart') }}",
             data    : {
+                _token  : "{{ csrf_token() }}",
                 start   : $('#start_dtm_detail').val(),
                 provinsi: $('#filterDetailProv').val(),
                 kota    : $('#filterDetailCity').val(),
