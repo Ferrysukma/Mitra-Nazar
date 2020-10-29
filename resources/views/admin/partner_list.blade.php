@@ -84,7 +84,7 @@
                     <table class="table table-hover table-striped table-condensed table-bordered" id="table-maps" width="100%">
                         <thead>
                             <tr>
-                                <th style="text-align:center">No</th>
+                                <th style="display:none">No</th>
                                 <th>{{ __('all.table.partner_id') }}</th>
                                 <th>{{ __('all.table.partner_nm') }}</th>
                                 <th>{{ __('all.table.coordinator_type') }}</th>
@@ -307,7 +307,7 @@
         },
         "columnDefs"            : [ 
             { targets: [0], orderable: false, className	: "text-center" },
-            { targets: [10,11], visible : false },
+            { targets: [0,10,11], visible : false },
             { targets: [14], orderable: false, searchable: false, className	: "text-center" },
         ],
         "initComplete"          : function() {
@@ -489,9 +489,7 @@
     });
 
     $('.dataTables_filter input')
-       .off()
        .on('keyup', function() {
-        // $('#example').DataTable().search(this.value.trim(), false, false).draw();
         showData();
         maps();
     }); 
