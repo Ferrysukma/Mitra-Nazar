@@ -268,7 +268,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.cancel') }}</button>
-                <button type="button" class="btn btn-success" onclick="disabledP('btnAct','active-mitra','active-mitra')" id="btnAct">{{ __('all.yes') }}</button>
+                <button type="button" class="btn btn-success" onclick="disabledP('btnAct','active-mitra','active-mitra')" id="btnAct">{{ __('all.yes_act') }}</button>
             </div>
         </div>
     </div>
@@ -639,7 +639,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data    : {
-                params  : 1,
                 search  : $('#search').val(),
             },
             dataType: "JSON",
@@ -706,7 +705,12 @@
             },
             success     : function(data){
                 if (data.code == 0) {
-                    notif('success', '{{ __("all.success") }}', '{{ __("all.alert.delete") }}');
+                    if ($('#active').val() == true) {
+                        notif('success', '{{ __("all.success") }}', '{{ __("all.alert.disable") }}');
+                    } else {
+                        notif('success', '{{ __("all.success") }}', '{{ __("all.alert.activate") }}');
+                    }
+
                     $('#'+modal).modal('hide');
                     showData();
                 } else {

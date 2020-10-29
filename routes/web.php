@@ -48,7 +48,7 @@ Route::group(['middleware' => 'CheckToken'], function () {
     Route::get('/index', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
     Route::post('/detailChart', [App\Http\Controllers\Admin\HomeController::class, 'loadList'])->name('detailChart');
     Route::post('/chart', [App\Http\Controllers\Admin\HomeController::class, 'chart'])->name('loadChart');
-    Route::post('/chartDetail', [App\Http\Controllers\Admin\HomeController::class, 'chartDetail'])->name('chartDetail');
+    Route::post('/maps', [App\Http\Controllers\Admin\HomeController::class, 'maps'])->name('mapsHome');
     Route::post('/mapsDetail', [App\Http\Controllers\Admin\HomeController::class, 'mapsDetail'])->name('mapsDetail');
     Route::post('/getCoordinate', [App\Http\Controllers\Admin\HomeController::class, 'getCoordinate'])->name('getCoordinate');
     Route::post('/coordinateCity', [App\Http\Controllers\Admin\HomeController::class, 'coordinateCity'])->name('coordinateCity');

@@ -484,21 +484,16 @@
         },
     });
 
-    
+    showData();
     maps();
     loadDataChart();
 
     function showData() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type    : "POST",
             url     : "{{ route('loadChart') }}",
             data    : {
+                _token  : "{{ csrf_token() }}",
                 start   : $('#start_dtm_chart').val(),
                 end     : $('#end_dtm_chart').val(),
                 provinsi: $('#filterProv').val(),
@@ -536,16 +531,11 @@
     }
 
     function showDataDetail() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type    : "POST",
             url     : "{{ route('detailChart') }}",
             data    : {
+                _token  : "{{ csrf_token() }}",
                 start   : $('#start_dtm_detail').val(),
                 provinsi: $('#filterDetailProv').val(),
                 kota    : $('#filterDetailCity').val(),
@@ -703,12 +693,9 @@
     function maps() {
         $.ajax({
             type    : "POST",
-            url     : "{{ route('listAllPartner') }}",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
+            url     : "{{ route('mapsHome') }}",
             data    : {
-                params  : 2,
+                _token  : "{{ csrf_token() }}",
                 start   : $('#start_dtm_chart').val(),
                 end     : $('#end_dtm_chart').val(),
                 provinsi: $('#filterProv').val(),
@@ -731,10 +718,8 @@
         $.ajax({
             type    : "POST",
             url     : "{{ route('deletePartner') }}",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
             data	: {
+                _token  : "{{ csrf_token() }}",
                 id      : $('#partner_id').val(),
                 active  : $('#active').val(),
             },
@@ -766,10 +751,8 @@
         $.ajax({
             type    : "POST",
             url     : "{{ route('mapsDetail') }}",
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
             data    : {
+                _token  : "{{ csrf_token() }}",
                 start   : $('#start_dtm_detail').val(),
                 provinsi: $('#filterDetailProv').val(),
                 kota    : $('#filterDetailCity').val(),
@@ -862,6 +845,7 @@
             type    : "POST",
             url     : "{{ route('loadChart') }}",
             data    : {
+                _token  : "{{ csrf_token() }}",
                 start   : $('#start_dtm_chart').val(),
                 end     : $('#end_dtm_chart').val(),
                 provinsi: $('#filterProv').val(),
@@ -981,7 +965,7 @@
     function loadDataChartDetail() {
         $.ajax({
             type    : "POST",
-            url     : "{{ route('chartDetail') }}",
+            url     : "{{ route('detailChart') }}",
             data    : {
                 start   : $('#start_dtm_detail').val(),
                 provinsi: $('#filterDetailProv').val(),
@@ -1223,17 +1207,12 @@
     }
 
     function findUser() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
         $.ajax({
             type    : "POST",
             url     : "{{ route('findUser') }}",
             data    : {
-                id  : $('#userCode').val(),
+                _token  : "{{ csrf_token() }}",
+                id      : $('#userCode').val(),
             },
             dataType: "JSON",
             beforeSend: function(){

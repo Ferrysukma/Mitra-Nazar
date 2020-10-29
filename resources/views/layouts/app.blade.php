@@ -139,14 +139,14 @@
                     <div class="dropdown" style="width:10%">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="icon-flag-sm rounded-circle" src="{{ asset('assets/admin/image/' . Session::get('locale') . '.png') }}" alt="id" srcset width="30%" height="45%">
+                                <img src="{{ asset('assets/admin/image/' . Session::get('locale') . '.png') }}" alt="id" srcset width="30%" height="45%">
                                 <span class="text-white"> {{ Session::get('locale') == 'id' ? 'Indonesia' : 'Inggris' }}</span>
                                 <span class="glyphicon glyphicon-chevron-down"></span>
                             </button>
                             
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                    <a class="dropdown-item" href="{{ Route('localization.switch', Session::get('locale') == 'en' ? 'id' : 'en') }}" title="Select"><img class="icon-flag-sm rounded-circle" src="{{ asset('assets/admin/image/' . (Session::get('locale') == 'en' ? 'id' : 'en') . '.png') }}" alt="en" srcset width="30%" height="45%"> <span> {{ Session::get('locale') == 'en' ? 'Indonesia' : 'Inggris' }}</span></a>
+                                    <a class="dropdown-item" href="{{ Route('localization.switch', Session::get('locale') == 'en' ? 'id' : 'en') }}" title="Select"><img src="{{ asset('assets/admin/image/' . (Session::get('locale') == 'en' ? 'id' : 'en') . '.png') }}" alt="en" srcset width="30%" height="45%"> <span> {{ Session::get('locale') == 'en' ? 'Indonesia' : 'Inggris' }}</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -403,7 +403,7 @@
 
                 google.maps.event.addListener(marker, 'click', (function(marker, i) {
                     return function() {
-                        infowindow.setContent(locations[i][0]);
+                        infowindow.setContent(locations[i][0]+' ('+locations[i][3]+')');
                         infowindow.open(map, marker);
                     }
                 })(marker, i));

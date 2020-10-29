@@ -74,10 +74,13 @@ class HomeController extends Controller
         }
     }
 
-    public function chart(Request $request)
+    public function chart(Request $post)
     {
         $client     = new Client();
-        $kota       = substr(strstr($_POST['kota']," "), 1);
+        $start      = isset($post->start) && !empty($post->start) ? date('Y-m-d', strtotime($post->start)) : '2020-10-01';
+        $end        = isset($post->end) && !empty($post->end) ? date('Y-m-d', strtotime($post->end)) : '2020-10-30';
+        $kota       = isset($post->kota) && !empty($post->kota) ? $post->kota : 'Kota Bandung';
+        $prov       = isset($post->provinsi) && !empty($post->provinsi) ? $post->provinsi : 'Jawa Barat';
         $url        = $this->base_url . 'mitra/admin/list-mitra-chart';
         $request    = $client->post($url, [
             'headers'   => [
@@ -85,11 +88,11 @@ class HomeController extends Controller
             ],
             'json'      => [
                 "payload"   => [
-                    "start"         => date('Y-m-d', strtotime($_POST['start'])),
-                    "end"           => date('Y-m-d', strtotime($_POST['end'])),
+                    "start"         => $start,
+                    "end"           => $end,
                     "limit"         => 100000000,
                     "pageNumber"    => 0,
-                    "provinsi"      => $_POST['provinsi'],
+                    "provinsi"      => $prov,
                     "kota"          => $kota,
                 ]
             ]
@@ -106,6 +109,55 @@ class HomeController extends Controller
             foreach ($result as $key => $value) {
                 $value->cdate   = date('d F Y', strtotime($value->cdate));
                 $row[]          = $value;
+            }
+
+            echo json_encode(array('code' => 0, 'info' => $desc, 'data' => $row));
+        } else {
+            $result = 'empty';
+            
+            echo json_encode(array('code' => 1, 'info' => $desc, 'data' => $result));
+        }
+    }
+
+    public function maps(Request $post)
+    {
+        $client     = new Client();
+        $start      = isset($post->start) && !empty($post->start) ? date('Y-m-d', strtotime($post->start)) : '2020-10-01';
+        $end        = isset($post->end) && !empty($post->end) ? date('Y-m-d', strtotime($post->end)) : '2020-10-30';
+        $kota       = isset($post->kota) && !empty($post->kota) ? $post->kota : 'Kota Bandung';
+        $prov       = isset($post->provinsi) && !empty($post->provinsi) ? $post->provinsi : 'Jawa Barat';
+        $url        = $this->base_url . 'mitra/admin/list-mitra-chart';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('admin_key')
+            ],
+            'json'      => [
+                "payload"   => [
+                    "start"         => $start,
+                    "end"           => $end,
+                    "limit"         => 100000000,
+                    "pageNumber"    => 0,
+                    "provinsi"      => $prov,
+                    "kota"          => $kota,
+                ]
+            ]
+        ]);
+        
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+        $desc       = json_decode((string) $response, true)['status']['statusDesc'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+            
+            $row    = [];
+            foreach ($result as $key => $value) {
+                $getLoc  = $this->getLatLong($value->provinsi);
+                $name    = $value->provinsi;
+                $lat     = $getLoc['lat'];
+                $long    = $getLoc['long'];
+                $qty     = $value->total;
+                $row[]   = [$name, $lat, $long, $qty];
             }
 
             echo json_encode(array('code' => 0, 'info' => $desc, 'data' => $row));
@@ -200,6 +252,20 @@ class HomeController extends Controller
             
             echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
+    }
+
+    public function getLatLong($params)
+    {
+        $address    = str_replace(' ', '', $params);
+        // Get lattitude & longitude ---
+        $apiKey     = 'AIzaSyC7Ah8Zuhy2ECqqjBNF8ri2xJ7mwwtIbwo'; // Google maps now requires an API key.
+        $results    = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $address . '&key=' . $apiKey);
+        $json       = json_decode($results, true);
+
+        $latitude   = $json['results'][0]['geometry']['location']['lat']; // Latitude
+        $longitude  = $json['results'][0]['geometry']['location']['lng']; // Longitude
+
+        return array('lat' => $latitude, 'long' => $longitude);
     }
     
     public function getCoordinate(Request $request)
