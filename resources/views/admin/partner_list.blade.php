@@ -287,30 +287,30 @@
 <script>
     var table = $('#table-maps').DataTable({
         "language" : {
-            "lengthMenu"    : "{{ __('all.datatable.show_entries') }}",
-            "emptyTable"    : "{{ __('all.datatable.no_data') }}",
-            "info"        	: "{{ __('all.datatable.showing_start') }}",
-            "infoFiltered"  : "{{ __('all.datatable.filter') }}",
-            "infoEmpty"     : "{{ __('all.datatable.showing_null') }}",
-            "loadingRecords": "{{ __('all.datatable.load') }}",
-            "processing"    : "{{ __('all.datatable.process') }}",
-            "search"      	: "{{ __('all.datatable.search') }}",
-            "zeroRecords"   : "{{ __('all.datatable.zero') }}",
-            "paginate"      : 
+            "searchPlaceholder" : "{{ __('all.datatable.searchName') }}",
+            "lengthMenu"        : "{{ __('all.datatable.show_entries') }}",
+            "emptyTable"        : "{{ __('all.datatable.no_data') }}",
+            "info"        	    : "{{ __('all.datatable.showing_start') }}",
+            "infoFiltered"      : "{{ __('all.datatable.filter') }}",
+            "infoEmpty"         : "{{ __('all.datatable.showing_null') }}",
+            "loadingRecords"    : "{{ __('all.datatable.load') }}",
+            "processing"        : "{{ __('all.datatable.process') }}",
+            "search"      	    : "{{ __('all.datatable.search') }}",
+            "zeroRecords"       : "{{ __('all.datatable.zero') }}",
+            "paginate"          : 
             {
-                "first"     : "{{ __('all.datatable.first') }}",
-                "last"      : "{{ __('all.datatable.last') }}",
-                "next"      : "{{ __('all.datatable.next') }}",
-                "previous"  : "{{ __('all.datatable.prev') }}",
+                "first"         : "{{ __('all.datatable.first') }}",
+                "last"          : "{{ __('all.datatable.last') }}",
+                "next"          : "{{ __('all.datatable.next') }}",
+                "previous"      : "{{ __('all.datatable.prev') }}",
             }
         },
-        "searching"         : false,
-        "columnDefs"        : [ 
+        "columnDefs"            : [ 
             { targets: [0], orderable: false, className	: "text-center" },
             { targets: [10,11], visible : false },
             { targets: [14], orderable: false, searchable: false, className	: "text-center" },
         ],
-        "initComplete"      : function() {
+        "initComplete"          : function() {
             $('[data-toggle="tooltip"]').tooltip();
         },
     });
@@ -488,11 +488,13 @@
         }
     });
 
-    // $('#table-maps').on('search.dt', function() {
-    //     var value = $('.dataTables_filter input').val();
-    //     showData(value);
-    //     maps(value);
-    // }); 
+    $('.dataTables_filter input')
+       .off()
+       .on('keyup', function() {
+        // $('#example').DataTable().search(this.value.trim(), false, false).draw();
+        showData();
+        maps();
+    }); 
 
     $('.create-cat').select2({
         theme           : 'bootstrap4',
@@ -592,7 +594,7 @@
 
     showCategory();
 
-    function showData(value) {
+    function showData() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -603,7 +605,7 @@
             type    : "POST",
             url     : "{{ route('loadListPartner') }}",
             data    : {
-                search  : value,
+                search  : $('.dataTables_filter input').val(),
                 // provinsi: $('#filterProv').val(),
                 // kota    : $('#filterCity').val(),
                 // tipe    : $('#type').val(),
@@ -648,7 +650,7 @@
         });
     }
 
-    function maps(value) {
+    function maps() {
         $.ajax({
             type    : "POST",
             url     : "{{ route('listAllPartner') }}",
@@ -656,7 +658,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data    : {
-                search  : value,
+                search  : $('.dataTables_filter input').val(),
             },
             dataType: "JSON",
             beforeSend: function(){
@@ -729,8 +731,8 @@
                     }
 
                     $('#'+modal).modal('hide');
-                    showData('');
-                    maps('');
+                    showData();
+                    maps();
                 } else {
                     notif('warning', '{{ __("all.warning") }}', data.info);
                 }
@@ -792,7 +794,7 @@
         $('#active-mitra').find('.modal-title').text("{{ __('all.active_partner') }} "+data[2]+"");
     })
     
-    showData('');
+    showData();
 
     $("#postmitra").validate({
         rules       : {
@@ -857,8 +859,8 @@
                 success     : function(data){
                     if (data.code == 0) {
                         notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
-                        showData('');
-                        maps('');
+                        showData();
+                        maps();
                         resetForm('postmitra','id');
                         $('#modal-mitra').modal('hide');
                     } else {
