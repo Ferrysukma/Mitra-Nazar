@@ -115,8 +115,6 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <b>{{ __('all.modal_info') }}</b>
-                    <br><br>
                     <form action="#" method="post" id="postmitra">
                         <input type="hidden" name="id" id="id">
                         <div class="form-group row">
@@ -136,18 +134,18 @@
                                 <input type="text" name="nama" id="nama" class="form-control" readonly>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <label for="old" class="col-sm-3">{{ __('all.table.coordinator_type') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
-                                <input type="text" name="tipe" id="tipe" class="form-control" readonly>
+                                <select name="tipe" id="tipe" class="form-control"></select>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="category" class="col-sm-3">{{ __('all.category_coordinator') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
-                                <input type="text" name="kategori" id="kategori" class="form-control" readonly>
+                                <select name="kategori" id="kategori" class="form-control"></select>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group row">
                             <label for="old" class="col-sm-3">{{ __('all.table.prov') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
@@ -221,10 +219,32 @@
                     <span>{{ __('all.text_confirmDown') }}</span>
                 </center>
                 <input type="hidden" name="partner_id" id="partner_id">
+                <input type="hidden" name="active" id="active">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.cancel') }}</button>
-                <button type="button" class="btn btn-success" onclick="disabledP()" id="btnClose">{{ __('all.yes') }}</button>
+                <button type="button" class="btn btn-success" onclick="disabledP('btnDis','delete-mitra','disabled-mitra')" id="btnDis">{{ __('all.yes') }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="active-mitra" role="dialog">
+    <div class="modal-dialog modals-default">
+        <div class="modal-content active-mitra">
+            <div class="modal-header">
+                <h3 class="modal-title text-white"></h3>
+                <hr>
+            </div>
+            <div class="modal-body">
+                <center>
+                    <span>{{ __('all.confirm_act') }} ?</span>
+                    <span>{{ __('all.text_confirm_act') }}</span>
+                </center>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.cancel') }}</button>
+                <button type="button" class="btn btn-success" onclick="disabledP('btnAct','active-mitra','active-mitra')" id="btnAct">{{ __('all.yes_act') }}</button>
             </div>
         </div>
     </div>
@@ -585,7 +605,7 @@
                                 ref.koordinatorProfile['alamat'],
                                 ref.koordinat,
                                 ref.active,
-                                "<div class='btn-group'><button type='button' class='btn btn-sm btn-info action-detail' title='{{ __('all.button.detail') }}' data-toggle='tooltip' data-placement='top' id='"+ref.koordinatorProfile['userCode']+"'><i class='fa fa-eye'></i></button><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='"+ref.koordinatorProfile['id']+"'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='"+ref.koordinatorProfile['id']+"' title='{{ __('all.button.delete') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-times'></i></button></div>", 
+                                ref.action,
                             ] ).draw( false );
                         });
                     }
@@ -671,7 +691,7 @@
         });
     }
 
-    function disabledP() {
+    function disabledP(btn, lood, modal) {
         $.ajax({
             type    : "POST",
             url     : "{{ route('disabledUser') }}",
@@ -679,25 +699,32 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data	: {
-                id  : $('#partner_id').val(),
+                id      : $('#partner_id').val(),
+                active  : $('#active').val(),
             },
             dataType: "JSON",
             beforeSend: function(){
-                $('#btnClose').buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
-                $(".delete-mitra").ploading({action : 'show'});
+                $('#'+btn).buttonLoader('show', '{{ __("all.buttonloader.wait") }}');
+                $("."+lood).ploading({action : 'show'});
             },
             success     : function(data){
                 if (data.code == 0) {
-                    notif('success', '{{ __("all.success") }}', '{{ __("all.alert.delete") }}');
-                    $('#disabled-mitra').modal('hide');
+                    if ($('#active').val() == true) {
+                        notif('success', '{{ __("all.success") }}', '{{ __("all.alert.disable") }}');
+                    } else {
+                        notif('success', '{{ __("all.success") }}', '{{ __("all.alert.activate") }}');
+                    }
+
+                    $('#'+modal).modal('hide');
                     showData();
+                    maps();
                 } else {
-                    notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_delete") }}');
+                    notif('warning', '{{ __("all.warning") }}', data.info);
                 }
             },
             complete    : function(){
-                $('#btnClose').buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
-                $(".delete-mitra").ploading({action : 'hide'});
+                $('#'+btn).buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
+                $("."+lood).ploading({action : 'hide'});
             },
             error 		: function(){
                 notif('error', '{{ __("all.error") }}');
@@ -730,8 +757,18 @@
 
         showModal('disabled-mitra'); 
         $('#partner_id').val($(this).attr('id'));
+        $('#active').val($(this).attr('status'));
         $('#disabled-mitra').find('.modal-title').text("{{ __('all.disabled_partner') }} "+data[2]+"");
     });
+
+    $('#table-maps tbody').on('click', '.action-active', function () {
+        var data = table.row( $(this).parents('tr') ).data();
+
+        showModal('active-mitra'); 
+        $('#partner_id').val($(this).attr('id'));
+        $('#active').val($(this).attr('status'));
+        $('#active-mitra').find('.modal-title').text("{{ __('all.active_partner') }} "+data[2]+"");
+    })
 
     $('#table-maps tbody').on('click', '.action-detail', function () {
         var data = table.row( $(this).parents('tr') ).data();
@@ -783,6 +820,32 @@
     }
     
     showData();
+
+    function showCategory() {
+        $.ajax({
+            type    : "GET",
+            url     : "{{ route('categoryUser') }}",
+            dataType: "JSON",
+            success     : function(data){
+                if (data.code == 0) {
+                    $('#kategori').empty();
+                    txt  = '';
+                    list = data.data;
+                    
+                    txt += '<option value="" selected>{{ __("all.placeholder.choose_coorcategory") }}</option>';
+                    if(list.length > 0){
+                        $.each(list, function(idx, ref){
+                            txt += '<option value="'+ref.name+'">'+ref.name+'</option>';
+                        });
+                    }
+
+                    $('#kategori').append(txt);
+                } 
+            },
+        });
+    }
+
+    // showCategory();
 
     $("#postmitra").validate({
         rules       : {

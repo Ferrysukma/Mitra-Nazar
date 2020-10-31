@@ -58,6 +58,12 @@ class DownlineController extends Controller
             
             $row    = [];
             foreach ($result as $key => $value) {
+                if ($value->koordinatorProfile->active == true) {
+                    $value->action      = "<div class='btn-group'><button type='button' class='btn btn-sm btn-info action-detail' title='".__('all.button.detail')."' data-toggle='tooltip' data-placement='top' id='".$value->koordinatorProfile->userCode."'><i class='fa fa-eye'></i></button><button type='button' class='btn btn-sm btn-warning action-edit' title='".__('all.button.edit')."' data-toggle='tooltip' data-placement='top' id='".$value->koordinatorProfile->id."'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='".$value->koordinatorProfile->id."' status='".$value->koordinatorProfile->active."' title='".__('all.button.delete')."' data-toggle='tooltip' data-placement='top'><i class='fa fa-times'></i></button></div>";
+                } else {
+                    $value->action      = "<div class='btn-group'><button type='button' class='btn btn-sm btn-info action-detail' title='".__('all.button.detail')."' data-toggle='tooltip' data-placement='top' id='".$value->koordinatorProfile->userCode."'><i class='fa fa-eye'></i></button><button type='button' class='btn btn-sm btn-warning action-edit' title='".__('all.button.edit')."' data-toggle='tooltip' data-placement='top' id='".$value->koordinatorProfile->id."'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-success action-active' id='".$value->koordinatorProfile->id."' status='".$value->koordinatorProfile->active."' title='".__('all.button.active')."' data-toggle='tooltip' data-placement='top'><i class='fa fa-check'></i></button></div>";
+                }
+
                 $value->active      = $value->koordinatorProfile->active == 'true' ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
                 $value->koordinat   = "<a target='_blank' href='http://maps.google.com/?ll=".$value->koordinatorProfile->koordinat."'>".__('all.open_maps')." <i class='fa fa-map-marker-alt'></i></a>";
                 $row[]              = $value;
@@ -144,7 +150,7 @@ class DownlineController extends Controller
                         "id"            => $request->id,
                         "userCode"      => $request->userCode,
                         "nama"          => $request->nama,
-                        "kategori"      => $request->kategori,
+                        // "kategori"      => $request->kategori,
                         "provinsi"      => $request->province,
                         "kota"          => $request->city,
                         "kecamatan"     => $request->district,
@@ -163,7 +169,7 @@ class DownlineController extends Controller
                     "payload"   => [
                         "userCode"      => $request->userCode,
                         "nama"          => $request->nama,
-                        "kategori"      => $request->kategori,
+                        // "kategori"      => $request->kategori,
                         "provinsi"      => $request->province,
                         "kota"          => $request->city,
                         "kecamatan"     => $request->district,
@@ -188,7 +194,7 @@ class DownlineController extends Controller
     public function delete(Request $request)
     {
         $client     = new Client();
-        
+        $status     = $request->active == '1' ? false : true;
         $url        = $this->base_url . 'user/disable-mitra';
         $request    = $client->post($url, [
             'headers'   => [
@@ -196,7 +202,8 @@ class DownlineController extends Controller
             ],
             'json'      => [
                 "payload"   => [
-                    "id"         => $request->id
+                    "id"        => $request->id,
+                    "active"    => $status
                 ]
             ]
         ]);

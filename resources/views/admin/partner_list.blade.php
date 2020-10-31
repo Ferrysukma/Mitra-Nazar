@@ -270,8 +270,6 @@
                     <span>{{ __('all.confirm_act') }} ?</span>
                     <span>{{ __('all.text_confirm_act') }}</span>
                 </center>
-                <input type="hidden" name="partner_id" id="partner_id">
-                <input type="hidden" name="active" id="active">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.cancel') }}</button>
