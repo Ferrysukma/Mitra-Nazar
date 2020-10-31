@@ -32,11 +32,13 @@
                 <div align="center">
                     <p><b id="coor"></b></p>
                     <b>#</b> <b id="copy"></b> <br>
-                    <button class="btn btn-sm btn-secondary" onclick="copyToClipboard('#copy')">{{ __('all.button.copy') }}</button>
-                    <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Bagikan</a></div>
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-secondary" onclick="copyToClipboard('#copy')">Bagikan</button>
+                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="btn btn-primary btn-sm ml-1"><i class="fab fa-facebook-f"></i> Bagikan</a></div>
+                    </div>
 
                     <br><br>
-                    <b id="rupiah"></b> <br>
+                    <b>Rp.</b> <b id="rupiah"></b> <br>
                     <button class="btn btn-sm btn-info" onclick="getSaldo()">{{ __('all.button.take') }}</button>
                 </div>
             </div>
@@ -46,15 +48,15 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">{{ __('all.announcement') }}</h6>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="max-height:36vh;min-height:34vh">
                 <div id="slideControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner" id="showAnn"></div>
-                    <a class="carousel-control-prev" href="#slideControls" role="button" data-slide="prev" style="background-color:#000">
-                        <span class="carousel-control-prev-icon"></span>
+                    <a class="carousel-control-prev" href="#slideControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" style="background-color:#000"></span>
                         <span class="sr-only">Previous</span>
                     </a>
-                    <a class="carousel-control-next" href="#slideControls" role="button" data-slide="next" style="background-color:#000">
-                        <span class="carousel-control-next-icon"></span>
+                    <a class="carousel-control-next" href="#slideControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" style="background-color:#000"></span>
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
@@ -154,8 +156,6 @@
 
 </div>
 
-<br><br>
-
 <!-- Modal -->
 <div class="modal fade" id="modal-balance" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -168,13 +168,12 @@
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.balance') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="saldo" id="saldo" class="form-control" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.form.qtyTake') }} <sup class="text-danger">*</sup></label>
-                        <div class="col-sm-9">
-                            <input type="text" name="nominal" id="amount" class="form-control amount" placeholder="{{ __('all.placeholder.qtyTake') }}">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <button type="button" class="btn btn-primary input-group-text">Rp</button>
+                                </div>
+                                <input type="text" name="saldo" id="saldo" class="form-control" readonly>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -184,9 +183,20 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="old" class="col-sm-3">{{ __('all.form.qtyTake') }} <sup class="text-danger">*</sup></label>
+                        <div class="col-sm-9">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <button type="button" class="btn btn-primary input-group-text">Rp</button>
+                                </div>
+                                <input type="text" name="nominal" id="amount" class="form-control amount" placeholder="{{ __('all.placeholder.qtyTake') }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.account') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="nomorRekening" id="no_rek" class="form-control only-number" placeholder="{{ __('all.placeholder.no_rek') }}">
+                            <input type="text" name="nomorRekening" id="no_rek" class="form-control only-number" placeholder="{{ __('all.placeholder.account') }}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -324,8 +334,8 @@
                 txt +=          '<div class="card-body">';
                 txt +=              '<div class="row no-gutters align-items-center">';
                 txt +=                  '<div class="col mr-2 text-center">';
-                txt +=                      '<div class="text-lg font-weight-bold text-danger text-uppercase mb-1">'+data.judul+'</div>';
-                txt +=                      '<div class="h5 mb-0 font-weight-bold text-gray-800">'+data.isi+'</div>';
+                txt +=                      '<div class="text-lg font-weight-bold text-uppercase mb-1">'+data.judul+'</div>';
+                txt +=                      '<div class="h5 mb-0 text-gray-800">'+data.isi+'</div>';
                 txt +=                  '</div>';
                 txt +=              '</div>';
                 txt +=          '</div>';
@@ -454,7 +464,7 @@
         },
         unhighlight: function (element, errorClass, validClass) {
             var check = $(element).attr('readonly');
-            if (typeof check == 'undefined') {
+            if (typeof check == 'undefined' || element.attr('name') != "password") {
                 $(element).removeClass('is-invalid').addClass('is-valid');                
             }
         },

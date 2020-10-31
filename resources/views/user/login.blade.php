@@ -213,15 +213,15 @@
                         {{ __('all.comment_pin') }}
                     </span>
                     <br><br>
-                    <div class="wrap-input100 validate-input m-b-16">
+                    <div class="wrap-input100 validate-input m-b-16" style="background-color:#fff">
                         <div class="form-group">
                             <div class="input-pin d-flex justify-content-center">
-                                <input name="pin1" id="pin1" class="form-control form-pin only-number" maxLength="1" required type="text">
-                                <input name="pin2" id="pin2" class="form-control form-pin only-number" maxLength="1" required type="text">
-                                <input name="pin3" id="pin3" class="form-control form-pin only-number" maxLength="1" required type="text">
-                                <input name="pin4" id="pin4" class="form-control form-pin only-number" maxLength="1" required type="text">
-                                <input name="pin5" id="pin5" class="form-control form-pin only-number" maxLength="1" required type="text">
-                                <input name="pin6" id="pin6" class="form-control form-pin only-number" maxLength="1" required type="text">
+                                <input name="pin1" id="pin1" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin2" id="pin2" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin3" id="pin3" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin4" id="pin4" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin5" id="pin5" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin6" id="pin6" class="form-control form-pin only-number" maxLength="1" required type="password">
                             </div>
                         </div>
                     </div>
@@ -541,6 +541,12 @@
                 }
             });
         });
+
+        $(document).on('keyup','.input100', function () {
+			if (event.keyCode === 13) {
+				$("button[type='button']").click();
+			}
+		});
 	</script>
 
 </body>

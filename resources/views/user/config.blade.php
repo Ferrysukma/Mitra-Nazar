@@ -71,7 +71,7 @@
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.dateBirth') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="birthday" id="birthday" class="form-control" readonly placeholder="{{ __('all.placeholder.dateofbirth') }}">
+                            <input type="text" name="birthday" id="birthday" class="form-control readonly" readonly placeholder="{{ __('all.placeholder.dateofbirth') }}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -182,7 +182,7 @@
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.account_name') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="namaPemilikRekening" id="namaPemilikRekening" class="form-control" placeholder="{{ __('all.placeholder.account_name') }}">
+                            <input type="text" name="namaPemilikRekening" id="namaPemilikRekening" maxlength="10" class="form-control" placeholder="{{ __('all.placeholder.account_name') }}">
                         </div>
                     </div>
             </div>
@@ -330,7 +330,7 @@
                         },
                         success     : function(data){
                             if (data.code == 0) {
-                                notif('success', '{{ __("all.success") }}', data.info);
+                                notif('success', '{{ __("all.success") }}', '{{ __("all.alert.delete") }}');
                                 loadListBank();
                             } else {
                                 notif('warning', '{{ __("all.warning") }}', data.info);
@@ -515,7 +515,7 @@
                 },
                 success     : function(data){
                     if (data.code == 0) {
-                        notif('success', '{{ __("all.success") }}', '{{ __("all.alert.delete") }}');
+                        notif('success', '{{ __("all.success") }}', '{{ __("all.alert.success") }}');
                     } else {
                         notif('warning', '{{ __("all.warning") }}', data.info);
                     }

@@ -660,7 +660,9 @@
                     } else {
                         $('#nama').val(data.data.name);
                     }
-                } 
+                } else {
+                    notif('warning', '{{ __("all.warning") }}', data.info);
+                }
             },
             complete : function () {
                 $("#basic-addon1").buttonLoader('hide', '{{ __("all.buttonloader.done") }}');
@@ -807,7 +809,7 @@
         },
         unhighlight: function (element, errorClass, validClass) {
             var check = $(element).attr('readonly');
-            if (typeof check == 'undefined') {
+            if (typeof check == 'undefined' || $(element).attr('name') != 'userCode') {
                 $(element).removeClass('is-invalid').addClass('is-valid');                
             }
         },

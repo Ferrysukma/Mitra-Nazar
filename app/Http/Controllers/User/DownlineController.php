@@ -100,11 +100,11 @@ class DownlineController extends Controller
             
             $row    = [];
             foreach ($result as $key => $value) {
-                $explode = explode(', ', $value->koordinatorProfile->koordinat);
+                $explode = $this->getLatLong($value->koordinatorProfile->provinsi);
                 $name    = $value->koordinatorProfile->provinsi;
-                $lat     = $explode[0];
-                $long    = $explode[1];
-                $row[]   = [$name, $lat, $long];
+                $lat     = $explode['lat'];
+                $long    = $explode['long'];
+                $row[]   = [$name, $lat, $long, ''];
             }
             
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
@@ -113,6 +113,20 @@ class DownlineController extends Controller
             
             echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
+    }
+
+    public function getLatLong($params)
+    {
+        $address    = str_replace(' ', '', $params);
+        // Get lattitude & longitude ---
+        $apiKey     = 'AIzaSyC7Ah8Zuhy2ECqqjBNF8ri2xJ7mwwtIbwo'; // Google maps now requires an API key.
+        $results    = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $address . '&key=' . $apiKey);
+        $json       = json_decode($results, true);
+
+        $latitude   = $json['results'][0]['geometry']['location']['lat']; // Latitude
+        $longitude  = $json['results'][0]['geometry']['location']['lng']; // Longitude
+
+        return array('lat' => $latitude, 'long' => $longitude);
     }
 
     public function create(Request $request)
@@ -214,12 +228,13 @@ class DownlineController extends Controller
 
         $response   = $request->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];
+        $desc       = json_decode((string) $response, true)['status']['statusDesc'];
 
         if ($status == '000') {
             $result = json_decode((string) $response)->payload;
             return json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
         } else {
-            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            return json_encode(array('code' => 1, 'info' => $desc, 'data' => null));
         }
     }
 
@@ -241,13 +256,14 @@ class DownlineController extends Controller
     
             $response   = $request->getBody()->getContents();
             $status     = json_decode((string) $response, true)['status']['statusCode'];
+            $desc       = json_decode((string) $response, true)['status']['statusDesc'];
     
             if ($status == '000') {
                 $pay    = json_decode((string) $response)->payload;
                 $user   = json_decode((string) $response)->dataUser;
                 return json_encode(array('code' => 0, 'info' => 'true', 'data' => array('payload' => $pay, 'user' => $user)));
             } else {
-                return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+                return json_encode(array('code' => 1, 'info' => $desc, 'data' => null));
             }
         } else {
             $url    = $this->base_url . 'user/find';
@@ -263,12 +279,13 @@ class DownlineController extends Controller
     
             $response   = $request->getBody()->getContents();
             $status     = json_decode((string) $response, true)['status']['statusCode'];
+            $desc       = json_decode((string) $response, true)['status']['statusDesc'];
     
             if ($status == '000') {
                 $result = json_decode((string) $response)->payload;
                 return json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
             } else {
-                return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+                return json_encode(array('code' => 1, 'info' => $desc, 'data' => null));
             }
         }
     }
