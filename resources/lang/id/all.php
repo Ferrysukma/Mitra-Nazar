@@ -69,6 +69,8 @@ return [
         'dateBirth'     => 'Tanggal Lahir',
         'img'           => 'Foto',
         'password'      => 'Kata Sandi',
+        'type'          => 'Tipe',
+        'otomatic'      => 'Otomatis',
     ),
     'chart'         => 'Grafik',
     'maps'          => 'Peta',

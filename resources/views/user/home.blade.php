@@ -48,7 +48,7 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">{{ __('all.announcement') }}</h6>
             </div>
-            <div class="card-body" style="max-height:36vh;min-height:34vh">
+            <div class="card-body" style="max-height:36vh;min-height:35vh">
                 <div id="slideControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner" id="showAnn"></div>
                     <a class="carousel-control-prev" href="#slideControls" role="button" data-slide="prev">
@@ -177,32 +177,39 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="old" class="col-sm-3">Bank <sup class="text-danger">*</sup></label>
+                        <label for="old" class="col-sm-3">{{ __('all.form.type') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <select name="kodeBank" id="bank" class="form-control select2"></select>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="one" value="1" onclick="changeType(1)">
+                                <label class="form-check-label" for="one">
+                                    Manual
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="gender" id="two" value="2" onclick="changeType(2)">
+                                <label class="form-check-label" for="two">
+                                    {{ __('all.form.otomatic') }}
+                                </label>
+                            </div>
                         </div>
                     </div>
+                    <input type="hidden" id="idType">
                     <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.form.qtyTake') }} <sup class="text-danger">*</sup></label>
+                        <label for="old" class="col-sm-3">Bank <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <button type="button" class="btn btn-primary input-group-text">Rp</button>
-                                </div>
-                                <input type="text" name="nominal" id="amount" class="form-control amount" placeholder="{{ __('all.placeholder.qtyTake') }}">
-                            </div>
+                            <select name="kodeBank" id="bank" class="form-control select2" onchange="fillDetail()"></select>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.account') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="nomorRekening" id="no_rek" class="form-control only-number" placeholder="{{ __('all.placeholder.account') }}">
+                            <input type="text" name="nomorRekening" id="no_rek" class="form-control only-number manual" placeholder="{{ __('all.placeholder.account') }}">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.account_name') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="pemilikRekening" id="account_name" class="form-control" placeholder="{{ __('all.placeholder.account_name') }}">
+                            <input type="text" name="pemilikRekening" id="account_name" class="form-control manual" placeholder="{{ __('all.placeholder.account_name') }}">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -213,6 +220,17 @@
                                 <div class="input-group-prepend">
                                     <button type="button" class="btn btn-primary input-group-text" id="basic-addon1" onclick="changeIcon('basic-addon1','password')"><i class="fa fa-eye"></i></button>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="old" class="col-sm-3">{{ __('all.form.qtyTake') }} <sup class="text-danger">*</sup></label>
+                        <div class="col-sm-9">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <button type="button" class="btn btn-primary input-group-text">Rp</button>
+                                </div>
+                                <input type="text" name="nominal" id="amount" class="form-control amount" placeholder="{{ __('all.placeholder.qtyTake') }}">
                             </div>
                         </div>
                     </div>
@@ -254,6 +272,7 @@
 
     function getSaldo() {
         showModal('modal-balance', 'postbalance');
+        $('#one').attr('checked', true);
         $('#saldo').val($('#rupiah').text());        
     }
 
@@ -297,6 +316,36 @@
         $('#countC').text(city);
         $('#countD').text(dist);
         $('#countV').text(vill);
+    }
+
+    function changeType(id) {
+        if (id == 2) {
+            $('#two').attr('checked', true);
+            $('#one').removeAttr('checked');
+            $('#idType').val(2);
+            $('.manual').attr('readonly', true);
+        } else {
+            $('#one').attr('checked', true);
+            $('#two').removeAttr('checked');
+            $('#idType').val(1);
+            $('.manual').removeAttr('readonly');
+        }
+
+        fillDetail();
+    }
+
+    function fillDetail() {
+        var id      = $('#bank').val();
+        var type    = $('#idType').val();
+
+        if (type == 2) {
+            var split   = id.split('~');
+            $('#no_rek').val(split[2]);
+            $('#account_name').val(split[3]);
+        } else {
+            $('#no_rek').val('');
+            $('#account_name').val('');
+        }
     }
 
     function balance() {
@@ -416,18 +465,18 @@
     function listBank() {
         $.ajax({
             type    : "GET",
-            url     : "{{ route('listBank') }}",
+            url     : "{{ route('account') }}",
             dataType: "JSON",
             success     : function(data){
                 if (data.code == 0) {
                     $('#bank').empty();
                     txt  = '';
-                    list = data.data;
-                    
-                    txt += '<option value="" selected>{{ __("all.placeholder.choose_bank") }}</option>';
+                    list = data.data.data;
+
+                    txt += '<option value="" selected disabled>{{ __("all.placeholder.choose_bank") }}</option>';
                     if(list.length > 0){
                         $.each(list, function(idx, ref){
-                            txt += '<option value="'+ref.kodeBank+'~'+ref.namaBank+'">'+ref.namaBank+'</option>';
+                            txt += '<option value="'+ref.bankInfo.kodeBank+'~'+ref.namaBank+'~'+ref.nomorRekening+'~'+ref.namaPemilikRekening+'">'+ref.namaBank+' ~ '+ref.nomorRekening+' ~ '+ref.namaPemilikRekening+'</option>';
                         });
                     }
 
@@ -458,13 +507,13 @@
         errorElement    : "div",
         highlight: function (element, errorClass, validClass) {
             var check = $(element).attr('readonly');
-            if (typeof check == 'undefined') {
+            if (typeof check == 'undefined' && $(element).attr('name') != "password") {
                 $(element).addClass('is-invalid').removeClass('is-valid');
             }
         },
         unhighlight: function (element, errorClass, validClass) {
             var check = $(element).attr('readonly');
-            if (typeof check == 'undefined' || element.attr('name') != "password") {
+            if (typeof check == 'undefined' && $(element).attr('name') != "password") {
                 $(element).removeClass('is-invalid').addClass('is-valid');                
             }
         },

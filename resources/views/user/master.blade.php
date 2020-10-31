@@ -114,7 +114,7 @@
                     <div class="dropdown" style="width:10%">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="icon-flag-sm rounded-circle" src="{{ Session::get('image') }}" alt="image" srcset width="30%" height="45%">
+                                <img class="icon-flag-sm rounded-circle" src="{{ Session::get('image') }}" alt="image" srcset width="30%" height="100%">
                                 <span class="mr-2 d-none d-lg-inline text-white">{{ Session::get('name') }}</span>
                             </button>
                             
@@ -144,7 +144,7 @@
                     <div class="dropdown" style="width:10%">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ asset('assets/admin/image/' . Session::get('locale') . '.png') }}" alt="id" srcset width="30%" height="45%">
+                                <img src="{{ asset('assets/admin/image/' . Session::get('locale') . '.png') }}" alt="id" srcset width="30%" height="100%">
                                 <span class="text-white"> {{ Session::get('locale') == 'id' ? 'Indonesia' : 'Inggris' }}</span>
                                 <span class="glyphicon glyphicon-chevron-down"></span>
                             </button>

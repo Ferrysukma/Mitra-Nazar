@@ -69,6 +69,8 @@ return [
         'dateBirth'     => 'Date of Birth',
         'img'           => 'Image',
         'password'      => 'Kata Sandi',
+        'type'          => 'Type',
+        'otomatic'      => 'Otomatic',
     ),
     'chart'         => 'Chart',
     'maps'          => 'Maps',
