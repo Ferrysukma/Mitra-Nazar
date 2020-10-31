@@ -441,15 +441,33 @@
             }
         });
 
-        function showNotif() {
+        function showNotif(id) {
             showModal('modal-notif');
             showDataNotif();
+            readNotif(id);
+        }
+
+        function readNotif(id) {
+            $.ajax({
+                type    : "POST",
+                url     : "{{ route('readNotif') }}",
+                data    : {
+                    _token  : "{{ csrf_token() }}",
+                    id      : id,
+                },
+                dataType: "JSON",
+                success     : function(data){
+                    if (data.code == 0) {
+                        console.log(data.info);
+                    } 
+                },
+            });
         }
 
         function showDataNotif() {
             $.ajax({
                 type    : "POST",
-                url     : "{{ route('notification') }}",
+                url     : "{{ route('allNotif') }}",
                 data    : {
                     _token  : "{{ csrf_token() }}",
                     page    : 0,
@@ -521,10 +539,11 @@
                     list = res.data.data;
                     txt  = '';
 
+                    $('#countNotif').text(res.data.no);
+
                     if (list.length > 0) {
-                        $('#countNotif').text(res.data.no);
                         $.each(list, function(idx, ref){
-                            txt += '<a class="dropdown-item d-flex align-items-center" onclick="showNotif()">';
+                            txt += '<a class="dropdown-item d-flex align-items-center" onclick="showNotif('+ref.id+')">';
                             txt +=      '<div class="mr-3">';
                             txt +=          '<div class="icon-circle bg-primary">';
                             txt +=              '<i class="fas fa-file-alt text-white"></i>';

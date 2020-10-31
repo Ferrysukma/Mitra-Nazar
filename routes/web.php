@@ -93,6 +93,8 @@ Route::group(['middleware' => 'CheckTokenUser'], function () {
     Route::post('/user/comition', [App\Http\Controllers\User\HomeController::class, 'comition'])->name('comition');
     Route::get('/user/listBank', [App\Http\Controllers\User\HomeController::class, 'listBank'])->name('listBank');
     Route::post('/user/notification', [App\Http\Controllers\User\HomeController::class, 'notification'])->name('notification');
+    Route::post('/user/allNotif', [App\Http\Controllers\User\HomeController::class, 'allNotif'])->name('allNotif');
+    Route::post('/user/readNotif', [App\Http\Controllers\User\HomeController::class, 'readNotif'])->name('readNotif');
     Route::post('/user/getCoordinate', [App\Http\Controllers\User\HomeController::class, 'getCoordinate'])->name('getCoordinateUser');
     Route::post('user//coordinateCity', [App\Http\Controllers\User\HomeController::class, 'coordinateCity'])->name('coordinateCityUser');
     Route::post('user/coordinateDistrict', [App\Http\Controllers\User\HomeController::class, 'coordinateDistrict'])->name('coordinateDistrictUser');

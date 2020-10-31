@@ -342,17 +342,96 @@ class HomeController extends Controller
             $result = json_decode((string) $response)->payload;
             
             $row    = [];
-            $no     = 0;
             foreach ($result as $key => $value) {
-                $no             += $key + 1;
-                $value->dtm     = date('d F Y', strtotime($value->dtm));
-                $row[]          = $value;
+                if ($value->isRead == false) {
+                    $value->dtm     = date('d F Y H:i:s', strtotime($value->dtm));
+                    $row[]          = $value;
+                }
             }
-            
+
+            // get count unread notif
+            $url_read   = $this->base_url . 'user/total-notifikasi';
+            $req_read   = $client->get($url_read, [
+                'headers'   => [
+                    'Authorization' => Session::get('user_key')
+                ],
+            ]);
+
+            $res_read   = $req_read->getBody()->getContents();
+            $status_read= json_decode((string) $res_read, true)['status']['statusCode'];
+
+            $no         = 0;
+            if ($status_read == '000') {
+                $no = json_decode((string) $res_read)->payload;
+            }
+
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => array('data' => $row, 'no' => $no)));
         } else {
             
             echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+        }
+    }
+
+    public function allNotif(Request $request)
+    {
+        $client     = new Client();
+        $url        = $this->base_url . 'user/notifikasi-mitra';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('user_key')
+            ],
+            'json'      => [
+                'payload'   => [
+                    'pageNumber'    => $request->page,
+                    'limit'         => $request->limit
+                ]
+            ]
+        ]);
+
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+            
+            $row    = [];
+            foreach ($result as $key => $value) {
+                $value->dtm     = date('d F Y H:i:s', strtotime($value->dtm));
+                $row[]          = $value;
+            }
+
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => array('data' => $row)));
+        } else {
+            
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+        }
+    }
+
+    public function readNotif(Request $request)
+    {
+        $client     = new Client();
+        $url        = $this->base_url . 'user/read-notifikasi';
+        $request    = $client->post($url, [
+            'headers'   => [
+                'Authorization' => Session::get('user_key')
+            ],
+            'json'      => [
+                'payload'   => [
+                    "id" => $request->id
+                ]
+            ]
+        ]);
+
+        $response   = $request->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
+        } else {
+            
+            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
         }
     }
 
