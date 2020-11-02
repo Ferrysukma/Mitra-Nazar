@@ -324,7 +324,9 @@
             $('#one').removeAttr('checked');
             $('#idType').val(2);
             $('.manual').attr('readonly', true);
+            listBank();
         } else {
+            getBank();
             $('#one').attr('checked', true);
             $('#two').removeAttr('checked');
             $('#idType').val(1);
@@ -333,6 +335,8 @@
 
         fillDetail();
     }
+
+    changeType(1);
 
     function fillDetail() {
         var id      = $('#bank').val();
@@ -486,7 +490,29 @@
         });
     }
 
-    listBank();
+    function getBank() {
+        $.ajax({
+            type    : "GET",
+            url     : "{{ route('listBank') }}",
+            dataType: "JSON",
+            success     : function(data){
+                if (data.code == 0) {
+                    $('#bank').empty();
+                    txt  = '';
+                    list = data.data;
+                    
+                    txt += '<option value="" selected>{{ __("all.placeholder.choose_bank") }}</option>';
+                    if(list.length > 0){
+                        $.each(list, function(idx, ref){
+                            txt += '<option value="'+ref.kodeBank+'~'+ref.namaBank+'">'+ref.namaBank+'</option>';
+                        });
+                    }
+
+                    $('#bank').append(txt);
+                } 
+            },
+        });
+    }
 
     $("#postbalance").validate({
         rules       : {

@@ -78,8 +78,12 @@
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-primary topbar mb-4 static-top shadow">
 
-                    <!-- Topbar Search -->
-                    <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" width="13%" height="100%" alt="logo" srcset>
+                    <!-- Topbar Logo -->
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('index') }}">
+                        <div class="sidebar-brand-icon">
+                            <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" width="100" height="40" class="d-inline-block align-top" alt="">
+                        </div>
+                    </a>
                     
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -109,49 +113,41 @@
                         </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-white small">{{ Session::get('name') }}</span>
+                                <img class="img-profile rounded-circle" src="{{ Session::get('image') }}">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#" onclick="showModal('changePassword','postpass')">
+                                    <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    {{ __('all.change') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('config') }}">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    {{ __('all.setting') }}
+                                </a>
+                                <a class="dropdown-item" href="#" onclick="showModal('logoutModal')">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    {{ __('all.logout') }}
+                                </a>
+                            </div>
+                        </li>
                     </ul>
 
                     <div class="dropdown" style="width:10%">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="icon-flag-sm rounded-circle" src="{{ Session::get('image') }}" alt="image" srcset width="30%" height="100%">
-                                <span class="mr-2 d-none d-lg-inline text-white">{{ Session::get('name') }}</span>
-                            </button>
-                            
-                            <ul class="dropdown-menu dropdown-menu-right">
-                                <li>
-                                    <a class="dropdown-item" href="#" onclick="showModal('changePassword','postpass')">
-                                        <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        {{ __('all.change') }}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('config') }}">
-                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        {{ __('all.setting') }}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#" onclick="showModal('logoutModal')">
-                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        {{ __('all.logout') }}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="dropdown" style="width:10%">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{ asset('assets/admin/image/' . Session::get('locale') . '.png') }}" alt="id" srcset width="30%" height="100%">
-                                <span class="text-white"> {{ Session::get('locale') == 'id' ? 'Indonesia' : 'Inggris' }}</span>
+                                <span class="text-white"> {{ Session::get('locale') == 'id' ? 'ID' : 'ENG' }}</span>
                                 <span class="glyphicon glyphicon-chevron-down"></span>
                             </button>
                             
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                    <a class="dropdown-item" href="{{ Route('localization.switch', Session::get('locale') == 'en' ? 'id' : 'en') }}" title="Select"><img src="{{ asset('assets/admin/image/' . (Session::get('locale') == 'en' ? 'id' : 'en') . '.png') }}" alt="en" srcset width="30%" height="100%"> <span> {{ Session::get('locale') == 'en' ? 'Indonesia' : 'Inggris' }}</span></a>
+                                    <a class="dropdown-item" href="{{ Route('localization.switch', Session::get('locale') == 'en' ? 'id' : 'en') }}" title="Select"><img src="{{ asset('assets/admin/image/' . (Session::get('locale') == 'en' ? 'id' : 'en') . '.png') }}" alt="en" srcset width="30%" height="100%"> <span> {{ Session::get('locale') == 'en' ? 'ID' : 'ENG' }}</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -373,7 +369,9 @@
                 $(element).addClass('is-invalid').removeClass('is-valid');
             },
             unhighlight: function (element, errorClass, validClass) {
-                $(element).removeClass('is-invalid').addClass('is-valid');
+                if ($(element).attr('name') != 'oldPassword') {
+                    $(element).removeClass('is-invalid').addClass('is-valid');
+                }
             },
             errorPlacement  : function(error,element) {
                 error.addClass('invalid-feedback');

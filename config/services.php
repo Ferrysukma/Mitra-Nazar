@@ -32,9 +32,9 @@ return [
 
     /* Social Media */
     'facebook' => [
-        'client_id'     => env('FB_ID'),
-        'client_secret' => env('FB_SECRET'),
-        'redirect'      => env('FB_URL'),
+        'client_id'     => env('FB_ID=730689547396844'),
+        'client_secret' => env('FB_SECRET=e3a608f607b4c892372a5c3e54984753'),
+        'redirect'      => env('FB_URL=https://'.$_SERVER['HTTP_HOST'].'/login_by_facebook/callback'),
     ],
 
     'twitter' => [

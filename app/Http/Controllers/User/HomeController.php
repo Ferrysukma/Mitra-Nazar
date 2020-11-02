@@ -188,7 +188,7 @@ class HomeController extends Controller
     public function editProfile(Request $request)
     {        
         $client     = new Client();
-
+        
         // name
         $urlName    = $this->base_url . 'user/profile/edit-name';
         $reqName    = $client->post($urlName, [
@@ -285,7 +285,7 @@ class HomeController extends Controller
         }
 
         if ($sName == '000' AND $sGender == '000' AND $sDay == '000' AND $sImg == '000') {
-            echo json_encode(array('code' => 0, 'info' => $dName, 'data' => null));
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
         } else {
             if ($sName != '000') {  $decs   = $dName;}
             if ($sGender != '000') {  $decs   = $dGender;}
