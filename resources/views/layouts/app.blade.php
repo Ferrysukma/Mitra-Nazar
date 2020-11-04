@@ -78,7 +78,11 @@
                 <nav class="navbar navbar-expand navbar-light bg-primary topbar mb-4 static-top shadow">
 
                     <!-- Topbar Search -->
-                    <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" width="13%" height="100%" alt="logo" srcset>
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('index') }}">
+                        <div class="sidebar-brand-icon">
+                            <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" width="100" height="40" class="d-inline-block align-top" alt="">
+                        </div>
+                    </a>
                     
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -140,13 +144,13 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{ asset('assets/admin/image/' . Session::get('locale') . '.png') }}" alt="id" srcset width="30%" height="45%">
-                                <span class="text-white"> {{ Session::get('locale') == 'id' ? 'Indonesia' : 'Inggris' }}</span>
+                                <span class="text-white"> {{ Session::get('locale') == 'id' ? 'ID' : 'ENG' }}</span>
                                 <span class="glyphicon glyphicon-chevron-down"></span>
                             </button>
                             
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                    <a class="dropdown-item" href="{{ Route('localization.switch', Session::get('locale') == 'en' ? 'id' : 'en') }}" title="Select"><img src="{{ asset('assets/admin/image/' . (Session::get('locale') == 'en' ? 'id' : 'en') . '.png') }}" alt="en" srcset width="30%" height="100%"> <span> {{ Session::get('locale') == 'en' ? 'Indonesia' : 'Inggris' }}</span></a>
+                                    <a class="dropdown-item" href="{{ Route('localization.switch', Session::get('locale') == 'en' ? 'id' : 'en') }}" title="Select"><img src="{{ asset('assets/admin/image/' . (Session::get('locale') == 'en' ? 'id' : 'en') . '.png') }}" alt="en" srcset width="30%" height="100%"> <span> {{ Session::get('locale') == 'en' ? 'ID' : 'ENG' }}</span></a>
                                 </li>
                             </ul>
                         </div>
