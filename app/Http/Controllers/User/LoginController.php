@@ -16,6 +16,7 @@ class LoginController extends Controller
 {
     public function __construct()
     {
+        $this->client   = new Client();
         $this->base_url = Controller::api();
     }
 
@@ -53,12 +54,12 @@ class LoginController extends Controller
             foreach ($result as $key) {
                 $key->periode   = date('F Y', strtotime($key->periode));
                 $rows[]         = $key;
-            } 
-            
+            }
+
             $data['result'] = $rows;
 
             return view('user.widget', $data);
-        } 
+        }
 
         return view('user.widget', $data);
     }
@@ -87,7 +88,7 @@ class LoginController extends Controller
     }
 
     public function loginbyPassword(Request $request)
-    {   
+    {
         $client = new Client();
         try {
             $url        = $this->base_url . 'user/login-mitra';
@@ -103,7 +104,7 @@ class LoginController extends Controller
             $response             = $e->getResponse();
             $responseBodyAsString = $response->getBody()->getContents();
         }
-        
+
         if ($response->getStatusCode() == '200') {
             Session::put('user_key', json_decode((string) $responseBodyAsString, true)['token']);
             Session::put('type', json_decode((string) $responseBodyAsString, true)['type']);
@@ -160,7 +161,7 @@ class LoginController extends Controller
     }
 
     public function loginbyPin(Request $request)
-    {   
+    {
         $client = new Client();
         try {
             $url        = $this->base_url . 'user/login-mitra';
@@ -207,7 +208,7 @@ class LoginController extends Controller
     }
 
     public function loginbyOtp(Request $request)
-    {   
+    {
         $client = new Client();
         $phone  = $request->email;
         $token  = $request->token;
@@ -216,14 +217,14 @@ class LoginController extends Controller
             $request_otp  = $client->post($url_otp, [
                 'json'    => [
                     "payload" => [
-                        "phoneNumber" => $email,
+                        "phoneNumber" => $phone,
                         "token"       => $token,
                         "type"        => 'token'
                     ]
                 ],
             ]);
 
-            $responseBodyAsString = $response->getBody()->getContents();
+            $responseBodyAsString = $request_otp->getBody()->getContents();
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             $response             = $e->getResponse();
             $responseBodyAsString = $response->getBody()->getContents();
@@ -291,54 +292,54 @@ class LoginController extends Controller
         $response       = $request->getBody()->getContents();
         $data           = json_decode($response);
 
-            if ($data->status->statusCode == '000') {
-                // API Login By Google
-                try {
-                    $url_login      =  $this->base_url . 'user/login-mitra';
-                    $request_login  = $this->client->post($url_login, [
-                        'headers' => ['Content-type' => 'application/json'],
-                        'json'    => [
-                            'email'   => $username,
-                            'idToken' => $token,
-                            'type'    => "google",
-                        ],
-                    ]);
-                    $response_login       = $request_login->getBody()->getContents();
-                } catch (\GuzzleHttp\Exception\ClientException $e) {
-                    $request_login        = $e->getResponse();
-                    $response_login       = $request_login->getBody()->getContents();
+        if ($data->status->statusCode == '000') {
+            // API Login Google
+            try {
+                $url_login      =  $this->base_url . 'user/login-mitra';
+                $request_login  = $this->client->post($url_login, [
+                    'headers' => ['Content-type' => 'application/json'],
+                    'json'    => [
+                        'email'   => $username,
+                        'idToken' => $token,
+                        'type'    => "google",
+                    ],
+                ]);
+                $response_login       = $request_login->getBody()->getContents();
+            } catch (\GuzzleHttp\Exception\ClientException $e) {
+                $request_login        = $e->getResponse();
+                $response_login       = $request_login->getBody()->getContents();
+            }
+            $data_login         = json_decode($response_login);
+
+            if (empty($data_login->status->statusCode)) {
+                Session::put('user_key', $data_login->token);
+                Session::put('type', $data_login->type);
+                Session::put('storeLink', $data_login->storeLink);
+                Session::put('idUser', $data_login->id);
+
+                $url_home   = $this->base_url . 'user/home-mitra';
+                $req_home   = $this->client->get($url_home, [
+                    'headers'   => [
+                        'Authorization' => Session::get('user_key')
+                    ],
+                ]);
+
+                $res_home   = $req_home->getBody()->getContents();
+                $status     = json_decode((string) $res_home, true)['status']['statusCode'];
+
+                if ($status == '000') {
+                    $result = json_decode((string) $res_home)->payload;
+                    Session::put('name', strtok($result->profile->name, ' '));
+                    Session::put('image', !empty($result->profile->image) ? $result->profile->image : '');
                 }
-                $data_login         = json_decode($response_login);
 
-                if (empty($data_login->status->statusCode)) {
-                    Session::put('token', $data_login->token);
-                    Session::put('isStore', $data_login->type);
-                    Session::put('storeLink', $data_login->storeLink);
-                    Session::put('idUser', $data_login->id);
-
-                    $url_home   = $this->base_url . 'user/home-mitra';
-                    $req_home   = $client->get($url_home, [
-                        'headers'   => [
-                            'Authorization' => Session::get('user_key')
-                        ],
-                    ]);
-
-                    $res_home   = $req_home->getBody()->getContents();
-                    $status     = json_decode((string) $res_home, true)['status']['statusCode'];
-
-                    if ($status == '000') {
-                        $result = json_decode((string) $res_home)->payload;
-                        Session::put('name', strtok($result->profile->name, ' '));
-                        Session::put('image', $result->profile->image);
-                    }
-
-                    return ('/');
-                } else {
-                    redirect('/user/login');
-                }
+                return ('/');
             } else {
                 redirect('/user/login');
             }
+        } else {
+            redirect('/user/login');
+        }
     }
 
     public function loginbyFacebook()
@@ -394,10 +395,26 @@ class LoginController extends Controller
         $data_login         = json_decode($response_login);
 
         if (empty($data_login->status->statusCode)) {
-            Session::put('token', $data_login->token);
-            Session::put('isStore', $data_login->type);
+            Session::put('user_key', $data_login->token);
+            Session::put('type', $data_login->type);
             Session::put('storeLink', $data_login->storeLink);
             Session::put('idUser', $data_login->id);
+
+            $url_home   = $this->base_url . 'user/home-mitra';
+            $req_home   = $this->client->get($url_home, [
+                'headers'   => [
+                    'Authorization' => Session::get('user_key')
+                ],
+            ]);
+
+            $res_home   = $req_home->getBody()->getContents();
+            $status     = json_decode((string) $res_home, true)['status']['statusCode'];
+
+            if ($status == '000') {
+                $result = json_decode((string) $res_home)->payload;
+                Session::put('name', strtok($result->profile->name, ' '));
+                Session::put('image', !empty($result->profile->image) ? $result->profile->image : '');
+            }
 
             return true;
         } else {
