@@ -28,10 +28,6 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/css/select2/select2.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('assets/admin/css/select2/select2-bootstrap4.min.css') }}">
 	<style>
-        form .form-pin input[type="text"]:focus {
-            outline: none;
-        }
-
         .effect
         {
             position:relative;
@@ -105,7 +101,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-6">
-                        <a href="{{ route('loginbyFacebook') }}" class="btn btn-block mb-2" style="background-color: #405D9D; color: #fff"> <i class="fa fa-facebook-f"></i> Facebook</a>
+                        <a href="{{ route('loginbySosmed', 'facebook') }}" class="btn btn-block mb-2" style="background-color: #405D9D; color: #fff"> <i class="fa fa-facebook-f"></i> Facebook</a>
                     </div>
                     <div class="col-6">
                         <a href="#" id="googleLogin" class="btn btn-google btn-block mb-4" style="background-color: #af0000; color: #fff"> <i class="fa fa-google"></i> Google</a>
@@ -139,19 +135,6 @@
                         </button>
                     </div>
                 </form>
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <p class="text-center mt-4">{{ __('all.login_with') }}</p>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <a href="{{ route('loginbyFacebook') }}" class="btn btn-block mb-2" style="background-color: #405D9D; color: #fff"> <i class="fa fa-facebook-f"></i> Facebook</a>
-                    </div>
-                    <div class="col-6">
-                        <a href="#" id="googleLogin" class="btn btn-google btn-block mb-4" style="background-color: #af0000; color: #fff"> <i class="fa fa-google"></i> Google</a>
-                    </div>
-                </div>
                 <div class="row mt-4">
                     <div class="col-12">
                         <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
@@ -178,19 +161,6 @@
                         <a href="#" class="list-group-item shadow-sm" onclick="sendCode('show-method')"><i class="fa fa-mobile mr-2"></i></i> {{ __('all.phone') }} <span class="float-right"><i class="fa fa-arrow-right"></i></span></a>
                     </nav>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <p class="text-center mt-4">{{ __('all.login_with') }}</p>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <a href="{{ route('loginbyFacebook') }}" class="btn btn-block mb-2" style="background-color: #405D9D; color: #fff"> <i class="fa fa-facebook-f"></i> Facebook</a>
-                    </div>
-                    <div class="col-6">
-                        <a href="#" id="googleLogin" class="btn btn-google btn-block mb-4" style="background-color: #af0000; color: #fff"> <i class="fa fa-google"></i> Google</a>
-                    </div>
-                </div>
                 <div class="row mt-4">
                     <div class="col-12">
                         <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
@@ -216,12 +186,12 @@
                     <div class="wrap-input100 validate-input m-b-16" style="background-color:#fff">
                         <div class="form-group">
                             <div class="input-pin d-flex justify-content-center">
-                                <input name="pin1" id="pin1" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin2" id="pin2" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin3" id="pin3" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin4" id="pin4" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin5" id="pin5" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin6" id="pin6" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin1" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin2" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin3" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin4" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin5" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin6" class="form-control form-pin only-number" maxLength="1" required type="password">
                             </div>
                         </div>
                     </div>
@@ -232,19 +202,6 @@
                         </button>
                     </div>
                 </form>
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <p class="text-center mt-4">{{ __('all.login_with') }}</p>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <a href="{{ route('loginbyFacebook') }}" class="btn btn-block mb-2" style="background-color: #405D9D; color: #fff"> <i class="fa fa-facebook-f"></i> Facebook</a>
-                    </div>
-                    <div class="col-6">
-                        <a href="#" id="googleLogin" class="btn btn-google btn-block mb-4" style="background-color: #af0000; color: #fff"> <i class="fa fa-google"></i> Google</a>
-                    </div>
-                </div>
                 <div class="row mt-4">
                     <div class="col-12">
                         <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
@@ -267,13 +224,13 @@
                         {{ __('all.comment_otp') }}
                     </span>
                     <br><br>
-                    <div class="wrap-input100 validate-input m-b-16">
+                    <div class="wrap-input100 validate-input m-b-16" style="background-color:#fff">
                         <div class="form-group">
                             <div class="input-pin d-flex justify-content-center">
-                                <input name="pin1" id="pin1" class="form-control form-pin only-number" maxLength="1" required type="text">
-                                <input name="pin2" id="pin2" class="form-control form-pin only-number" maxLength="1" required type="text">
-                                <input name="pin3" id="pin3" class="form-control form-pin only-number" maxLength="1" required type="text">
-                                <input name="pin4" id="pin4" class="form-control form-pin only-number" maxLength="1" required type="text">
+                                <input name="pin1" class="form-control form-pin only-number" maxLength="1" required type="password" >
+                                <input name="pin2" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin3" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin4" class="form-control form-pin only-number" maxLength="1" required type="password">
                             </div>
                         </div>
                     </div>
@@ -284,19 +241,6 @@
                         </button>
                     </div>
                 </form>
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <p class="text-center mt-4">{{ __('all.login_with') }}</p>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <a href="{{ route('loginbyFacebook') }}" class="btn btn-block mb-2" style="background-color: #405D9D; color: #fff"> <i class="fa fa-facebook-f"></i> Facebook</a>
-                    </div>
-                    <div class="col-6">
-                        <a href="#" id="googleLogin" class="btn btn-google btn-block mb-4" style="background-color: #af0000; color: #fff"> <i class="fa fa-google"></i> Google</a>
-                    </div>
-                </div>
                 <div class="row mt-4">
                     <div class="col-12">
                         <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
@@ -333,6 +277,8 @@
 	<script src="{{ asset('assets/login/js/google.js') }}"></script>
 	
 	<script>
+        // startApp();
+
         $('#show-password').hide();
         $('#show-method').hide();
         $('#show-pin').hide();

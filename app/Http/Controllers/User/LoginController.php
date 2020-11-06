@@ -275,12 +275,13 @@ class LoginController extends Controller
 
     public function loginbyGoogle(Request $request)
     {
+        $client     = new client();
         $username   = $request->username;
         $token      = $request->token;
 
         // API Validate User
         $url        = $this->base_url . 'user/validate';
-        $request    = $this->client->post($url, [
+        $request    = $client->post($url, [
             'headers'   => [
                 'Content-Type'  => 'application/json'
             ],
@@ -341,9 +342,9 @@ class LoginController extends Controller
             }
     }
 
-    public function loginbyFacebook()
+    public function loginbySosmed($params)
     {
-        return Socialite::driver('facebook')->redirect();
+        return Socialite::driver($params)->redirect();
     }
 
     public function loginbyFacebookCallback()
