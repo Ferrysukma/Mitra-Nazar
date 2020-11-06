@@ -182,7 +182,7 @@
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.account_name') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
-                            <input type="text" name="namaPemilikRekening" id="namaPemilikRekening" maxlength="10" class="form-control" placeholder="{{ __('all.placeholder.account_name') }}">
+                            <input type="text" name="namaPemilikRekening" id="namaPemilikRekening" class="form-control" placeholder="{{ __('all.placeholder.account_name') }}">
                         </div>
                     </div>
             </div>
@@ -534,12 +534,18 @@
     $("#postbank").validate({
         rules       : {
             kodeBank            : "required",
-            nomorRekening       : "required",
+            nomorRekening       : {
+                required        : true,
+                maxlength       : 10,
+            },
             namaPemilikRekening : "required",
         },
         messages: {
             kodeBank            : "{{ __('all.validation.bank') }}",
-            nomorRekening       : "{{ __('all.validation.no_rek') }}",
+            nomorRekening       : {
+                required        : "{{ __('all.validation.no_rek') }}",
+                maxlength       : "{{ __('all.validation.max') }}",
+            },
             namaPemilikRekening : "{{ __('all.validation.account_name') }}",
         },
         errorClass      : "invalid-feedback",

@@ -216,6 +216,7 @@ return [
         'img_upload'    => '*Image cannot be empty',
         'gender'        => '*Gender cannot be empty',
         'village'       => '*Village cannot be empty',
+        'max'           => '*Maximum of 10 characters'
     ),
     'buttonloader'      => array(
         'wait'          => 'Wait',

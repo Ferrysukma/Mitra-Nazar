@@ -25,7 +25,7 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">{{ __('all.profil') }}</h6>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="max-height:100vh;min-height:80vh">
                 <div class="text-center">
                     <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 12rem;" alt="" id="imageUser">
                 </div>
@@ -48,15 +48,15 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">{{ __('all.announcement') }}</h6>
             </div>
-            <div class="card-body" style="max-height:36vh;min-height:35vh">
+            <div class="card-body" style="min-height:35vh">
                 <div id="slideControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner" id="showAnn"></div>
                     <a class="carousel-control-prev" href="#slideControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" style="background-color:#000"></span>
+                        <span class="carousel-control-prev-icon" style="color:#000; index-z:9999999"></span>
                         <span class="sr-only">Previous</span>
                     </a>
                     <a class="carousel-control-next" href="#slideControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" style="background-color:#000"></span>
+                        <span class="carousel-control-next-icon" style="color:#000; index-z:9999999"></span>
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
@@ -83,7 +83,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="max-height:100vh;min-height:77vh">
                 <div id="bar-chart-bs" style="position: relative; height:auto; width:auto">
                     <canvas id="bar-canvas-bs"></canvas>
                 </div>
@@ -155,7 +155,7 @@
     </div>
 
 </div>
-
+<br><br>
 <!-- Modal -->
 <div class="modal fade" id="modal-balance" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">

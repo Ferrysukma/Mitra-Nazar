@@ -216,6 +216,7 @@ return [
         'img_upload'    => '*Foto tidak boleh kosong',
         'gender'        => '*Jenis kelamin tidak boleh kosong',
         'village'       => '*Desa tidak boleh kosong',
+        'max'           => '*Maksimal 10 karakter',
     ),
     'buttonloader'      => array(
         'wait'          => 'Tunggu',
