@@ -49,6 +49,12 @@ class UserController extends Controller
             
             $row    = [];
             foreach ($result as $key => $value) {
+                if ($value->active == '1') {
+                    $value->action = "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='".__('all.button.edit')."' data-toggle='tooltip' data-placement='top' id='".$value->id."'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='".$value->id."' status='".$value->active."' title='{{ __('all.button.delete') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-times'></i></button></div>";
+                } else {
+                    $value->action = "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='".$value->id."'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-success action-delete' id='".$value->id."' status='".$value->active."' title='{{ __('all.button.delete') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-check'></i></button></div>";
+                }
+
                 $value->active  = $value->active == '1' ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
                 $row[]          = $value;
             }
@@ -110,6 +116,7 @@ class UserController extends Controller
     public function delete(Request $request)
     {
         $client     = new Client();
+        $status     = $request->active == '1' ? false : true;
         
         $url        = $this->base_url . 'mitra/admin/user/disable';
         $request    = $client->post($url, [
@@ -118,7 +125,8 @@ class UserController extends Controller
             ],
             'json'      => [
                 "payload"   => [
-                    "id"         => $request->id
+                    "id"         => $request->id,
+                    "active"     => $status
                 ]
             ]
         ]);

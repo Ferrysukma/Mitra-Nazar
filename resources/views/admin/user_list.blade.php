@@ -70,6 +70,7 @@
             <div class="modal-body">
                 <form action="#" method="post" id="postuser">
                     <input type="hidden" name="id" id="id">
+                    <input type="hidden" id="statusid">
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">{{ __('all.form.username') }} <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
@@ -151,7 +152,7 @@
                                 ref.email,
                                 ref.phone,
                                 ref.active,
-                                "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='"+ref.id+"'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='"+ref.id+"' title='{{ __('all.button.delete') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-times'></i></button></div>", 
+                                ref.action, 
                             ] ).draw( false );
                         });
                     }
@@ -164,11 +165,19 @@
     }
 
     function disable(id, name) {
+        if ($('#statusid').val() == 1) {
+            active = "{{ __('all.confirm_disable') }} <b>"+name+"</b>?";
+            button = '{{ __("all.yes") }}';
+        } else {
+            active = "{{ __('all.confirm_act') }} <b>"+name+"</b>?";
+            button = '{{ __("all.yes_act") }}';
+        }
+
         bootbox.confirm({
-            message: "{{ __('all.confirm_disable') }} <b>"+name+"</b>?",
+            message: active,
             buttons: {
                 confirm: {
-                    label: '{{ __("all.yes") }}',
+                    label: button,
                     className: 'btn-success'
                 },
                 cancel: {
@@ -188,7 +197,8 @@
                         type    : "POST",
                         url     : "{{ route('deleteUser') }}",
                         data	: {
-                            id  : id,
+                            id      : id,
+                            active  : $('#statusid').val()
                         },
                         dataType: "JSON",
                         beforeSend: function(){
@@ -197,7 +207,12 @@
                         },
                         success     : function(data){
                             if (data.code == 0) {
-                                notif('success', '{{ __("all.success") }}', '{{ __("all.alert.disable") }}');
+                                if ($('#statusid').val() == true) {
+                                    notif('success', '{{ __("all.success") }}', '{{ __("all.alert.disable") }}');
+                                } else {
+                                    notif('success', '{{ __("all.success") }}', '{{ __("all.alert.activate") }}');
+                                }
+
                                 showData();
                             } else {
                                 notif('warning', '{{ __("all.warning") }}', data.info);
@@ -235,6 +250,7 @@
     $("#table-user").on('click','.action-delete',function(){
         var data = table.row( $(this).parents('tr') ).data();
         var id   = $(this).attr('id');
+        $('#statusid').val($(this).attr('status'));
 
         disable(id, data[2]);
     });

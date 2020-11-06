@@ -78,7 +78,7 @@
                 <nav class="navbar navbar-expand navbar-light bg-primary topbar mb-4 static-top shadow">
 
                     <!-- Topbar Search -->
-                    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('index') }}">
+                    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
                         <div class="sidebar-brand-icon">
                             <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" width="100" height="40" class="d-inline-block align-top" alt="">
                         </div>
@@ -143,7 +143,7 @@
                     <div class="dropdown" style="width:10%">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ asset('assets/admin/image/' . Session::get('locale') . '.png') }}" alt="id" srcset width="30%" height="75%">
+                                <img src="{{ asset('assets/admin/image/' . Session::get('locale') . '.png') }}" alt="id" srcset width="30%" height="45%">
                                 <span class="text-white"> {{ Session::get('locale') == 'id' ? 'ID' : 'ENG' }}</span>
                                 <span class="glyphicon glyphicon-chevron-down"></span>
                             </button>
