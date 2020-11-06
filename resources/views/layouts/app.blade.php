@@ -143,7 +143,7 @@
                     <div class="dropdown" style="width:10%">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ asset('assets/admin/image/' . Session::get('locale') . '.png') }}" alt="id" srcset width="30%" height="45%">
+                                <img src="{{ asset('assets/admin/image/' . Session::get('locale') . '.png') }}" alt="id" srcset width="30%" height="75%">
                                 <span class="text-white"> {{ Session::get('locale') == 'id' ? 'ID' : 'ENG' }}</span>
                                 <span class="glyphicon glyphicon-chevron-down"></span>
                             </button>
@@ -207,15 +207,16 @@
                 <div class="modal-header">
                     <h5 class="modal-title text-white">{{ __('all.change') }}</h5>
                 </div>
+                
                 <div class="modal-body">
                     <form action="#" method="post" id="postpass">
                         <div class="form-group row">
                             <label for="old" class="col-sm-3">{{ __('all.form.old_password') }} <sup class="text-danger">*</sup></label>
                             <div class="col-sm-9">
                                 <div class="input-group mb-3">
-                                    <input type="password" name="oldPassword" id="oldPassword" class="form-control" placeholder="{{ __('all.placeholder.password') }}" aria-describedby="basic-addon1">
+                                    <input type="password" name="oldPassword" id="oldPassword" class="form-control" placeholder="{{ __('all.placeholder.password') }}" aria-describedby="basicOld">
                                     <div class="input-group-prepend">
-                                        <button type="button" class="btn btn-primary input-group-text" id="basic-addon1" onclick="changeIcon('basic-addon1','oldPassword')"><i class="fa fa-eye"></i></button>
+                                        <button type="button" class="btn btn-primary input-group-text" id="basicOld" onclick="changeIcon('basicOld','oldPassword')"><i class="fa fa-eye"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -230,10 +231,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="old" class="col-sm-3">{{ __('all.form.con_password') }} <sup class="text-danger">*</sup></label><div class="col-sm-9">
+                                <div class="input-group mb-3">
+                                    <input type="password" name="conPassword" id="conPassword" class="form-control" placeholder="{{ __('all.placeholder.confirmpassword') }}" aria-describedby="basic-addon3">
+                                    <div class="input-group-prepend">
+                                        <button type="button" class="btn btn-primary input-group-text" id="basic-addon3" onclick="changeIcon('basic-addon3','conPassword')"><i class="fa fa-eye"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('all.close') }}</button>
-                    <button type="submit" class="btn btn-success" id="btn-pass" onclick="changePass()">{{ __('all.save') }}</button>
+                    <button type="submit" class="btn btn-success" id="btn-pass">{{ __('all.save') }}</button>
                     </form>
                 </div>
             </div>
@@ -386,6 +397,49 @@
                 })(marker, i));
             }
         }
+
+        $("#postpass").validate({
+            rules       : {
+                oldPassword     : "required",
+                newPassword     : "required",
+                conPassword     : {
+                    required    : true,
+                    equalTo     : "#newPassword"
+                }
+            },
+            messages: {
+                oldPassword     : "{{ __('all.validation.old') }}",
+                newPassword     : "{{ __('all.validation.new') }}",
+                conPassword     : {
+                    required    : "{{ __('all.validation.confirm') }}",
+                    equalTo     : "{{ __('all.validation.equalTo') }}"
+                }
+            },
+            errorClass      : "invalid-feedback",
+            errorElement    : "div",
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid').removeClass('is-valid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                if ($(element).attr('name') != 'oldPassword') {
+                    $(element).removeClass('is-invalid').addClass('is-valid');
+                } else if ($(element).attr('name') == 'oldPassword') {
+                    $(element).removeClass('is-invalid').removeClass('is-valid');
+                }
+            },
+            errorPlacement  : function(error,element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+                if (element.attr("name") == "oldPassword" || element.attr('name') == "newPassword" || element.attr('name') == "conPassword") {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            submitHandler : function (validator, form, submitButton) {
+                changePass();
+            }
+        });
     </script>
 
 </body>

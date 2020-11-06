@@ -115,14 +115,14 @@
 <div class="row" id="showHomeDetail">
     <div class="col-lg-12 mb-4">
         <!-- Content Row -->
-        <ul class="nav nav-pills mb-3" id="pill-tab" role="tablist">
+        <!-- <ul class="nav nav-pills mb-3" id="pill-tab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="detailchart-tab" data-toggle="tab" href="#chartD" role="tab" aria-controls="chart" aria-selected="true">{{ __('all.chart') }}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="detailmaps-tab" data-toggle="tab" href="#mapsD" role="tab" aria-controls="maps" aria-selected="false">{{ __('all.maps') }}</a>
             </li>
-        </ul>
+        </ul> -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <div class="btn-group" role="group" style="float:right">
@@ -169,8 +169,8 @@
                         </form>
                     </div>
                 </div>
-                <div class="tab-content" id="myTabContentD">
-                    <div class="tab-pane fade show active" id="chartD" role="tabpanel" aria-labelledby="detailchart-tab">
+                <!-- <div class="tab-content" id="myTabContentD"> -->
+                    <!-- <div class="tab-pane fade show active" id="chartD" role="tabpanel" aria-labelledby="detailchart-tab"> -->
                         <!-- <div class="card-title">
                             <h4>{{ __('all.title_chart') }}</h4>
                         </div>
@@ -179,8 +179,8 @@
                                 <canvas id="myChartD"></canvas>
                             </div>
                         </div> -->
-                    </div>
-                    <div class="tab-pane fade" id="mapsD" role="tabpanel" aria-labelledby="detailmaps-tab">
+                    <!-- </div>
+                    <div class="tab-pane fade" id="mapsD" role="tabpanel" aria-labelledby="detailmaps-tab"> -->
                         <div class="card-title">
                             <h4>{{ __('all.title_maps') }}</h4>
                         </div>
@@ -189,8 +189,8 @@
                                 <div id="mapsHomeMitraD" style="width:100%;height:50vh"></div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    <!-- </div>
+                </div> -->
             </div>
             <div class="card-body">
                 <div class="col-sm-6 card-title">
