@@ -212,65 +212,44 @@ class LoginController extends Controller
         $client = new Client();
         $phone  = $request->email;
         $token  = $request->token;
-        try {
-            $url_otp      = $this->base_url . 'user/request-otp/validate';
-            $request_otp  = $client->post($url_otp, [
-                'json'    => [
-                    "payload" => [
-                        "phoneNumber" => $phone,
-                        "token"       => $token,
-                        "type"        => 'token'
-                    ]
+
+        $url        = $this->base_url . 'user/login-mitra';
+        $requestL   = $client->post($url, [
+            'json'      => [
+                'emailOrPhone'  => $phone,
+                'token'         => $token,
+                'type'          => 'token'
+            ]
+        ]);
+
+        $responseL          = $requestL->getBody()->getContents();
+        $data               = json_decode($responseL);
+
+        if ($data->status->statusCode == '000') {
+            Session::put('user_key', json_decode((string) $responseBodyAsString, true)['token']);
+            Session::put('type', json_decode((string) $responseBodyAsString, true)['type']);
+            Session::put('storeLink', json_decode((string) $responseBodyAsString, true)['storeLink']);
+            Session::put('idUser', json_decode((string) $responseBodyAsString, true)['id']);
+
+            $url_home   = $this->base_url . 'user/home-mitra';
+            $req_home   = $client->get($url_home, [
+                'headers'   => [
+                    'Authorization' => Session::get('user_key')
                 ],
             ]);
 
-            $responseBodyAsString = $request_otp->getBody()->getContents();
-        } catch (\GuzzleHttp\Exception\ClientException $e) {
-            $response             = $e->getResponse();
-            $responseBodyAsString = $response->getBody()->getContents();
-        }
+            $res_home   = $req_home->getBody()->getContents();
+            $status     = json_decode((string) $res_home, true)['status']['statusCode'];
 
-        if ($response->getStatusCode() == '200') {
-            $url        = $this->base_url . 'user/login-mitra';
-            $requestL   = $client->post($url, [
-                'json'      => [
-                    'emailOrPhone'  => $phone,
-                    'token'         => $token,
-                    'type'          => 'token'
-                ]
-            ]);
-
-            $responseL          = $requestL->getBody()->getContents();
-            $data               = json_decode($responseL);
-
-            if ($data->status->statusCode == '000') {
-                Session::put('user_key', json_decode((string) $responseBodyAsString, true)['token']);
-                Session::put('type', json_decode((string) $responseBodyAsString, true)['type']);
-                Session::put('storeLink', json_decode((string) $responseBodyAsString, true)['storeLink']);
-                Session::put('idUser', json_decode((string) $responseBodyAsString, true)['id']);
-
-                $url_home   = $this->base_url . 'user/home-mitra';
-                $req_home   = $client->get($url_home, [
-                    'headers'   => [
-                        'Authorization' => Session::get('user_key')
-                    ],
-                ]);
-
-                $res_home   = $req_home->getBody()->getContents();
-                $status     = json_decode((string) $res_home, true)['status']['statusCode'];
-
-                if ($status == '000') {
-                    $result = json_decode((string) $res_home)->payload;
-                    Session::put('name', strtok($result->profile->name, ' '));
-                    Session::put('image', $result->profile->image);
-                }
-
-                echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('user_key')));
-            } else {
-                echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            if ($status == '000') {
+                $result = json_decode((string) $res_home)->payload;
+                Session::put('name', strtok($result->profile->name, ' '));
+                Session::put('image', $result->profile->image);
             }
+
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('user_key')));
         } else {
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            echo json_encode(array('code' => 1, 'info' => $data->status->statusDesc, 'data' => null));
         }
     }
 

@@ -186,12 +186,12 @@
                     <div class="wrap-input100 validate-input m-b-16" style="background-color:#fff">
                         <div class="form-group">
                             <div class="input-pin d-flex justify-content-center">
-                                <input name="pin1" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin2" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin3" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin4" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin5" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin6" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin1" id="pin1" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin2" id="pin2" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin3" id="pin3" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin4" id="pin4" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin5" id="pin5" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin6" id="pin6" class="form-control form-pin only-number" maxLength="1" required type="password">
                             </div>
                         </div>
                     </div>
@@ -227,10 +227,10 @@
                     <div class="wrap-input100 validate-input m-b-16" style="background-color:#fff">
                         <div class="form-group">
                             <div class="input-pin d-flex justify-content-center">
-                                <input name="pin1" class="form-control form-pin only-number" maxLength="1" required type="password" >
-                                <input name="pin2" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin3" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin4" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin1" id="otp1" class="form-control form-pin only-number" maxLength="1" required type="password" >
+                                <input name="pin2" id="otp2" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin3" id="otp3" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin4" id="otp4" class="form-control form-pin only-number" maxLength="1" required type="password">
                             </div>
                         </div>
                     </div>
@@ -434,10 +434,10 @@
         }
 
         function loginbyOtp(params) {
-            var pin1    = $('#pin1').val();
-            var pin2    = $('#pin2').val();
-            var pin3    = $('#pin3').val();
-            var pin4    = $('#pin4').val();
+            var pin1    = $('#otp1').val();
+            var pin2    = $('#otp2').val();
+            var pin3    = $('#otp3').val();
+            var pin4    = $('#otp4').val();
 
             if (pin1 != '' || pin2 != '' || pin3 != '' || pin4 != '') {
 				$.ajax({
@@ -446,7 +446,7 @@
 					data	: {
                         _token  : "{{ csrf_token() }}",
                         email   : $('#email').val(),
-                        token   : $('#pin1').val()+''+$('#pin2').val()+''+$('#pin3').val()+''+$('#pin4').val()
+                        token   : $('#otp1').val()+''+$('#otp2').val()+''+$('#otp3').val()+''+$('#otp4').val()
                     },
 					dataType: "JSON",
 					beforeSend: function(){
