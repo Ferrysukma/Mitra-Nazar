@@ -93,11 +93,31 @@ class HomeController extends Controller
 
             $rows   = [];
             foreach ($result as $key) {
-                $key->periode   = date('F Y', strtotime($key->periode));
-                $rows[]         = $key;
+                $rows[]         = $key->periode;
+            } 
+            
+            $arr = [];
+
+            for ($i=1; $i <= 12; $i++) { 
+                $i      = strlen($i) > 1 ? $i : '0'.$i;
+                $false  = count(array_keys($rows, $year.'-'.$i));
+                if (!$false) {
+                    $arr[]      = (object) ['amount' => 0, 'periode' => date('F Y', strtotime($year.'-'.$i))];
+                }
+            }
+
+            foreach ($result as $data) {
+                $data->periode  = date('F Y', strtotime($data->periode));
+                $arr[]          = $data;
             } 
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $rows));
+            usort($arr, function($a1, $a2) {
+                $v1 = strtotime($a1->periode);
+                $v2 = strtotime($a2->periode);
+                return $v1 - $v2; // $v2 - $v1 to reverse direction
+            });
+
+            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $arr));
         } else {
             
             echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
