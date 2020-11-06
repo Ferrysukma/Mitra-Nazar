@@ -232,7 +232,7 @@ class HomeController extends Controller
                 'Authorization' => Session::get('user_key')
             ],
             'json'      => [
-                'id'        => $request->id,
+                'id'        => $request->kode,
                 'birthday'  => date('Y-m-d', strtotime($request->birthday))
             ]
         ]);
@@ -242,46 +242,51 @@ class HomeController extends Controller
         $dDay       = json_decode((string) $resDay, true)['status']['statusDesc'];
         
         // upload image
-        $file       = $request->file('img_upload');
-        $fileName   = $file->getClientOriginalName();
-        $realPath   = $file->getRealPath();
-
-        $urlUimg    = $this->base_url . 'image/upload-profile-user';
-        $reqUimg    = $client->post($urlUimg, [
-            'headers' => [
-                'Accept' => 'application/json',
-                'Authorization' => Session::get('user_key')
-            ],
-            'multipart' => [
-                [
-                    'name' => 'file',
-                    'contents' => file_get_contents($realPath),
-                    'filename' => $fileName
-                ]
-            ]
-        ]);
-
-        $resUimg    = $reqUimg->getBody()->getContents();
-        $data       = json_decode($resUimg);
-
-        if ($data->status->statusCode == '000') {
-            // edit image
-            $urlImg    = $this->base_url . 'user/profile/edit-picture';
-            $reqImg    = $client->post($urlImg, [
-                'headers'   => [
+        if ($request->img_upload != 'undefined') {
+            $file       = $request->file('img_upload');
+            $fileName   = $file->getClientOriginalName();
+            $realPath   = $file->getRealPath();
+    
+            $urlUimg    = $this->base_url . 'image/upload-profile-user';
+            $reqUimg    = $client->post($urlUimg, [
+                'headers' => [
+                    'Accept' => 'application/json',
                     'Authorization' => Session::get('user_key')
                 ],
-                'json'      => [
-                    'payload'   => $data->payload
+                'multipart' => [
+                    [
+                        'name' => 'file',
+                        'contents' => file_get_contents($realPath),
+                        'filename' => $fileName
+                    ]
                 ]
             ]);
-
-            $resImg     = $reqImg->getBody()->getContents();
-            $sImg       = json_decode((string) $resImg, true)['status']['statusCode'];
-            $dImg       = json_decode((string) $resImg, true)['status']['statusDesc'];
+    
+            $resUimg    = $reqUimg->getBody()->getContents();
+            $data       = json_decode($resUimg);
+    
+            if ($data->status->statusCode == '000') {
+                // edit image
+                $urlImg    = $this->base_url . 'user/profile/edit-picture';
+                $reqImg    = $client->post($urlImg, [
+                    'headers'   => [
+                        'Authorization' => Session::get('user_key')
+                    ],
+                    'json'      => [
+                        'payload'   => $data->payload
+                    ]
+                ]);
+    
+                $resImg     = $reqImg->getBody()->getContents();
+                $sImg       = json_decode((string) $resImg, true)['status']['statusCode'];
+                $dImg       = json_decode((string) $resImg, true)['status']['statusDesc'];
+            } else {
+                $sImg       = '001';
+                $dImg       = 'Upload Fail';
+            }
         } else {
-            $sImg       = '001';
-            $dImg       = 'Upload Fail';
+            $sImg       = '000';
+            $dImg       = 'Success';
         }
 
         if ($sName == '000' AND $sGender == '000' AND $sDay == '000' AND $sImg == '000') {

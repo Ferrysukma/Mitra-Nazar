@@ -39,6 +39,7 @@
             <div class="card-body" id="formProfile">
                 <form action="#" method="post" id="postprofile">
                     <input type="hidden" name="id" id="idPro">
+                    <input type="hidden" name="kode" id="kode">
                     <div class="form-group row">
                         <label for="old" class="col-sm-3">ID Downline <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
@@ -388,6 +389,9 @@
                 } else {
                     $('#woman').attr('checked', true);
                 }
+                
+                $('#birthday').val(moment.utc(res.data.birthday).format('DD MMM YYYY'));
+                $('#kode').val(res.data.id);
             } 
         })
     }
@@ -406,7 +410,6 @@
         $('#desa').val(data.desa);
         $("#img_upload").attr("data-default-file", res.image);
         $('.dropify').dropify();
-        $('#birthday').val(moment.utc(data.birthday).format('DD MMM YYYY'));
     }
 
     profile();
@@ -490,6 +493,7 @@
                 data.append('img_upload', $('#img_upload')[0].files[0]);
                 // data.append('img_upload', $('.dropify-render').find('img').attr('src'));
                 data.append('id', $("#idPro").val()); 
+                data.append('kode', $("#kode").val()); 
                 data.append('name', $("#name").val()); 
                 data.append('gender', $('input[name=gender]:checked', '#postprofile').val()); 
                 data.append('birthday', $("#birthday").val()); 
