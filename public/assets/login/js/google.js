@@ -3,7 +3,7 @@ var googleUser = {};
 var startApp = function () {
     gapi.load('auth2', function () {
         auth2 = gapi.auth2.init({
-            client_id: '519676647498-cnqebafi78n37bg9eaol19k332pkmi7e.apps.googleusercontent.com',
+            client_id: '404874804614-i5celo8pa2d2ciacvro4717sljamt11n.apps.googleusercontent.com',
             cookiepolicy: 'single_host_origin',
         });
         attachSigninGoogle(document.getElementById('googleLogin'));

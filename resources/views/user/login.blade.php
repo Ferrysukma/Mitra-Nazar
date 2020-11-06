@@ -14,7 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css') }}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/login/vendor/animate/animate.css') }}">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/login/vendor/css-hamburgers/hamburgers.min.css') }}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/login/vendor/animsition/css/animsition.min.css') }}">
@@ -68,7 +68,7 @@
 	</style>
 </head>
 <body>
-	
+
 	<div class="limiter">
 		<div class="container-login100" id="loading">
             <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" alt="background-logo" style="width:50%;height:40%">
@@ -77,11 +77,11 @@
                     <span class="login100-form-title p-b-51">
                         {{ __('all.login') }} <br>
                     </span>
-                    
+
                     <span class="login100-form-subtitle">
                         {{ __('all.welcome_us') }}
                     </span>
-                    
+
                     <div class="wrap-input100 validate-input m-b-16" data-validate = "{{ __('all.validation.emailorphone') }}">
                         <input class="input100" type="email" name="email" id="email" placeholder="{{ __('all.placeholder.emailorphone') }}">
                         <span class="focus-input100"></span>
@@ -93,7 +93,7 @@
                         </button>
                     </div>
                 </form>
-                
+
                 <div class="row mt-3">
                     <div class="col-12">
                         <p class="text-center mt-4">{{ __('all.login_with') }}</p>
@@ -119,7 +119,7 @@
                     <span class="login100-form-title p-b-51">
                         {{ __('all.login') }} <br>
                     </span>
-                    
+
                     <span class="login100-form-subtitle">
                         {{ __('all.welcome_us') }}
                     </span>
@@ -146,7 +146,7 @@
                 <span class="login100-form-title p-b-51">
                     {{ __('all.login') }} <br>
                 </span>
-                
+
                 <span class="login100-form-subtitle">
                     {{ __('all.welcome_us') }} <br>
                 </span>
@@ -166,14 +166,14 @@
                         <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
                     </div>
                 </div>
-            </div> 
+            </div>
 
             <div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-pin">
                 <form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postpin">
                     <span class="login100-form-title p-b-51">
                         {{ __('all.login') }}
                     </span>
-                    
+
                     <span class="login100-form-subtitle">
                         {{ __('all.welcome_us') }} <br>
                     </span>
@@ -207,14 +207,14 @@
                         <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
                     </div>
                 </div>
-            </div>  
-            
+            </div>
+
             <div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-otp">
                 <form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postpin">
                     <span class="login100-form-title p-b-51">
                         {{ __('all.login') }}
                     </span>
-                    
+
                     <span class="login100-form-subtitle">
                         {{ __('all.welcome_us') }} <br>
                     </span>
@@ -251,7 +251,7 @@
 	</div>
 
 	<div id="dropDownSelect1"></div>
-	
+
 <!--===============================================================================================-->
 	<script src="{{ asset('assets/admin/vendor/jquery/jquery.min.js') }}"></script>
 <!--===============================================================================================-->
@@ -274,10 +274,13 @@
     <script src="{{ asset('assets/admin/js/select2/id.js') }}"></script>
 	<!-- generic js -->
 	<script src="{{ asset('assets/admin/js/generic.js') }}"></script>
-	<script src="{{ asset('assets/login/js/google.js') }}"></script>
-	
+    <script src="{{ asset('assets/login/js/google.js') }}"></script>
+    {{-- Google Sign In --}}
+    <script src="https://apis.google.com/js/api:client.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
 	<script>
-        // startApp();
+        startApp();
 
         $('#show-password').hide();
         $('#show-method').hide();
@@ -480,7 +483,7 @@
             $(".form-pin").keyup(function (e) {
                 if (this.value.length == this.maxLength) {
                     $(this).next('.form-pin').focus();
-                } 
+                }
 
                 if (e.code == 'Backspace') {
                     // $(this).next('.form-pin').focus();
