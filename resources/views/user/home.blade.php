@@ -34,7 +34,8 @@
                     <b>#</b> <b id="copy"></b> <br>
                     <div class="btn-group">
                         <button class="btn btn-sm btn-secondary" onclick="copyToClipboard('#copy')">Bagikan</button>
-                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="btn btn-primary btn-sm ml-1"><i class="fab fa-facebook-f"></i> Bagikan</a></div>
+                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="btn btn-primary btn-sm ml-1"><i class="fab fa-facebook-f"></i> Facebook</a></div>
+                        <a class="btn btn-info btn-sm ml-1 twitter-share-button" target="_blank" href="https://twitter.com/intent/tweet" data-size="large"><i class="fab fa-twitter"></i> Tweet</a>
                     </div>
 
                     <br><br>
@@ -265,7 +266,7 @@
     function copyToClipboard(element) {
         var $temp = $("<input>");
         $("body").append($temp);
-        $temp.val($(element).text()).select();
+        $temp.val('https://nazarid.domainfsp.com/register_mitra/'+$(element).text()).select();
         document.execCommand("copy");
         $temp.remove();
     }
