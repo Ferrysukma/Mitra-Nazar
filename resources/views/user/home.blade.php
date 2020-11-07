@@ -25,13 +25,13 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">{{ __('all.profil') }}</h6>
             </div>
-            <div class="card-body" style="max-height:100vh;min-height:80vh">
+            <div class="card-body">
                 <div class="text-center">
                     <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 12rem;" alt="" id="imageUser">
                 </div>
                 <div align="center">
                     <p><b id="coor"></b></p>
-                    <b>#</b> <b id="copy"></b> <br>
+                    <b>#</b> <b id="copy"></b> <br><br>
                     <div class="btn-group">
                         <button class="btn btn-sm btn-secondary" onclick="copyToClipboard('#copy')">Bagikan</button>
                         <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="btn btn-primary btn-sm ml-1"><i class="fab fa-facebook-f"></i> Facebook</a></div>
@@ -49,7 +49,7 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">{{ __('all.announcement') }}</h6>
             </div>
-            <div class="card-body" style="min-height:35vh">
+            <div class="card-body">
                 <div id="slideControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner" id="showAnn"></div>
                     <a class="carousel-control-prev" href="#slideControls" role="button" data-slide="prev">
@@ -84,7 +84,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body" style="max-height:100vh;min-height:77vh">
+            <div class="card-body">
                 <div id="bar-chart-bs" style="position: relative; height:auto; width:auto">
                     <canvas id="bar-canvas-bs"></canvas>
                 </div>
@@ -156,7 +156,7 @@
     </div>
 
 </div>
-<br><br>
+<br>
 <!-- Modal -->
 <div class="modal fade" id="modal-balance" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">

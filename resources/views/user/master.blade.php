@@ -62,11 +62,11 @@
         }
 
         .carousel-control-prev-icon {
-            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23f00' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
         }
 
         .carousel-control-next-icon {
-            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23f00' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
         }
     </style>
 
@@ -89,7 +89,7 @@
                     <!-- Topbar Logo -->
                     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('index') }}">
                         <div class="sidebar-brand-icon">
-                            <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" width="100" height="40" class="d-inline-block align-top" alt="">
+                            <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" style="height:70px;width:155px" class="d-inline-block align-top" alt="">
                         </div>
                     </a>
                     
@@ -601,7 +601,7 @@
 
                 google.maps.event.addListener(marker, 'click', (function(marker, i) {
                     return function() {
-                        infowindow.setContent(locations[i][0]);
+                        infowindow.setContent(locations[i][0]+' ('+locations[i][3]+')');
                         infowindow.open(map, marker);
                     }
                 })(marker, i));

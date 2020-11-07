@@ -50,18 +50,18 @@ class PartnerController extends Controller
         if ($status == '000') {
             $result = json_decode((string) $response)->payload;
             $row    = [];
-            foreach ($result as $key => $value) {
-                // $explode            = explode(', ', $value->koordinat);
-                // if ($value->active == true) {
-                //     $value->action      = "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='".__('all.button.edit')."' data-toggle='tooltip' data-placement='top' id='".$value->id."'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='".$value->id."' status='".$value->active."' title='".__('all.button.delete')."' data-toggle='tooltip' data-placement='top'><i class='fa fa-times'></i></button></div>";
-                // } else {
-                //     $value->action      = "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='".__('all.button.edit')."' data-toggle='tooltip' data-placement='top' id='".$value->id."'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-success action-active' id='".$value->id."' status='".$value->active."' title='".__('all.button.active')."' data-toggle='tooltip' data-placement='top'><i class='fa fa-check'></i></button></div>";
-                // }
+            foreach ($result as $value) {
+                $explode            = explode(',', $value->koordinat);
+                if ($value->active == true) {
+                    $value->action      = "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='".__('all.button.edit')."' data-toggle='tooltip' data-placement='top' id='".$value->id."'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='".$value->id."' status='".$value->active."' title='".__('all.button.delete')."' data-toggle='tooltip' data-placement='top'><i class='fa fa-times'></i></button></div>";
+                } else {
+                    $value->action      = "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='".__('all.button.edit')."' data-toggle='tooltip' data-placement='top' id='".$value->id."'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-success action-active' id='".$value->id."' status='".$value->active."' title='".__('all.button.active')."' data-toggle='tooltip' data-placement='top'><i class='fa fa-check'></i></button></div>";
+                }
 
-                // $value->active      = $value->active == true ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
-                // $value->koordinat   = "<a target='_blank' href='http://maps.google.com/?ll=".$value->koordinat."'>".__('all.open_maps')." <i class='fa fa-map-marker-alt'></i></a>";
-                // $value->lat         = $explode[0];
-                // $value->long        = $explode[1];
+                $value->active      = $value->active == true ? '<span class="badge badge-success">'.__('all.active')."</span>" : '<span class="badge badge-danger">'.__('all.noactive')."</span>";
+                $value->koordinat   = "<a target='_blank' href='http://maps.google.com/?ll=".$value->koordinat."'>".__('all.open_maps')." <i class='fa fa-map-marker-alt'></i></a>";
+                $value->lat         = $explode[0];
+                $value->long        = $explode[1];
                 $row[]              = $value;
             }
 
@@ -96,13 +96,19 @@ class PartnerController extends Controller
         if ($status == '000') {
             $result = json_decode((string) $response)->payload;
             
+            $prov   = [];
+            foreach ($result as $key => $value) {
+                array_push($prov, $value->provinsi);
+            }
+
+            $data   = array_count_values($prov);
             $row    = [];
-            foreach ($result as $value) {
-                $explode = $this->getLatLong($value->provinsi);
-                $name    = $value->provinsi;
+            foreach ($data as $rows => $val) {
+                $explode = $this->getLatLong($rows);
+                $name    = $rows;
                 $lat     = $explode['lat'];
                 $long    = $explode['long'];
-                $row[]   = [$name, $lat, $long, ''];
+                $row[]   = [$name, $lat, $long, $val];
             }
             
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));

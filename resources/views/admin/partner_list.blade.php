@@ -621,19 +621,19 @@
                     
                     if(list.length > 0){
                         $.each(list, function(idx, ref){
-                            koor               = ref.koordinat;
-                            explode            = koor.split(', ');
-                            if (ref.active == true) {
-                                action      = "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='"+ref.id+"'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='"+ref.id+"' status='"+ref.active+"' title='{{ __('all.button.delete') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-times'></i></button></div>";
-                            } else {
-                                action      = "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='"+ref.id+"'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-success action-active' id='"+ref.id+"' status='"+ref.active+"' title='{{ __('all.button.active') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-check'></i></button></div>";
-                            }
+                            // koor               = ref.koordinat;
+                            // explode            = koor.split(', ');
+                            // if (ref.active == true) {
+                            //     action      = "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='"+ref.id+"'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-danger action-delete' id='"+ref.id+"' status='"+ref.active+"' title='{{ __('all.button.delete') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-times'></i></button></div>";
+                            // } else {
+                            //     action      = "<div class='btn-group'><button type='button' class='btn btn-sm btn-warning action-edit' title='{{ __('all.button.edit') }}' data-toggle='tooltip' data-placement='top' id='"+ref.id+"'><i class='fa fa-edit'></i></button><button type='button' class='btn btn-sm btn-success action-active' id='"+ref.id+"' status='"+ref.active+"' title='{{ __('all.button.active') }}' data-toggle='tooltip' data-placement='top'><i class='fa fa-check'></i></button></div>";
+                            // }
 
-                            active      = ref.active == true ? "<span class='badge badge-success'>{{__('all.active') }}</span>" : "<span class='badge badge-danger'>{{ __('all.noactive') }}</span>";
-                            koordinat   = "<a target='_blank' href='http://maps.google.com/?ll="+ref.koordinat+"'>{{ __('all.open_maps') }} <i class='fa fa-map-marker-alt'></i></a>";
-                            lat         = explode[0];
-                            long        = explode[1];
-
+                            // active      = ref.active == true ? "<span class='badge badge-success'>{{__('all.active') }}</span>" : "<span class='badge badge-danger'>{{ __('all.noactive') }}</span>";
+                            // koordinat   = "<a target='_blank' href='http://maps.google.com/?ll="+ref.koordinat+"'>{{ __('all.open_maps') }} <i class='fa fa-map-marker-alt'></i></a>";
+                            // lat         = explode[0];
+                            // long        = explode[1];
+                            // console.log(explode);
                             table.row.add( [
                                 idx + 1,
                                 ref.userCode,
@@ -645,11 +645,11 @@
                                 ref.kecamatan,
                                 ref.desa,
                                 ref.alamat,
-                                lat,
-                                long,
-                                koordinat,
-                                active,
-                                action, 
+                                ref.lat,
+                                ref.long,
+                                ref.koordinat,
+                                ref.active,
+                                ref.action, 
                             ] ).draw( false );
                         });
                     }

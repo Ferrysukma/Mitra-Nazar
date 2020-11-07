@@ -540,7 +540,7 @@
             kodeBank            : "required",
             nomorRekening       : {
                 required        : true,
-                maxlength       : 10,
+                minlength       : 10,
             },
             namaPemilikRekening : "required",
         },
@@ -548,7 +548,7 @@
             kodeBank            : "{{ __('all.validation.bank') }}",
             nomorRekening       : {
                 required        : "{{ __('all.validation.no_rek') }}",
-                maxlength       : "{{ __('all.validation.max') }}",
+                minlength       : "{{ __('all.validation.min') }}",
             },
             namaPemilikRekening : "{{ __('all.validation.account_name') }}",
         },

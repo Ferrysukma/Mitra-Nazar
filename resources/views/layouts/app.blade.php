@@ -80,7 +80,7 @@
                     <!-- Topbar Search -->
                     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
                         <div class="sidebar-brand-icon">
-                            <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" width="100" height="40" class="d-inline-block align-top" alt="">
+                            <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" style="height:70px;width:155px" class="d-inline-block align-top" alt="">
                         </div>
                     </a>
                     
@@ -388,7 +388,7 @@
                     position: new google.maps.LatLng(locations[i][1], locations[i][2]),
                     map     : map
                 });
-
+                
                 google.maps.event.addListener(marker, 'click', (function(marker, i) {
                     return function() {
                         infowindow.setContent(locations[i][0]+' ('+locations[i][3]+')');

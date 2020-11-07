@@ -149,15 +149,20 @@ class HomeController extends Controller
 
         if ($status == '000') {
             $result = json_decode((string) $response)->payload;
-            
-            $row    = [];
+
+            $prov   = [];
             foreach ($result as $key => $value) {
-                $getLoc  = $this->getLatLong($value->provinsi);
-                $name    = $value->provinsi;
-                $lat     = $getLoc['lat'];
-                $long    = $getLoc['long'];
-                $qty     = $value->total;
-                $row[]   = [$name, $lat, $long, $qty];
+                array_push($prov, $value->provinsi);
+            }
+
+            $data   = array_count_values($prov);
+            $row    = [];
+            foreach ($data as $rows => $val) {
+                $explode = $this->getLatLong($rows);
+                $name    = $rows;
+                $lat     = $explode['lat'];
+                $long    = $explode['long'];
+                $row[]   = [$name, $lat, $long, $val];
             }
 
             echo json_encode(array('code' => 0, 'info' => $desc, 'data' => $row));

@@ -104,15 +104,21 @@ class DownlineController extends Controller
         if ($status == '000') {
             $result = json_decode((string) $response)->payload;
             
-            $row    = [];
+            $prov   = [];
             foreach ($result as $key => $value) {
-                $explode = $this->getLatLong($value->koordinatorProfile->provinsi);
-                $name    = $value->koordinatorProfile->provinsi;
+                array_push($prov, $value->koordinatorProfile->provinsi);
+            }
+
+            $data   = array_count_values($prov);
+            $row    = [];
+            foreach ($data as $rows => $val) {
+                $explode = $this->getLatLong($rows);
+                $name    = $rows;
                 $lat     = $explode['lat'];
                 $long    = $explode['long'];
-                $row[]   = [$name, $lat, $long, ''];
+                $row[]   = [$name, $lat, $long, $val];
             }
-            
+
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
         } else {
             $result = 'empty';

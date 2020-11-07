@@ -220,7 +220,7 @@ return [
         'img_upload'    => '*Foto tidak boleh kosong',
         'gender'        => '*Jenis kelamin tidak boleh kosong',
         'village'       => '*Desa tidak boleh kosong',
-        'max'           => '*Maksimal 10 karakter',
+        'min'           => '*Minimal 10 karakter',
         'maxPin'        => '*Maksimal 6 karakter',
     ),
     'buttonloader'      => array(
