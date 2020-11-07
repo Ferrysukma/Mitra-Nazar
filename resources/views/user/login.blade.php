@@ -83,7 +83,7 @@
                     </span>
 
                     <div class="wrap-input100 validate-input m-b-16" data-validate = "{{ __('all.validation.emailorphone') }}">
-                        <input class="input100" type="email" name="email" id="email" placeholder="{{ __('all.placeholder.emailorphone') }}">
+                        <input class="input100" type="email" name="email" id="email" placeholder="{{ __('all.placeholder.emailorphone') }}" onkeypress="pressEnter('show-email')">
                         <span class="focus-input100"></span>
                     </div>
 
@@ -125,7 +125,7 @@
                     </span>
 
                     <div class="wrap-input100 validate-input m-b-16" data-validate = "{{ __('all.validation.password') }}">
-                        <input class="input100" type="password" name="password" id="password" placeholder="{{ __('all.placeholder.password') }}">
+                        <input class="input100" type="password" name="password" id="password" placeholder="{{ __('all.placeholder.password') }}" onkeypress="pressEnter('show-password')">
                         <span class="focus-input100"></span>
                     </div>
 
@@ -186,12 +186,12 @@
                     <div class="wrap-input100 validate-input m-b-16" style="background-color:#fff">
                         <div class="form-group">
                             <div class="input-pin d-flex justify-content-center">
-                                <input name="pin1" id="pin1" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin2" id="pin2" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin3" id="pin3" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin4" id="pin4" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin5" id="pin5" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin6" id="pin6" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin1" id="pin1" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-pin')">
+                                <input name="pin2" id="pin2" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-pin')">
+                                <input name="pin3" id="pin3" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-pin')">
+                                <input name="pin4" id="pin4" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-pin')">
+                                <input name="pin5" id="pin5" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-pin')">
+                                <input name="pin6" id="pin6" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-pin')">
                             </div>
                         </div>
                     </div>
@@ -227,10 +227,10 @@
                     <div class="wrap-input100 validate-input m-b-16" style="background-color:#fff">
                         <div class="form-group">
                             <div class="input-pin d-flex justify-content-center">
-                                <input name="pin1" id="otp1" class="form-control form-pin only-number" maxLength="1" required type="password" >
-                                <input name="pin2" id="otp2" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin3" id="otp3" class="form-control form-pin only-number" maxLength="1" required type="password">
-                                <input name="pin4" id="otp4" class="form-control form-pin only-number" maxLength="1" required type="password">
+                                <input name="pin1" id="otp1" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="preesEnter('show-otp')">
+                                <input name="pin2" id="otp2" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="preesEnter('show-otp')">
+                                <input name="pin3" id="otp3" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="preesEnter('show-otp')">
+                                <input name="pin4" id="otp4" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="preesEnter('show-otp')">
                             </div>
                         </div>
                     </div>
@@ -491,11 +491,19 @@
             });
         });
 
-        $(document).on('keyup','.input100', function () {
-			if (event.keyCode === 13) {
-				$("button[type='button']").click();
-			}
-		});
+        function pressEnter(id) {
+            if (event.keyCode === 13) {
+                if (id == 'show-email') {
+                    validasiLogin('show-email');
+                } else if (id ==  'show-password') {
+                    loginbyEmail('show-password');
+                } else if (id ==  'show-pin') {
+                    loginbyPin('show-pin');
+                } else if (id ==  'show-otp') {
+                    loginbyOtp('show-otp');
+                } 
+            }
+        }
 	</script>
 
 </body>
