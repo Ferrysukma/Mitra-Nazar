@@ -220,7 +220,8 @@ return [
         'img_upload'    => '*Image cannot be empty',
         'gender'        => '*Gender cannot be empty',
         'village'       => '*Village cannot be empty',
-        'max'           => '*Maximum of 10 characters'
+        'max'           => '*Maximum of 10 characters',
+        'maxPin'        => '*Maximum 6 characters',
     ),
     'buttonloader'      => array(
         'wait'          => 'Wait',

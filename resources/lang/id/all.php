@@ -221,6 +221,7 @@ return [
         'gender'        => '*Jenis kelamin tidak boleh kosong',
         'village'       => '*Desa tidak boleh kosong',
         'max'           => '*Maksimal 10 karakter',
+        'maxPin'        => '*Maksimal 6 karakter',
     ),
     'buttonloader'      => array(
         'wait'          => 'Tunggu',

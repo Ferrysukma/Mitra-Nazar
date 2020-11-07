@@ -213,10 +213,10 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="old" class="col-sm-3">{{ __('all.form.password') }} <sup class="text-danger">*</sup></label>
+                        <label for="old" class="col-sm-3">PIN <sup class="text-danger">*</sup></label>
                         <div class="col-sm-9">
                             <div class="input-group mb-3">
-                                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('all.placeholder.password') }}" aria-describedby="basic-addon1">
+                                <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('all.placeholder.pin') }}" aria-describedby="basic-addon1">
                                 <div class="input-group-prepend">
                                     <button type="button" class="btn btn-primary input-group-text" id="basic-addon1" onclick="changeIcon('basic-addon1','password')"><i class="fa fa-eye"></i></button>
                                 </div>
@@ -520,14 +520,20 @@
             kodeBank        : "required",
             pemilikRekening : "required",
             nomorRekening   : "required",
-            password        : "required",
+            password        : {
+                required    : true,
+                maxlength   : 6
+            }
         },
         messages: {
             nominal         : "{{ __('all.validation.amount') }}",
             kodeBank        : "{{ __('all.validation.bank') }}",
             pemilikRekening : "{{ __('all.validation.account_name') }}",
             nomorRekening   : "{{ __('all.validation.no_rek') }}",
-            password        : "{{ __('all.validation.password') }}",
+            password        : {
+                required    : "{{ __('all.validation.password') }}",
+                maxlength   : "{{ __('all.validation.maxPin') }}",
+            }
         },
         errorClass      : "invalid-feedback",
         errorElement    : "div",
