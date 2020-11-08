@@ -73,7 +73,7 @@
 		<div class="container-login100" id="loading">
             <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" alt="background-logo" style="width:50%;height:40%">
             <div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-email">
-                <form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postemail">
+                <form class="login100-form validate-form flex-sb flex-w" method="post" id="postemail">
                     <span class="login100-form-title p-b-51">
                         {{ __('all.login') }} <br>
                     </span>
@@ -83,7 +83,7 @@
                     </span>
 
                     <div class="wrap-input100 validate-input m-b-16" data-validate = "{{ __('all.validation.emailorphone') }}">
-                        <input class="input100" type="email" name="email" id="email" placeholder="{{ __('all.placeholder.emailorphone') }}" onkeypress="pressEnter('show-email')">
+                        <input class="input100" type="text" name="email" id="email" placeholder="{{ __('all.placeholder.emailorphone') }}" onkeypress="pressEnter('show-email')">
                         <span class="focus-input100"></span>
                     </div>
 
@@ -104,7 +104,7 @@
                         <a href="{{ route('loginbySosmed', 'facebook') }}" class="btn btn-block mb-2" style="background-color: #405D9D; color: #fff"> <i class="fa fa-facebook-f"></i> Facebook</a>
                     </div>
                     <div class="col-6">
-                        <a href="#" id="googleLogin" class="btn btn-google btn-block mb-4" style="background-color: #af0000; color: #fff"> <i class="fa fa-google"></i> Google</a>
+                        <a id="googleLogin" class="btn btn-google btn-block mb-4" style="background-color: #af0000; color: #fff"> <i class="fa fa-google"></i> Google</a>
                     </div>
                 </div>
                 <div class="row mt-4">
@@ -115,7 +115,7 @@
             </div>
 
             <div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-password">
-                <form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postpass">
+                <form class="login100-form validate-form flex-sb flex-w" method="post" id="postpass">
                     <span class="login100-form-title p-b-51">
                         {{ __('all.login') }} <br>
                     </span>
@@ -157,8 +157,8 @@
                 <br>
                 <div class="wrap-input100 validate-input m-b-16">
                     <nav class="list-group">
-                        <a href="#" class="list-group-item shadow-sm" onclick="showForm('show-pin', 'show-method')"><i class="fa fa-map-pin mr-2"></i></i> {{ __('all.pin') }} <span class="float-right"><i class="fa fa-arrow-right"></i></span></a>
-                        <a href="#" class="list-group-item shadow-sm" onclick="sendCode('show-method')"><i class="fa fa-mobile mr-2"></i></i> {{ __('all.phone') }} <span class="float-right"><i class="fa fa-arrow-right"></i></span></a>
+                        <a class="list-group-item shadow-sm" onclick="showForm('show-pin', 'show-method')"><i class="fa fa-map-pin mr-2"></i></i> {{ __('all.pin') }} <span class="float-right"><i class="fa fa-arrow-right"></i></span></a>
+                        <a class="list-group-item shadow-sm" onclick="sendCode('show-method')"><i class="fa fa-mobile mr-2"></i></i> {{ __('all.phone') }} <span class="float-right"><i class="fa fa-arrow-right"></i></span></a>
                     </nav>
                 </div>
                 <div class="row mt-4">
@@ -169,7 +169,7 @@
             </div>
 
             <div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-pin">
-                <form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postpin">
+                <form class="login100-form validate-form flex-sb flex-w" method="post" id="postpin">
                     <span class="login100-form-title p-b-51">
                         {{ __('all.login') }}
                     </span>
@@ -210,7 +210,7 @@
             </div>
 
             <div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-otp">
-                <form class="login100-form validate-form flex-sb flex-w" method="post" action="#" id="postpin">
+                <form class="login100-form validate-form flex-sb flex-w" method="post" id="postpin">
                     <span class="login100-form-title p-b-51">
                         {{ __('all.login') }}
                     </span>
@@ -486,7 +486,7 @@
                 }
 
                 if (e.code == 'Backspace') {
-                    // $(this).next('.form-pin').focus();
+                    $(this).prev('.form-pin').focus();
                 }
             });
         });

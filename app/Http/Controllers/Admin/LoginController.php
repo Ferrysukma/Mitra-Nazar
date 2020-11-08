@@ -22,6 +22,7 @@ class LoginController extends Controller
     {
         $lang   = Session::get('locale');
         empty($lang) ? Session::put('locale', 'id') : '';
+        Session::put('typeLogin', 'admin');
         return view('auth.login');
     }
 

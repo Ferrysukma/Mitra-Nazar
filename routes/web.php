@@ -27,6 +27,7 @@ Route::post('/admin/coordinateDistrict', [App\Http\Controllers\Admin\LoginContro
 
 // User
 Route::get('/user/login', [App\Http\Controllers\User\LoginController::class, 'index'])->name('login');
+Route::get('/user/nazar/{token}', [App\Http\Controllers\User\LoginController::class, 'loginbyNazar'])->name('loginbyNazar');
 Route::get('/user/widget/{id}/{tahun}', [App\Http\Controllers\User\LoginController::class, 'widget'])->name('widget');
 Route::post('/user/validateLogin', [App\Http\Controllers\User\LoginController::class, 'validateLogin'])->name('validateLogin');
 Route::post('/user/loginbyPassword', [App\Http\Controllers\User\LoginController::class, 'loginbyPassword'])->name('loginbyPassword');
@@ -96,7 +97,7 @@ Route::group(['middleware' => 'CheckTokenUser'], function () {
     Route::post('/user/allNotif', [App\Http\Controllers\User\HomeController::class, 'allNotif'])->name('allNotif');
     Route::post('/user/readNotif', [App\Http\Controllers\User\HomeController::class, 'readNotif'])->name('readNotif');
     Route::post('/user/getCoordinate', [App\Http\Controllers\User\HomeController::class, 'getCoordinate'])->name('getCoordinateUser');
-    Route::post('user//coordinateCity', [App\Http\Controllers\User\HomeController::class, 'coordinateCity'])->name('coordinateCityUser');
+    Route::post('user/coordinateCity', [App\Http\Controllers\User\HomeController::class, 'coordinateCity'])->name('coordinateCityUser');
     Route::post('user/coordinateDistrict', [App\Http\Controllers\User\HomeController::class, 'coordinateDistrict'])->name('coordinateDistrictUser');
 
     Route::get('/user/downline', [App\Http\Controllers\User\DownlineController::class, 'index'])->name('downline');

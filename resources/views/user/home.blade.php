@@ -27,13 +27,13 @@
             </div>
             <div class="card-body">
                 <div class="text-center">
-                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 12rem;" alt="" id="imageUser">
+                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="height:13rem" alt="" id="imageUser">
                 </div>
                 <div align="center">
                     <p><b id="coor"></b></p>
                     <b>#</b> <b id="copy"></b> <br><br>
                     <div class="btn-group">
-                        <button class="btn btn-sm btn-secondary" onclick="copyToClipboard('#copy')">Bagikan</button>
+                        <button class="btn btn-sm btn-secondary" onclick="copyToClipboard('#copy')" id="shareLink">Bagikan</button>
                         <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="btn btn-primary btn-sm ml-1"><i class="fab fa-facebook-f"></i> Facebook</a></div>
                         <a class="btn btn-info btn-sm ml-1 twitter-share-button" target="_blank" href="https://twitter.com/intent/tweet" data-size="large"><i class="fab fa-twitter"></i> Tweet</a>
                     </div>
@@ -53,11 +53,11 @@
                 <div id="slideControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner" id="showAnn"></div>
                     <a class="carousel-control-prev" href="#slideControls" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" style="color:#000; index-z:9999999"></span>
+                        <span class="carousel-control-prev-icon"></span>
                         <span class="sr-only">Previous</span>
                     </a>
                     <a class="carousel-control-next" href="#slideControls" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" style="color:#000; index-z:9999999"></span>
+                        <span class="carousel-control-next-icon"></span>
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
@@ -368,7 +368,10 @@
 
     function setting(res, data) {
         $('#imageUser').attr('src', res);
-        $('#coor').text(data.tipe)
+        if (data.tipe == 'desa') {
+            $('#shareLink').attr('hidden', true);
+        }
+        $('#coor').text(data.tipe);
         $('#copy').text(data.userCode);
     }
 
@@ -384,12 +387,12 @@
                 }
 
                 txt += '<div class="carousel-item '+active+'">';
-                txt +=      '<div class="card border shadow h-100 py-2">';
-                txt +=          '<div class="card-body">';
+                txt +=      '<div class="card-border shadow h-100 py-2">';
+                txt +=          '<div class="card-body" style="min-height:150px">';
                 txt +=              '<div class="row no-gutters align-items-center">';
                 txt +=                  '<div class="col mr-2 text-center">';
-                txt +=                      '<div class="text-lg font-weight-bold text-uppercase mb-1">'+data.judul+'</div>';
-                txt +=                      '<div class="h5 mb-0 text-gray-800">'+data.isi+'</div>';
+                txt +=                      '<div class="text-lg font-weight-bold text-uppercase mb-1 crop">'+data.judul+'</div>';
+                txt +=                      '<div class="h5 mb-0 text-gray-800 crop">'+data.isi+'</div>';
                 txt +=                  '</div>';
                 txt +=              '</div>';
                 txt +=          '</div>';

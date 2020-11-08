@@ -24,7 +24,34 @@ class LoginController extends Controller
     {
         $lang   = Session::get('locale');
         empty($lang) ? Session::put('locale', 'id') : '';
+        Session::put('typeLogin', 'user');
         return view('user.login');
+    }
+
+    public function loginbyNazar($token)
+    {
+        $client = new Client();
+        $url    = $this->base_url . 'user/home-mitra';
+        
+        $response = $client->get($url, [
+            'headers'   => [
+                'Authorization' => $token
+            ],
+        ]);
+
+        $response   = $response->getBody()->getContents();
+        $status     = json_decode((string) $response, true)['status']['statusCode'];
+        
+        if ($status == '000') {
+            $result = json_decode((string) $response)->payload;
+            Session::put('user_key', $token);
+            Session::put('name', strtok($result->profile->name, ' '));
+            Session::put('image', $result->profile->image);
+
+            return redirect()->route('index');
+        } else {
+            echo "<script>alert(".$desc.")</script>";
+        }
     }
 
     public function widget($token, $year)
@@ -52,16 +79,32 @@ class LoginController extends Controller
 
             $rows   = [];
             foreach ($result as $key) {
-                $key->periode   = date('F Y', strtotime($key->periode));
-                $rows[]         = $key;
+                $rows[]         = $key->periode;
+            } 
+            
+            $arr = [];
+
+            for ($i=1; $i <= 12; $i++) { 
+                $i      = strlen($i) > 1 ? $i : '0'.$i;
+                $false  = count(array_keys($rows, $year.'-'.$i));
+                if (!$false) {
+                    $arr[]      = (object) ['amount' => 0, 'periode' => date('F Y', strtotime($year.'-'.$i))];
+                }
             }
 
-            $data['result'] = $rows;
+            foreach ($result as $data) {
+                $data->periode  = date('F Y', strtotime($data->periode));
+                $arr[]          = $data;
+            } 
 
-            return view('user.widget', $data);
+            usort($arr, function($a1, $a2) {
+                $v1 = strtotime($a1->periode);
+                $v2 = strtotime($a2->periode);
+                return $v1 - $v2; // $v2 - $v1 to reverse direction
+            });
+
+            return view('user.widget', array('result' => $arr));
         }
-
-        return view('user.widget', $data);
     }
 
     public function validateLogin(Request $request)
