@@ -14,7 +14,7 @@ class Controller extends BaseController
     public function api()
     {
         // API Development
-        // return 'http://194.31.53.228/';
+        return 'http://194.31.53.228/';
         // API Production
         return 'https://api.nazar.id/';
     }
