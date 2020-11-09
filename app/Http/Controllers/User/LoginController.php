@@ -126,7 +126,7 @@ class LoginController extends Controller
         if ($data->status->statusCode == '000') {
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $type));
         } else {
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            echo json_encode(array('code' => 1, 'info' => $data->status->statusDesc, 'data' => null));
         }
     }
 

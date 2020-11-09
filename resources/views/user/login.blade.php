@@ -220,10 +220,10 @@
                 <div class="wrap-input100 validate-input m-b-16" style="background-color:#fff">
                     <div class="form-group">
                         <div class="input-pin d-flex justify-content-center">
-                            <input name="pin1" id="otp1" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="preesEnter('show-otp')">
-                            <input name="pin2" id="otp2" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="preesEnter('show-otp')">
-                            <input name="pin3" id="otp3" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="preesEnter('show-otp')">
-                            <input name="pin4" id="otp4" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="preesEnter('show-otp')">
+                            <input name="pin1" id="otp1" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-otp')">
+                            <input name="pin2" id="otp2" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-otp')">
+                            <input name="pin3" id="otp3" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-otp')">
+                            <input name="pin4" id="otp4" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-otp')">
                         </div>
                     </div>
                 </div>
@@ -304,7 +304,7 @@
                                 $('#show-method').show();
                             }
 						} else {
-							notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_login") }}');
+							notif('warning', '{{ __("all.warning") }}', data.info);
 						}
 					},
 					complete    : function(){
