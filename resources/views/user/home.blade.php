@@ -34,8 +34,8 @@
                     <b>#</b> <b id="copy"></b> <br><br>
                     <div class="btn-group">
                         <button class="btn btn-sm btn-secondary" onclick="copyToClipboard('#copy')" id="shareLink">Bagikan</button>
-                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="btn btn-primary btn-sm ml-1"><i class="fab fa-facebook-f"></i> Facebook</a></div>
-                        <a class="btn btn-info btn-sm ml-1 twitter-share-button" target="_blank" href="https://twitter.com/intent/tweet" data-size="large"><i class="fab fa-twitter"></i> Tweet</a>
+                        <div class="fb-share-button" id="shareFb" data-size="large"><a target="_blank" class="btn btn-primary btn-sm ml-1" id="buttonFB"><i class="fab fa-facebook-f"></i> Facebook</a></div>
+                        <a class="btn btn-info btn-sm ml-1 twitter-share-button" target="_blank" id="shareTw" data-size="large"><i class="fab fa-twitter"></i> Tweet</a>
                     </div>
 
                     <br><br>
@@ -248,7 +248,13 @@
 @endsection
 
 @section('scriptUser')
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v8.0" nonce="mvxPrWKX"></script>
+<script>(function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0];
+if (d.getElementById(id)) return;
+js = d.createElement(s); js.id = id;
+js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 <script>
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     Chart.defaults.global.defaultFontColor = '#858796';
@@ -373,6 +379,9 @@
         }
         $('#coor').text(data.tipe);
         $('#copy').text(data.userCode);
+        $('#shareFb').attr('data-href', 'https://nazarid.domainfsp.com/register_mitra/'+data.userCode);
+        $('#buttonFB').attr('href', 'https://www.facebook.com/sharer/sharer.php?kid_directed_site=0&sdk=joey&u=https%3A%2F%2Fnazarid.domainfsp.com%2Fregister_mitra%2F'+data.userCode+'&display=popup&ref=plugin&src=share_button');
+        $('#shareTw').attr('href', 'https://twitter.com/intent/tweet?text=https%3A%2F%2Fnazarid.domainfsp.com%2Fregister_mitra%2F'+data.userCode);
     }
 
     function setAnn(res) {

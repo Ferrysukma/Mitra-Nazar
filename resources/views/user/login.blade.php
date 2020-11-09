@@ -73,26 +73,24 @@
 		<div class="container-login100" id="loading">
             <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" alt="background-logo" style="width:50%;height:40%">
             <div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-email">
-                <form class="login100-form validate-form flex-sb flex-w" method="post" id="postemail">
-                    <span class="login100-form-title p-b-51">
-                        {{ __('all.login') }} <br>
-                    </span>
+                <span class="login100-form-title p-b-51">
+                    {{ __('all.login') }} <br>
+                </span>
 
-                    <span class="login100-form-subtitle">
-                        {{ __('all.welcome_us') }}
-                    </span>
+                <span class="login100-form-subtitle">
+                    {{ __('all.welcome_us') }}
+                </span>
 
-                    <div class="wrap-input100 validate-input m-b-16" data-validate = "{{ __('all.validation.emailorphone') }}">
-                        <input class="input100" type="text" name="email" id="email" placeholder="{{ __('all.placeholder.emailorphone') }}" onkeypress="pressEnter('show-email')">
-                        <span class="focus-input100"></span>
-                    </div>
+                <div class="wrap-input100 validate-input m-b-16" data-validate = "{{ __('all.validation.emailorphone') }}">
+                    <input class="input100" type="text" name="email" id="email" placeholder="{{ __('all.placeholder.emailorphone') }}" onkeypress="pressEnter('show-email')">
+                    <span class="focus-input100"></span>
+                </div>
 
-                    <div class="container-login100-form-btn m-t-17">
-                        <button type="button" class="login100-form-btn btnSave" onclick="validasiLogin('show-email')">
-                            {{ __('all.login') }}
-                        </button>
-                    </div>
-                </form>
+                <div class="container-login100-form-btn m-t-17">
+                    <button type="button" class="login100-form-btn btnSave" onclick="validasiLogin('show-email')">
+                        {{ __('all.login') }}
+                    </button>
+                </div>
 
                 <div class="row mt-3">
                     <div class="col-12">
@@ -115,26 +113,24 @@
             </div>
 
             <div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-password">
-                <form class="login100-form validate-form flex-sb flex-w" method="post" id="postpass">
-                    <span class="login100-form-title p-b-51">
-                        {{ __('all.login') }} <br>
-                    </span>
+                <span class="login100-form-title p-b-51">
+                    {{ __('all.login') }} <br>
+                </span>
 
-                    <span class="login100-form-subtitle">
-                        {{ __('all.welcome_us') }}
-                    </span>
+                <span class="login100-form-subtitle">
+                    {{ __('all.welcome_us') }}
+                </span>
 
-                    <div class="wrap-input100 validate-input m-b-16" data-validate = "{{ __('all.validation.password') }}">
-                        <input class="input100" type="password" name="password" id="password" placeholder="{{ __('all.placeholder.password') }}" onkeypress="pressEnter('show-password')">
-                        <span class="focus-input100"></span>
-                    </div>
+                <div class="wrap-input100 m-b-16" data-validate = "{{ __('all.validation.password') }}">
+                    <input class="input100" type="password" name="password" id="password" placeholder="{{ __('all.placeholder.password') }}" onkeypress="pressEnter('show-password')">
+                    <span class="focus-input100"></span>
+                </div>
 
-                    <div class="container-login100-form-btn m-t-17">
-                        <button type="button" class="login100-form-btn btnSave" onclick="loginbyEmail('show-password')">
-                            {{ __('all.login') }}
-                        </button>
-                    </div>
-                </form>
+                <div class="container-login100-form-btn m-t-17">
+                    <button type="button" class="login100-form-btn btnSave" onclick="loginbyEmail('show-password')">
+                        {{ __('all.login') }}
+                    </button>
+                </div>
                 <div class="row mt-4">
                     <div class="col-12">
                         <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
@@ -169,39 +165,37 @@
             </div>
 
             <div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-pin">
-                <form class="login100-form validate-form flex-sb flex-w" method="post" id="postpin">
-                    <span class="login100-form-title p-b-51">
-                        {{ __('all.login') }}
-                    </span>
+                <span class="login100-form-title p-b-51">
+                    {{ __('all.login') }}
+                </span>
 
-                    <span class="login100-form-subtitle">
-                        {{ __('all.welcome_us') }} <br>
-                    </span>
+                <span class="login100-form-subtitle">
+                    {{ __('all.welcome_us') }} <br>
+                </span>
 
-                    <span style="text-align:center;width:100%">
-                        <b>{{ __('all.placeholder.pin') }}</b> <br>
-                        {{ __('all.comment_pin') }}
-                    </span>
-                    <br><br>
-                    <div class="wrap-input100 validate-input m-b-16" style="background-color:#fff">
-                        <div class="form-group">
-                            <div class="input-pin d-flex justify-content-center">
-                                <input name="pin1" id="pin1" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-pin')">
-                                <input name="pin2" id="pin2" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-pin')">
-                                <input name="pin3" id="pin3" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-pin')">
-                                <input name="pin4" id="pin4" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-pin')">
-                                <input name="pin5" id="pin5" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-pin')">
-                                <input name="pin6" id="pin6" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-pin')">
-                            </div>
+                <span style="text-align:center;width:100%">
+                    <b>{{ __('all.placeholder.pin') }}</b> <br>
+                    {{ __('all.comment_pin') }}
+                </span>
+                <br><br>
+                <div class="wrap-input100 validate-input m-b-16" style="background-color:#fff">
+                    <div class="form-group">
+                        <div class="input-pin d-flex justify-content-center">
+                            <input name="pin1" id="pin1" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-pin')">
+                            <input name="pin2" id="pin2" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-pin')">
+                            <input name="pin3" id="pin3" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-pin')">
+                            <input name="pin4" id="pin4" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-pin')">
+                            <input name="pin5" id="pin5" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-pin')">
+                            <input name="pin6" id="pin6" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="pressEnter('show-pin')">
                         </div>
                     </div>
+                </div>
 
-                    <div class="container-login100-form-btn m-t-17">
-                        <button type="button" class="login100-form-btn btnSave" disabled id="save-pin" onclick="loginbyPin('show-pin')">
-                            {{ __('all.login') }}
-                        </button>
-                    </div>
-                </form>
+                <div class="container-login100-form-btn m-t-17">
+                    <button type="button" class="login100-form-btn btnSave" disabled id="save-pin" onclick="loginbyPin('show-pin')">
+                        {{ __('all.login') }}
+                    </button>
+                </div>
                 <div class="row mt-4">
                     <div class="col-12">
                         <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>
@@ -210,37 +204,35 @@
             </div>
 
             <div class="wrap-login100 p-t-50 p-b-50 p-r-25 p-l-25 effect" id="show-otp">
-                <form class="login100-form validate-form flex-sb flex-w" method="post" id="postpin">
-                    <span class="login100-form-title p-b-51">
-                        {{ __('all.login') }}
-                    </span>
+                <span class="login100-form-title p-b-51">
+                    {{ __('all.login') }}
+                </span>
 
-                    <span class="login100-form-subtitle">
-                        {{ __('all.welcome_us') }} <br>
-                    </span>
+                <span class="login100-form-subtitle">
+                    {{ __('all.welcome_us') }} <br>
+                </span>
 
-                    <span style="text-align:center;width:100%">
-                        <b>{{ __('all.placeholder.otp') }}</b> <br>
-                        {{ __('all.comment_otp') }}
-                    </span>
-                    <br><br>
-                    <div class="wrap-input100 validate-input m-b-16" style="background-color:#fff">
-                        <div class="form-group">
-                            <div class="input-pin d-flex justify-content-center">
-                                <input name="pin1" id="otp1" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="preesEnter('show-otp')">
-                                <input name="pin2" id="otp2" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="preesEnter('show-otp')">
-                                <input name="pin3" id="otp3" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="preesEnter('show-otp')">
-                                <input name="pin4" id="otp4" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="preesEnter('show-otp')">
-                            </div>
+                <span style="text-align:center;width:100%">
+                    <b>{{ __('all.placeholder.otp') }}</b> <br>
+                    {{ __('all.comment_otp') }}
+                </span>
+                <br><br>
+                <div class="wrap-input100 validate-input m-b-16" style="background-color:#fff">
+                    <div class="form-group">
+                        <div class="input-pin d-flex justify-content-center">
+                            <input name="pin1" id="otp1" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="preesEnter('show-otp')">
+                            <input name="pin2" id="otp2" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="preesEnter('show-otp')">
+                            <input name="pin3" id="otp3" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="preesEnter('show-otp')">
+                            <input name="pin4" id="otp4" class="form-control form-pin only-number" maxLength="1" required type="password" onkeypress="preesEnter('show-otp')">
                         </div>
                     </div>
+                </div>
 
-                    <div class="container-login100-form-btn m-t-17">
-                        <button type="button" class="login100-form-btn btnSave" disabled id="save-pin" onclick="loginbyOtp('show-otp')">
-                            {{ __('all.login') }}
-                        </button>
-                    </div>
-                </form>
+                <div class="container-login100-form-btn m-t-17">
+                    <button type="button" class="login100-form-btn btnSave" disabled id="save-pin" onclick="loginbyOtp('show-otp')">
+                        {{ __('all.login') }}
+                    </button>
+                </div>
                 <div class="row mt-4">
                     <div class="col-12">
                         <p class="text-center mt-2">Mitra Nazar ID © 2019 - {{ date('Y') }}. All Rights Reserved.</p>

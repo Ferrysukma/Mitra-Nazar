@@ -7,6 +7,11 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta property="og:url"           content="https://www.your-domain.com/your-page.html" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="Your Website Title" />
+    <meta property="og:description"   content="Your description" />
+    <meta property="og:image"         content="https://www.your-domain.com/path/image.jpg" />
 
     <title>Mitra Nazar.id</title>
 
@@ -73,7 +78,7 @@
             overflow:hidden; 
             white-space:nowrap; 
             text-overflow:ellipsis;
-        }​
+        }
     </style>
 
 </head>
