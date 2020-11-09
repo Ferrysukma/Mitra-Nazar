@@ -39,10 +39,10 @@ class HomeController extends Controller
         if ($status == '000') {
             $result = json_decode((string) $response)->payload;
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
         } else {
             
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
 
@@ -62,10 +62,10 @@ class HomeController extends Controller
         if ($status == '000') {
             $result = json_decode((string) $response)->payload;
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
         } else {
             
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
 
@@ -117,10 +117,10 @@ class HomeController extends Controller
                 return $v1 - $v2; // $v2 - $v1 to reverse direction
             });
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $arr));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => $arr));
         } else {
             
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
 
@@ -140,10 +140,10 @@ class HomeController extends Controller
         if ($status == '000') {
             $result = json_decode((string) $response)->payload;
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
         } else {
             
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
 
@@ -310,14 +310,14 @@ class HomeController extends Controller
         }
 
         if ($sName == '000' AND $sGender == '000' AND $sDay == '000' AND $sImg == '000') {
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
         } else {
             if ($sName != '000') {  $decs   = $dName;}
             if ($sGender != '000') {  $decs   = $dGender;}
             if ($sDay != '000') {  $decs   = $dDay;}
             if ($sImg != '000') {  $decs   = $dImg;}
 
-            echo json_encode(array('code' => 1, 'info' => $decs, 'data' => null));
+            return json_encode(array('code' => 1, 'info' => $decs, 'data' => null));
         }
     }
 
@@ -337,10 +337,10 @@ class HomeController extends Controller
         if ($status == '000') {
             $result = json_decode((string) $response)->payload;
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => $result));
         } else {
             
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
 
@@ -390,10 +390,10 @@ class HomeController extends Controller
                 $no = json_decode((string) $res_read)->payload;
             }
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => array('data' => $row, 'no' => $no)));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => array('data' => $row, 'no' => $no)));
         } else {
             
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
 
@@ -425,10 +425,10 @@ class HomeController extends Controller
                 $row[]          = $value;
             }
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => array('data' => $row)));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => array('data' => $row)));
         } else {
             
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
 
@@ -453,10 +453,10 @@ class HomeController extends Controller
         if ($status == '000') {
             $result = json_decode((string) $response)->payload;
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
         } else {
             
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
         }
     }
 
@@ -484,11 +484,11 @@ class HomeController extends Controller
                 $row[]  = $rows;
             }
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
         } else {
             $result = '<a class="text-center text-gray">'.__('all.datatable.no_data').'</a>';
             
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
 
@@ -517,11 +517,11 @@ class HomeController extends Controller
                 $row[]  = $rows;
             }
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
         } else {
             $result = '<a class="text-center text-gray">'.__('all.datatable.no_data').'</a>';
             
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
 
@@ -550,11 +550,11 @@ class HomeController extends Controller
                 $row[]  = $rows;
             }
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
         } else {
             $result = '<a class="text-center text-gray">'.__('all.datatable.no_data').'</a>';
             
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
 

@@ -45,11 +45,11 @@ class AccountController extends Controller
                 $count++;
             }
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => array('data' => $rows, 'count' => $count)));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => array('data' => $rows, 'count' => $count)));
         } else {
             $result = 'empty';
             
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
 
