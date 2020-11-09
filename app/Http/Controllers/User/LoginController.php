@@ -50,7 +50,7 @@ class LoginController extends Controller
 
             return redirect()->route('index');
         } else {
-            echo "<script>alert(".$desc.")</script>";
+            return "<script>alert(".$desc.")</script>";
         }
     }
 
@@ -124,9 +124,9 @@ class LoginController extends Controller
         strstr($email, '@') ? $type = 'email' : $type = 'phone';
 
         if ($data->status->statusCode == '000') {
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $type));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => $type));
         } else {
-            echo json_encode(array('code' => 1, 'info' => $data->status->statusDesc, 'data' => null));
+            return json_encode(array('code' => 1, 'info' => $data->status->statusDesc, 'data' => null));
         }
     }
 
@@ -170,9 +170,9 @@ class LoginController extends Controller
                 Session::put('image', $result->profile->image);
             }
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('user_key')));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('user_key')));
         } else {
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
         }
     }
 
@@ -197,9 +197,9 @@ class LoginController extends Controller
         $data           = json_decode($response);
         
         if ($data->status->statusCode == '000') {
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
         } else {
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
         }
     }
 
@@ -244,9 +244,9 @@ class LoginController extends Controller
                 Session::put('image', $result->profile->image);
             }
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('user_key')));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('user_key')));
         } else {
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => null));
         }
     }
 
@@ -294,9 +294,9 @@ class LoginController extends Controller
                 Session::put('image', $result->profile->image);
             }
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('user_key')));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('user_key')));
         } else {
-            echo json_encode(array('code' => 1, 'info' => 'false' , 'data' => null));
+            return json_encode(array('code' => 1, 'info' => 'false' , 'data' => null));
         }
     }
 

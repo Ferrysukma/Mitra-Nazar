@@ -49,10 +49,10 @@ class LoginController extends Controller
         if (empty($vali['status']) && !isset($vali['status'])) {
             Session::put('admin_key', json_decode((string) $responseBodyAsString, true)['token']);
             Session::put('username', json_decode((string) $responseBodyAsString, true)['name']);
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('admin_key')));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('admin_key')));
         } else {
             $description= json_decode((string) $responseBodyAsString, true)['status']['statusDesc'];
-            echo json_encode(array('code' => 1, 'info' => $description, 'data' => null));
+            return json_encode(array('code' => 1, 'info' => $description, 'data' => null));
         }
     }
 
@@ -166,11 +166,11 @@ class LoginController extends Controller
                 $row[]  = $rows;
             }
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
         } else {
             $result = '<a class="text-center text-gray">'.__('all.datatable.no_data').'</a>';
             
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
 
@@ -199,11 +199,11 @@ class LoginController extends Controller
                 $row[]  = $rows;
             }
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
         } else {
             $result = '<a class="text-center text-gray">'.__('all.datatable.no_data').'</a>';
             
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
 
@@ -232,11 +232,11 @@ class LoginController extends Controller
                 $row[]  = $rows;
             }
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
         } else {
             $result = '<a class="text-center text-gray">'.__('all.datatable.no_data').'</a>';
             
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
 }

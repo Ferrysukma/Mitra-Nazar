@@ -52,11 +52,11 @@ class CategoryController extends Controller
                 $row[]  = $value;
             }
 
-            echo json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
+            return json_encode(array('code' => 0, 'info' => 'true', 'data' => $row));
         } else {
             $result = 'empty';
             
-            echo json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
+            return json_encode(array('code' => 1, 'info' => 'false', 'data' => $result));
         }
     }
 
