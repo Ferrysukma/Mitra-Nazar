@@ -450,7 +450,7 @@
 							notif('success', '{{ __("all.success") }}', '{{ __("all.alert.login_us") }}');
                             window.location = "{{ route('index') }}";
 						} else {
-							notif('warning', '{{ __("all.warning") }}', '{{ __("all.alert.fail_login") }}');
+							notif('warning', '{{ __("all.warning") }}', data.info);
 						}
 					},
 					complete    : function(){

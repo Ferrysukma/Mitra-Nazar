@@ -195,7 +195,7 @@ class LoginController extends Controller
 
         $response       = $request->getBody()->getContents();
         $data           = json_decode($response);
-
+        
         if ($data->status->statusCode == '000') {
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => null));
         } else {
@@ -253,22 +253,26 @@ class LoginController extends Controller
     public function loginbyOtp(Request $request)
     {
         $client = new Client();
-        $phone  = $request->email;
-        $token  = $request->token;
+        try {
+            $phone  = $request->email;
+            $token  = $request->token;
+            
+            $url        = $this->base_url . 'user/login-mitra';
+            $response   = $client->post($url, [
+                'json'      => [
+                    'emailOrPhone'  => $phone,
+                    'token'         => $token,
+                    'type'          => 'token'
+                ]
+            ]);
 
-        $url        = $this->base_url . 'user/login-mitra';
-        $requestL   = $client->post($url, [
-            'json'      => [
-                'emailOrPhone'  => $phone,
-                'token'         => $token,
-                'type'          => 'token'
-            ]
-        ]);
+            $responseBodyAsString = $response->getBody()->getContents();
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            $response             = $e->getResponse();
+            $responseBodyAsString = $response->getBody()->getContents();
+        }
 
-        $responseL          = $requestL->getBody()->getContents();
-        $data               = json_decode($responseL);
-
-        if ($data->status->statusCode == '000') {
+        if ($response->getStatusCode() == '200') {
             Session::put('user_key', json_decode((string) $responseBodyAsString, true)['token']);
             Session::put('type', json_decode((string) $responseBodyAsString, true)['type']);
             Session::put('storeLink', json_decode((string) $responseBodyAsString, true)['storeLink']);
@@ -292,7 +296,7 @@ class LoginController extends Controller
 
             echo json_encode(array('code' => 0, 'info' => 'true', 'data' => Session::get('user_key')));
         } else {
-            echo json_encode(array('code' => 1, 'info' => $data->status->statusDesc, 'data' => null));
+            echo json_encode(array('code' => 1, 'info' => 'false' , 'data' => null));
         }
     }
 
