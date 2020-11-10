@@ -100,7 +100,7 @@
                     <!-- Topbar Logo -->
                     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('index') }}">
                         <div class="sidebar-brand-icon">
-                            <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" style="height:70px;width:160px" class="d-inline-block align-top" alt="">
+                            <img src="{{ asset('assets/admin/image/mitra-nazar-web-05.png') }}" style="height:70px;width:190px" class="d-inline-block align-top" alt="">
                         </div>
                     </a>
                     

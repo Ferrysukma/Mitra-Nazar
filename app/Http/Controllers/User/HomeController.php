@@ -102,12 +102,12 @@ class HomeController extends Controller
                 $i      = strlen($i) > 1 ? $i : '0'.$i;
                 $false  = count(array_keys($rows, $year.'-'.$i));
                 if (!$false) {
-                    $arr[]      = (object) ['amount' => 0, 'periode' => date('F Y', strtotime($year.'-'.$i))];
+                    $arr[]      = (object) ['amount' => 0, 'periode' => date('M', strtotime($year.'-'.$i))];
                 }
             }
 
             foreach ($result as $data) {
-                $data->periode  = date('F Y', strtotime($data->periode));
+                $data->periode  = date('M', strtotime($data->periode));
                 $arr[]          = $data;
             } 
 

@@ -38,9 +38,10 @@ class LoginController extends Controller
                 'Authorization' => $token
             ],
         ]);
-
+    
         $response   = $response->getBody()->getContents();
         $status     = json_decode((string) $response, true)['status']['statusCode'];
+        $desc       = json_decode((string) $response, true)['status']['statusDesc'];
         
         if ($status == '000') {
             $result = json_decode((string) $response)->payload;
@@ -50,7 +51,7 @@ class LoginController extends Controller
 
             return redirect()->route('index');
         } else {
-            return "<script>alert(".$desc.")</script>";
+            return "<script>alert('".$desc."'); window.location = '".route('index')."'</script>";
         }
     }
 
@@ -88,12 +89,12 @@ class LoginController extends Controller
                 $i      = strlen($i) > 1 ? $i : '0'.$i;
                 $false  = count(array_keys($rows, $year.'-'.$i));
                 if (!$false) {
-                    $arr[]      = (object) ['amount' => 0, 'periode' => date('F Y', strtotime($year.'-'.$i))];
+                    $arr[]      = (object) ['amount' => 0, 'periode' => date('M', strtotime($year.'-'.$i))];
                 }
             }
 
             foreach ($result as $data) {
-                $data->periode  = date('F Y', strtotime($data->periode));
+                $data->periode  = date('M', strtotime($data->periode));
                 $arr[]          = $data;
             } 
 
